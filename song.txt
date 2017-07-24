@@ -1,0 +1,19 @@
+/* MODELS */
+
+https://www.poliigon.com/ - possible free textures to be used (30 day free trial)
+https://freestocktextures.com/ - free textures
+https://www.cgtrader.com/free-3d-models/character - some free models
+https://free3d.com/3d-models/characters - Character models
+https://www.turbosquid.com/Search/Index.cfm?keyword=bomberman
+https://opengameart.org/art-search-advanced?keys=&field_art_type_tid%255B%255D=13
+
+/* SOUNDS */
+https://freesound.org/
+http://www.bfxr.net/ - sound effect creator
+http://soundbible.com/tags-game.html
+https://opengameart.org/art-search-advanced?keys=&field_art_type_tid%255B%255D=13
+
+/* Game Logic */
+
+
+/* Renderer */
