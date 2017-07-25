@@ -12,7 +12,5 @@ int main(int argc, char **argv)
 		return (0);
 	}
 	newEngine.readMap(argv[1]);
-	int i = 0;
-	std::vector<std::string> mapVal = newEngine.getMapValues();
 	return (0);
 }

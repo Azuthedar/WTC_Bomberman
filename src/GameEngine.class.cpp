@@ -36,6 +36,8 @@ void		Engine::readMap(std::string fileName)
 	{
 		this->_mapValues.push_back(strValues);
 	}
+
+	file.close();
 }
 
 void	Engine::parseMap()
