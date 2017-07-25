@@ -27,6 +27,4 @@ class Player : public AEntity
 		int 	_moveUp;
 		int 	_moveDown;
 */
-
-
 };

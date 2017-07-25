@@ -39,6 +39,11 @@ void	Player::movement()
 		this->_xPos--;
 	else if (this->_dir == RIGHT)
 		this->_xPos++;
+	switch (this->_dir)
+	{
+		case UP:
+			this->_yPos++;
+	}
 }
 
 void	Player::collision()
