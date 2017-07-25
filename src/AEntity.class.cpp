@@ -1,9 +1,10 @@
 #include <AEntity.class.hpp>
-#include <main.hpp>
 
 AEntity::AEntity()
 {
-	this->_dir = 0;
+	// Initializing direction and pos (Will probably be changed in future
+	// as spawn position will change)
+	this->_dir = UP;
 	this->_xPos = 0;
 	this->_yPos = 0;
 	this->_isDead = false;
@@ -24,11 +25,22 @@ AEntity::~AEntity()
 
 void	AEntity::movement()
 {
-	this->_xPos++;
-	this->_yPos++;
+	//TODO: Bombs - move only when touched
 }
 
 void	AEntity::collision()
 {
 	this->_isCollide = true;
 }
+
+void	AEntity::setDir(eMovementDir dir)	{this->_dir = dir;}
+void	AEntity::setXPos(int xPos)			{this->_xPos = xPos;}
+void	AEntity::setYPos(int yPos)			{this->_yPos = yPos;}
+void	AEntity::setIsCollide(bool collide)	{this->_isCollide = collide;}
+void	AEntity::setIsDead(bool dead)		{this->_isDead = dead;}
+
+eMovementDir AEntity::getDir() const		{return (this->_dir);}
+int		AEntity::getXPos() const			{return (this->_xPos);}
+int		AEntity::getYPos() const			{return (this->_yPos);}
+bool	AEntity::getIsCollide() const		{return (this->_isCollide);}
+bool	AEntity::getIsDead() const			{return (this->_isDead);}

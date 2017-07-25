@@ -1,5 +1,4 @@
 #include <Player.class.hpp>
-#include <main.hpp>
 
 Player::Player()
 {
@@ -25,8 +24,14 @@ Player::~Player()
 
 void	Player::movement()
 {
-	this->_xPos++;
-	this->_yPos++;
+	if (this->_dir == UP)
+		this->_yPos--;
+	else if (this->_dir == DOWN)
+		this->_yPos++;
+	else if (this->_dir == LEFT)
+		this->_xPos--;
+	else if (this->_dir == RIGHT)
+		this->_xPos++;
 }
 
 void	Player::collision()

@@ -6,7 +6,15 @@
 
 enum eBlockType
 {
-    openTerrain,
-    solidBlocks,
-    destructableBlocks
+    OPEN_TERRAIN = 0,
+    SOLID_BLOCKS,
+    DESTRUCTABLE_BLOCKS
+};
+
+enum eMovementDir
+{
+    UP = 0,
+    RIGHT,
+    DOWN,
+    LEFT
 };
