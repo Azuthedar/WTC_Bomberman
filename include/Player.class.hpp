@@ -20,4 +20,13 @@ class Player : public AEntity
 		int		_score;
 		bool	_canPlaceBombs;
 		//		Create Bomb type
+/*
+		int	placeBomb;
+		int 	_moveRight;
+		int 	_moveLeft;
+		int 	_moveUp;
+		int 	_moveDown;
+*/
+
+
 };
