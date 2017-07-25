@@ -31,18 +31,20 @@ void	Player::movement()
 	*	If the DIR is LEFT		the xPos needs to decrease to imitate moving left
 	*	If the DIR is RIGHT		the xPos needs to increase to imitate moving right
 	*/	
-	if (this->_dir == UP)
-		this->_yPos--;
-	else if (this->_dir == DOWN)
-		this->_yPos++;
-	else if (this->_dir == LEFT)
-		this->_xPos--;
-	else if (this->_dir == RIGHT)
-		this->_xPos++;
 	switch (this->_dir)
 	{
 		case UP:
 			this->_yPos++;
+			break ;
+		case DOWN:
+			this->_yPos--;
+			break ;
+		case LEFT:
+			this->_xPos--;
+			break ;
+		case RIGHT:
+			this->_xPos++;
+			break ;
 	}
 }
 

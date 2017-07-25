@@ -3,6 +3,9 @@
 #include <iostream>
 #include <algorithm>
 #include <cmath>
+#include <fstream>
+#include <vector>
+#include <string>
 
 enum eBlockType
 {
@@ -18,3 +21,6 @@ enum eMovementDir
     DOWN,
     LEFT
 };
+
+#define MAX_X 16
+#define MAX_Y 16

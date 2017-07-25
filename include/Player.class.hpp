@@ -22,9 +22,9 @@ class Player : public AEntity
 		//		Create Bomb type
 /*
 		int	placeBomb;
-		int 	_moveRight;
-		int 	_moveLeft;
-		int 	_moveUp;
-		int 	_moveDown;
+		int 	_keyMoveRight;
+		int 	_keyMoveLeft;
+		int 	_keyMoveUp;
+		int 	_keyMoveDown;
 */
 };
