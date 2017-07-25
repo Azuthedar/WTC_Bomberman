@@ -1,7 +1,8 @@
 /* TEXTURES */
 
 https://www.poliigon.com/                                                           - possible free textures to be used (30 day free trial)
-https://freestocktextures.com/                                                      - free textures
+https://freestocktextures.com/
+http://alexcpeterson.com/spacescape/                                               - free textures
 
 /* MODELS */
 
