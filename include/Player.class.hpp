@@ -28,6 +28,7 @@ class Player : public AEntity
 		int			_bombAmount;
 		bool		_bombReady;
 		bool		_isMoving;
+		bool		_pickupPowerup;
 		ePowerups	_typePowerup;
 
 		//		Create Bomb type

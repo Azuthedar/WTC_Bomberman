@@ -9,6 +9,7 @@ Player::Player()
 
 	this->_isCollide = false;
 	this->_bombReady = false;
+	this->_pickupPowerup = false;
 	this->_isMoving = false;
 
 	this->_speed = 2;
@@ -65,13 +66,13 @@ void	Player::movement()
 			this->_dir = DOWN;
 			this->_isMoving = true;
 		}
+		// TEMP
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::SemiColon))
 		{
 			this->_lives--;
 			this->_isDead = true;
 		}
 	}
-
 	if (this->_isMoving == true)
 	{
 		switch (this->_dir)
@@ -122,24 +123,26 @@ void	Player::respawn()
 
 void	Player::pickupPowerUps()
 {
-	switch (this->_typePowerup)
+	if (this->_pickupPowerup)
 	{
-		case POW_RANGE:
-			this->_bombRange += 1;
-			break ;
-		case POW_BOMBS:
-			this->_bombAmount += 1;
-			break ;
-		case POW_SPEED:
-			this->_speed += 1;
-			break ;
-		case POW_LIFE:
-			this->_lives += 1;
-		default:
-		/*
-		*	bomb.setBombRange(this->_bombRange);
-		*	bomb.setBombAmount(this->_bombAmount);
-		*/
-		break ;
+		switch (this->_typePowerup)
+		{
+			case POW_RANGE:
+				this->_bombRange += 1;
+				break ;
+			case POW_BOMBS:
+				this->_bombAmount += 1;
+				break ;
+			case POW_SPEED:
+				this->_speed += 1;
+				break ;
+			case POW_LIFE:
+				this->_lives += 1;
+		}
+	/*
+	*	bomb.setBombRange(this->_bombRange);
+	*	bomb.setBombAmount(this->_bombAmount);
+	*/
+		this->_pickupPowerup = false;
 	}
 }
