@@ -17,14 +17,12 @@ class AEntity
 		virtual void			setDir(eMovementDir dir);
 		virtual void			setXPos(int xPos);
 		virtual void			setYPos(int xPos);
-		virtual void			setIsCollide(bool collide);
 		virtual void			setIsDead(bool dead);
 
 		/* Getters */
 		virtual eMovementDir	getDir() const;
 		virtual int				getXPos() const;
 		virtual int				getYPos() const;
-		virtual bool			getIsCollide() const;
 		virtual bool			getIsDead() const;
 
 	protected:

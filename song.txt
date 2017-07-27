@@ -20,3 +20,16 @@ https://opengameart.org/art-search-advanced?keys=&field_art_type_tid%255B%255D=1
 
 
 /* Renderer */
+
+
+
+/* STORYLINE */
+
+DURING TUTORIAL the 'master' is actually part of ISIS which you will only find out at the end of the game
+where he would then be the final boss.
+
+
+/* GIMMICKS */
+
+Bomberman yells "HOW CAN SHE SLAP" to enrage.
+Sprinting?

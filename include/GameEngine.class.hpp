@@ -1,6 +1,7 @@
 #pragma once
-
+#include <Player.class.hpp>
 #include <main.hpp>
+#include <Wall.class.hpp>
 
 class Engine
 {
@@ -11,19 +12,18 @@ class Engine
 		~Engine();
 
 		void		readMap(std::string fileName);
-		void		parseMap();
+		void		gameLogic();
+		void		buildMap();
 
-		void		setXSize(int xSize);
-		void		setYSize(int ySize);
 
-		std::vector<std::string>	getMapValues() const;
-		int							getXSize() const;
-		int							getYSize() const;
+		Player &					getPlayer();
+		std::vector<std::string> &	getMapValues();
+		std::vector<Wall>		 &	getWallVector();
 
 	private:
 
 		std::vector<std::string>		_mapValues;
-		int								_xSize;
-		int								_ySize;
+		std::vector<Wall>				_walls_vector;
+		Player 							_player;
 };
 

@@ -36,11 +36,9 @@ void	AEntity::collision()
 void	AEntity::setDir(eMovementDir dir)	{this->_dir = dir;}
 void	AEntity::setXPos(int xPos)			{this->_xPos = xPos;}
 void	AEntity::setYPos(int yPos)			{this->_yPos = yPos;}
-void	AEntity::setIsCollide(bool collide)	{this->_isCollide = collide;}
 void	AEntity::setIsDead(bool dead)		{this->_isDead = dead;}
 
 eMovementDir AEntity::getDir() const		{return (this->_dir);}
 int		AEntity::getXPos() const			{return (this->_xPos);}
 int		AEntity::getYPos() const			{return (this->_yPos);}
-bool	AEntity::getIsCollide() const		{return (this->_isCollide);}
 bool	AEntity::getIsDead() const			{return (this->_isDead);}

@@ -1,36 +1,32 @@
-NAME = Atjarman
+# OBJS specifies which files to compile as part of the project
+OBJS = src/*.cpp
 
-SRC = src/*.cpp
+# CC specifies which compiler we're using
+CC = g++
 
-OBJ = *.o
+# INCLUDE_PATHS specifies the additional include paths we'll need
+INCLUDE_PATHS = -I ~/.brew/Cellar/sfml/2.4.2/include -I include/
 
-C_FLAGS = -Wall -Werror -Wextra -g3
+# LIBRARY_PATHS specifies the additional library paths we'll need
+LIBRARY_PATHS = -L ~/.brew/Cellar/sfml/2.4.2/lib -lsfml-graphics -lsfml-window -lsfml-system
 
-INCL = include/
+# COMPILER_FLAGS specifies the additional compilation options we're using
+# -w suppresses all warnings
+COMPILER_FLAGS = -Wall -Werror -Wextra
 
-COM_COLOR   = \033[0;34m
-OBJ_COLOR   = \033[0;36m
-OK_COLOR    = \033[0;32m
-ERROR_COLOR = \033[0;31m
-WARN_COLOR  = \033[0;33m
-NO_COLOR    = \033[m
+# LINKER_FLAGS specifies the libraries we're linking against
+# Cocoa, IOKit, and CoreVideo are needed for static GLFW3.
+LINKER_FLAGS = 
 
-all: $(NAME)
+# OBJ_NAME specifies the name of our exectuable
+OBJ_NAME = AtjarMan
 
+#This is the target that compiles our executable
+all : $(OBJS)
+	$(CC) $(OBJS) $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
+	@echo "Please run the following command: export LD_LIBRARY_PATH=~/.brew/lib && ./$(OBJ_NAME)"
 
-$(NAME):
-	@echo "$(COM_COLOR)Compiling OBJECT files $(NAME) $(NO_COLOR)"
-	@g++ $(C_FLAGS) -c $(SRC) -I $(INCL)
-	@echo "$(COM_COLOR)Compiling executable $(NAME)$(NO_COLOR)"
-	@g++ $(C_FLAGS) -o $(NAME) $(OBJ)
+clean :
+	rm -rf $(OBJ_NAME)
 
-clean:
-	@echo "$(WARN_COLOR)Deleting all OBJ files$(NO_COLOR)"
-	@rm -rf $(OBJ)
-
-
-fclean: clean
-	@echo "$(WARN_COLOR)Deleting executable $(NAME)$(NO_COLOR)"
-	@rm -rf $(NAME)
-
-re: fclean all
+re: clean all
