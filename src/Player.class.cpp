@@ -146,3 +146,15 @@ void	Player::pickupPowerUps()
 		this->_pickupPowerup = false;
 	}
 }
+
+void	Player::evalScore()
+{
+	if (this->_typeScore == ENEMY)
+		this->_score += 1000;
+	else if (this->_typeScore == LIVES && this->_lives > 0)
+		this->_score = 2000 * this->_lives;
+	else if (this->_typeScore == TIME_LEFT)
+		this->_score = 100; // WILL CHANGE due to time_left not implemented yet
+	else if (this->_typeScore == POWERUPS)
+		this->_score += 50;
+}

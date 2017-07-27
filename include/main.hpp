@@ -46,6 +46,14 @@ enum ePowerups
 	POW_LIFE
 };
 
+enum eScore
+{
+	ENEMY,
+	LIVES,
+	POWERUPS,
+	TIME_LEFT
+};
+
 
 #define GRID_X 48
 #define GRID_Y 48

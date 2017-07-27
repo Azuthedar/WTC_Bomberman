@@ -15,6 +15,7 @@ class Player : public AEntity
 		void	collision();
 		void	respawn();
 		void	pickupPowerUps();
+		void	evalScore();
 
 		sf::Texture texture__; //TEMP MOFO, DELETE IT!
 		sf::Sprite	sprite__; //ALSO TEMP!
@@ -30,6 +31,7 @@ class Player : public AEntity
 		bool		_isMoving;
 		bool		_pickupPowerup;
 		ePowerups	_typePowerup;
+		eScore		_typeScore;
 
 		//		Create Bomb type
 
