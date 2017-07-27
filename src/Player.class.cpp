@@ -2,14 +2,19 @@
 
 Player::Player()
 {
+	this->_xPos = (GRID_X * MAP_X) / 2;
+	this->_yPos = (GRID_Y * MAP_Y) / 2;
 	this->_lives = 3;
 	this->_score = 0;
+
 	this->_isCollide = false;
 	this->_bombReady = false;
 	this->_isMoving = false;
+
 	this->_speed = 2;
-	this->_xPos = (GRID_X * MAP_X) / 2;
-	this->_yPos = (GRID_Y * MAP_Y) / 2;
+	this->_bombRange = 1;
+	this->_bombAmount = 1;
+
 	this->_keyMoveDown = sf::Keyboard::Down;
 	this->_keyMoveRight = sf::Keyboard::Right;
 	this->_keyMoveUp = sf::Keyboard::Up;
@@ -60,6 +65,11 @@ void	Player::movement()
 			this->_dir = DOWN;
 			this->_isMoving = true;
 		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::SemiColon))
+		{
+			this->_lives--;
+			this->_isDead = true;
+		}
 	}
 
 	if (this->_isMoving == true)
@@ -80,14 +90,56 @@ void	Player::movement()
 				break ;
 		}
 	}
+	this->collision();
+	this->respawn();
+}
 
+void	Player::collision()
+{
+	//	Check collisions for outer walls
 	if (this->_xPos % GRID_X == 0 && this->_yPos % GRID_Y == 0)
 	{
 		this->_isMoving = false;
 	}
 }
 
-void	Player::collision()
+void	Player::respawn()
 {
-	this->_isCollide = true;
+	if (this->_isDead)
+	{
+		this->_lives -= 1;
+		if (this->_lives <= 0)
+			std::cout << "You have died..." << std::endl;	//CHANGE GAMESTATE TO MENU
+		/*
+		*	Possibly if player reaches 0 lives, make a total score appear in the middle of the screen
+		*	Which then fades out and takes the player back to the main menu or the start of the round.
+		*/
+		this->_xPos = (MAP_X * GRID_X) / 2;
+		this->_yPos = (MAP_Y * GRID_Y) / 2;
+		this->_isDead = false;
+	}
+}
+
+void	Player::pickupPowerUps()
+{
+	switch (this->_typePowerup)
+	{
+		case POW_RANGE:
+			this->_bombRange += 1;
+			break ;
+		case POW_BOMBS:
+			this->_bombAmount += 1;
+			break ;
+		case POW_SPEED:
+			this->_speed += 1;
+			break ;
+		case POW_LIFE:
+			this->_lives += 1;
+		default:
+		/*
+		*	bomb.setBombRange(this->_bombRange);
+		*	bomb.setBombAmount(this->_bombAmount);
+		*/
+		break ;
+	}
 }

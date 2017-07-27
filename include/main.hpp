@@ -38,6 +38,15 @@ enum eGamestate
 	CREDITS
 };
 
+enum ePowerups
+{
+	POW_RANGE = 0,
+	POW_BOMBS,
+	POW_SPEED,
+	POW_LIFE
+};
+
+
 #define GRID_X 48
 #define GRID_Y 48
 #define MAP_X 16

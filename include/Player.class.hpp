@@ -13,17 +13,22 @@ class Player : public AEntity
 
 		void	movement();
 		void	collision();
+		void	respawn();
+		void	pickupPowerUps();
 
 		sf::Texture texture__; //TEMP MOFO, DELETE IT!
 		sf::Sprite	sprite__; //ALSO TEMP!
 
 	private:
 
-		int		_lives;
-		int		_score;
-		int		_speed;
-		bool	_bombReady;
-		bool	_isMoving;
+		int			_lives;
+		int			_score;
+		int			_speed;
+		int			_bombRange;
+		int			_bombAmount;
+		bool		_bombReady;
+		bool		_isMoving;
+		ePowerups	_typePowerup;
 
 		//		Create Bomb type
 
