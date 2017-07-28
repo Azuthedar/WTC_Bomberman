@@ -12,12 +12,18 @@ class Bomb : public AEntity
 		Bomb(Bomb const & src);
 		~Bomb();
 
-		void	setRange(int range);
-		void	setAmount(int amount);
+		void	explode();
+
+		void	setBombRange(int range);
+		void	setBombAmount(int amount);
+
+		sf::Texture texture__; //TEMP MOFO, DELETE IT!
+		sf::Sprite	sprite__; //ALSO TEMP!
 
 	private:
 
-		int _bombExplodeTimer; // Explode timer will be on default added just in case for chain bombs exploding
+		int _currTimer; // Explode timer will be on default added just in case for chain bombs exploding
+		int _totalTimer;
 		int _range;
 		int _amount;
 };

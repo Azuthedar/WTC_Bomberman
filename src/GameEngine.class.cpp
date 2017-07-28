@@ -60,6 +60,6 @@ void Engine::buildMap()
 	}
 }
 
-std::vector<std::string> &	Engine::getMapValues() {return (this->_mapValues);}
+std::vector<std::string> &	Engine::getMapValues()	{return (this->_mapValues);}
 Player & 					Engine::getPlayer() 	{return (this->_player);}
 std::vector<Wall> &			Engine::getWallVector()	{return (this->_walls_vector);}

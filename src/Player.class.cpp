@@ -4,22 +4,16 @@ Player::Player()
 {
 	this->_xPos = (GRID_X * MAP_X) / 2;
 	this->_yPos = (GRID_Y * MAP_Y) / 2;
-	this->_lives = 3;
-	this->_score = 0;
 
-	this->_isCollide = false;
-	this->_bombReady = false;
-	this->_pickupPowerup = false;
-	this->_isMoving = false;
+	this->init();
+	return ;
+}
 
-	this->_speed = 2;
-	this->_bombRange = 1;
-	this->_bombAmount = 1;
-
-	this->_keyMoveDown = sf::Keyboard::Down;
-	this->_keyMoveRight = sf::Keyboard::Right;
-	this->_keyMoveUp = sf::Keyboard::Up;
-	this->_keyMoveLeft = sf::Keyboard::Left;
+Player::Player(int x, int y)
+{
+	this->_xPos = x;
+	this->_yPos = y;
+	this->init();
 	return ;
 }
 
@@ -32,6 +26,35 @@ Player::Player(Player const & src)
 Player::~Player()
 {
 	std::cout << "Player has been destroyed" << std::endl;
+	return ;
+}
+
+void	Player::init()
+{
+	Bomb initBomb(this->_xPos, this->_yPos);
+
+	this->_lives = 3;
+	this->_score = 0;
+
+	this->_isCollide = false;
+	this->_bombReady = false;
+	this->_pickupPowerup = false;
+	this->_isMoving = false;
+
+	this->_bomb.push_back(initBomb);
+
+	this->_speed = 2;
+	this->_bombRange = 1;
+	this->_totalBombAmount = 1;
+
+/* 	this->_bomb[0].setBombAmount(this->_totalBombAmount);
+	this->_bomb[0].setBombRange(this->_bombRange ); */
+
+	this->_keyMoveDown = sf::Keyboard::Down;
+	this->_keyMoveRight = sf::Keyboard::Right;
+	this->_keyMoveUp = sf::Keyboard::Up;
+	this->_keyMoveLeft = sf::Keyboard::Left;
+	this->_keyPlaceBomb = sf::Keyboard::Space;
 	return ;
 }
 
@@ -72,6 +95,12 @@ void	Player::movement(std::vector<Wall> & wall)
 			this->_typePowerup = POW_SPEED;
 			this->_pickupPowerup = true;
 		}
+		if (sf::Keyboard::isKeyPressed(this->_keyPlaceBomb))
+		{
+			this->_pickupPowerup = true;
+			this->_typePowerup = POW_BOMBS;
+			this->placeBomb();
+		}
 	}
 	if (this->_isMoving == true && !this->collision(wall))
 	{
@@ -90,8 +119,9 @@ void	Player::movement(std::vector<Wall> & wall)
 				this->_xPos += this->_speed;
 				break ;
 		}
-		//	GRID BASED MOVEMENT
+		
 	}
+	//	GRID BASED MOVEMENT
 	if (this->_xPos % GRID_X == 0 && this->_yPos % GRID_Y == 0)
 		this->_isMoving = false;
 	this->respawn();
@@ -153,7 +183,8 @@ void	Player::pickupPowerUps()
 				this->_bombRange += 1;
 				break ;
 			case POW_BOMBS:
-				this->_bombAmount += 1;
+				this->_totalBombAmount += 1;
+				this->_bomb.push_back(Bomb(this->_xPos, this->_yPos));
 				break ;
 			case POW_SPEED:
 				std::cout << this->_speed << std::endl;
@@ -181,3 +212,14 @@ void	Player::evalScore()
 	else if (this->_typeScore == POWERUPS)
 		this->_score += 50;
 }
+
+void	Player::placeBomb()
+{
+	if (this->_bombReady)
+		for (size_t i = 0; i < this->_bomb.size(); i++)
+		{
+			
+		}
+}
+
+std::vector<Bomb> &		Player::getBombVector() {return (this->_bomb);}

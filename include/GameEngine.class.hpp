@@ -19,13 +19,13 @@ class Engine
 		Player &					getPlayer();
 		std::vector<std::string> &	getMapValues();
 		std::vector<Wall>		 &	getWallVector();
-		Player &					getP2() {return (this->_p2);}
+		Player &					getP2() {return (this->_p2);} // TEMP p2
 
 	private:
 
 		std::vector<std::string>		_mapValues;
 		std::vector<Wall>				_walls_vector;
 		Player 							_player;
-		Player							_p2;
+		Player							_p2; // TEMP
 };
 
