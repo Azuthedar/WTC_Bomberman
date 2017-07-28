@@ -2,6 +2,7 @@
 
 #include <main.hpp>
 #include <AEntity.class.hpp>
+#include <Wall.class.hpp>
 
 class Player : public AEntity
 {
@@ -11,8 +12,8 @@ class Player : public AEntity
 		Player(Player const & src);
 		~Player();
 
-		void	movement();
-		void	collision();
+		void	movement(std::vector<Wall> & wall);
+		bool	collision(std::vector<Wall> & wall);
 		void	respawn();
 		void	pickupPowerUps();
 		void	evalScore();

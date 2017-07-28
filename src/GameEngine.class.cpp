@@ -17,7 +17,7 @@ Engine::~Engine()
 
 void Engine::gameLogic()
 {
-	this->_player.movement();
+	this->_player.movement(this->_walls_vector);
 }
 
 void		Engine::readMap(std::string fileName)
@@ -55,7 +55,6 @@ void Engine::buildMap()
 			this->_walls_vector.push_back(Wall((i % 16) * GRID_X, y * GRID_Y, SOLID_BLOCK));
 		if (stoi(this->_mapValues[i]) == DESTRUCTIBLE_BLOCK)
 			this->_walls_vector.push_back(Wall((i % 16) * GRID_X, y * GRID_Y, DESTRUCTIBLE_BLOCK));
-			std::cout << stoi(this->_mapValues[i]) << std::endl;
 	}
 }
 

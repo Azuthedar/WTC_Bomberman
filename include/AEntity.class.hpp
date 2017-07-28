@@ -1,6 +1,7 @@
 #pragma once
 
 #include <main.hpp>
+#include <Wall.class.hpp>
 
 class AEntity
 {
@@ -10,8 +11,7 @@ class AEntity
 		AEntity(AEntity const & src);
 		~AEntity();
 
-		virtual void			movement();
-		virtual void			collision();
+		virtual void			movement(std::vector<Wall> & wall);
 		
 		/* Setters */
 		virtual void			setDir(eMovementDir dir);

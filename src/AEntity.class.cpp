@@ -23,14 +23,11 @@ AEntity::~AEntity()
 	return ;
 }
 
-void	AEntity::movement()
+void	AEntity::movement(std::vector<Wall> & wall)
 {
 	//TODO: Bombs - move only when touched
-}
-
-void	AEntity::collision()
-{
-	this->_isCollide = true;
+	if (wall.size())
+		;
 }
 
 void	AEntity::setDir(eMovementDir dir)	{this->_dir = dir;}

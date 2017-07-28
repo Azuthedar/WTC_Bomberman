@@ -35,7 +35,7 @@ Player::~Player()
 	return ;
 }
 
-void	Player::movement()
+void	Player::movement(std::vector<Wall> & wall)
 {
 	/*
 	*	X = 0 Y = 0 is at the top left of the screen
@@ -44,7 +44,7 @@ void	Player::movement()
 	*	If the DIR is LEFT		the xPos needs to decrease to imitate moving left
 	*	If the DIR is RIGHT		the xPos needs to increase to imitate moving right
 	*/	
-	if (this->_isMoving == false)
+ 	if (this->_isMoving == false)
 	{
 		if (sf::Keyboard::isKeyPressed(this->_keyMoveRight))
 		{
@@ -73,7 +73,7 @@ void	Player::movement()
 			this->_isDead = true;
 		}
 	}
-	if (this->_isMoving == true)
+	if (this->_isMoving == true && !this->collision(wall))
 	{
 		switch (this->_dir)
 		{
@@ -90,18 +90,39 @@ void	Player::movement()
 				this->_xPos += this->_speed;
 				break ;
 		}
+		//	GRID BASED MOVEMENT
 	}
-	this->collision();
+	if (this->_xPos % GRID_X == 0 && this->_yPos % GRID_Y == 0)
+			this->_isMoving = false;
 	this->respawn();
 }
 
-void	Player::collision()
+bool	Player::collision(std::vector<Wall> & wall)
 {
-	//	Check collisions for outer walls
-	if (this->_xPos % GRID_X == 0 && this->_yPos % GRID_Y == 0)
+	this->_isCollide = false;
+	for (size_t i = 0; i < wall.size(); i++)
 	{
-		this->_isMoving = false;
+		switch (this->_dir) // ADD IN COLLISIONS FOR BOMBS
+		{
+			case LEFT:
+				if (this->_xPos - GRID_X == wall[i].getXPos() && this->_yPos == wall[i].getYPos())
+					this->_isCollide = true;
+				break ;
+			case RIGHT:
+				if (this->_xPos + GRID_X == wall[i].getXPos() && this->_yPos == wall[i].getYPos())
+					this->_isCollide = true;
+				break ;
+			case UP:
+				if (this->_xPos == wall[i].getXPos() && this->_yPos - GRID_Y == wall[i].getYPos())
+					this->_isCollide = true;
+				break ;
+			case DOWN:
+				if (this->_xPos == wall[i].getXPos() && this->_yPos + GRID_Y == wall[i].getYPos())
+					this->_isCollide = true;
+				break ;
+		}
 	}
+	return (this->_isCollide);
 }
 
 void	Player::respawn()

@@ -78,12 +78,12 @@ void	__load_assets(Engine &engine)
 void	__temp_render(Engine &engine, sf::RenderWindow &window)
 {
 	engine.getPlayer().sprite__.setPosition(engine.getPlayer().getXPos(), engine.getPlayer().getYPos());
-	engine.getPlayer().sprite__.setOrigin(24, 24);
+	engine.getPlayer().sprite__.setOrigin(0, 48);
 
 	for (size_t i = 0; i < engine.getWallVector().size(); i++)
 	{
 		engine.getWallVector()[i].sprite__.setPosition(engine.getWallVector()[i].getXPos(), engine.getWallVector()[i].getYPos());
-		engine.getWallVector()[i].sprite__.setOrigin(24, 24);
+		engine.getWallVector()[i].sprite__.setOrigin(0, 48);
 		window.draw(engine.getWallVector()[i].sprite__);
 	}
 
