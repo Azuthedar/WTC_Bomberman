@@ -23,6 +23,10 @@ class Player : public AEntity
 		void	evalScore();
 		void	placeBomb();
 
+		void	setCurrBombAmount(int amount);
+
+		int	&	getCurrBombAmount();
+
 		std::vector<Bomb> &		getBombVector();
 
 
@@ -38,7 +42,7 @@ class Player : public AEntity
 		int					_bombRange;
 		int					_currBombAmount;
 		int					_totalBombAmount;
-		bool				_bombReady;
+		bool				_bombPlaced;
 		bool				_isMoving;
 		bool				_pickupPowerup;
 		ePowerups			_typePowerup;

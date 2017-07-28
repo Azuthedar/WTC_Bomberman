@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include <SFML/Graphics.hpp>
+//#include <SDL2/SDL.h>
 
 enum eBlockType
 {
@@ -59,3 +60,4 @@ enum eScore
 #define GRID_Y 48
 #define MAP_X 16
 #define MAP_Y 16
+#define FIXED_FPS 60

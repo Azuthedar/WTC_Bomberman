@@ -2,21 +2,19 @@
 
 Bomb::Bomb()
 {
-	this->_totalTimer = 5;
+	this->_totalTimer = 5 * FIXED_FPS;
 	this->_currTimer = this->_totalTimer;
 	this->_range = 1;
-	this->_amount = 1;
 	return ;
 }
 
 Bomb::Bomb(int x, int y)
 {
-	this->_totalTimer = 5;
+	this->_totalTimer = 5 * FIXED_FPS;
 	this->_currTimer = this->_totalTimer;
 	this->_xPos = x;
 	this->_yPos = y;
 	this->_range = 1;
-	this->_amount = 1;
 	return ;
 }
 
@@ -32,10 +30,16 @@ Bomb::~Bomb()
 	return ;
 }
 
-void	Bomb::explode()
+bool	Bomb::explode()
 {
-	
+	this->_currTimer--;
+	std::cout << "Countdown: " << this->_currTimer << std::endl;
+	if (this->_currTimer == 0)
+	{
+		this->_currTimer = this->_totalTimer;
+		return (true);
+	}
+	return (false);
 }
 
 void	Bomb::setBombRange(int range)	{this->_range = range;}
-void	Bomb::setBombAmount(int amount)	{this->_amount = amount;}

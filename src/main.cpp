@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 	sf::RenderWindow window(sf::VideoMode(MAP_X * GRID_X, MAP_Y * GRID_Y), "AtjarMan");
 
 	window.setVerticalSyncEnabled(true);
-	window.setFramerateLimit(60);
+	window.setFramerateLimit(FIXED_FPS);
 	__load_assets(engine);
 
 	while (window.isOpen())

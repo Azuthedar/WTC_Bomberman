@@ -12,7 +12,7 @@ class Bomb : public AEntity
 		Bomb(Bomb const & src);
 		~Bomb();
 
-		void	explode();
+		bool	explode();
 
 		void	setBombRange(int range);
 		void	setBombAmount(int amount);
@@ -25,5 +25,4 @@ class Bomb : public AEntity
 		int _currTimer; // Explode timer will be on default added just in case for chain bombs exploding
 		int _totalTimer;
 		int _range;
-		int _amount;
 };

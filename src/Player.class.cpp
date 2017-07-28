@@ -37,7 +37,7 @@ void	Player::init()
 	this->_score = 0;
 
 	this->_isCollide = false;
-	this->_bombReady = false;
+	this->_bombPlaced = false;
 	this->_pickupPowerup = false;
 	this->_isMoving = false;
 
@@ -97,9 +97,7 @@ void	Player::movement(std::vector<Wall> & wall)
 		}
 		if (sf::Keyboard::isKeyPressed(this->_keyPlaceBomb))
 		{
-			this->_pickupPowerup = true;
-			this->_typePowerup = POW_BOMBS;
-			this->placeBomb();
+			this->_bombPlaced = true;
 		}
 	}
 	if (this->_isMoving == true && !this->collision(wall))
@@ -124,6 +122,7 @@ void	Player::movement(std::vector<Wall> & wall)
 	//	GRID BASED MOVEMENT
 	if (this->_xPos % GRID_X == 0 && this->_yPos % GRID_Y == 0)
 		this->_isMoving = false;
+	this->placeBomb();
 	this->respawn();
 	this->pickupPowerUps();
 }
@@ -181,22 +180,19 @@ void	Player::pickupPowerUps()
 		{
 			case POW_RANGE:
 				this->_bombRange += 1;
+				for (size_t i = 0; i < this->_bomb.size(); i++)
+					this->_bomb[i].setBombRange(this->_bombRange);
 				break ;
 			case POW_BOMBS:
 				this->_totalBombAmount += 1;
 				this->_bomb.push_back(Bomb(this->_xPos, this->_yPos));
 				break ;
 			case POW_SPEED:
-				std::cout << this->_speed << std::endl;
 				this->_speed += 1;
 				break ;
 			case POW_LIFE:
 				this->_lives += 1;
 		}
-	/*
-	*	bomb.setBombRange(this->_bombRange);
-	*	bomb.setBombAmount(this->_bombAmount);
-	*/
 		this->_pickupPowerup = false;
 	}
 }
@@ -215,11 +211,18 @@ void	Player::evalScore()
 
 void	Player::placeBomb()
 {
-	if (this->_bombReady)
+	if (this->_bombPlaced && this->_currBombAmount > 0)
+	{
+		this->_currBombAmount--;
+		this->_bombPlaced = false;
 		for (size_t i = 0; i < this->_bomb.size(); i++)
 		{
-			
+			if (this->_bomb[i].explode())
+			{
+				this->_currBombAmount++;
+			}
 		}
+	}
 }
 
 std::vector<Bomb> &		Player::getBombVector() {return (this->_bomb);}
