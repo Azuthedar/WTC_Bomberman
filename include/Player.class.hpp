@@ -18,6 +18,8 @@ class Player : public AEntity
 		void	pickupPowerUps();
 		void	evalScore();
 
+
+		void	setSpeed(int speed) {this->_speed = speed;}
 		sf::Texture texture__; //TEMP MOFO, DELETE IT!
 		sf::Sprite	sprite__; //ALSO TEMP!
 

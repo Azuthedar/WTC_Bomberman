@@ -18,6 +18,8 @@ Engine::~Engine()
 void Engine::gameLogic()
 {
 	this->_player.movement(this->_walls_vector);
+	this->_p2.setSpeed(6);
+	this->_p2.movement(this->_walls_vector);
 }
 
 void		Engine::readMap(std::string fileName)

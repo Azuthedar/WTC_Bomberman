@@ -68,6 +68,7 @@ void	__load_assets(Engine &engine)
 	engine.getPlayer().texture__.loadFromFile("images/slime.png");
 	engine.getWallVector()[0].texture__.loadFromFile("images/wall.png");
 	engine.getPlayer().sprite__.setTexture(engine.getPlayer().texture__);
+	engine.getP2().sprite__.setTexture(engine.getPlayer().texture__);
 
 	for (size_t i = 0; i < engine.getWallVector().size(); i++)
 	{
@@ -79,6 +80,8 @@ void	__temp_render(Engine &engine, sf::RenderWindow &window)
 {
 	engine.getPlayer().sprite__.setPosition(engine.getPlayer().getXPos(), engine.getPlayer().getYPos());
 	engine.getPlayer().sprite__.setOrigin(0, 48);
+	engine.getP2().sprite__.setPosition(engine.getP2().getXPos(), engine.getP2().getYPos());
+	engine.getP2().sprite__.setOrigin(0, 48);
 
 	for (size_t i = 0; i < engine.getWallVector().size(); i++)
 	{
@@ -88,4 +91,5 @@ void	__temp_render(Engine &engine, sf::RenderWindow &window)
 	}
 
 	window.draw(engine.getPlayer().sprite__);
+	window.draw(engine.getP2().sprite__);
 }

@@ -69,8 +69,8 @@ void	Player::movement(std::vector<Wall> & wall)
 		// TEMP
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::SemiColon))
 		{
-			this->_lives--;
-			this->_isDead = true;
+			this->_typePowerup = POW_SPEED;
+			this->_pickupPowerup = true;
 		}
 	}
 	if (this->_isMoving == true && !this->collision(wall))
@@ -93,8 +93,9 @@ void	Player::movement(std::vector<Wall> & wall)
 		//	GRID BASED MOVEMENT
 	}
 	if (this->_xPos % GRID_X == 0 && this->_yPos % GRID_Y == 0)
-			this->_isMoving = false;
+		this->_isMoving = false;
 	this->respawn();
+	this->pickupPowerUps();
 }
 
 bool	Player::collision(std::vector<Wall> & wall)
@@ -155,6 +156,7 @@ void	Player::pickupPowerUps()
 				this->_bombAmount += 1;
 				break ;
 			case POW_SPEED:
+				std::cout << this->_speed << std::endl;
 				this->_speed += 1;
 				break ;
 			case POW_LIFE:
@@ -171,7 +173,7 @@ void	Player::pickupPowerUps()
 void	Player::evalScore()
 {
 	if (this->_typeScore == ENEMY)
-		this->_score += 1000;
+		this->_score += 500;
 	else if (this->_typeScore == LIVES && this->_lives > 0)
 		this->_score = 2000 * this->_lives;
 	else if (this->_typeScore == TIME_LEFT)
