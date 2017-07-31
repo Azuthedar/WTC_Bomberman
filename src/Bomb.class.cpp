@@ -30,4 +30,11 @@ Bomb::~Bomb()
 	return ;
 }
 
-void	Bomb::setBombRange(int range)	{this->_range = range;}
+void Bomb::explode()
+{
+	std::cout << "ALLAHU AKBAR" << std::endl;
+}
+
+void	Bomb::modifyCurrTimer(int currTimer)		{this->_currTimer += currTimer;}
+int &	Bomb::getCurrTimer()					{return this->_currTimer;}
+void	Bomb::setBombRange(int range)		{this->_range = range;}

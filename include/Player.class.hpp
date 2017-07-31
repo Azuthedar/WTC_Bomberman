@@ -23,11 +23,11 @@ class Player : public AEntity
 		void	pickupPowerUps();
 		void	evalScore();
 
+		void	modifyBombs();
+
 		int		getBombs();
 		std::vector<Bomb> &		getBombVector();
 
-
-		void	setSpeed(int speed) {this->_speed = speed;} // TEMP p2
 		sf::Texture texture__; //TEMP MOFO, DELETE IT!
 		sf::Sprite	sprite__; //ALSO TEMP!
 

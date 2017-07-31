@@ -225,3 +225,8 @@ int		Player::getBombs()
 {
 	return this->_bombs;
 }
+
+void	Player::modifyBombs()
+{
+	this->_bombs += 1;
+}

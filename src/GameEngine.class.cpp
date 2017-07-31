@@ -18,6 +18,17 @@ Engine::~Engine()
 void Engine::gameLogic()
 {
 	this->_player.movement(this->_walls_vector);
+	//Tick every bomb
+	for (size_t i = 0; i < this->_player.getBombVector().size(); i++)
+	{
+		this->_player.getBombVector()[i].modifyCurrTimer(-1);
+		if (this->_player.getBombVector()[i].getCurrTimer() <= 0)
+		{
+			this->_player.getBombVector()[i].explode();
+			this->_player.getBombVector().erase(this->_player.getBombVector().begin() + i);
+			this->_player.modifyBombs();
+		}
+	}
 }
 
 void		Engine::readMap(std::string fileName)

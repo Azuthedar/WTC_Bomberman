@@ -12,8 +12,12 @@ class Bomb : public AEntity
 		Bomb(Bomb const & src);
 		~Bomb();
 
+		void	explode();
 
 		void	setBombRange(int range);
+		void	modifyCurrTimer(int currTimer);
+		
+		int	&	getCurrTimer(void);
 
 		sf::Texture texture__; //TEMP MOFO, DELETE IT!
 		sf::Sprite	sprite__; //ALSO TEMP!
