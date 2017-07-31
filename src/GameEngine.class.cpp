@@ -61,17 +61,28 @@ void		Engine::readMap(std::string fileName)
 void Engine::buildMap()
 {
 	int y = 0;
-	char temp;
+	char tmp;
+	int playerFound = 0;
  	for (size_t i = 0; i < this->_mapValues.size(); i++)
 	{
-		temp = this->_mapValues[i];
+		tmp = this->_mapValues[i];
 		if (i % MAP_Y == 0)
 			y++;
-		if (atoi(&temp) == SOLID_BLOCK)
+		if (atoi(&tmp) == SOLID_BLOCK)
 			this->_walls_vector.push_back(Wall((i % 16) * GRID_X, y * GRID_Y, SOLID_BLOCK));
-		if (atoi(&temp) == DESTRUCTIBLE_BLOCK)
+		else if (atoi(&tmp) == DESTRUCTIBLE_BLOCK)
 			this->_walls_vector.push_back(Wall((i % 16) * GRID_X, y * GRID_Y, DESTRUCTIBLE_BLOCK));
+		else if (atoi(&tmp) == PLAYER)
+		{
+			i++;
+			this->_player.setSpawnX((i % 16) * GRID_X);
+			this->_player.setSpawnY((y * GRID_Y));
+			this->_player.respawn();
+		}
 	}
+	if (playerFound == 0 || playerFound > 1)
+		std::cout << "Invalid amount of players" << std::endl;
+	//Throw exception INVALID AMOUNT OF PLAYERS!
 }
 
 void	Engine::strSplit(std::string str, char delim)

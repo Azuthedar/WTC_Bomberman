@@ -24,8 +24,12 @@ class Player : public AEntity
 		void	evalScore();
 
 		void	modifyBombs();
+		void	setSpawnX(int spawnX);
+		void	setSpawnY(int spawnY);
 
-		int		getBombs();
+		int	&	getBombs();
+		int	&	getSpawnX();
+		int	&	getSpawnY();
 		std::vector<Bomb> &		getBombVector();
 
 		sf::Texture texture__; //TEMP MOFO, DELETE IT!
@@ -39,6 +43,8 @@ class Player : public AEntity
 		int					_speed;
 		int					_bombRange;
 		int					_bombs;
+		int					_spawnX;
+		int					_spawnY;
 		bool				_isMoving;
 		bool				_pickupPowerup;
 		ePowerups			_typePowerup;

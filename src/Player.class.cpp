@@ -171,8 +171,6 @@ void	Player::movement(std::vector<Wall> & wall)
 	//	GRID BASED MOVEMENT
 	if (this->_xPos % GRID_X == 0 && this->_yPos % GRID_Y == 0)
 		this->_isMoving = false;
-	this->respawn();
-	this->pickupPowerUps();
 }
 
 bool	Player::collision(std::vector<Wall> & wall)
@@ -217,6 +215,7 @@ bool	Player::isBombThere(int x, int y)
 
 void	Player::respawn()
 {
+
 	if (this->_isDead)
 	{
 		this->_lives -= 1;
@@ -226,10 +225,10 @@ void	Player::respawn()
 		*	Possibly if player reaches 0 lives, make a total score appear in the middle of the screen
 		*	Which then fades out and takes the player back to the main menu or the start of the round.
 		*/
-		this->_xPos = (MAP_X * GRID_X) / 2;
-		this->_yPos = (MAP_Y * GRID_Y) / 2;
-		this->_isDead = false;
 	}
+	this->_xPos = this->_spawnX;
+	this->_yPos = this->_spawnY;
+	this->_isDead = false;
 }
 
 void	Player::pickupPowerUps()
@@ -268,14 +267,11 @@ void	Player::evalScore()
 		this->_score += 50;
 }
 
+void	Player::modifyBombs()					{this->_bombs += 1;}
+void	Player::setSpawnX(int spawnX)			{this->_spawnX = spawnX;}
+void	Player::setSpawnY(int spawnY)			{this->_spawnY = spawnY;}
+
+int	&	Player::getBombs()						{return (this->_bombs);}
+int &	Player::getSpawnX()						{return (this->_spawnX);}
+int &	Player::getSpawnY()						{return (this->_spawnY);}
 std::vector<Bomb> &		Player::getBombVector() {return (this->_bomb);}
-
-int		Player::getBombs()
-{
-	return this->_bombs;
-}
-
-void	Player::modifyBombs()
-{
-	this->_bombs += 1;
-}
