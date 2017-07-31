@@ -47,9 +47,13 @@ void		Engine::readMap(std::string fileName)
 	if (file.eof())
 		std::cout << "Empty file." << std::endl;	//Throw exception for end of file found
 	
-	while (getline(file, strValues, delim))
+	while (getline(file, strValues))
 	{
-		this->_mapValues.push_back(strValues);
+		int i = 0;
+		i++;
+		this->strSplit(strValues, delim);
+		if (i != MAP_Y)
+			;//THROW EXCEPTION INVALID MAP SIZE
 	}
 	file.close();
 }
@@ -57,18 +61,44 @@ void		Engine::readMap(std::string fileName)
 void Engine::buildMap()
 {
 	int y = 0;
-
+	char temp;
  	for (size_t i = 0; i < this->_mapValues.size(); i++)
 	{
+		temp = this->_mapValues[i];
 		if (i % MAP_Y == 0)
 			y++;
-		if (stoi(this->_mapValues[i]) == SOLID_BLOCK)
+		if (atoi(&temp) == SOLID_BLOCK)
 			this->_walls_vector.push_back(Wall((i % 16) * GRID_X, y * GRID_Y, SOLID_BLOCK));
-		if (stoi(this->_mapValues[i]) == DESTRUCTIBLE_BLOCK)
+		if (atoi(&temp) == DESTRUCTIBLE_BLOCK)
 			this->_walls_vector.push_back(Wall((i % 16) * GRID_X, y * GRID_Y, DESTRUCTIBLE_BLOCK));
 	}
 }
 
-std::vector<std::string> &	Engine::getMapValues()	{return (this->_mapValues);}
+void	Engine::strSplit(std::string str, char delim)
+{
+	std::string newStr;
+	int j = 0;
+	for (size_t i = 0; i < str.length(); i++)
+	{
+		if ((str[i] < '0' || str[i] > '9') && str[i] != delim)
+			;//throw EXCEPTION invalid map format
+		else if (str[i] >= '0' && str[i] <= '9' && str[i + 1] >= '0' && str[i + 1] <= '9')
+			;//Throw EXCEPTION invalid number format
+		else if (str[i] >= '0' && str[i] <= '9')
+		{
+			newStr += str[i];
+		}
+	}
+	if (j != MAP_X)
+		;//Throw	EXCEPTION mapSize invalid
+	static int i = 0;
+ 	for (size_t sz = 0; sz < newStr.length(); sz++)
+	{
+		i++;
+		this->_mapValues.push_back(newStr[sz]);
+	}
+}
+
+std::vector<char> &	Engine::getMapValues()	{return (this->_mapValues);}
 Player & 					Engine::getPlayer() 	{return (this->_player);}
 std::vector<Wall> &			Engine::getWallVector()	{return (this->_walls_vector);}

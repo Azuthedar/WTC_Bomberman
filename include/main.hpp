@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include <SFML/Graphics.hpp>
+#include <stdlib.h>
 //#include <SDL2/SDL.h>
 
 enum eBlockType

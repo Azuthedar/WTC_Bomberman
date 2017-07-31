@@ -15,14 +15,16 @@ class Engine
 		void		gameLogic();
 		void		buildMap();
 
+		void		strSplit(std::string, char delim);
+
 
 		Player &					getPlayer();
-		std::vector<std::string> &	getMapValues();
-		std::vector<Wall>		 &	getWallVector();
+		std::vector<char> &			getMapValues();
+		std::vector<Wall> &			getWallVector();
 
 	private:
 
-		std::vector<std::string>		_mapValues;
+		std::vector<char>		_mapValues;
 		std::vector<Wall>				_walls_vector;
 		Player 							_player;
 };
