@@ -32,7 +32,8 @@ class Player : public AEntity
 		sf::Sprite	sprite__; //ALSO TEMP!
 
 	private:
-
+		int					_goal_x;
+		int					_goal_y;
 		int					_lives;
 		int					_score;
 		int					_speed;

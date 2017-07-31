@@ -62,28 +62,37 @@ void	Player::movement(std::vector<Wall> & wall)
 	*	If the DIR is DOWN		the yPos needs to increase to imitate moving DOWNWARDS
 	*	If the DIR is LEFT		the xPos needs to decrease to imitate moving left
 	*	If the DIR is RIGHT		the xPos needs to increase to imitate moving right
-	*/	
+	*/
+
  	if (this->_isMoving == false)
 	{
 		if (sf::Keyboard::isKeyPressed(this->_keyMoveRight))
 		{
 			this->_dir = RIGHT;
 			this->_isMoving = true;
+			this->_goal_x = this->_xPos + GRID_X;
+			this->_goal_y = this->_yPos;
 		}
 		if (sf::Keyboard::isKeyPressed(this->_keyMoveLeft))
 		{
 			this->_dir = LEFT;
 			this->_isMoving = true;
+			this->_goal_x = this->_xPos - GRID_X;
+			this->_goal_y = this->_yPos;
 		}
 		if (sf::Keyboard::isKeyPressed(this->_keyMoveUp))
 		{
 			this->_dir = UP;
 			this->_isMoving = true;
+			this->_goal_y = this->_yPos - GRID_Y;
+			this->_goal_x = this->_xPos;
 		}
 		if (sf::Keyboard::isKeyPressed(this->_keyMoveDown))
 		{
 			this->_dir = DOWN;
 			this->_isMoving = true;
+			this->_goal_y = this->_yPos + GRID_X;
+			this->_goal_x = this->_xPos;
 		}
 		// TEMP
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::SemiColon))
@@ -91,15 +100,55 @@ void	Player::movement(std::vector<Wall> & wall)
 			this->_typePowerup = POW_SPEED;
 			this->_pickupPowerup = true;
 		}
-		if (sf::Keyboard::isKeyPressed(this->_keyPlaceBomb))
+	}
+
+	if (sf::Keyboard::isKeyPressed(this->_keyPlaceBomb))
+	{
+		if (this->_bombs > 0)
 		{
-			if (this->_bombs > 0 && !this->isBombThere(this->_xPos, this->_yPos))
+			int		place_x = 0; //Where it should place the bombs
+			int		place_y = 0; //Where it should place the bombs
+
+			switch (this->_dir)
+			{
+				case	RIGHT :
+					if (abs(this->_goal_x - this->_xPos) > GRID_X / 2)
+						place_x = this->_goal_x - GRID_X;
+					else
+						place_x = this->_goal_x;
+					place_y = this->_yPos;
+					break ;
+				case	LEFT :
+					if (abs(this->_goal_x - this->_xPos) > GRID_X / 2)
+						place_x = this->_goal_x + GRID_X;
+					else
+						place_x = this->_goal_x;
+					place_y = this->_yPos;
+					break ;
+				case	UP:
+					if (abs(this->_goal_y - this->_yPos) > GRID_Y / 2)
+						place_y = this->_goal_y + GRID_Y;
+					else
+						place_y = this->_goal_y;
+					place_x = this->_xPos;
+					break ;
+				case	DOWN:
+					if (abs(this->_goal_y - this->_yPos) > GRID_Y / 2)
+						place_y = this->_goal_y - GRID_Y;
+					else
+						place_y = this->_goal_y;
+					place_x = this->_xPos;
+					break ;
+			}
+
+			if (!this->isBombThere(place_x, place_y))
 			{
 				this->_bombs--;
-				this->getBombVector().push_back(Bomb(this->_xPos, this->_yPos));
+				this->getBombVector().push_back(Bomb(place_x, place_y));
 			}
 		}
 	}
+
 	if (this->_isMoving == true && !this->collision(wall))
 	{
 		switch (this->_dir)
