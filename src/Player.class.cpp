@@ -31,21 +31,17 @@ Player::~Player()
 
 void	Player::init()
 {
-	Bomb initBomb(this->_xPos, this->_yPos);
-
 	this->_lives = 3;
 	this->_score = 0;
 
 	this->_isCollide = false;
-	this->_bombPlaced = false;
 	this->_pickupPowerup = false;
 	this->_isMoving = false;
 
-	this->_bomb.push_back(initBomb);
 
 	this->_speed = 2;
 	this->_bombRange = 1;
-	this->_totalBombAmount = 1;
+	this->_bombs = 3;
 
 /* 	this->_bomb[0].setBombAmount(this->_totalBombAmount);
 	this->_bomb[0].setBombRange(this->_bombRange ); */
@@ -97,7 +93,11 @@ void	Player::movement(std::vector<Wall> & wall)
 		}
 		if (sf::Keyboard::isKeyPressed(this->_keyPlaceBomb))
 		{
-			this->_bombPlaced = true;
+			if (this->_bombs > 0 && !this->isBombThere(this->_xPos, this->_yPos))
+			{
+				this->_bombs--;
+				this->getBombVector().push_back(Bomb(this->_xPos, this->_yPos));
+			}
 		}
 	}
 	if (this->_isMoving == true && !this->collision(wall))
@@ -122,7 +122,6 @@ void	Player::movement(std::vector<Wall> & wall)
 	//	GRID BASED MOVEMENT
 	if (this->_xPos % GRID_X == 0 && this->_yPos % GRID_Y == 0)
 		this->_isMoving = false;
-	this->placeBomb();
 	this->respawn();
 	this->pickupPowerUps();
 }
@@ -155,6 +154,18 @@ bool	Player::collision(std::vector<Wall> & wall)
 	return (this->_isCollide);
 }
 
+bool	Player::isBombThere(int x, int y)
+{
+	for (size_t i = 0; i < this->_bomb.size(); i++)
+	{
+		if (this->_bomb[i].getXPos() == x && this->_bomb[i].getYPos() == y)
+		{
+			return (true);
+		}
+	}
+	return (false);
+}
+
 void	Player::respawn()
 {
 	if (this->_isDead)
@@ -184,8 +195,7 @@ void	Player::pickupPowerUps()
 					this->_bomb[i].setBombRange(this->_bombRange);
 				break ;
 			case POW_BOMBS:
-				this->_totalBombAmount += 1;
-				this->_bomb.push_back(Bomb(this->_xPos, this->_yPos));
+				this->_bombs++;
 				break ;
 			case POW_SPEED:
 				this->_speed += 1;
@@ -209,20 +219,9 @@ void	Player::evalScore()
 		this->_score += 50;
 }
 
-void	Player::placeBomb()
-{
-	if (this->_bombPlaced && this->_currBombAmount > 0)
-	{
-		this->_currBombAmount--;
-		this->_bombPlaced = false;
-		for (size_t i = 0; i < this->_bomb.size(); i++)
-		{
-			if (this->_bomb[i].explode())
-			{
-				this->_currBombAmount++;
-			}
-		}
-	}
-}
-
 std::vector<Bomb> &		Player::getBombVector() {return (this->_bomb);}
+
+int		Player::getBombs()
+{
+	return this->_bombs;
+}

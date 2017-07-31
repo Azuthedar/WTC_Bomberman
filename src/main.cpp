@@ -5,11 +5,14 @@
 #include <Wall.class.hpp>
 #include <Bomb.class.hpp>
 
-void	__temp_render(Engine &engine, sf::RenderWindow &window);
+void	__temp_render(Engine &engine, sf::RenderWindow &window, sf::Texture bombText);
 void	__load_assets(Engine &engine);
+
 
 int main(int argc, char **argv)
 {
+	sf::Texture bombText;
+	bombText.loadFromFile("images/bomb.png");
 
 	if (argc == 1)
 	{
@@ -54,7 +57,7 @@ int main(int argc, char **argv)
 		}
 
 		//Do the temp renderz               DELETE THIS AFTERWARDS!!!! (DEBUG)
-		__temp_render(engine, window);
+		__temp_render(engine, window, bombText);
 
 		//Call all render logic here!
 
@@ -66,31 +69,24 @@ int main(int argc, char **argv)
 
 void	__load_assets(Engine &engine)
 {
-	engine.getPlayer().getBombVector()[0].texture__.loadFromFile("images/bomb.png");
 	engine.getPlayer().texture__.loadFromFile("images/slime.png");
 	engine.getWallVector()[0].texture__.loadFromFile("images/wall.png");
 	engine.getPlayer().sprite__.setTexture(engine.getPlayer().texture__);
-	engine.getP2().sprite__.setTexture(engine.getPlayer().texture__);
 
 	for (size_t i = 0; i < engine.getWallVector().size(); i++)
 	{
 		engine.getWallVector()[i].sprite__.setTexture(engine.getWallVector()[0].texture__);
 	}
-	for (size_t i = 0; i < engine.getPlayer().getBombVector().size(); i++)
-	{
-		engine.getPlayer().getBombVector()[i].sprite__.setTexture(engine.getPlayer().getBombVector()[0].texture__);
-	}
 }
 
-void	__temp_render(Engine &engine, sf::RenderWindow &window)
+void	__temp_render(Engine &engine, sf::RenderWindow &window, sf::Texture bombText)
 {
 	engine.getPlayer().sprite__.setPosition(engine.getPlayer().getXPos(), engine.getPlayer().getYPos());
 	engine.getPlayer().sprite__.setOrigin(0, 48);
-	engine.getP2().sprite__.setPosition(engine.getP2().getXPos(), engine.getP2().getYPos());
-	engine.getP2().sprite__.setOrigin(0, 48);
-	
+
 	for (size_t i = 0; i < engine.getPlayer().getBombVector().size(); i++)
 	{
+		engine.getPlayer().getBombVector()[i].sprite__.setTexture(bombText);
 		engine.getPlayer().getBombVector()[i].sprite__.setPosition(engine.getPlayer().getBombVector()[i].getXPos(), engine.getPlayer().getBombVector()[i].getYPos());
 		engine.getPlayer().getBombVector()[i].sprite__.setOrigin(0, 48);
 		window.draw(engine.getPlayer().getBombVector()[i].sprite__);
@@ -104,5 +100,4 @@ void	__temp_render(Engine &engine, sf::RenderWindow &window)
 	}
 
 	window.draw(engine.getPlayer().sprite__);
-	window.draw(engine.getP2().sprite__);
 }

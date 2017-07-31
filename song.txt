@@ -18,6 +18,7 @@ https://opengameart.org/art-search-advanced?keys=&field_art_type_tid%255B%255D=1
 
 /* Game Logic */
 
+speed progression = 2, 2.4, 3.2, 4, 4.8
 
 /* Renderer */
 

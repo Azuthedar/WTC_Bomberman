@@ -18,15 +18,12 @@ class Player : public AEntity
 		void	init();
 		void	movement(std::vector<Wall> & wall);
 		bool	collision(std::vector<Wall> & wall);
+		bool	isBombThere(int x, int y);
 		void	respawn();
 		void	pickupPowerUps();
 		void	evalScore();
-		void	placeBomb();
 
-		void	setCurrBombAmount(int amount);
-
-		int	&	getCurrBombAmount();
-
+		int		getBombs();
 		std::vector<Bomb> &		getBombVector();
 
 
@@ -40,9 +37,7 @@ class Player : public AEntity
 		int					_score;
 		int					_speed;
 		int					_bombRange;
-		int					_currBombAmount;
-		int					_totalBombAmount;
-		bool				_bombPlaced;
+		int					_bombs;
 		bool				_isMoving;
 		bool				_pickupPowerup;
 		ePowerups			_typePowerup;
