@@ -104,7 +104,7 @@ void	Player::movement(std::vector<Wall> & wall)
 
 	if (sf::Keyboard::isKeyPressed(this->_keyPlaceBomb))
 	{
-		if (this->_bombs > 0)
+		if (this->_bombs > 0 && this->_placeBombTimer <= 0)
 		{
 			int		place_x = 0; //Where it should place the bombs
 			int		place_y = 0; //Where it should place the bombs
@@ -145,6 +145,7 @@ void	Player::movement(std::vector<Wall> & wall)
 			{
 				this->_bombs--;
 				this->getBombVector().push_back(Bomb(place_x, place_y));
+				this->_placeBombTimer = BOMB_COOLDOWN;
 			}
 		}
 	}
@@ -198,6 +199,30 @@ bool	Player::collision(std::vector<Wall> & wall)
 				break ;
 		}
 	}
+
+	for (size_t i = 0; i < this->_bomb.size(); i++)
+	{
+		switch (this->_dir) // ADD IN COLLISIONS FOR BOMBS
+		{
+			case LEFT:
+				if (this->_xPos - GRID_X == this->_bomb[i].getXPos() && this->_yPos == this->_bomb[i].getYPos())
+					this->_isCollide = true;
+				break ;
+			case RIGHT:
+				if (this->_xPos + GRID_X == this->_bomb[i].getXPos() && this->_yPos == this->_bomb[i].getYPos())
+					this->_isCollide = true;
+				break ;
+			case UP:
+				if (this->_xPos == this->_bomb[i].getXPos() && this->_yPos - GRID_Y == this->_bomb[i].getYPos())
+					this->_isCollide = true;
+				break ;
+			case DOWN:
+				if (this->_xPos == this->_bomb[i].getXPos() && this->_yPos + GRID_Y == this->_bomb[i].getYPos())
+					this->_isCollide = true;
+				break ;
+		}
+	}
+
 	return (this->_isCollide);
 }
 
@@ -268,6 +293,8 @@ void	Player::evalScore()
 }
 
 void	Player::modifyBombs()					{this->_bombs += 1;}
+void	Player::modifyPlaceBombTimer()			{this->_placeBombTimer -= 1;}
+
 void	Player::setSpawnX(int spawnX)			{this->_spawnX = spawnX;}
 void	Player::setSpawnY(int spawnY)			{this->_spawnY = spawnY;}
 

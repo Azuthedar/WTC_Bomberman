@@ -29,6 +29,7 @@ void Engine::gameLogic()
 			this->_player.modifyBombs();
 		}
 	}
+	this->_player.modifyPlaceBombTimer();
 }
 
 void		Engine::readMap(std::string fileName)
@@ -89,7 +90,7 @@ void Engine::buildMap()
 		std::cout << "Invalid amount of players" << std::endl;
 	//Throw exception INVALID AMOUNT OF PLAYERS!
 	if (gateFound == 0 || gateFound > 1)
-		std::Cout << "Invalid amount of gates" << std::endl;
+		std::cout << "Invalid amount of gates" << std::endl;
 	//Throw exception INVALID AMOUNT OF GATES!
 }
 
@@ -118,6 +119,6 @@ void	Engine::strSplit(std::string str, char delim)
 	}
 }
 
-std::vector<char> &	Engine::getMapValues()	{return (this->_mapValues);}
+std::vector<char> &	Engine::getMapValues()			{return (this->_mapValues);}
 Player & 					Engine::getPlayer() 	{return (this->_player);}
 std::vector<Wall> &			Engine::getWallVector()	{return (this->_walls_vector);}

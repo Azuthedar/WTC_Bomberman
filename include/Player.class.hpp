@@ -24,12 +24,15 @@ class Player : public AEntity
 		void	evalScore();
 
 		void	modifyBombs();
+		void	modifyPlaceBombTimer();
+		
 		void	setSpawnX(int spawnX);
 		void	setSpawnY(int spawnY);
 
 		int	&	getBombs();
 		int	&	getSpawnX();
 		int	&	getSpawnY();
+		int	&	getPlaceBombTimer();
 		std::vector<Bomb> &		getBombVector();
 
 		sf::Texture texture__; //TEMP MOFO, DELETE IT!
@@ -45,6 +48,7 @@ class Player : public AEntity
 		int					_bombs;
 		int					_spawnX;
 		int					_spawnY;
+		int					_placeBombTimer;
 		bool				_isMoving;
 		bool				_pickupPowerup;
 		ePowerups			_typePowerup;
