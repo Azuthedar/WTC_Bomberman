@@ -63,6 +63,7 @@ void Engine::buildMap()
 	int y = 0;
 	char tmp;
 	int playerFound = 0;
+	int gateFound = 0;
  	for (size_t i = 0; i < this->_mapValues.size(); i++)
 	{
 		tmp = this->_mapValues[i];
@@ -72,6 +73,10 @@ void Engine::buildMap()
 			this->_walls_vector.push_back(Wall((i % 16) * GRID_X, y * GRID_Y, SOLID_BLOCK));
 		else if (atoi(&tmp) == DESTRUCTIBLE_BLOCK)
 			this->_walls_vector.push_back(Wall((i % 16) * GRID_X, y * GRID_Y, DESTRUCTIBLE_BLOCK));
+		else if (atoi(&tmp) == GATE)
+		{
+			gateFound++;
+		}
 		else if (atoi(&tmp) == PLAYER)
 		{
 			i++;
@@ -83,6 +88,9 @@ void Engine::buildMap()
 	if (playerFound == 0 || playerFound > 1)
 		std::cout << "Invalid amount of players" << std::endl;
 	//Throw exception INVALID AMOUNT OF PLAYERS!
+	if (gateFound == 0 || gateFound > 1)
+		std::Cout << "Invalid amount of gates" << std::endl;
+	//Throw exception INVALID AMOUNT OF GATES!
 }
 
 void	Engine::strSplit(std::string str, char delim)
