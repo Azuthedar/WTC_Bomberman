@@ -15,10 +15,9 @@ Engine::~Engine()
 	return ;
 }
 
-void Engine::gameLogic()
+void Engine::ticker()
 {
-	this->_player.movement(this->_walls_vector);
-	//Tick every bomb
+	//	TICKER for bombs
 	for (size_t i = 0; i < this->_player.getBombVector().size(); i++)
 	{
 		this->_player.getBombVector()[i].modifyCurrTimer(-1);
@@ -30,6 +29,19 @@ void Engine::gameLogic()
 		}
 	}
 	this->_player.modifyPlaceBombTimer();
+	for (size_t i = 0; i < this->_enemyVector.size(); i++)
+	{
+		this->_enemyVector[i].movement(this->_walls_vector);
+		this->_enemyVector[i].modifyEnemyMvTicker();
+	}
+}
+
+void Engine::gameLogic()
+{
+	this->_player.input();
+	this->_player.movement(this->_walls_vector);
+	this->ticker();
+	
 }
 
 void		Engine::readMap(std::string fileName)
@@ -74,13 +86,15 @@ void Engine::buildMap()
 			this->_walls_vector.push_back(Wall((i % 16) * GRID_X, y * GRID_Y, SOLID_BLOCK));
 		else if (atoi(&tmp) == DESTRUCTIBLE_BLOCK)
 			this->_walls_vector.push_back(Wall((i % 16) * GRID_X, y * GRID_Y, DESTRUCTIBLE_BLOCK));
+		else if (atoi(&tmp) == ENEMY_BLOCK)
+			this->_enemyVector.push_back(Enemy((i % 16) * GRID_X, y * GRID_Y));
 		else if (atoi(&tmp) == GATE)
 		{
 			gateFound++;
 		}
 		else if (atoi(&tmp) == PLAYER)
 		{
-			i++;
+			playerFound++;
 			this->_player.setSpawnX((i % 16) * GRID_X);
 			this->_player.setSpawnY((y * GRID_Y));
 			this->_player.respawn();
@@ -122,3 +136,4 @@ void	Engine::strSplit(std::string str, char delim)
 std::vector<char> &	Engine::getMapValues()			{return (this->_mapValues);}
 Player & 					Engine::getPlayer() 	{return (this->_player);}
 std::vector<Wall> &			Engine::getWallVector()	{return (this->_walls_vector);}
+std::vector<Enemy> &		Engine::getEnemyVector(){return (this->_enemyVector);}

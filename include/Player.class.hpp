@@ -16,6 +16,7 @@ class Player : public AEntity
 
 
 		void	init();
+		void	input();
 		void	movement(std::vector<Wall> & wall);
 		bool	collision(std::vector<Wall> & wall);
 		bool	isBombThere(int x, int y);

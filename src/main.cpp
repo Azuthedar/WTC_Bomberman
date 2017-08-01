@@ -5,14 +5,16 @@
 #include <Wall.class.hpp>
 #include <Bomb.class.hpp>
 
-void	__temp_render(Engine &engine, sf::RenderWindow &window, sf::Texture bombText);
+void	__temp_render(Engine &engine, sf::RenderWindow &window, sf::Texture bombText, sf::Texture enemyText);
 void	__load_assets(Engine &engine);
 
 
 int main(int argc, char **argv)
 {
 	sf::Texture bombText;
+	sf::Texture enemyText;
 	bombText.loadFromFile("images/bomb.png");
+	enemyText.loadFromFile("images/enemy.png");
 
 	if (argc == 1)
 	{
@@ -47,7 +49,7 @@ int main(int argc, char **argv)
 		}
 
 		window.clear(sf::Color::Black); //Indicates Start Of Buffer
-
+		srand(time(NULL));
 		engine.gameLogic();
 
 		//Key Hooks (REMOVE DIZ SHIZ)
@@ -57,7 +59,7 @@ int main(int argc, char **argv)
 		}
 
 		//Do the temp renderz               DELETE THIS AFTERWARDS!!!! (DEBUG)
-		__temp_render(engine, window, bombText);
+		__temp_render(engine, window, bombText, enemyText);
 
 		//Call all render logic here!
 
@@ -79,7 +81,7 @@ void	__load_assets(Engine &engine)
 	}
 }
 
-void	__temp_render(Engine &engine, sf::RenderWindow &window, sf::Texture bombText)
+void	__temp_render(Engine &engine, sf::RenderWindow &window, sf::Texture bombText, sf::Texture enemyText)
 {
 	engine.getPlayer().sprite__.setPosition(engine.getPlayer().getXPos(), engine.getPlayer().getYPos());
 	engine.getPlayer().sprite__.setOrigin(0, 48);
@@ -97,6 +99,14 @@ void	__temp_render(Engine &engine, sf::RenderWindow &window, sf::Texture bombTex
 		engine.getWallVector()[i].sprite__.setPosition(engine.getWallVector()[i].getXPos(), engine.getWallVector()[i].getYPos());
 		engine.getWallVector()[i].sprite__.setOrigin(0, 48);
 		window.draw(engine.getWallVector()[i].sprite__);
+	}
+
+	for (size_t i = 0; i < engine.getEnemyVector().size(); i++)
+	{
+		engine.getEnemyVector()[i].sprite__.setTexture(enemyText);
+		engine.getEnemyVector()[i].sprite__.setPosition(engine.getEnemyVector()[i].getXPos(), engine.getEnemyVector()[i].getYPos());
+		engine.getEnemyVector()[i].sprite__.setOrigin(0, 48);
+		window.draw(engine.getEnemyVector()[i].sprite__);
 	}
 
 	window.draw(engine.getPlayer().sprite__);
