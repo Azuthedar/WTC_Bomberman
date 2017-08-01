@@ -31,7 +31,7 @@ void Engine::ticker()
 	this->_player.modifyPlaceBombTimer();
 	for (size_t i = 0; i < this->_enemyVector.size(); i++)
 	{
-		this->_enemyVector[i].movement(this->_walls_vector, this->_enemyVector, this->_player);
+		this->_enemyVector[i].movement(this->_walls_vector, this->_enemyVector);
 		this->_enemyVector[i].modifyEnemyMvTicker();
 	}
 }
@@ -39,7 +39,7 @@ void Engine::ticker()
 void Engine::gameLogic()
 {
 	this->_player.input();
-	this->_player.movement(this->_walls_vector);
+	this->_player.movement(this->_walls_vector, this->_enemyVector);
 	this->ticker();
 	
 }

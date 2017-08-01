@@ -4,6 +4,7 @@
 #include <AEntity.class.hpp>
 #include <Wall.class.hpp>
 #include <Bomb.class.hpp>
+#include <Enemy.class.hpp>
 
 class Player : public AEntity
 {
@@ -17,8 +18,8 @@ class Player : public AEntity
 
 		void	init();
 		void	input();
-		void	movement(std::vector<Wall> & wall);
-		bool	collision(std::vector<Wall> & wall);
+		void	movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy);
+		bool	collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy);
 		bool	isBombThere(int x, int y);
 		void	respawn();
 		void	pickupPowerUps();
