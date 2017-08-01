@@ -19,15 +19,8 @@ AEntity::AEntity(AEntity const & src)
 
 AEntity::~AEntity()
 {
-	std::cout << "AEntity has been destroyed" << std::endl;
+	//std::cout << "AEntity has been destroyed" << std::endl;
 	return ;
-}
-
-void	AEntity::movement(std::vector<Wall> & wall)
-{
-	//TODO: Bombs - move only when touched
-	if (wall.size())
-		;
 }
 
 void	AEntity::setDir(eMovementDir dir)	{this->_dir = dir;}

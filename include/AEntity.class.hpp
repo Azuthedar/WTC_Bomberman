@@ -10,8 +10,6 @@ class AEntity
 		AEntity();
 		AEntity(AEntity const & src);
 		~AEntity();
-
-		virtual void			movement(std::vector<Wall> & wall);
 		
 		/* Setters */
 		virtual void			setDir(eMovementDir dir);
