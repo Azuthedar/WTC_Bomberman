@@ -143,7 +143,7 @@ void	Player::input()
 	}
 }
 
-void	Player::movement(std::vector<Wall> & wall)
+void	Player::movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy)
 {
 	/*
 	*	X = 0 Y = 0 is at the top left of the screen
@@ -152,22 +152,25 @@ void	Player::movement(std::vector<Wall> & wall)
 	*	If the DIR is LEFT		the xPos needs to decrease to imitate moving left
 	*	If the DIR is RIGHT		the xPos needs to increase to imitate moving right
 	*/
-	if (this->_isMoving == true && !this->collision(wall))
+	if (!this->collision(wall, enemy))
 	{
-		switch (this->_dir)
+		if (this->_isMoving == true)
 		{
-			case LEFT :
-				this->_xPos -= this->_speed;
-				break ;
-			case UP :
-				this->_yPos -= this->_speed;
-				break ;
-			case DOWN :
-				this->_yPos += this->_speed;
-				break ;
-			case RIGHT :
-				this->_xPos += this->_speed;
-				break ;
+			switch (this->_dir)
+			{
+				case LEFT :
+					this->_xPos -= this->_speed;
+					break ;
+				case UP :
+					this->_yPos -= this->_speed;
+					break ;
+				case DOWN :
+					this->_yPos += this->_speed;
+					break ;
+				case RIGHT :
+					this->_xPos += this->_speed;
+					break ;
+			}
 		}
 		
 	}
@@ -176,7 +179,7 @@ void	Player::movement(std::vector<Wall> & wall)
 		this->_isMoving = false;
 }
 
-bool	Player::collision(std::vector<Wall> & wall)
+bool	Player::collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy)
 {
 	this->_isCollide = false;
 	for (size_t i = 0; i < wall.size(); i++)
@@ -221,6 +224,28 @@ bool	Player::collision(std::vector<Wall> & wall)
 			case DOWN:
 				if (this->_xPos == this->_bomb[i].getXPos() && this->_yPos + GRID_Y == this->_bomb[i].getYPos())
 					this->_isCollide = true;
+				break ;
+		}
+	}
+	for (size_t i = 0; i < enemy.size(); i++)
+	{
+		switch (this->_dir)
+		{
+			case LEFT :
+				if ((this->_xPos - GRID_X == enemy[i].getXPos() || this->_xPos == enemy[i].getXPos()) && this->_yPos == enemy[i].getYPos())
+					this->respawn();
+				break ;
+			case RIGHT :
+				if ((this->_xPos + GRID_X == enemy[i].getXPos() || this->_xPos == enemy[i].getXPos()) && this->_yPos == enemy[i].getYPos())
+					this->respawn();
+				break ;
+			case UP :
+				if (this->_xPos == enemy[i].getXPos() && (this->_yPos - GRID_Y == enemy[i].getYPos() || this->_yPos == enemy[i].getYPos()))
+					this->respawn();
+				break ;
+			case DOWN :
+				if (this->_xPos == enemy[i].getXPos() && (this->_yPos + GRID_Y == enemy[i].getYPos() || this->_yPos == enemy[i].getYPos()))
+					this->respawn();
 				break ;
 		}
 	}

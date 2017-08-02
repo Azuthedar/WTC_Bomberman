@@ -64,3 +64,4 @@ enum eScore
 #define MAP_Y 16
 #define FIXED_FPS 60
 #define BOMB_COOLDOWN 20
+#define ENEMY_MOVE_TICK 4 * FIXED_FPS 

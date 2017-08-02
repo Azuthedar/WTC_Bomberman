@@ -11,8 +11,8 @@ class Enemy : public AEntity
 		Enemy(Enemy const & src);
 		~Enemy();
 
-		void		movement(std::vector<Wall> & wall);
-		bool		collision(std::vector<Wall> & wall);
+		void		movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy);
+		bool		collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy);
 		void		spawn();
 
 		void		modifyEnemyMvTicker();
@@ -22,12 +22,16 @@ class Enemy : public AEntity
 
 		int &		getSpawnX();
 		int &		getSpawnY();
+		int &		getGoalX();
+		int &		getGoalY();
 
 		sf::Sprite	sprite__;
 
 	private:
 
 		int			_enemyMvTicker;
+		int			_goalX;
+		int			_goalY;
 		int			_spawnX;
 		int			_spawnY;
 		int			_speed;
