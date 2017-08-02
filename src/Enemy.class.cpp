@@ -45,7 +45,6 @@ void	Enemy::movement(std::vector<Wall> & wall)
 	}
 	if (this->_isMoving == true && !this->collision(wall))
 	{
-		std::cout << "It's supposed to be moving!" << std::endl;
 		switch (this->_dir)
 		{
 			case LEFT :

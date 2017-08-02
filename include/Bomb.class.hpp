@@ -2,6 +2,7 @@
 
 #include <main.hpp>
 #include <AEntity.class.hpp>
+#include <Explosion.class.hpp>
 
 class Bomb : public AEntity
 {
@@ -18,6 +19,7 @@ class Bomb : public AEntity
 		void	modifyCurrTimer(int currTimer);
 		
 		int	&	getCurrTimer(void);
+		std::vector<Explosion> &	getExplosionVector();
 
 		sf::Texture texture__; //TEMP MOFO, DELETE IT!
 		sf::Sprite	sprite__; //ALSO TEMP!
@@ -27,4 +29,5 @@ class Bomb : public AEntity
 		int _currTimer; // Explode timer will be on default added just in case for chain bombs exploding
 		int _totalTimer;
 		int _range;
+		std::vector<Explosion>		_explosionVector;
 };

@@ -33,8 +33,10 @@ Bomb::~Bomb()
 void Bomb::explode()
 {
 	std::cout << "ALLAHU AKBAR" << std::endl;
+	this->_explosionVector.push_back(Explosion(this->_xPos, this->_yPos));
 }
 
 void	Bomb::modifyCurrTimer(int currTimer)		{this->_currTimer += currTimer;}
 int &	Bomb::getCurrTimer()					{return this->_currTimer;}
 void	Bomb::setBombRange(int range)		{this->_range = range;}
+std::vector<Explosion> &	Bomb::getExplosionVector()	{return (this->_explosionVector);}
