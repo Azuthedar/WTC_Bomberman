@@ -133,7 +133,7 @@ void	Engine::strSplit(std::string str, char delim)
 	}
 }
 
-std::vector<char> &	Engine::getMapValues()			{return (this->_mapValues);}
-Player & 					Engine::getPlayer() 	{return (this->_player);}
-std::vector<Wall> &			Engine::getWallVector()	{return (this->_walls_vector);}
-std::vector<Enemy> &		Engine::getEnemyVector(){return (this->_enemyVector);}
+std::vector<char> &			Engine::getMapValues()			{return (this->_mapValues);}
+Player & 					Engine::getPlayer() 			{return (this->_player);}
+std::vector<Wall> &			Engine::getWallVector()			{return (this->_walls_vector);}
+std::vector<Enemy> &		Engine::getEnemyVector()		{return (this->_enemyVector);}

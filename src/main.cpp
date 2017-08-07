@@ -5,7 +5,7 @@
 #include <Wall.class.hpp>
 #include <Bomb.class.hpp>
 
-void	__temp_render(Engine &engine, sf::RenderWindow &window, sf::Texture bombText, sf::Texture enemyText);
+void	__temp_render(Engine &engine, sf::RenderWindow &window, sf::Texture bombText, sf::Texture enemyText, sf::Texture explosionText);
 void	__load_assets(Engine &engine);
 
 
@@ -13,8 +13,10 @@ int main(int argc, char **argv)
 {
 	sf::Texture bombText;
 	sf::Texture enemyText;
+	sf::Texture explosionText;
 	bombText.loadFromFile("images/bomb.png");
 	enemyText.loadFromFile("images/enemy.png");
+	explosionText.loadFromFile("images/explosion.png");
 
 	if (argc == 1)
 	{
@@ -59,7 +61,7 @@ int main(int argc, char **argv)
 		}
 
 		//Do the temp renderz               DELETE THIS AFTERWARDS!!!! (DEBUG)
-		__temp_render(engine, window, bombText, enemyText);
+		__temp_render(engine, window, bombText, enemyText, explosionText);
 
 		//Call all render logic here!
 
@@ -81,7 +83,7 @@ void	__load_assets(Engine &engine)
 	}
 }
 
-void	__temp_render(Engine &engine, sf::RenderWindow &window, sf::Texture bombText, sf::Texture enemyText)
+void	__temp_render(Engine &engine, sf::RenderWindow &window, sf::Texture bombText, sf::Texture enemyText, sf::Texture explosionText)
 {
 	engine.getPlayer().sprite__.setPosition(engine.getPlayer().getXPos(), engine.getPlayer().getYPos());
 	engine.getPlayer().sprite__.setOrigin(0, 48);
@@ -107,6 +109,18 @@ void	__temp_render(Engine &engine, sf::RenderWindow &window, sf::Texture bombTex
 		engine.getEnemyVector()[i].sprite__.setPosition(engine.getEnemyVector()[i].getXPos(), engine.getEnemyVector()[i].getYPos());
 		engine.getEnemyVector()[i].sprite__.setOrigin(0, 48);
 		window.draw(engine.getEnemyVector()[i].sprite__);
+	}
+
+	//Render Explosions (This one's nested because each bomb has it's own vector of explosions, so itterate through each bomb, then through it's respective explosions vector)
+	for (size_t i = 0; i < engine.getPlayer().getBombVector().size(); i++)
+	{
+		for (size_t y = 0; y < engine.getPlayer().getBombVector()[i].getExplosionVector().size(); y++)
+		{
+			engine.getPlayer().getBombVector()[i].getExplosionVector()[y].sprite__.setTexture(explosionText);
+			engine.getPlayer().getBombVector()[i].getExplosionVector()[y].sprite__.setPosition(engine.getPlayer().getBombVector()[i].getExplosionVector()[y].getXPos(), engine.getPlayer().getBombVector()[i].getExplosionVector()[y].getYPos());
+			engine.getPlayer().getBombVector()[i].getExplosionVector()[y].sprite__.setOrigin(0, 48);
+			window.draw(engine.getPlayer().getBombVector()[i].getExplosionVector()[y].sprite__);
+		}
 	}
 
 	window.draw(engine.getPlayer().sprite__);
