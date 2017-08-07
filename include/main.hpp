@@ -8,6 +8,9 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 //#include <SDL2/SDL.h>
 
 enum eBlockType

@@ -46,18 +46,19 @@ void Engine::gameLogic()
 
 void		Engine::readMap(std::string fileName)
 {
+	struct stat st;
 	char delim = ' ';
 	std::ifstream file;
 	std::string strValues;	//To read in the values read in from the file
 
 	this->_mapValues.clear();
 	file.open(fileName);
-
-	if (!file)
+	lstat(fileName.c_str(), &st); //Checks the name, and passes it to the struct
+	if (!file || !S_ISREG(st.st_mode)) // Check that the file exists and that it's not a directory
 		std::cout << "No file found" << std::endl;	//Throw exception for invalid file!
-	if (!(fileName.substr(fileName.find_last_of(".") + 1) == "map"))
+	else if (!(fileName.substr(fileName.find_last_of(".") + 1) == "map"))
 		std::cout << "Invalid file format." << std::endl;	//Throw exception for invalid file format!
-	if (file.eof())
+	else if (file.eof())
 		std::cout << "Empty file." << std::endl;	//Throw exception for end of file found
 	
 	while (getline(file, strValues))
