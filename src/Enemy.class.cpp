@@ -54,14 +54,17 @@ void	Enemy::movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, AEnti
 	}
 	else 
 	{
-		if (player.getXPos() > this->_xPos)
-			this->_dir = RIGHT;
-		else if (player.getXPos() < this->_xPos)
-			this->_dir = LEFT;
-		else if (player.getYPos() < this->_yPos)
-			this->_dir = UP;
-		else if (player.getYPos() > this->_yPos)
-			this->_dir = DOWN;
+		if (this->_xPos % GRID_X == 0 && this->_yPos % GRID_Y == 0)
+		{
+			if (player.getXPos() > this->_xPos)
+				this->_dir = RIGHT;
+			else if (player.getXPos() < this->_xPos)
+				this->_dir = LEFT;
+			else if (player.getYPos() < this->_yPos)
+				this->_dir = UP;
+			else if (player.getYPos() > this->_yPos)
+				this->_dir = DOWN;
+		}
 	}
 	switch (this->_dir)
 	{
