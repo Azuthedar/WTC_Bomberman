@@ -11,7 +11,7 @@ class Enemy : public AEntity
 		Enemy(Enemy const & src);
 		~Enemy();
 
-		void		movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy);
+		void		movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, AEntity & player);
 		bool		collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy);
 		void		spawn();
 
@@ -36,4 +36,5 @@ class Enemy : public AEntity
 		int			_spawnY;
 		int			_speed;
 		bool		_isMoving;
+		bool		_followPlayer;
 };
