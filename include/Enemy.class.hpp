@@ -1,6 +1,7 @@
 #pragma once
 
 #include <AEntity.class.hpp>
+#include <Bomb.class.hpp>
 
 class Enemy : public AEntity
 {
@@ -11,8 +12,8 @@ class Enemy : public AEntity
 		Enemy(Enemy const & src);
 		~Enemy();
 
-		void		movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, AEntity & player);
-		bool		collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy);
+		void		movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, AEntity & player, std::vector<Bomb> & bombVector);
+		bool		collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std::vector<Bomb> & bombVector);
 		void		spawn();
 
 		void		modifyEnemyMvTicker();

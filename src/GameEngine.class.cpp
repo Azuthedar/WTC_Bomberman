@@ -31,7 +31,7 @@ void Engine::ticker()
 	this->_player.modifyPlaceBombTimer();
 	for (size_t i = 0; i < this->_enemyVector.size(); i++)
 	{
-		this->_enemyVector[i].movement(this->_walls_vector, this->_enemyVector, this->_player);
+		this->_enemyVector[i].movement(this->_walls_vector, this->_enemyVector, this->_player,this->_player.getBombVector());
 		this->_enemyVector[i].modifyEnemyMvTicker();
 	}
 }

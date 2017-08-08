@@ -34,7 +34,7 @@ Enemy::~Enemy()
 	return ;
 }
 
-void	Enemy::movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, AEntity & player)
+void	Enemy::movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, AEntity & player, std::vector<Bomb> & bombVector)
 {
 	if (abs(this->_xPos - player.getXPos()) <= 2 * GRID_X && abs(this->_yPos - player.getYPos()) <= 2 * GRID_Y)
 	{
@@ -85,7 +85,7 @@ void	Enemy::movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, AEnti
 			this->_goalY = this->_yPos + GRID_Y;
 			break ;
 	}
-	if (this->_isMoving == true && !this->collision(wall, enemy))
+	if (this->_isMoving == true && !this->collision(wall, enemy, bombVector))
 	{
 		switch (this->_dir)
 		{
@@ -109,7 +109,7 @@ void	Enemy::movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, AEnti
 	}
 }
 
-bool	Enemy::collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy)
+bool	Enemy::collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std::vector<Bomb> & bombVector)
 {
 	this->_isCollide = false;
 	for (size_t i = 0; i < wall.size(); i++)
@@ -152,6 +152,28 @@ bool	Enemy::collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy)
 				break ;
 			case DOWN:
 				if (this->_xPos == enemy[i].getXPos() && this->_yPos + GRID_Y == enemy[i].getYPos())
+					this->_isCollide = true;
+				break ;
+		}
+	}
+	for (size_t i = 0; i < bombVector.size(); i++)
+	{
+		switch (this->_dir) // Check each individual bomb position and compare it to its own
+		{
+			case LEFT:
+				if (this->_xPos - GRID_X == bombVector[i].getXPos() && this->_yPos == bombVector[i].getYPos())
+					this->_isCollide = true;
+				break ;
+			case RIGHT:
+				if (this->_xPos + GRID_X == bombVector[i].getXPos() && this->_yPos == bombVector[i].getYPos())
+					this->_isCollide = true;
+				break ;
+			case UP:
+				if (this->_xPos == bombVector[i].getXPos() && this->_yPos - GRID_Y == bombVector[i].getYPos())
+					this->_isCollide = true;
+				break ;
+			case DOWN:
+				if (this->_xPos == bombVector[i].getXPos() && this->_yPos + GRID_Y == bombVector[i].getYPos())
 					this->_isCollide = true;
 				break ;
 		}
