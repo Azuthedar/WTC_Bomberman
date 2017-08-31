@@ -12,6 +12,8 @@
         "vector": "cpp",
         "bitset": "cpp",
         "iterator": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "ios": "cpp",
+        "cmath": "cpp"
     }
 }
