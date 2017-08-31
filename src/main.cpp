@@ -1,99 +1,100 @@
-#include <main.hpp>
-#include <AEntity.class.hpp>
-#include <Player.class.hpp>
-#include <GameEngine.class.hpp>
-#include <Wall.class.hpp>
-#include <Bomb.class.hpp>
-
-void	__temp_render(Engine &engine, sf::RenderWindow &window, sf::Texture bombText, sf::Texture enemyText, sf::Texture explosionText);
-void	__load_assets(Engine &engine);
-
+#include "../include/main.hpp"
+#include "../include/AEntity.class.hpp"
+#include "../include/Player.class.hpp"
+#include "../include/GameEngine.class.hpp"
+#include "../include/Wall.class.hpp"
+#include "../include/Bomb.class.hpp"
+#include "../Graphics_lib/Inc/Render_Engine.hpp"
 
 int main(int argc, char **argv)
 {
-	sf::Texture bombText;
-	sf::Texture enemyText;
-	sf::Texture explosionText;
-	bombText.loadFromFile("images/bomb.png");
-	enemyText.loadFromFile("images/enemy.png");
-	explosionText.loadFromFile("images/explosion.png");
 
 	if (argc == 1)
 	{
 		return (0);
 	}
-	Engine engine;
-
-	engine.readMap(argv[1]);
-
-	//Load Map Into Respective Vectors
-	engine.buildMap();
-
-	sf::RenderWindow window(sf::VideoMode(MAP_X * GRID_X, MAP_Y * GRID_Y), "AtjarMan");
-
-	window.setVerticalSyncEnabled(true);
-	window.setFramerateLimit(FIXED_FPS);
-	__load_assets(engine);
-
-	while (window.isOpen())
+	try
 	{
-		sf::Event event;
-		while (window.pollEvent(event))
+
+		Engine engine;
+		Render_Engine render( "Atjar", 1280, 720);
+
+		engine.readFile(argv[1]);
+		engine.readMap();
+		//Load Map Into Respective Vectors
+		engine.buildMap();
+
+
+		render.init();
+
+		GLfloat lastFrame = 0.0f;
+		GLfloat deltaTime = 0.0f;
+		GLfloat current_time = 0.0f;
+
+		const double maxFPS = 60.0;
+		const double maxPeriod = 1.0 / maxFPS;
+
+		while ( !glfwWindowShouldClose( render.GetWindow() ) )
 		{
-			switch (event.type)
+			std::srand(time(NULL));
+			current_time = glfwGetTime();
+			deltaTime += current_time - lastFrame;
+			lastFrame = current_time;
+
+			if ( deltaTime >= maxPeriod )
 			{
-				case sf::Event::Closed :
-					window.close();
-					break ;
-				default :
-					break ;
+				engine.gameLogic( render.GetWindow(), deltaTime );
+				render.Create_Components( engine );
+				render._render( deltaTime );
+				deltaTime = 0.0f;
 			}
 		}
 
-		window.clear(sf::Color::Black); //Indicates Start Of Buffer
-		srand(time(NULL));
-		engine.gameLogic();
-
-		//Key Hooks (REMOVE DIZ SHIZ)
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		{
-			window.close();
-		}
-
-		//Do the temp renderz               DELETE THIS AFTERWARDS!!!! (DEBUG)
-		__temp_render(engine, window, bombText, enemyText, explosionText);
-
-		//Call all render logic here!
-
-		window.display(); //Switch Buffers
+	}
+	catch (std::exception & e)
+	{
+		std::cout << "Exception: " << e.what() << std::endl;
 	}
 
 	return (0);
 }
 
-void	__load_assets(Engine &engine)
+/*void	__load_assets(Engine &engine)
 {
 	engine.getPlayer().texture__.loadFromFile("images/slime.png");
 	engine.getWallVector()[0].texture__.loadFromFile("images/wall.png");
 	engine.getPlayer().sprite__.setTexture(engine.getPlayer().texture__);
+	engine.getWallVector()[1].texture__.loadFromFile("images/brokenwall.png");
 
 	for (size_t i = 0; i < engine.getWallVector().size(); i++)
 	{
-		engine.getWallVector()[i].sprite__.setTexture(engine.getWallVector()[0].texture__);
+		if (engine.getWallVector()[i].getBlockType() == SOLID_BLOCK)
+			engine.getWallVector()[i].sprite__.setTexture(engine.getWallVector()[0].texture__);
+		else if (engine.getWallVector()[i].getBlockType() == DESTRUCTIBLE_BLOCK || engine.getWallVector()[i].getBlockType() == GATE)
+			engine.getWallVector()[i].sprite__.setTexture(engine.getWallVector()[1].texture__);
 	}
 }
 
-void	__temp_render(Engine &engine, sf::RenderWindow &window, sf::Texture bombText, sf::Texture enemyText, sf::Texture explosionText)
+void	__temp_render(Engine &engine, sf::RenderWindow &window, sf::Texture bombText, sf::Texture enemyText, sf::Texture explosionText, sf::Texture lifePowerup, sf::Texture bombPowerup, sf::Texture rangePowerup, sf::Texture speedPowerup, sf::Texture gate)
 {
 	engine.getPlayer().sprite__.setPosition(engine.getPlayer().getXPos(), engine.getPlayer().getYPos());
 	engine.getPlayer().sprite__.setOrigin(0, 48);
+
+	if (engine.getGate().getExists())
+	{
+		engine.getGate().sprite__.setTexture(gate);
+		engine.getGate().sprite__.setPosition(engine.getGate().getXPos(), engine.getGate().getYPos());
+		engine.getGate().sprite__.setOrigin(0, 48);
+		window.draw(engine.getGate().sprite__);
+	}
 
 	for (size_t i = 0; i < engine.getPlayer().getBombVector().size(); i++)
 	{
 		engine.getPlayer().getBombVector()[i].sprite__.setTexture(bombText);
 		engine.getPlayer().getBombVector()[i].sprite__.setPosition(engine.getPlayer().getBombVector()[i].getXPos(), engine.getPlayer().getBombVector()[i].getYPos());
 		engine.getPlayer().getBombVector()[i].sprite__.setOrigin(0, 48);
-		window.draw(engine.getPlayer().getBombVector()[i].sprite__);
+		if (engine.getPlayer().getBombVector()[i].getExploded() == false)
+			window.draw(engine.getPlayer().getBombVector()[i].sprite__);
 	}
 
 	for (size_t i = 0; i < engine.getWallVector().size(); i++)
@@ -123,5 +124,41 @@ void	__temp_render(Engine &engine, sf::RenderWindow &window, sf::Texture bombTex
 		}
 	}
 
+	for (size_t i = 0; i < engine.getPowerupVector().size(); i++)
+	{
+		if (engine.getPowerupVector()[i].getTypePowerup() == POW_LIFE)
+		{
+			engine.getPowerupVector()[i].sprite__.setTexture(lifePowerup);
+			engine.getPowerupVector()[i].sprite__.setPosition(engine.getPowerupVector()[i].getXPos(), engine.getPowerupVector()[i].getYPos());
+			engine.getPowerupVector()[i].sprite__.setOrigin(0, 48);
+		}
+		else if (engine.getPowerupVector()[i].getTypePowerup() == POW_BOMBS)
+		{
+			engine.getPowerupVector()[i].sprite__.setTexture(bombPowerup);
+			engine.getPowerupVector()[i].sprite__.setPosition(engine.getPowerupVector()[i].getXPos(), engine.getPowerupVector()[i].getYPos());
+			engine.getPowerupVector()[i].sprite__.setOrigin(0, 48);
+		}
+		else if (engine.getPowerupVector()[i].getTypePowerup() == POW_SPEED)
+		{
+			engine.getPowerupVector()[i].sprite__.setTexture(speedPowerup);
+			engine.getPowerupVector()[i].sprite__.setPosition(engine.getPowerupVector()[i].getXPos(), engine.getPowerupVector()[i].getYPos());
+			engine.getPowerupVector()[i].sprite__.setOrigin(0, 48);
+
+		}
+		else if (engine.getPowerupVector()[i].getTypePowerup() == POW_RANGE)
+		{
+			engine.getPowerupVector()[i].sprite__.setTexture(rangePowerup);
+			engine.getPowerupVector()[i].sprite__.setPosition(engine.getPowerupVector()[i].getXPos(), engine.getPowerupVector()[i].getYPos());
+			engine.getPowerupVector()[i].sprite__.setOrigin(0, 48);
+		}
+		window.draw(engine.getPowerupVector()[i].sprite__);
+	}
+
 	window.draw(engine.getPlayer().sprite__);
+}*/
+
+
+float distance_to_point(float x1, float y1, float x2, float y2)
+{
+	return sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2));
 }

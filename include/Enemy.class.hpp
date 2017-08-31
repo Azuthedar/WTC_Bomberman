@@ -1,7 +1,8 @@
 #pragma once
 
-#include <AEntity.class.hpp>
-#include <Bomb.class.hpp>
+#include "AEntity.class.hpp"
+#include "Bomb.class.hpp"
+#include "main.hpp"
 
 class Enemy : public AEntity
 {
@@ -12,8 +13,8 @@ class Enemy : public AEntity
 		Enemy(Enemy const & src);
 		~Enemy();
 
-		void		movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, AEntity & player, std::vector<Bomb> & bombVector);
-		bool		collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std::vector<Bomb> & bombVector);
+		void		movement(std::vector<Wall> & wall, AEntity & player, std::vector<Bomb> & bombVector, GLfloat &delta_time );
+		bool		collision(std::vector<Wall> & wall, std::vector<Bomb> & bombVector);
 		void		spawn();
 
 		void		modifyEnemyMvTicker();
@@ -26,16 +27,23 @@ class Enemy : public AEntity
 		int &		getGoalX();
 		int &		getGoalY();
 
-		sf::Sprite	sprite__;
+		void SnapMovement( );
 
 	private:
 
+		bool collide_left;
+		bool collide_right;
+		bool collide_up;
+		bool collide_down;
+
+		bool change_dir;
+
 		int			_enemyMvTicker;
-		int			_goalX;
-		int			_goalY;
+		int			_goal_x;
+		int			_goal_y;
 		int			_spawnX;
 		int			_spawnY;
-		int			_speed;
+		float		_speed;
 		bool		_isMoving;
 		bool		_followPlayer;
 };

@@ -1,25 +1,23 @@
 #pragma once
 
-#include <main.hpp>
+#include "main.hpp"
 
 class Wall
 {
-    public:
+	public:
 
-        Wall();
-        Wall(int x, int y, eBlockType type);
-        Wall(Wall const & src);
-        ~Wall();
+		Wall();
+		Wall(int x, int y, eBlockType type);
+		Wall(Wall const & src);
+		~Wall();
 
-        int     getXPos() const;
-        int     getYPos() const;
+		int     	getXPos() const;
+		int     	getYPos() const;
+		eBlockType	&getBlockType();
 
-        sf::Texture texture__; //TEMP MOFO, DELETE IT!
-		sf::Sprite	sprite__; //ALSO TEMP!
+	private:
 
-    private:
-
-        int         _xPos;
-        int         _yPos;
-        eBlockType  _blockType; 
+		int         _xPos;
+		int         _yPos;
+		eBlockType  _blockType;
 };

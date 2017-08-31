@@ -1,32 +1,44 @@
-# OBJS specifies which files to compile as part of the project
-OBJS = src/*.cpp
+CLANG = clang++
 
-# CC specifies which compiler we're using
-CC = g++
+NAME = BomberMan
 
-# INCLUDE_PATHS specifies the additional include paths we'll need
-INCLUDE_PATHS = -I ~/.brew/Cellar/sfml/2.4.2/include -I include/
+CFLAGS =
 
-# LIBRARY_PATHS specifies the additional library paths we'll need
-LIBRARY_PATHS = -L ~/.brew/Cellar/sfml/2.4.2/lib -lsfml-graphics -lsfml-window -lsfml-system
+C++_TYPE = -std=c++11 -g -o3
 
-# COMPILER_FLAGS specifies the additional compilation options we're using
-# -w suppresses all warnings
-COMPILER_FLAGS = -Wall -Werror -Wextra
+INCLUDE_PATHS = -I ~/.brew/Cellar/glfw/3.2.1/include -I ~/.brew/Cellar/glew/2.1.0/include/ -I ~/.brew/include -I include/
 
-# LINKER_FLAGS specifies the libraries we're linking against
-# Cocoa, IOKit, and CoreVideo are needed for static GLFW3.
-LINKER_FLAGS = 
+LIBRARY_PATHS = -L ~/.brew/Cellar/glfw/3.2.1/lib/ -L ~/.brew/Cellar/glew/2.1.0/lib/
 
-# OBJ_NAME specifies the name of our exectuable
-OBJ_NAME = AtjarMan
+LINKER_FLAGS = -framework Cocoa -framework OpenGL -framework IOKit -framework CoreFoundation -framework CoreVideo -framework Carbon -lglfw -lGLEW
 
-#This is the target that compiles our executable
-all : $(OBJS)
-	$(CC) $(OBJS) $(INCLUDE_PATHS) $(LIBRARY_PATHS) $(COMPILER_FLAGS) $(LINKER_FLAGS) -o $(OBJ_NAME)
-	@echo "Please run the following command: export LD_LIBRARY_PATH=~/.brew/lib && ./$(OBJ_NAME)"
+TEXTURE = -L. libsoil2-debug.a
 
-clean :
-	rm -rf $(OBJ_NAME)
+HEADER = ./Graphics_lib/Inc/
+HEADER_TWO = ./include/
 
-re: clean all
+SRC_PATH = ./Graphics_lib/Src/
+SRC_TWO = ./src/
+
+SRC = $(SRC_TWO)Bomb.class.cpp $(SRC_TWO)Player.class.cpp $(SRC_TWO)Wall.class.cpp $(SRC_TWO)AEntity.class.cpp $(SRC_TWO)Gate.class.cpp $(SRC_TWO)Exception.class.cpp $(SRC_TWO)Powerup.class.cpp $(SRC_TWO)Enemy.class.cpp $(SRC_TWO)Explosion.class.cpp $(SRC_TWO)GameEngine.class.cpp $(SRC_TWO)main.cpp $(SRC_PATH)Render_Engine.cpp $(SRC_PATH)Model.cpp $(SRC_PATH)Component.cpp $(SRC_PATH)Render.cpp $(SRC_PATH)Data_Loader.cpp $(SRC_PATH)Shaders.cpp $(SRC_PATH)Camera.cpp $(SRC_PATH)Text_Model.cpp $(SRC_PATH)Light_class.cpp $(SRC_PATH)Model_Text.cpp $(SRC_PATH)Object_Loader.cpp
+
+OBJ = $(SRC:.cpp=.o)
+
+%.o: %.cpp
+	$(CLANG) -c $(INCLUDE_PATHS) $(C++_TYPE) $< -o $@
+
+all: $(NAME)
+
+$(NAME): $(OBJ) $(HEADER)
+	$(CLANG) $(CFLAGS) $(C++_TYPE) -Qunused-arguments -lGL -lGLU -lGLEW -lglut -lglfw -o $(NAME) $(OBJ) $(TEXTURE)
+
+mac: $(OBJ) $(HEADER_TWO) $(HEADER)
+	$(CLANG) $(C++_TYPE) $(INCLUDE_PATHS) $(LINKER_FLAGS) -o $(NAME) $(OBJ) $(TEXTURE) $(LIBRARY_PATHS)
+
+clean:
+	rm -rf $(OBJ)
+
+fclean: clean
+	rm -rf $(NAME)
+
+re: fclean all

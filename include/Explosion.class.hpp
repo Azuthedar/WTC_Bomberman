@@ -1,7 +1,7 @@
 #pragma once
 
-#include <main.hpp>
-#include <AEntity.class.hpp>
+#include "main.hpp"
+#include "AEntity.class.hpp"
 
 class Explosion : public AEntity
 {
@@ -12,8 +12,7 @@ class Explosion : public AEntity
 		Explosion(Explosion const & src);
 		~Explosion();
 
-		sf::Texture texture__; //TEMP MOFO, DELETE IT!
-		sf::Sprite	sprite__; //ALSO TEMP!
+		void		collisions(std::vector<Wall> & wallVector);
 
 	private:
 };

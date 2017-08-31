@@ -1,0 +1,6 @@
+repo: d2eeb7b72bc37fff0cc1ee0b43601a609b122545
+node: 3492823d05aa6973912eb1c73bc679bbdfdc4540
+branch: default
+latesttag: release-1.11
+latesttagdistance: 3
+changessincelatesttag: 3

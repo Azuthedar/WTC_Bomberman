@@ -1,4 +1,4 @@
-#include <Wall.class.hpp>
+#include "../include/Wall.class.hpp"
 
 Wall::Wall()
 {
@@ -25,5 +25,6 @@ Wall::~Wall()
 	return ;
 }
 
-int		Wall::getXPos() const			{return (this->_xPos);}
-int		Wall::getYPos() const			{return (this->_yPos);}
+int		    Wall::getXPos() const			{return (this->_xPos);}
+int		    Wall::getYPos() const			{return (this->_yPos);}
+eBlockType  &Wall::getBlockType()            {return (this->_blockType);}

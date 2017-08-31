@@ -6,12 +6,14 @@
 #include <fstream>
 #include <vector>
 #include <string>
-#include <SFML/Graphics.hpp>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
-//#include <SDL2/SDL.h>
+#include "../Graphics_lib/Inc/Base.hpp"
+#include "Exception.class.hpp"
+
+float	distance_to_point(float x1, float y1, float x2, float y2);
 
 enum eBlockType
 {
@@ -63,8 +65,13 @@ enum eScore
 
 #define GRID_X 48
 #define GRID_Y 48
-#define MAP_X 16
-#define MAP_Y 16
+#define MAP_X 18
+#define MAP_Y 18
 #define FIXED_FPS 60
 #define BOMB_COOLDOWN 20
-#define ENEMY_MOVE_TICK 4 * FIXED_FPS 
+#define ENEMY_MOVE_TICK 4 * FIXED_FPS
+#define MAP_TRANSITION_TIME 2 * FIXED_FPS
+#define MAP_DURATION_TIME 2 * 60 * FIXED_FPS
+#define BOMB_TIME 3 * FIXED_FPS
+#define BOMB_TIME 3 * FIXED_FPS
+#define DROP_PERCENTAGE 100

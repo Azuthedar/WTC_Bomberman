@@ -1,7 +1,7 @@
 #pragma once
 
-#include <main.hpp>
-#include <Wall.class.hpp>
+#include "main.hpp"
+#include "Wall.class.hpp"
 
 class AEntity
 {
@@ -10,7 +10,7 @@ class AEntity
 		AEntity();
 		AEntity(AEntity const & src);
 		~AEntity();
-		
+
 		/* Setters */
 		virtual void			setDir(eMovementDir dir);
 		virtual void			setXPos(int xPos);
@@ -19,15 +19,15 @@ class AEntity
 
 		/* Getters */
 		virtual eMovementDir	getDir() const;
-		virtual int				getXPos() const;
-		virtual int				getYPos() const;
+		virtual float				getXPos() const;
+		virtual float				getYPos() const;
 		virtual bool			getIsDead() const;
 
 	protected:
 
 		eMovementDir		_dir;
-		int					_xPos;
-		int					_yPos;
+		float				_xPos;
+		float				_yPos;
 		bool				_isCollide;
 		bool				_isDead;
 

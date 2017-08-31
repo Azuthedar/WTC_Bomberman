@@ -1,9 +1,12 @@
-#include <Player.class.hpp>
+#include "../include/Player.class.hpp"
 
 Player::Player()
 {
-	this->_xPos = (GRID_X * MAP_X) / 2;
-	this->_yPos = (GRID_Y * MAP_Y) / 2;
+	this->_xPos = (MAP_X) / 2;
+	this->_yPos = (MAP_Y) / 2;
+
+	this->_goal_x = 0;
+	this->_goal_y = 0;
 
 	this->init();
 	return ;
@@ -13,6 +16,7 @@ Player::Player(int x, int y)
 {
 	this->_xPos = x;
 	this->_yPos = y;
+
 	this->init();
 	return ;
 }
@@ -35,103 +39,110 @@ void	Player::init()
 	this->_score = 0;
 
 	this->_isCollide = false;
+
+	this->collide_left = false;
+	this->collide_right = false;
+	this->collide_up = false;
+	this->collide_down = false;
+
+	this->change_dir = true;
+
 	this->_pickupPowerup = false;
 	this->_isMoving = false;
+	this->_hitOnce = false;
 
 
-	this->_speed = 2;
+	this->_totalSpeed = 6.0f;
+	this->_speed = this->_totalSpeed;
 	this->_bombRange = 1;
-	this->_bombs = 3;
+	this->_bombs = 10;
 
-/* 	this->_bomb[0].setBombAmount(this->_totalBombAmount);
-	this->_bomb[0].setBombRange(this->_bombRange ); */
+	this->_placeBombTimer = 0;
 
-	this->_keyMoveDown = sf::Keyboard::Down;
-	this->_keyMoveRight = sf::Keyboard::Right;
-	this->_keyMoveUp = sf::Keyboard::Up;
-	this->_keyMoveLeft = sf::Keyboard::Left;
-	this->_keyPlaceBomb = sf::Keyboard::Space;
+	//this->_keyMoveDown = sf::Keyboard::Down;
+	//this->_keyMoveRight = sf::Keyboard::Right;
+	//this->_keyMoveUp = sf::Keyboard::Up;
+	//this->_keyMoveLeft = sf::Keyboard::Left;
+	//this->_keyPlaceBomb = sf::Keyboard::Space;
 	return ;
 }
 
-void	Player::input()
+void	Player::input( GLFWwindow *window )
 {
-	if (this->_isMoving == false)
+	if ( this->_isMoving == false )
 	{
-		if (sf::Keyboard::isKeyPressed(this->_keyMoveRight))
+		if (glfwGetKey( window, GLFW_KEY_A))
 		{
-			this->_dir = RIGHT;
 			this->_isMoving = true;
-			this->_goal_x = this->_xPos + GRID_X;
-			this->_goal_y = this->_yPos;
+			this->_hitOnce = false;
+
+			if (this->change_dir == true)
+			{
+				if ( this->_xPos + 1 < MAP_X )
+					this->_goal_x = this->_xPos + 1;
+				this->_goal_y = this->_yPos;
+				this->change_dir = false;
+				this->_dir = LEFT;
+			}
 		}
-		if (sf::Keyboard::isKeyPressed(this->_keyMoveLeft))
+		if (glfwGetKey( window, GLFW_KEY_D))
 		{
-			this->_dir = LEFT;
 			this->_isMoving = true;
-			this->_goal_x = this->_xPos - GRID_X;
-			this->_goal_y = this->_yPos;
+			this->_hitOnce = false;
+
+			if (this->change_dir == true)
+			{
+				if ( this->_xPos - 1 > 0 )
+					this->_goal_x = this->_xPos - 1;
+				this->_goal_y = this->_yPos;
+				this->change_dir = false;
+				this->_dir = RIGHT;
+			}
 		}
-		if (sf::Keyboard::isKeyPressed(this->_keyMoveUp))
+		if (glfwGetKey( window, GLFW_KEY_S))
 		{
-			this->_dir = UP;
 			this->_isMoving = true;
-			this->_goal_y = this->_yPos - GRID_Y;
-			this->_goal_x = this->_xPos;
+			this->_hitOnce = false;
+
+			if (this->change_dir == true)
+			{
+				if ( this->_yPos - 1 > 0 )
+					this->_goal_y = this->_yPos - 1;
+				this->_goal_x = this->_xPos;
+				this->change_dir = false;
+				this->_dir = DOWN;
+			}
 		}
-		if (sf::Keyboard::isKeyPressed(this->_keyMoveDown))
+		if (glfwGetKey( window, GLFW_KEY_W))
 		{
-			this->_dir = DOWN;
 			this->_isMoving = true;
-			this->_goal_y = this->_yPos + GRID_X;
-			this->_goal_x = this->_xPos;
+			this->_hitOnce = false;
+
+			if (this->change_dir == true)
+			{
+				if ( this->_yPos + 1 < MAP_Y )
+					this->_goal_y = this->_yPos + 1;
+				this->_goal_x = this->_xPos;
+				this->change_dir = false;
+				this->_dir = UP;
+			}
 		}
 		// TEMP
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::SemiColon))
-		{
-			this->_typePowerup = POW_SPEED;
-			this->_pickupPowerup = true;
-		}
 	}
 
-	if (sf::Keyboard::isKeyPressed(this->_keyPlaceBomb))
+	if (glfwGetKey( window, GLFW_KEY_SPACE))
 	{
-		if (this->_bombs > 0 && this->_placeBombTimer <= 0)
+		if ( this->_bombs > 0 && this->_placeBombTimer <= 0 )
 		{
 			int		place_x = 0; //Where it should place the bombs
 			int		place_y = 0; //Where it should place the bombs
 
-			switch (this->_dir)
-			{
-				case	RIGHT :
-					if (abs(this->_goal_x - this->_xPos) > GRID_X / 2)
-						place_x = this->_goal_x - GRID_X;
-					else
-						place_x = this->_goal_x;
-					place_y = this->_yPos;
-					break ;
-				case	LEFT :
-					if (abs(this->_goal_x - this->_xPos) > GRID_X / 2)
-						place_x = this->_goal_x + GRID_X;
-					else
-						place_x = this->_goal_x;
-					place_y = this->_yPos;
-					break ;
-				case	UP:
-					if (abs(this->_goal_y - this->_yPos) > GRID_Y / 2)
-						place_y = this->_goal_y + GRID_Y;
-					else
-						place_y = this->_goal_y;
-					place_x = this->_xPos;
-					break ;
-				case	DOWN:
-					if (abs(this->_goal_y - this->_yPos) > GRID_Y / 2)
-						place_y = this->_goal_y - GRID_Y;
-					else
-						place_y = this->_goal_y;
-					place_x = this->_xPos;
-					break ;
-			}
+			std::cout << "PLECE THESE BOOMBS " << std::endl;
+
+			SnapMovement();
+
+			place_x = this->_xPos;
+			place_y = this->_yPos;
 
 			if (!this->isBombThere(place_x, place_y))
 			{
@@ -143,7 +154,50 @@ void	Player::input()
 	}
 }
 
-void	Player::movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy)
+void 	Player::SnapMovement( )
+{
+
+	if ( this->_goal_x != 0 && this->_goal_y != 0)
+	{
+	    if (this->_dir == RIGHT)
+	    {
+	        if (this->_xPos <= (float)this->_goal_x)
+	        {
+	            this->_xPos = this->_goal_x;
+	        	this->change_dir = true;
+	        }
+	    }
+	    else if (this->_dir == LEFT)
+	    {
+	        if (this->_xPos >= (float)this->_goal_x)
+	        {
+				this->_xPos = this->_goal_x;
+	            this->change_dir = true;
+	        }
+	    }
+	    else if (this->_dir == UP)
+	    {
+	        if (this->_yPos >= (float)this->_goal_y)
+	        {
+	            this->_yPos = this->_goal_y;
+	            this->change_dir = true;
+	        }
+	    }
+	    else if (this->_dir == DOWN)
+	    {
+	        if (this->_yPos <= (float)this->_goal_y)
+	        {
+	            this->_yPos = this->_goal_y;
+	            this->change_dir = true;
+	        }
+	    }
+	}
+
+	//std::cout << " INSNAP xPOS " <<  this->_xPos << " CHENGE DIIRII " << this->change_dir << " INSNAP yPOS " << this->_yPos << std::endl;
+
+}
+
+void	Player::movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std::vector<Powerup> & powerupVector, GLfloat &deltaTime )
 {
 	/*
 	*	X = 0 Y = 0 is at the top left of the screen
@@ -152,55 +206,92 @@ void	Player::movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy)
 	*	If the DIR is LEFT		the xPos needs to decrease to imitate moving left
 	*	If the DIR is RIGHT		the xPos needs to increase to imitate moving right
 	*/
-	if (!this->collision(wall, enemy))
+
+	//std::cout << "DElta comp " << this->_xPos << " " << this->_speed << " " << deltaTime << std::endl;
+
+	this->collision(wall, enemy, powerupVector);
+	//std::cout << "DIIIRIRIIRIR " << this->_dir << std::endl;
+	if (this->_isMoving == true)
 	{
-		if (this->_isMoving == true)
+		switch (this->_dir)
 		{
-			switch (this->_dir)
-			{
-				case LEFT :
-					this->_xPos -= this->_speed;
-					break ;
-				case UP :
-					this->_yPos -= this->_speed;
-					break ;
-				case DOWN :
-					this->_yPos += this->_speed;
-					break ;
-				case RIGHT :
-					this->_xPos += this->_speed;
-					break ;
-			}
+
+			case LEFT :
+				if (!this->collide_left)
+					this->_xPos += this->_speed * deltaTime;
+				break ;
+			case UP :
+				if (!this->collide_up)
+					this->_yPos += this->_speed * deltaTime;
+				break ;
+			case DOWN :
+				if (!this->collide_down)
+					this->_yPos -= this->_speed * deltaTime;
+				break ;
+			case RIGHT :
+				if (!this->collide_right)
+					this->_xPos -= this->_speed * deltaTime;
+				break ;
 		}
-		
 	}
-	//	GRID BASED MOVEMENT
-	if (this->_xPos % GRID_X == 0 && this->_yPos % GRID_Y == 0)
-		this->_isMoving = false;
+
+	//std::cout << "COOOLISION UP " << this->collide_up << " COOOLISION down " << this->collide_down << " COOOLISION Left " << this->collide_left << " COOOLISION right " << this->collide_right << std::endl;
+
+	//std::cout << " BEF X GEEELO " <<  this->_goal_x << " BEF Y GEELLO " << this->_goal_y << std::endl;
+	//std::cout << " BEF X POS GEEELO " <<  this->_xPos << " BEF Y POS GEELLO " << this->_yPos << std::endl;
+	SnapMovement();
+	//std::cout << " AF xPOS " <<  this->_xPos << " AF yPOS " << this->_yPos << std::endl;
+
+	this->_isMoving = false;
+
 }
 
-bool	Player::collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy)
+bool	Player::collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std::vector<Powerup> & powerupVector)
 {
 	this->_isCollide = false;
+	this->collide_left = false;
+	this->collide_right = false;
+	this->collide_up = false;
+	this->collide_down = false;
+
+
 	for (size_t i = 0; i < wall.size(); i++)
 	{
+		//std::cout << " xPOS " <<  this->_xPos << " yPOS " << this->_yPos << std::endl;
+		//::cout << " WallPOS " <<  wall[i].getXPos() << " WallPOS " << wall[i].getYPos() << std::endl;
+
 		switch (this->_dir) // ADD IN COLLISIONS FOR BOMBS
 		{
 			case LEFT:
-				if (this->_xPos - GRID_X == wall[i].getXPos() && this->_yPos == wall[i].getYPos())
-					this->_isCollide = true;
+				if ( this->_goal_x == wall[i].getXPos() && this->_goal_y == wall[i].getYPos())
+				{
+					//std::cout << "COLOIDI L" << std::endl;
+					this->collide_left = true;
+					this->change_dir = true;
+				}
 				break ;
 			case RIGHT:
-				if (this->_xPos + GRID_X == wall[i].getXPos() && this->_yPos == wall[i].getYPos())
-					this->_isCollide = true;
+				if ( this->_goal_x == wall[i].getXPos() && this->_goal_y == wall[i].getYPos())
+				{
+					//std::cout << "COLOIDI R" << std::endl;
+					this->collide_right = true;
+					this->change_dir = true;
+				}
 				break ;
 			case UP:
-				if (this->_xPos == wall[i].getXPos() && this->_yPos - GRID_Y == wall[i].getYPos())
-					this->_isCollide = true;
+				if ( this->_goal_x == wall[i].getXPos() && this->_goal_y == wall[i].getYPos())
+				{
+					//std::cout << "COLOIDI U" << std::endl;
+					this->collide_up = true;
+					this->change_dir = true;
+				}
 				break ;
 			case DOWN:
-				if (this->_xPos == wall[i].getXPos() && this->_yPos + GRID_Y == wall[i].getYPos())
-					this->_isCollide = true;
+				if ( this->_goal_x == wall[i].getXPos() && this->_goal_y == wall[i].getYPos())
+				{
+					this->collide_down = true;
+					this->change_dir = true;
+				}
 				break ;
 		}
 	}
@@ -210,43 +301,72 @@ bool	Player::collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy)
 		switch (this->_dir) // ADD IN COLLISIONS FOR BOMBS
 		{
 			case LEFT:
-				if (this->_xPos - GRID_X == this->_bomb[i].getXPos() && this->_yPos == this->_bomb[i].getYPos())
-					this->_isCollide = true;
+				if ( this->_goal_x == this->_bomb[i].getXPos() && this->_goal_y == this->_bomb[i].getYPos())
+				{
+					//std::cout << "COLOIDI L" << std::endl;
+					this->collide_left = true;
+					this->change_dir = true;
+				}
 				break ;
 			case RIGHT:
-				if (this->_xPos + GRID_X == this->_bomb[i].getXPos() && this->_yPos == this->_bomb[i].getYPos())
-					this->_isCollide = true;
+				if ( this->_goal_x == this->_bomb[i].getXPos() && this->_goal_y == this->_bomb[i].getYPos())
+				{
+					//std::cout << "COLOIDI R" << std::endl;
+					this->collide_right = true;
+					this->change_dir = true;
+				}
 				break ;
 			case UP:
-				if (this->_xPos == this->_bomb[i].getXPos() && this->_yPos - GRID_Y == this->_bomb[i].getYPos())
-					this->_isCollide = true;
+				if ( this->_goal_x == this->_bomb[i].getXPos() && this->_goal_y == this->_bomb[i].getYPos())
+				{
+					//std::cout << "COLOIDI U" << std::endl;
+					this->collide_up = true;
+					this->change_dir = true;
+				}
 				break ;
 			case DOWN:
-				if (this->_xPos == this->_bomb[i].getXPos() && this->_yPos + GRID_Y == this->_bomb[i].getYPos())
-					this->_isCollide = true;
+				if ( this->_goal_x == this->_bomb[i].getXPos() && this->_goal_y == this->_bomb[i].getYPos())
+				{
+					this->collide_down = true;
+					this->change_dir = true;
+				}
 				break ;
 		}
 	}
+
+	for (size_t i = 0; i < powerupVector.size(); i++) // Checks player position and powerup vector
+	{
+		if (this->_goal_x == powerupVector[i].getXPos() && this->_goal_y == powerupVector[i].getYPos())
+		{
+			this->_pickupPowerup = true;
+			this->pickupPowerUps(powerupVector[i].getTypePowerup());
+			powerupVector.erase(powerupVector.begin() + i); // Erase from array after picked up
+		}
+
+	}
+	if (!this->_hitOnce) // Check if the player has already been hit by the explosion
+	{
+		for (size_t i = 0; i < this->_bomb.size(); i++)
+		{
+			for (size_t j = 0; j < this->_bomb[i].getExplosionVector().size(); j++)
+			{
+				if (distance_to_point( this->_xPos, this->_yPos, this->_bomb[i].getExplosionVector()[j].getXPos(), this->_bomb[i].getExplosionVector()[j].getYPos()) < 1 )
+				{
+					this->_hitOnce = true;
+					this->_isDead = true;
+					this->respawn();
+				}
+			}
+		}
+	}
+
 	for (size_t i = 0; i < enemy.size(); i++)
 	{
-		switch (this->_dir)
+		if (distance_to_point(this->_xPos, this->_yPos, enemy[i].getXPos(), enemy[i].getYPos()) < 1)
 		{
-			case LEFT :
-				if ((this->_xPos - GRID_X == enemy[i].getXPos() || this->_xPos == enemy[i].getXPos()) && this->_yPos == enemy[i].getYPos())
-					this->respawn();
-				break ;
-			case RIGHT :
-				if ((this->_xPos + GRID_X == enemy[i].getXPos() || this->_xPos == enemy[i].getXPos()) && this->_yPos == enemy[i].getYPos())
-					this->respawn();
-				break ;
-			case UP :
-				if (this->_xPos == enemy[i].getXPos() && (this->_yPos - GRID_Y == enemy[i].getYPos() || this->_yPos == enemy[i].getYPos()))
-					this->respawn();
-				break ;
-			case DOWN :
-				if (this->_xPos == enemy[i].getXPos() && (this->_yPos + GRID_Y == enemy[i].getYPos() || this->_yPos == enemy[i].getYPos()))
-					this->respawn();
-				break ;
+			this->respawn();
+			this->_isDead = true;
+			enemy[i].spawn();
 		}
 	}
 
@@ -280,28 +400,51 @@ void	Player::respawn()
 	}
 	this->_xPos = this->_spawnX;
 	this->_yPos = this->_spawnY;
+	this->_goal_x = this->_spawnX;
+	this->_goal_y = this->_spawnY;
+
 	this->_isDead = false;
 }
 
-void	Player::pickupPowerUps()
+void	Player::pickupPowerUps(ePowerups type)
 {
 	if (this->_pickupPowerup)
 	{
-		switch (this->_typePowerup)
+		static int speedLevel = 1;
+		static int rangeLevel = 1;
+		static int bombLevel = 1;
+		switch (type)
 		{
 			case POW_RANGE:
-				this->_bombRange += 1;
-				for (size_t i = 0; i < this->_bomb.size(); i++)
-					this->_bomb[i].setBombRange(this->_bombRange);
+				if (rangeLevel < 10)
+				{
+					this->_bombRange += 1;
+					for (size_t i = 0; i < this->_bomb.size(); i++)
+						this->_bomb[i].setBombRange(this->_bombRange);
+					rangeLevel++;
+				}
+
 				break ;
 			case POW_BOMBS:
-				this->_bombs++;
+				if (bombLevel < 10)
+				{
+					this->_bombs++;
+					bombLevel++;
+				}
 				break ;
 			case POW_SPEED:
-				this->_speed += 1;
+				if (speedLevel < 10)
+				{
+					do
+					{
+						this->_speed += 0.1f;
+					}	while (std::remainderf(MAP_X, this->_speed) < 0.0);
+					speedLevel++;
+				}
 				break ;
 			case POW_LIFE:
 				this->_lives += 1;
+				break ;
 		}
 		this->_pickupPowerup = false;
 	}
@@ -322,10 +465,20 @@ void	Player::evalScore()
 void	Player::modifyBombs()					{this->_bombs += 1;}
 void	Player::modifyPlaceBombTimer()			{this->_placeBombTimer -= 1;}
 
-void	Player::setSpawnX(int spawnX)			{this->_spawnX = spawnX;}
-void	Player::setSpawnY(int spawnY)			{this->_spawnY = spawnY;}
+void	Player::setSpawnX(int spawnX)
+{
+	this->_spawnX = spawnX;
+	this->_xPos = spawnX;
+}
+
+void	Player::setSpawnY(int spawnY)
+{
+	this->_spawnY = spawnY;
+	this->_yPos = spawnY;
+}
 
 int	&	Player::getBombs()						{return (this->_bombs);}
 int &	Player::getSpawnX()						{return (this->_spawnX);}
 int &	Player::getSpawnY()						{return (this->_spawnY);}
+int &	Player::getBombRange()					{return (this->_bombRange);}
 std::vector<Bomb> &		Player::getBombVector() {return (this->_bomb);}
