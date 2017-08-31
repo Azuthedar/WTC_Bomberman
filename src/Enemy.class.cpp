@@ -105,22 +105,22 @@ void	Enemy::movement(std::vector<Wall> & wall, AEntity & player, std::vector<Ene
 				case LEFT :
 						this->_xPos += this->_speed * delta_time;
 						if (this->_xPos > this->_goal_x)
-						this->_xPos = this->_goal_x;
+							this->_xPos = this->_goal_x;
 					break ;
 				case UP :
 						this->_yPos += this->_speed * delta_time;
 						if (this->_yPos > this->_goal_y)
-						this->_yPos = this->_goal_y;
+							this->_yPos = this->_goal_y;
 					break ;
 				case DOWN :
 						this->_yPos -= this->_speed * delta_time;
 						if (this->_yPos < this->_goal_y)
-						this->_yPos = this->_goal_y;
+							this->_yPos = this->_goal_y;
 					break ;
 				case RIGHT :
 						this->_xPos -= this->_speed * delta_time;
 						if (this->_xPos < this->_goal_x)
-						this->_xPos = this->_goal_x;
+							this->_xPos = this->_goal_x;
 					break ;
 			}
 		}
@@ -151,7 +151,7 @@ bool	Enemy::collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std:
 					this->_isCollide = true;
 				break ;
 			case DOWN:
-				if ( this->_goal_x == wall[i].getXPos() && this->_xPos - 1 == wall[i].getYPos())
+				if ( this->_goal_x == wall[i].getXPos() && this->_yPos - 1 == wall[i].getYPos())
 					this->_isCollide = true;
 				break ;
 		}
@@ -166,7 +166,7 @@ bool	Enemy::collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std:
 					this->_isCollide = true;
 				break ;
 			case RIGHT:
-				if ( this->_yPos - 1== enemy[i].getXPos() && this->_goal_y == enemy[i].getYPos())
+				if ( this->_yPos - 1 == enemy[i].getXPos() && this->_goal_y == enemy[i].getYPos())
 					this->_isCollide = true;
 				break ;
 			case UP:

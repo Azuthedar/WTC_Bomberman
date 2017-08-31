@@ -150,17 +150,17 @@ void	Player::movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std:
 				case UP :
 						this->_yPos += this->_speed * deltaTime;
 						if (this->_yPos > this->_goal_y)
-						this->_yPos = this->_goal_y;
+							this->_yPos = this->_goal_y;
 					break ;
 				case DOWN :
 						this->_yPos -= this->_speed * deltaTime;
 						if (this->_yPos < this->_goal_y)
-						this->_yPos = this->_goal_y;
+							this->_yPos = this->_goal_y;
 					break ;
 				case RIGHT :
 						this->_xPos -= this->_speed * deltaTime;
 						if (this->_xPos < this->_goal_x)
-						this->_xPos = this->_goal_x;
+							this->_xPos = this->_goal_x;
 					break ;
 			}
 		}
