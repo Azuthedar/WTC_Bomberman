@@ -62,9 +62,6 @@ enum eScore
 	TIME_LEFT
 };
 
-
-#define GRID_X 48
-#define GRID_Y 48
 #define MAP_X 18
 #define MAP_Y 18
 #define FIXED_FPS 60

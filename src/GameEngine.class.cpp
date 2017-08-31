@@ -43,7 +43,7 @@ void Engine::ticker( GLfloat &delta_time  )
 	{
 		if (this->_enemyVector[i].getIsDead())
 			this->_enemyVector.erase(this->_enemyVector.begin() + i);
-		this->_enemyVector[i].movement(this->_walls_vector, this->_player,this->_player.getBombVector(), delta_time );
+		this->_enemyVector[i].movement(this->_walls_vector, this->_player, this->_enemyVector, this->_player.getBombVector(), delta_time );
 		this->_enemyVector[i].modifyEnemyMvTicker();
 	}
 	this->_mapDuration--;

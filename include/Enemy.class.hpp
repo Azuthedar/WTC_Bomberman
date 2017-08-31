@@ -13,8 +13,8 @@ class Enemy : public AEntity
 		Enemy(Enemy const & src);
 		~Enemy();
 
-		void		movement(std::vector<Wall> & wall, AEntity & player, std::vector<Bomb> & bombVector, GLfloat &delta_time );
-		bool		collision(std::vector<Wall> & wall, std::vector<Bomb> & bombVector);
+		void		movement(std::vector<Wall> & wall, AEntity & player, std::vector<Enemy> & enemy, std::vector<Bomb> & bombVector, GLfloat &delta_time );
+		bool		collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std::vector<Bomb> & bombVector);
 		void		spawn();
 
 		void		modifyEnemyMvTicker();
@@ -30,13 +30,6 @@ class Enemy : public AEntity
 		void SnapMovement( );
 
 	private:
-
-		bool collide_left;
-		bool collide_right;
-		bool collide_up;
-		bool collide_down;
-
-		bool change_dir;
 
 		int			_enemyMvTicker;
 		int			_goal_x;

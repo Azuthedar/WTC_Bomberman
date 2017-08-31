@@ -43,7 +43,7 @@ void Bomb::explode(int bombRange, std::vector<Wall> & wallVector, std::vector<Po
 	//Left
 	for (int i = 0; i < bombRange; i++)
 	{
-		temp_x -= GRID_X;
+		temp_x -= 1;
 		bool coll = false;
 		for (size_t t = 0; t < wallVector.size(); t++)
 		{
@@ -79,7 +79,7 @@ void Bomb::explode(int bombRange, std::vector<Wall> & wallVector, std::vector<Po
 	//Right
 	for (int i = 0; i < bombRange; i++)
 	{
-		temp_x += GRID_X;
+		temp_x += 1;
 		bool coll = false;
 		for (size_t t = 0; t < wallVector.size(); t++)
 		{
@@ -115,7 +115,7 @@ void Bomb::explode(int bombRange, std::vector<Wall> & wallVector, std::vector<Po
 	//Down
 	for (int i = 0; i < bombRange; i++)
 	{
-		temp_y += GRID_Y;
+		temp_y += 1;
 		bool coll = false;
 		for (size_t t = 0; t < wallVector.size(); t++)
 		{
@@ -151,7 +151,7 @@ void Bomb::explode(int bombRange, std::vector<Wall> & wallVector, std::vector<Po
 	//Up
 	for (int i = 0; i < bombRange; i++)
 	{
-		temp_y -= GRID_Y;
+		temp_y -= 1;
 		bool coll = false;
 		for (size_t t = 0; t < wallVector.size(); t++)
 		{

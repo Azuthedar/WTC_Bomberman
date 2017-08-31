@@ -21,6 +21,7 @@ class Player : public AEntity
 		void	input( GLFWwindow *window );
 		void	movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std::vector<Powerup> & powerupVector, GLfloat &deltaTime );
 		bool	collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std::vector<Powerup> & powerupVector);
+		void	checkBombPlacement(int place_x, int place_y);
 		bool	isBombThere(int x, int y);
 		void	respawn();
 		void	pickupPowerUps(ePowerups type);

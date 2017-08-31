@@ -2,8 +2,8 @@
 
 Gate::Gate()
 {
-	this->_xPos = GRID_X * -1;
-	this->_yPos = GRID_Y * -1;
+	this->_xPos = -1;
+	this->_yPos = -1;
 	this->_exists = false;
 	return ;
 }
