@@ -3,8 +3,6 @@ cmake_minimum_required (VERSION 3.5)
 set(PROJECT_NAME "Bomberman")
 project (${PROJECT_NAME})
 
-set(glew_USE_STATIC_LIBS ON)
-
 set(CMAKE_CXX_FLAGS "-std=c++11")
 set(CMAKE_BUILD_TYPE Debug)
 set(PLATFORM ${CMAKE_SYSTEM_NAME})
@@ -16,10 +14,10 @@ set(BREW_INCLUDE ${BREW}/include)
 set(BREW_LIB ${BREW}/lib)
 
 #GLEW
-set(GLEW_INCLUDE "~/.brew/opt/glew/include/")
-set(GLEW_LIB_DIR "~/.brew/opt/glew/lib/"})
-set(GLEW_LIB ${GLEW_LIB_DIR}libGLEW.2.0.dylib)
-set(GLEW_NAME GLEW.2.0)
+set(GLEW_INCLUDE "~/.brew/include/")
+set(GLEW_LIB_DIR "~/.brew/lib/")
+set(GLEW_LIB ${GLEW_LIB_DIR}libGLEW.a)
+set(GLEW_NAME GLEW)
 message ("Found glew library at ${GLEW_LIB}")
 
 #SOIL

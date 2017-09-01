@@ -1,8 +1,8 @@
-# Install script for directory: /nfs/zfs-student-6/users/kchetty/Desktop/this_shit
+# Install script for directory: /nfs/zfs-student-6/users/jbuys/Desktop/Projects/C++/Bomberman
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/nfs/zfs-student-6/users/kchetty/.brew")
+  set(CMAKE_INSTALL_PREFIX "/nfs/zfs-student-6/users/jbuys/.brew")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -35,5 +35,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/nfs/zfs-student-6/users/kchetty/Desktop/this_shit/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/nfs/zfs-student-6/users/jbuys/Desktop/Projects/C++/Bomberman/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
