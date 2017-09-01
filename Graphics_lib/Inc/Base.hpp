@@ -12,7 +12,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "../SpartanJ-soil2-3492823d05aa/src/SOIL2/SOIL2.h"
+#include "../Soil/SOIL2/SOIL2.h"
 
 
 struct Image_data
