@@ -13,6 +13,7 @@ Bomb::Bomb(int x, int y)
 {
 	this->_totalTimer = BOMB_TIME;
 	this->_currTimer = this->_totalTimer;
+	this->_exploded = false;
 	this->_xPos = x;
 	this->_yPos = y;
 	this->_range = 1;
@@ -33,7 +34,8 @@ Bomb::~Bomb()
 
 void Bomb::explode(int bombRange, std::vector<Wall> & wallVector, std::vector<Powerup> & powerupVector, Gate & gate)
 {
-
+	std::cout << "BombX: " << this->_xPos << std::endl;
+	std::cout << "BombT: " << this->_yPos << std::endl;
 	std::cout << "ALLAHU AKBAR" << std::endl;
 	this->_exploded = true;
 	this->_explosionVector.push_back(Explosion(this->_xPos, this->_yPos)); //Push Explosion On Default Spot

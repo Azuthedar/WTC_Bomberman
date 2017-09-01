@@ -48,7 +48,7 @@ void	Player::init()
 	this->_totalSpeed = 6.0f;
 	this->_speed = this->_totalSpeed;
 	this->_bombRange = 1;
-	this->_bombs = 10;
+	this->_bombs = 5;
 
 	this->_placeBombTimer = 0;
 
@@ -109,7 +109,8 @@ void	Player::input( GLFWwindow *window )
 			int		place_x = this->_xPos; //Where it should place the bombs
 			int		place_y = this->_yPos; //Where it should place the bombs
 
-			checkBombPlacement(place_x, place_y);
+			if (this->_isMoving)
+				checkBombPlacement(place_x, place_y);
 
 			if (!this->isBombThere(place_x, place_y))
 			{
@@ -164,10 +165,10 @@ void	Player::movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std:
 					break ;
 			}
 		}
+		SnapMovement();
+		if (this->collision(wall, enemy, powerupVector))
+			this->_isMoving = false;
 	}
-	SnapMovement();
-	if (this->collision(wall, enemy, powerupVector))
-		this->_isMoving = false;
 }
 
 bool	Player::collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std::vector<Powerup> & powerupVector)
@@ -259,36 +260,24 @@ bool	Player::collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std
 	return (this->_isCollide);
 }
 
-void	Player::checkBombPlacement(int place_x, int place_y)
+void	Player::checkBombPlacement(int & place_x, int & place_y)
 {
 	switch (this->_dir)
 	{
 		case	RIGHT :
-			if (abs(this->_goal_x - this->_xPos) > 1 / 2)
-				place_x = this->_goal_x - 1;
-			else
-				place_x = this->_goal_x;
+			place_x = this->_goal_x + 1;
 			place_y = this->_yPos;
 			break ;
 		case	LEFT :
-			if (abs(this->_goal_x - this->_xPos) > 1 / 2)
-				place_x = this->_goal_x + 1;
-			else
-				place_x = this->_goal_x;
+			place_x = this->_goal_x - 1;
 			place_y = this->_yPos;
 			break ;
 		case	UP:
-			if (abs(this->_goal_y - this->_yPos) > 1 / 2)
-				place_y = this->_goal_y + 1;
-			else
-				place_y = this->_goal_y;
+			place_y = this->_goal_y - 1;
 			place_x = this->_xPos;
 			break ;
 		case	DOWN:
-			if (abs(this->_goal_y - this->_yPos) > 1 / 2)
-				place_y = this->_goal_y - 1;
-			else
-				place_y = this->_goal_y;
+			place_y = this->_goal_y + 1;
 			place_x = this->_xPos;
 			break ;
 	}
@@ -329,6 +318,7 @@ void	Player::respawn()
 
 void	Player::pickupPowerUps(ePowerups type)
 {
+	std::cout << "Picked up powerup" << std::endl;
 	if (this->_pickupPowerup)
 	{
 		static int speedLevel = 1;

@@ -26,12 +26,15 @@ void Engine::ticker( GLfloat &delta_time  )
 	for (size_t i = 0; i < this->_player.getBombVector().size(); i++)
 	{
 		this->_player.getBombVector()[i].modifyCurrTimer(-1);
+		if (this->_player.getBombVector()[i].getCurrTimer() <= 0)
+			std::cout << "CurrExploded: " << this->_player.getBombVector()[i].getExploded() << std::endl;
 		if (this->_player.getBombVector()[i].getCurrTimer() <= 0 && this->_player.getBombVector()[i].getExploded() == false)
 		{
+			std::cout << "Must call explode" << std::endl;
 			this->_player.getBombVector()[i].explode(this->_player.getBombRange(), this->_walls_vector, this->_powerupVector, this->_gate);
 			this->_player.modifyBombs();
 		}
-		if (this->_player.getBombVector()[i].getCurrTimer() <= -1 * FIXED_FPS)
+		if (this->_player.getBombVector()[i].getCurrTimer() <= -1 * delta_time)
 		{
 			this->_player.getBombVector().erase(this->_player.getBombVector().begin() + i);
 		}
