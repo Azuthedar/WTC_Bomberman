@@ -17,6 +17,8 @@ stdlib.h
 -
 istream
 -
+sstream
+-
 fstream
 -
 GLFW/glfw3.h
@@ -29,6 +31,12 @@ glm/gtc/type_ptr.hpp
 -
 ../Soil/SOIL2/SOIL2.h
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Soil/SOIL2/SOIL2.h
+assimp/Importer.hpp
+-
+assimp/scene.h
+-
+assimp/postprocess.h
+-
 
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Camera.hpp
 Base.hpp
@@ -37,40 +45,36 @@ Base.hpp
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Component.hpp
 Base.hpp
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Base.hpp
-Text_Model.hpp
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Text_Model.hpp
+Model.hpp
+/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Model.hpp
 
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Data_Loader.hpp
 Base.hpp
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Base.hpp
-Model.hpp
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Model.hpp
 
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Light_class.hpp
 Base.hpp
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Base.hpp
 
+/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Mesh.hpp
+Base.hpp
+/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Base.hpp
+Shaders.hpp
+/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Shaders.hpp
+
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Model.hpp
 Base.hpp
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Base.hpp
-
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Model_Text.hpp
-Base.hpp
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Base.hpp
-
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Object_Loader.hpp
-Base.hpp
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Base.hpp
-Model.hpp
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Model.hpp
 Data_Loader.hpp
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Data_Loader.hpp
+Mesh.hpp
+/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Mesh.hpp
+Shaders.hpp
+/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Shaders.hpp
 
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Render.hpp
 Base.hpp
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Base.hpp
-Text_Model.hpp
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Text_Model.hpp
 Shaders.hpp
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Shaders.hpp
 Light_class.hpp
@@ -81,20 +85,12 @@ Component.hpp
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Render_Engine.hpp
 Base.hpp
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Base.hpp
-Data_Loader.hpp
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Data_Loader.hpp
 Render.hpp
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Render.hpp
 Model.hpp
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Model.hpp
 Shaders.hpp
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Shaders.hpp
-Model_Text.hpp
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Model_Text.hpp
-Text_Model.hpp
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Text_Model.hpp
-Object_Loader.hpp
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Object_Loader.hpp
 Camera.hpp
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Camera.hpp
 Component.hpp
@@ -107,14 +103,6 @@ Light_class.hpp
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Shaders.hpp
 Base.hpp
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Base.hpp
-
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Text_Model.hpp
-Base.hpp
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Base.hpp
-Model.hpp
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Model.hpp
-Model_Text.hpp
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Model_Text.hpp
 
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Soil/SOIL2/SOIL2.h
 
@@ -134,18 +122,6 @@ Model_Text.hpp
 ../Inc/Light_class.hpp
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Light_class.hpp
 
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Model.cpp
-../Inc/Model.hpp
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Model.hpp
-
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Model_Text.cpp
-../Inc/Model_Text.hpp
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Model_Text.hpp
-
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Object_Loader.cpp
-../Inc/Object_Loader.hpp
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Object_Loader.hpp
-
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Render.cpp
 ../Inc/Render.hpp
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Render.hpp
@@ -157,10 +133,6 @@ Model_Text.hpp
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Shaders.cpp
 ../Inc/Shaders.hpp
 /home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Shaders.hpp
-
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Text_Model.cpp
-../Inc/Text_Model.hpp
-/home/kchetty/Desktop/SHEEEP/Graphics_lib/Inc/Text_Model.hpp
 
 /home/kchetty/Desktop/SHEEEP/Sound_lib/include/SoundEngine.hpp
 iostream

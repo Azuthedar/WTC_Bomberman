@@ -36,33 +36,15 @@ GLFWwindow *Render_Engine::GetWindow() const
 
 void Render_Engine::load_dependencies()
 {
-    this->models.push_back( obj_load.Load_Object("./Graphics_lib/Object_files/dwarf.obj") );
-    this->models.push_back( obj_load.Load_Object("./Graphics_lib/Object_files/cube.obj") );
-    this->models.push_back( obj_load.Load_Object("./Graphics_lib/Object_files/robot_EnemyHead.obj") );
-    this->models.push_back( obj_load.Load_Object("./Graphics_lib/Object_files/bug_EnemyHead.obj") );
-    this->models.push_back( obj_load.Load_Object("./Graphics_lib/Object_files/bomb.obj") );
-
-    this->textures.push_back( new Model_Text( load.load_texture("./Graphics_lib/Textures/Wooden_Crate_Texture.png") )  );
-    this->textures.push_back( new Model_Text( load.load_texture("./Graphics_lib/Textures/crate.png") )  );
-    this->textures.push_back( new Model_Text( load.load_texture("./Graphics_lib/Textures/gras.png") ) );
-    this->textures.push_back( new Model_Text( load.load_texture("./Graphics_lib/Textures/BombTexture.png") ) );
-    this->textures.push_back( new Model_Text( load.load_texture("./Graphics_lib/Textures/BugTexture.png") ) );
-    this->textures.push_back( new Model_Text( load.load_texture("./Graphics_lib/Textures/robotTexture.png") ) );
-
-    this->text_model.push_back( new Text_Model( *this->models[0], *this->textures[0] ) );
-    this->text_model.push_back( new Text_Model( *this->models[1], *this->textures[0] ) );
-    this->text_model.push_back( new Text_Model( *this->models[1], *this->textures[2] ) );
-    this->text_model.push_back( new Text_Model( *this->models[2], *this->textures[5] ) );
-    this->text_model.push_back( new Text_Model( *this->models[3], *this->textures[4] ) );
-    this->text_model.push_back( new Text_Model( *this->models[4], *this->textures[3] ) );
-
+    this->models.push_back( new Model("Graphics_lib/tmp/nanosuit.obj") );
 }
 
 void Render_Engine::Create_Components( Engine &engine )
 {
-    this->components.push_back( new Component( "Player" , *this->text_model[0], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( engine.getPlayer().getXPos() * 2 , 0.0f, engine.getPlayer().getYPos() * 2 ))  );
+    //this->components.push_back( new Component( "Player" , *this->models[0], 0.0f, 0.0f, 0.0f, 0.0f, 0.5f, glm::vec3( engine.getPlayer().getXPos() * 2 , 0.0f, engine.getPlayer().getYPos() * 2 ))  );
+    this->components.push_back( new Component( "Player" , *this->models[0], 0.0f, 0.0f, 0.0f, 0.0f, 0.5f, glm::vec3( 0.0f , 0.0f, 0.0f ))  );
 
-    for (size_t z = 1; z < MAP_Y + 1; z++)
+    /*for (size_t z = 1; z < MAP_Y + 1; z++)
     {
         for (size_t x = 0; x < MAP_X; x++)
         {

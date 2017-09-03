@@ -22,7 +22,7 @@ GLfloat Component::GetDegres() const
     return (this->Degres);
 }
 
-Component::Component( const std::string &tmp_Name, Text_Model const &tmp_model, GLfloat const &Degres, GLfloat const &rot_x, GLfloat const &rot_y, GLfloat const &rot_z, GLfloat const &tmp_scale, glm::vec3 const &tmp_pos )
+Component::Component( const std::string &tmp_Name, Model const &tmp_model, GLfloat const &Degres, GLfloat const &rot_x, GLfloat const &rot_y, GLfloat const &rot_z, GLfloat const &tmp_scale, glm::vec3 const &tmp_pos )
 {
     this->model = tmp_model;
     this->Rotation_x = rot_x;
@@ -62,7 +62,7 @@ void Component::dec_rotation( GLfloat const &tmp_x, GLfloat const &tmp_y, GLfloa
     this->Rotation_z -= tmp_z;
 }
 
-void Component::SetTextModel( Text_Model const &tmp_model )
+void Component::SetModel( Model const &tmp_model )
 {
     this->model = tmp_model;
 }
@@ -92,7 +92,7 @@ void Component::SetPosition( glm::vec3 const &tmp_position )
     this->position = tmp_position;
 }
 
-Text_Model Component::GetTextModel( ) const
+Model Component::GetModel( ) const
 {
     return (this->model);
 }

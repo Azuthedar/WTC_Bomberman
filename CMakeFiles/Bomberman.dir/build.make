@@ -369,33 +369,9 @@ CMakeFiles/Bomberman.dir/Graphics_lib/Src/Data_Loader.cpp.o.provides: CMakeFiles
 CMakeFiles/Bomberman.dir/Graphics_lib/Src/Data_Loader.cpp.o.provides.build: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Data_Loader.cpp.o
 
 
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.o: CMakeFiles/Bomberman.dir/flags.make
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.o: Graphics_lib/Src/Model_Text.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kchetty/Desktop/SHEEEP/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.o -c /home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Model_Text.cpp
-
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Model_Text.cpp > CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.i
-
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Model_Text.cpp -o CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.s
-
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.o.requires:
-
-.PHONY : CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.o.requires
-
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.o.provides: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.o.requires
-	$(MAKE) -f CMakeFiles/Bomberman.dir/build.make CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.o.provides.build
-.PHONY : CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.o.provides
-
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.o.provides.build: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.o
-
-
 CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render.cpp.o: CMakeFiles/Bomberman.dir/flags.make
 CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render.cpp.o: Graphics_lib/Src/Render.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kchetty/Desktop/SHEEEP/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kchetty/Desktop/SHEEEP/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render.cpp.o -c /home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Render.cpp
 
 CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render.cpp.i: cmake_force
@@ -419,7 +395,7 @@ CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render.cpp.o.provides.build: CMakeFile
 
 CMakeFiles/Bomberman.dir/Graphics_lib/Src/Shaders.cpp.o: CMakeFiles/Bomberman.dir/flags.make
 CMakeFiles/Bomberman.dir/Graphics_lib/Src/Shaders.cpp.o: Graphics_lib/Src/Shaders.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kchetty/Desktop/SHEEEP/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/Bomberman.dir/Graphics_lib/Src/Shaders.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kchetty/Desktop/SHEEEP/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/Bomberman.dir/Graphics_lib/Src/Shaders.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Bomberman.dir/Graphics_lib/Src/Shaders.cpp.o -c /home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Shaders.cpp
 
 CMakeFiles/Bomberman.dir/Graphics_lib/Src/Shaders.cpp.i: cmake_force
@@ -443,7 +419,7 @@ CMakeFiles/Bomberman.dir/Graphics_lib/Src/Shaders.cpp.o.provides.build: CMakeFil
 
 CMakeFiles/Bomberman.dir/Graphics_lib/Src/Component.cpp.o: CMakeFiles/Bomberman.dir/flags.make
 CMakeFiles/Bomberman.dir/Graphics_lib/Src/Component.cpp.o: Graphics_lib/Src/Component.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kchetty/Desktop/SHEEEP/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/Bomberman.dir/Graphics_lib/Src/Component.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kchetty/Desktop/SHEEEP/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/Bomberman.dir/Graphics_lib/Src/Component.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Bomberman.dir/Graphics_lib/Src/Component.cpp.o -c /home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Component.cpp
 
 CMakeFiles/Bomberman.dir/Graphics_lib/Src/Component.cpp.i: cmake_force
@@ -467,7 +443,7 @@ CMakeFiles/Bomberman.dir/Graphics_lib/Src/Component.cpp.o.provides.build: CMakeF
 
 CMakeFiles/Bomberman.dir/Graphics_lib/Src/Light_class.cpp.o: CMakeFiles/Bomberman.dir/flags.make
 CMakeFiles/Bomberman.dir/Graphics_lib/Src/Light_class.cpp.o: Graphics_lib/Src/Light_class.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kchetty/Desktop/SHEEEP/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/Bomberman.dir/Graphics_lib/Src/Light_class.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kchetty/Desktop/SHEEEP/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/Bomberman.dir/Graphics_lib/Src/Light_class.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Bomberman.dir/Graphics_lib/Src/Light_class.cpp.o -c /home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Light_class.cpp
 
 CMakeFiles/Bomberman.dir/Graphics_lib/Src/Light_class.cpp.i: cmake_force
@@ -489,57 +465,9 @@ CMakeFiles/Bomberman.dir/Graphics_lib/Src/Light_class.cpp.o.provides: CMakeFiles
 CMakeFiles/Bomberman.dir/Graphics_lib/Src/Light_class.cpp.o.provides.build: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Light_class.cpp.o
 
 
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.o: CMakeFiles/Bomberman.dir/flags.make
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.o: Graphics_lib/Src/Model.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kchetty/Desktop/SHEEEP/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.o -c /home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Model.cpp
-
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Model.cpp > CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.i
-
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Model.cpp -o CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.s
-
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.o.requires:
-
-.PHONY : CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.o.requires
-
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.o.provides: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.o.requires
-	$(MAKE) -f CMakeFiles/Bomberman.dir/build.make CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.o.provides.build
-.PHONY : CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.o.provides
-
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.o.provides.build: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.o
-
-
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.o: CMakeFiles/Bomberman.dir/flags.make
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.o: Graphics_lib/Src/Object_Loader.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kchetty/Desktop/SHEEEP/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.o -c /home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Object_Loader.cpp
-
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Object_Loader.cpp > CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.i
-
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Object_Loader.cpp -o CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.s
-
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.o.requires:
-
-.PHONY : CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.o.requires
-
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.o.provides: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.o.requires
-	$(MAKE) -f CMakeFiles/Bomberman.dir/build.make CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.o.provides.build
-.PHONY : CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.o.provides
-
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.o.provides.build: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.o
-
-
 CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render_Engine.cpp.o: CMakeFiles/Bomberman.dir/flags.make
 CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render_Engine.cpp.o: Graphics_lib/Src/Render_Engine.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kchetty/Desktop/SHEEEP/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render_Engine.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kchetty/Desktop/SHEEEP/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render_Engine.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render_Engine.cpp.o -c /home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Render_Engine.cpp
 
 CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render_Engine.cpp.i: cmake_force
@@ -561,33 +489,9 @@ CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render_Engine.cpp.o.provides: CMakeFil
 CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render_Engine.cpp.o.provides.build: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render_Engine.cpp.o
 
 
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.o: CMakeFiles/Bomberman.dir/flags.make
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.o: Graphics_lib/Src/Text_Model.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kchetty/Desktop/SHEEEP/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.o -c /home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Text_Model.cpp
-
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Text_Model.cpp > CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.i
-
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kchetty/Desktop/SHEEEP/Graphics_lib/Src/Text_Model.cpp -o CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.s
-
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.o.requires:
-
-.PHONY : CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.o.requires
-
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.o.provides: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.o.requires
-	$(MAKE) -f CMakeFiles/Bomberman.dir/build.make CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.o.provides.build
-.PHONY : CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.o.provides
-
-CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.o.provides.build: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.o
-
-
 CMakeFiles/Bomberman.dir/Sound_lib/src/SoundEngine.cpp.o: CMakeFiles/Bomberman.dir/flags.make
 CMakeFiles/Bomberman.dir/Sound_lib/src/SoundEngine.cpp.o: Sound_lib/src/SoundEngine.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kchetty/Desktop/SHEEEP/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/Bomberman.dir/Sound_lib/src/SoundEngine.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kchetty/Desktop/SHEEEP/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/Bomberman.dir/Sound_lib/src/SoundEngine.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Bomberman.dir/Sound_lib/src/SoundEngine.cpp.o -c /home/kchetty/Desktop/SHEEEP/Sound_lib/src/SoundEngine.cpp
 
 CMakeFiles/Bomberman.dir/Sound_lib/src/SoundEngine.cpp.i: cmake_force
@@ -624,15 +528,11 @@ Bomberman_OBJECTS = \
 "CMakeFiles/Bomberman.dir/src/Wall.class.cpp.o" \
 "CMakeFiles/Bomberman.dir/Graphics_lib/Src/Camera.cpp.o" \
 "CMakeFiles/Bomberman.dir/Graphics_lib/Src/Data_Loader.cpp.o" \
-"CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.o" \
 "CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render.cpp.o" \
 "CMakeFiles/Bomberman.dir/Graphics_lib/Src/Shaders.cpp.o" \
 "CMakeFiles/Bomberman.dir/Graphics_lib/Src/Component.cpp.o" \
 "CMakeFiles/Bomberman.dir/Graphics_lib/Src/Light_class.cpp.o" \
-"CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.o" \
-"CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.o" \
 "CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render_Engine.cpp.o" \
-"CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.o" \
 "CMakeFiles/Bomberman.dir/Sound_lib/src/SoundEngine.cpp.o"
 
 # External object files for target Bomberman
@@ -651,21 +551,17 @@ Bomberman: CMakeFiles/Bomberman.dir/src/Player.class.cpp.o
 Bomberman: CMakeFiles/Bomberman.dir/src/Wall.class.cpp.o
 Bomberman: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Camera.cpp.o
 Bomberman: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Data_Loader.cpp.o
-Bomberman: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.o
 Bomberman: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render.cpp.o
 Bomberman: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Shaders.cpp.o
 Bomberman: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Component.cpp.o
 Bomberman: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Light_class.cpp.o
-Bomberman: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.o
-Bomberman: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.o
 Bomberman: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render_Engine.cpp.o
-Bomberman: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.o
 Bomberman: CMakeFiles/Bomberman.dir/Sound_lib/src/SoundEngine.cpp.o
 Bomberman: CMakeFiles/Bomberman.dir/build.make
 Bomberman: /usr/lib/x86_64-linux-gnu/libGL.so
 Bomberman: /usr/lib/x86_64-linux-gnu/libopenal.so
 Bomberman: CMakeFiles/Bomberman.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/kchetty/Desktop/SHEEEP/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Linking CXX executable Bomberman"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/kchetty/Desktop/SHEEEP/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Linking CXX executable Bomberman"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Bomberman.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -686,15 +582,11 @@ CMakeFiles/Bomberman.dir/requires: CMakeFiles/Bomberman.dir/src/Player.class.cpp
 CMakeFiles/Bomberman.dir/requires: CMakeFiles/Bomberman.dir/src/Wall.class.cpp.o.requires
 CMakeFiles/Bomberman.dir/requires: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Camera.cpp.o.requires
 CMakeFiles/Bomberman.dir/requires: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Data_Loader.cpp.o.requires
-CMakeFiles/Bomberman.dir/requires: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.o.requires
 CMakeFiles/Bomberman.dir/requires: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render.cpp.o.requires
 CMakeFiles/Bomberman.dir/requires: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Shaders.cpp.o.requires
 CMakeFiles/Bomberman.dir/requires: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Component.cpp.o.requires
 CMakeFiles/Bomberman.dir/requires: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Light_class.cpp.o.requires
-CMakeFiles/Bomberman.dir/requires: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.o.requires
-CMakeFiles/Bomberman.dir/requires: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.o.requires
 CMakeFiles/Bomberman.dir/requires: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Render_Engine.cpp.o.requires
-CMakeFiles/Bomberman.dir/requires: CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.o.requires
 CMakeFiles/Bomberman.dir/requires: CMakeFiles/Bomberman.dir/Sound_lib/src/SoundEngine.cpp.o.requires
 
 .PHONY : CMakeFiles/Bomberman.dir/requires

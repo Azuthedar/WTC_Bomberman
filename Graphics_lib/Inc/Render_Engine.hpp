@@ -1,13 +1,9 @@
 #pragma once
 
 #include "Base.hpp"
-#include "Data_Loader.hpp"
 #include "Render.hpp"
 #include "Model.hpp"
 #include "Shaders.hpp"
-#include "Model_Text.hpp"
-#include "Text_Model.hpp"
-#include "Object_Loader.hpp"
 #include "Camera.hpp"
 #include "Component.hpp"
 #include "Light_class.hpp"
@@ -33,14 +29,10 @@ class Render_Engine
         static GLfloat deltaTime;
         static GLfloat lastFrame;
 
-        Data_Loader load;
-        Object_Loader obj_load;
         Render draw;
         Shaders shader;
 
         std::vector < Model * > models;
-        std::vector < Model_Text * > textures;
-        std::vector < Text_Model * > text_model;
         std::vector < Component * > components;
 
         Render_Engine();

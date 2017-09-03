@@ -58,7 +58,7 @@ if (UNIX)
     set(ASSIMP_INC ${LIB_INLCUDE})
     set(ASSIMP_LIB_DIR ${LIB_LIBRARY})
     #set(ASSIMP_LIB ${ASSIMP_LIB_DIR}/libassimp.4.0.1.dylib)
-    set(ASSIMP_NAME ASSMIP)
+    set(ASSIMP_NAME assimp)
     message ("Found ASSIMP library at ${ASSIMP_LIB}")
 
     #GLFW
@@ -135,8 +135,6 @@ else()
             CEGUISILLYImageCodec.dylib)
     set(CEGUI_LIB_PATH  ${CMAKE_CURRENT_SOURCE_DIR}/libs/darwin/cegui)
 
-    message("Current Source Directory ${CEGUI_LIB_PATH}")
-
     #GLM
     set(GLM_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/libs/glm)
 
@@ -146,10 +144,12 @@ endif()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${CMAKE_CURRENT_SOURCE_DIR})
 
+message("Current Source Directory ${CMAKE_CURRENT_SOURCE_DIR}")
+
 #SOURCE_FILES
-set(SRC "src/")
-set(GRAPHICS_SRC "./Graphics_lib/Src/")
-set(SOUND_LIB "./Sound_lib/src/")
+set(SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/ )
+set(GRAPHICS_SRC ${CMAKE_CURRENT_SOURCE_DIR}/Graphics_lib/Src/ )
+set(SOUND_LIB ${CMAKE_CURRENT_SOURCE_DIR}/Sound_lib/src/ )
 
 set(SOURCE
         ${SRC}AEntity.class.cpp
@@ -166,15 +166,11 @@ set(SOURCE
 
         ${GRAPHICS_SRC}Camera.cpp
         ${GRAPHICS_SRC}Data_Loader.cpp
-        ${GRAPHICS_SRC}Model_Text.cpp
         ${GRAPHICS_SRC}Render.cpp
         ${GRAPHICS_SRC}Shaders.cpp
         ${GRAPHICS_SRC}Component.cpp
         ${GRAPHICS_SRC}Light_class.cpp
-        ${GRAPHICS_SRC}Model.cpp
-        ${GRAPHICS_SRC}Object_Loader.cpp
         ${GRAPHICS_SRC}Render_Engine.cpp
-        ${GRAPHICS_SRC}Text_Model.cpp
 
         ${SOUND_LIB}SoundEngine.cpp
         )
@@ -200,16 +196,13 @@ set(HEADERS
         ${GRAPHICS_INCLUDE}Base.hpp
         ${GRAPHICS_INCLUDE}Component.hpp
         ${GRAPHICS_INCLUDE}Light_class.hpp
-        ${GRAPHICS_INCLUDE}Model_Text.hpp
         ${GRAPHICS_INCLUDE}Render.hpp
         ${GRAPHICS_INCLUDE}Shaders.hpp
         ${GRAPHICS_INCLUDE}Camera.hpp
-        ${GRAPHICS_INCLUDE}Data_Loader.hpp
         ${GRAPHICS_INCLUDE}Model.hpp
-        ${GRAPHICS_INCLUDE}Object_Loader.hpp
+        ${GRAPHICS_INCLUDE}Data_Loader.hpp
+        ${GRAPHICS_INCLUDE}Mesh.hpp
         ${GRAPHICS_INCLUDE}Render_Engine.hpp
-        ${GRAPHICS_INCLUDE}Text_Model.hpp
-        ${GRAPHICS_INCLUDE}platform.hpp
 
         ${SOUND_INC}SoundEngine.hpp
         )
@@ -217,10 +210,10 @@ set(HEADERS
 
 set(BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
-include_directories(${INCLUDE} ${GRAPHICS_INCLUDE} ${ALUT_INCLUDE} ${SOIL_INCLUDE} ${OPENAL_INCLUDE} ${THREADS_INCLUDE} ${GLEW_INCLUDE} ${GLM_INCLUDE} ${OPENGL_INCLUDE} ${GLFW_INCLUDE})
+include_directories(${INCLUDE} ${GRAPHICS_INCLUDE} ${ASSIMP_INC} ${ALUT_INCLUDE} ${SOIL_INCLUDE} ${OPENAL_INCLUDE} ${THREADS_INCLUDE} ${GLEW_INCLUDE} ${GLM_INCLUDE} ${OPENGL_INCLUDE} ${GLFW_INCLUDE})
 
-link_directories(${GLFW_LIB_PATH} ${SOIL_LIB_DIR} ${ALUT_LIB_DIR} ${THREADS_LIB_DIR} ${GLEW_LIB_DIR} ${CEGUI_LIB_PATH})
+link_directories(${GLFW_LIB_PATH} ${SOIL_LIB_DIR} ${ASSIMP_LIB_DIR} ${ALUT_LIB_DIR} ${THREADS_LIB_DIR} ${GLEW_LIB_DIR} ${CEGUI_LIB_PATH})
 
 add_executable(${PROJECT_NAME} ${SOURCE} ${HEADERS})
 
-target_link_libraries(${PROJECT_NAME} ${FRAMEWORK_COCOA} ${THREADS_NAME} ${OPENGL_gl_LIBRARY} ${GLEW_NAME} ${OPENAL_LIBRARY} ${SOIL_NAME} ${ALUT_NAME} ${CEGUI_LIBS_DYNAMIC} ${GLFW_NAME})
+target_link_libraries(${PROJECT_NAME} ${FRAMEWORK_COCOA} ${ASSIMP_NAME} ${THREADS_NAME} ${OPENGL_gl_LIBRARY} ${GLEW_NAME} ${OPENAL_LIBRARY} ${SOIL_NAME} ${ALUT_NAME} ${CEGUI_LIBS_DYNAMIC} ${GLFW_NAME})

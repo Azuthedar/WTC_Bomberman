@@ -7,7 +7,7 @@ in vec3 toCameraVector;
 
 out vec4 colour;
 
-uniform sampler2D Texture_;
+uniform sampler2D texture_diffuse;
 uniform vec3 light_colour;
 uniform float shine_damper;
 uniform float reflection;
@@ -30,5 +30,5 @@ void main( )
 	float damp_factor = pow( specular_factor, shine_damper );
 	vec3 final_specular = damp_factor * reflection * light_colour;
 
-	colour = vec4( diffuse, 1.0f)  * texture( Texture_ , textures ) + vec4( final_specular, 1.0f );
+	colour = vec4( diffuse, 1.0f)  * texture( texture_diffuse , textures ) + vec4( final_specular, 1.0f );
 }

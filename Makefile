@@ -231,87 +231,6 @@ Graphics_lib/Src/Light_class.cpp.s:
 	$(MAKE) -f CMakeFiles/Bomberman.dir/build.make CMakeFiles/Bomberman.dir/Graphics_lib/Src/Light_class.cpp.s
 .PHONY : Graphics_lib/Src/Light_class.cpp.s
 
-Graphics_lib/Src/Model.o: Graphics_lib/Src/Model.cpp.o
-
-.PHONY : Graphics_lib/Src/Model.o
-
-# target to build an object file
-Graphics_lib/Src/Model.cpp.o:
-	$(MAKE) -f CMakeFiles/Bomberman.dir/build.make CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.o
-.PHONY : Graphics_lib/Src/Model.cpp.o
-
-Graphics_lib/Src/Model.i: Graphics_lib/Src/Model.cpp.i
-
-.PHONY : Graphics_lib/Src/Model.i
-
-# target to preprocess a source file
-Graphics_lib/Src/Model.cpp.i:
-	$(MAKE) -f CMakeFiles/Bomberman.dir/build.make CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.i
-.PHONY : Graphics_lib/Src/Model.cpp.i
-
-Graphics_lib/Src/Model.s: Graphics_lib/Src/Model.cpp.s
-
-.PHONY : Graphics_lib/Src/Model.s
-
-# target to generate assembly for a file
-Graphics_lib/Src/Model.cpp.s:
-	$(MAKE) -f CMakeFiles/Bomberman.dir/build.make CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model.cpp.s
-.PHONY : Graphics_lib/Src/Model.cpp.s
-
-Graphics_lib/Src/Model_Text.o: Graphics_lib/Src/Model_Text.cpp.o
-
-.PHONY : Graphics_lib/Src/Model_Text.o
-
-# target to build an object file
-Graphics_lib/Src/Model_Text.cpp.o:
-	$(MAKE) -f CMakeFiles/Bomberman.dir/build.make CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.o
-.PHONY : Graphics_lib/Src/Model_Text.cpp.o
-
-Graphics_lib/Src/Model_Text.i: Graphics_lib/Src/Model_Text.cpp.i
-
-.PHONY : Graphics_lib/Src/Model_Text.i
-
-# target to preprocess a source file
-Graphics_lib/Src/Model_Text.cpp.i:
-	$(MAKE) -f CMakeFiles/Bomberman.dir/build.make CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.i
-.PHONY : Graphics_lib/Src/Model_Text.cpp.i
-
-Graphics_lib/Src/Model_Text.s: Graphics_lib/Src/Model_Text.cpp.s
-
-.PHONY : Graphics_lib/Src/Model_Text.s
-
-# target to generate assembly for a file
-Graphics_lib/Src/Model_Text.cpp.s:
-	$(MAKE) -f CMakeFiles/Bomberman.dir/build.make CMakeFiles/Bomberman.dir/Graphics_lib/Src/Model_Text.cpp.s
-.PHONY : Graphics_lib/Src/Model_Text.cpp.s
-
-Graphics_lib/Src/Object_Loader.o: Graphics_lib/Src/Object_Loader.cpp.o
-
-.PHONY : Graphics_lib/Src/Object_Loader.o
-
-# target to build an object file
-Graphics_lib/Src/Object_Loader.cpp.o:
-	$(MAKE) -f CMakeFiles/Bomberman.dir/build.make CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.o
-.PHONY : Graphics_lib/Src/Object_Loader.cpp.o
-
-Graphics_lib/Src/Object_Loader.i: Graphics_lib/Src/Object_Loader.cpp.i
-
-.PHONY : Graphics_lib/Src/Object_Loader.i
-
-# target to preprocess a source file
-Graphics_lib/Src/Object_Loader.cpp.i:
-	$(MAKE) -f CMakeFiles/Bomberman.dir/build.make CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.i
-.PHONY : Graphics_lib/Src/Object_Loader.cpp.i
-
-Graphics_lib/Src/Object_Loader.s: Graphics_lib/Src/Object_Loader.cpp.s
-
-.PHONY : Graphics_lib/Src/Object_Loader.s
-
-# target to generate assembly for a file
-Graphics_lib/Src/Object_Loader.cpp.s:
-	$(MAKE) -f CMakeFiles/Bomberman.dir/build.make CMakeFiles/Bomberman.dir/Graphics_lib/Src/Object_Loader.cpp.s
-.PHONY : Graphics_lib/Src/Object_Loader.cpp.s
-
 Graphics_lib/Src/Render.o: Graphics_lib/Src/Render.cpp.o
 
 .PHONY : Graphics_lib/Src/Render.o
@@ -392,33 +311,6 @@ Graphics_lib/Src/Shaders.s: Graphics_lib/Src/Shaders.cpp.s
 Graphics_lib/Src/Shaders.cpp.s:
 	$(MAKE) -f CMakeFiles/Bomberman.dir/build.make CMakeFiles/Bomberman.dir/Graphics_lib/Src/Shaders.cpp.s
 .PHONY : Graphics_lib/Src/Shaders.cpp.s
-
-Graphics_lib/Src/Text_Model.o: Graphics_lib/Src/Text_Model.cpp.o
-
-.PHONY : Graphics_lib/Src/Text_Model.o
-
-# target to build an object file
-Graphics_lib/Src/Text_Model.cpp.o:
-	$(MAKE) -f CMakeFiles/Bomberman.dir/build.make CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.o
-.PHONY : Graphics_lib/Src/Text_Model.cpp.o
-
-Graphics_lib/Src/Text_Model.i: Graphics_lib/Src/Text_Model.cpp.i
-
-.PHONY : Graphics_lib/Src/Text_Model.i
-
-# target to preprocess a source file
-Graphics_lib/Src/Text_Model.cpp.i:
-	$(MAKE) -f CMakeFiles/Bomberman.dir/build.make CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.i
-.PHONY : Graphics_lib/Src/Text_Model.cpp.i
-
-Graphics_lib/Src/Text_Model.s: Graphics_lib/Src/Text_Model.cpp.s
-
-.PHONY : Graphics_lib/Src/Text_Model.s
-
-# target to generate assembly for a file
-Graphics_lib/Src/Text_Model.cpp.s:
-	$(MAKE) -f CMakeFiles/Bomberman.dir/build.make CMakeFiles/Bomberman.dir/Graphics_lib/Src/Text_Model.cpp.s
-.PHONY : Graphics_lib/Src/Text_Model.cpp.s
 
 Sound_lib/src/SoundEngine.o: Sound_lib/src/SoundEngine.cpp.o
 
@@ -765,15 +657,6 @@ help:
 	@echo "... Graphics_lib/Src/Light_class.o"
 	@echo "... Graphics_lib/Src/Light_class.i"
 	@echo "... Graphics_lib/Src/Light_class.s"
-	@echo "... Graphics_lib/Src/Model.o"
-	@echo "... Graphics_lib/Src/Model.i"
-	@echo "... Graphics_lib/Src/Model.s"
-	@echo "... Graphics_lib/Src/Model_Text.o"
-	@echo "... Graphics_lib/Src/Model_Text.i"
-	@echo "... Graphics_lib/Src/Model_Text.s"
-	@echo "... Graphics_lib/Src/Object_Loader.o"
-	@echo "... Graphics_lib/Src/Object_Loader.i"
-	@echo "... Graphics_lib/Src/Object_Loader.s"
 	@echo "... Graphics_lib/Src/Render.o"
 	@echo "... Graphics_lib/Src/Render.i"
 	@echo "... Graphics_lib/Src/Render.s"
@@ -783,9 +666,6 @@ help:
 	@echo "... Graphics_lib/Src/Shaders.o"
 	@echo "... Graphics_lib/Src/Shaders.i"
 	@echo "... Graphics_lib/Src/Shaders.s"
-	@echo "... Graphics_lib/Src/Text_Model.o"
-	@echo "... Graphics_lib/Src/Text_Model.i"
-	@echo "... Graphics_lib/Src/Text_Model.s"
 	@echo "... Sound_lib/src/SoundEngine.o"
 	@echo "... Sound_lib/src/SoundEngine.i"
 	@echo "... Sound_lib/src/SoundEngine.s"

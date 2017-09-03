@@ -5,6 +5,7 @@
 #include <vector>
 #include <stdlib.h>
 #include <istream>
+#include <sstream>
 #include <fstream>
 //#include <GL/gl.h>
 //#include <GL/glu.h>
@@ -13,11 +14,24 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "../Soil/SOIL2/SOIL2.h"
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 
-struct Image_data
+struct Vertex
 {
-	GLuint Texture_ID;
-	unsigned int height;
-	unsigned int width;
+    // Position
+    glm::vec3 Position;
+    // Normal
+    glm::vec3 Normal;
+    // TexCoords
+    glm::vec2 TexCoords;
+};
+
+struct Texture
+{
+    GLuint id;
+    std::string type;
+    aiString path;
 };

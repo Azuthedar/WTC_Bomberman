@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Base.hpp"
-#include "Model.hpp"
 
 class Data_Loader
 {
@@ -21,9 +20,9 @@ class Data_Loader
         Data_Loader();
         ~Data_Loader();
 
-        Model *Load_VAO( GLfloat *vert, GLuint Vert_Size, GLuint elements , GLuint *indicies, GLuint Ind_Size, GLfloat *texture_coords, GLuint Text_Size, GLfloat *normals, GLuint Norm_size );
+        //Model *Load_VAO( GLfloat *vert, GLuint Vert_Size, GLuint elements , GLuint *indicies, GLuint Ind_Size, GLfloat *texture_coords, GLuint Text_Size, GLfloat *normals, GLuint Norm_size );
 
         void Unbind_VAO();
 
-        GLuint load_texture( std::string const &texture_path);
+        GLuint load_texture( const char *texture_path, std::string directory );
 };

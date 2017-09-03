@@ -40,20 +40,20 @@ void Render::SetViewMatrix( glm::mat4 const &tmp_matrix )
 
 void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
 {
-    Text_Model ip;
+    Model ip;
 
     for ( unsigned int count = 0; count < tmp.size(); count++)
     {
-        ip = tmp[count]->GetTextModel();
+
+        ip = tmp[count]->GetModel();
 
         //std::cout << "GFDGDGGDGD " << std::endl;
 
-        shader.load_float( this->shineLoc, 4.0f);
+        shader.load_float( this->shineLoc, 0.5f);
         shader.load_float( this->reflectionLoc, 0.5f);
 
         shader.load_matrix( this->projLoc, this->projection );
         shader.load_matrix( this->viewLoc, this->view_matrix );
-
 
         shader.load_vect( this->lightLoc, this->light->GetPosition() );
         shader.load_vect( this->colourLoc, this->light->GetColour() );
@@ -86,7 +86,9 @@ void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
         shader.load_matrix( this->modelLoc, model_matrix );
         //shader.load_matrix( this->ScaleLoc, scel );
 
-        glBindVertexArray( ip.GetModel().GetVAO() );
+        ip.Draw( shader );
+
+        /*glBindVertexArray( ip.GetModel().GetVAO() );
 
         glEnableVertexAttribArray( 0 );
         glEnableVertexAttribArray( 1 );
@@ -108,7 +110,7 @@ void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
         glDisableVertexAttribArray( 1 );
         glEnableVertexAttribArray( 2 );
 
-        glBindVertexArray( 0 );
+        glBindVertexArray( 0 );*/
     }
 
     for ( unsigned int count = 0; count < tmp.size(); count++)

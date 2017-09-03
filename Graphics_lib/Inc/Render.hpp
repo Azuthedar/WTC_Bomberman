@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Base.hpp"
-#include "Text_Model.hpp"
 #include "Shaders.hpp"
 #include "Light_class.hpp"
 #include "Component.hpp"

@@ -20,9 +20,12 @@ Data_Loader::~Data_Loader()
     return ;
 }
 
-GLuint Data_Loader::load_texture( std::string const &texture_path )
+GLuint Data_Loader::load_texture( const char *texture_path, std::string directory )
 {
     GLuint texture = 0;
+
+    std::string filename = std::string( texture_path );
+    filename = directory + '/' + filename;
 
     int width, height;
     glGenTextures(1, &texture);
@@ -32,15 +35,16 @@ GLuint Data_Loader::load_texture( std::string const &texture_path )
 
     std::cout << "LOAD ISSS " << std::endl;
 
+    unsigned char *image = SOIL_load_image(filename.c_str() , &width, &height, 0, SOIL_LOAD_RGB);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    glGenerateMipmap( GL_TEXTURE_2D );
+
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
 
-    unsigned char *image = SOIL_load_image(texture_path.c_str() , &width, &height, 0, SOIL_LOAD_RGBA);
-
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-    glGenerateMipmap( GL_TEXTURE_2D );
     SOIL_free_image_data( image );
     glBindTexture( GL_TEXTURE_2D, 0);
 
@@ -90,7 +94,7 @@ unsigned int Data_Loader::GetArrayLen( GLfloat *tmp )
     return textureID;
 }*/
 
-Model *Data_Loader::Load_VAO( GLfloat *vert, GLuint Vert_Size, GLuint elements , GLuint *indicies, GLuint Ind_Size, GLfloat *texture_coords, GLuint Text_Size, GLfloat *normals, GLuint Norm_size )
+/*Model *Data_Loader::Load_VAO( GLfloat *vert, GLuint Vert_Size, GLuint elements , GLuint *indicies, GLuint Ind_Size, GLfloat *texture_coords, GLuint Text_Size, GLfloat *normals, GLuint Norm_size )
 {
     GLuint VAO_ID = 0;
     VAO_ID = Create_VAO();
@@ -105,7 +109,7 @@ Model *Data_Loader::Load_VAO( GLfloat *vert, GLuint Vert_Size, GLuint elements ,
     std::cout << " VATAI " <<  VAO_ID << std::endl;
 
     return ( new Model( VAO_ID, elements ) );
-}
+}*/
 
 void Data_Loader::Bind_toBuffer( GLuint *indicies, GLuint data_size )
 {

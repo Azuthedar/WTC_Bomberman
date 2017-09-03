@@ -1,7 +1,0 @@
-Install premake4 to compile soil2
-
-
-f 1/1/2 2/3/4 2/3/5
-f 11//2 1//2 12/33
-
-Model Data in VAO ---> Vertex Shader ---> Per Vertex Variables ->> fragment Shader ---> pixel Colour

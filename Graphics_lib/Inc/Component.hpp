@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Base.hpp"
-#include "Text_Model.hpp"
+#include "Model.hpp"
 
 class Component
 {
     private:
 
-        Text_Model model;
+        Model model;
 
         GLfloat Rotation_x;
         GLfloat Rotation_y;
@@ -25,10 +25,10 @@ class Component
 
     public:
 
-        Component( const std::string &tmp_Name, Text_Model const &tmp_model, GLfloat const &Degres, GLfloat const &rot_x, GLfloat const &rot_y, GLfloat const &rot_z, GLfloat const &tmp_scale, glm::vec3 const &tmp_pos );
+        Component( const std::string &tmp_Name, Model const &tmp_model, GLfloat const &Degres, GLfloat const &rot_x, GLfloat const &rot_y, GLfloat const &rot_z, GLfloat const &tmp_scale, glm::vec3 const &tmp_pos );
         ~Component();
 
-        void SetTextModel( Text_Model const &tmp_model );
+        void SetModel( Model const &tmp_model );
         void SetRotX( GLfloat const &rot_x );
         void SetRotY( GLfloat const &rot_y );
         void SetRotZ( GLfloat const &rot_z );
@@ -37,7 +37,7 @@ class Component
         void SetDegres( GLfloat const &tmp_degres);
 
         GLfloat GetDegres() const;
-        Text_Model GetTextModel( ) const;
+        Model GetModel( ) const;
         GLfloat GetRotX( ) const;
         GLfloat GetRotY( ) const;
         GLfloat GetRotZ( ) const;

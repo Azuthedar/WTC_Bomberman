@@ -1,8 +1,8 @@
 #version 330 core
 
 layout ( location = 0 )  in vec3 position;
-layout ( location = 1 )  in vec2 texCoord;
-layout ( location = 2 )  in vec3 normal;
+layout ( location = 1 )  in vec3 normal;
+layout ( location = 2 )  in vec2 texCoord;
 
 out vec2 textures;
 out vec3 surface_normal;
@@ -20,7 +20,7 @@ void main( )
 	vec4 world_pos = view * model * vec4( position, 1.0 );
 
 	gl_Position = projection * world_pos;
-	textures = vec2( texCoord.x, 1.0 - texCoord.y);
+	textures = vec2( texCoord.x, 1.0f - texCoord.y);
 
 	surface_normal = ( view * model * vec4(normal, 0.0f) ).xyz;
 	toLightVector = light_pos - world_pos.xyz;
