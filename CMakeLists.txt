@@ -169,6 +169,8 @@ set(SOURCE
         ${GRAPHICS_SRC}Render.cpp
         ${GRAPHICS_SRC}Shaders.cpp
         ${GRAPHICS_SRC}Component.cpp
+        ${GRAPHICS_SRC}Mesh.cpp
+        ${GRAPHICS_SRC}Model.cpp
         ${GRAPHICS_SRC}Light_class.cpp
         ${GRAPHICS_SRC}Render_Engine.cpp
 
