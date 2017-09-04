@@ -5,6 +5,7 @@
 #include "../include/Wall.class.hpp"
 #include "../include/Bomb.class.hpp"
 #include "../../Graphics_lib/Inc/Render_Engine.hpp"
+#include "../../Sound_lib/include/SoundEngine.hpp"
 
 int main(int argc, char **argv)
 {
@@ -23,6 +24,9 @@ int main(int argc, char **argv)
 		engine.readMap();
 		//Load Map Into Respective Vectors
 		engine.buildMap();
+		Sound music;
+		music.initialize("Sounds/sarangi.wav");
+		music.play(0, 1);
 
 
 		render.init();
