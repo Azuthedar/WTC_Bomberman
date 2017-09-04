@@ -6,7 +6,7 @@ Model::Model()
     return ;
 }
 
-Model::Model( GLchar *path )
+Model::Model( std::string const &path )
 {
     this->loadModel( path );
 }
@@ -35,7 +35,6 @@ Model &Model::operator=(Model const &obj)
     return (*this);
 }
 
-// Draws the model, and thus all its meshes
 void Model::Draw( Shaders shader )
 {
     for ( GLuint i = 0; i < this->meshes.size( ); i++ )
@@ -46,21 +45,19 @@ void Model::Draw( Shaders shader )
 
 void Model::loadModel( std::string path )
 {
-    // Read file via ASSIMP
     Assimp::Importer importer;
     const aiScene *scene = importer.ReadFile( path, aiProcess_Triangulate | aiProcess_FlipUVs );
 
-    // Check for errors
-    if( !scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode ) // if is Not Zero
+    //Replace With Exception Class Stoof
+    if( !scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode )
     {
         cout << "ERROR::ASSIMP:: " << importer.GetErrorString( ) << endl;
         return;
     }
-    // Retrieve the directory path of the filepath
+
     this->directory = path.substr( 0, path.find_last_of( '/' ) );
     std::cout << this->directory << std::endl;
 
-    // Process ASSIMP's root node recursively
     this->processNode( scene->mRootNode, scene );
 }
 
@@ -93,17 +90,29 @@ Mesh Model::processMesh( aiMesh *mesh, const aiScene *scene )
         Vertex vertex;
         glm::vec3 vector;
 
-        vector.x = mesh->mVertices[i].x;
-        vector.y = mesh->mVertices[i].y;
-        vector.z = mesh->mVertices[i].z;
-        vertex.Position = vector;
+        if ( mesh->HasPositions() )
+        {
+            vector.x = mesh->mVertices[i].x;
+            vector.y = mesh->mVertices[i].y;
+            vector.z = mesh->mVertices[i].z;
+            vertex.Position = vector;
+        }
+        else
+            exit(8);
 
         //std::cout << "vertices X " <<  vector.x << " Y " << vector.y << " Z " << vector.z << std::endl;
 
-        vector.x = mesh->mNormals[i].x;
-        vector.y = mesh->mNormals[i].y;
-        vector.z = mesh->mNormals[i].z;
-        vertex.Normal = vector;
+        if ( mesh->HasNormals() )
+        {
+            vector.x = mesh->mNormals[i].x;
+            vector.y = mesh->mNormals[i].y;
+            vector.z = mesh->mNormals[i].z;
+            vertex.Normal = vector;
+        }
+        else
+        {
+            vertex.Normal = glm::vec3( 0.0f, 0.0f, 0.0f );
+        }
 
         //std::cout << "Normals X " <<  vector.x << " Y " << vector.y << " Z " << vector.z << std::endl;
 

@@ -1,0 +1,3 @@
+/home/kchetty/Desktop/SHEEEP/CMakeFiles/rebuild_cache.dir
+/home/kchetty/Desktop/SHEEEP/CMakeFiles/edit_cache.dir
+/home/kchetty/Desktop/SHEEEP/CMakeFiles/Bomberman.dir

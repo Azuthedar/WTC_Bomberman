@@ -38,8 +38,8 @@ void Render_Engine::load_dependencies()
 {
     this->models.push_back( new Model("Graphics_lib/objects_and_textures/obj/dwarf.obj") );
     this->models.push_back( new Model("Graphics_lib/objects_and_textures/obj/cube.obj") );
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/obj/crate.obj") );
-    //this->models.push_back( new Model("Graphics_lib/objects_and_textures/obj/bomb.obj") );
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/Crate/Crate1.obj") );
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/obj/bomb.obj") );
     this->models.push_back( new Model("Graphics_lib/objects_and_textures/obj/barrel.obj") );
 }
 
@@ -63,12 +63,12 @@ void Render_Engine::Create_Components( Engine &engine )
 
 	for (size_t i = 0; i < engine.getWallVector().size(); i++)
 	{
-        this->components.push_back( new Component("Wall", *this->models[2], 0.0f, 0.0f, 0.0f, 0.0f, 2.0f, glm::vec3( engine.getWallVector()[i].getXPos() * 2.0f, 1.0f, engine.getWallVector()[i].getYPos() * 2.0f ))  );
+        this->components.push_back( new Component("Wall", *this->models[2], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( engine.getWallVector()[i].getXPos() * 2.0f, 1.0f, engine.getWallVector()[i].getYPos() * 2.0f ))  );
 	}
 
 	for (size_t i = 0; i < engine.getEnemyVector().size(); i++)
     {
-        this->components.push_back( new Component("Enemy", *this->models[3], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , 1.0f, engine.getEnemyVector()[i].getYPos() * 2 ))  );
+        this->components.push_back( new Component("Enemy", *this->models[4], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , 1.0f, engine.getEnemyVector()[i].getYPos() * 2 ))  );
 	}
 
 	//Render Explosions (This one's nested because each bomb has it's own vector of explosions, so itterate through each bomb, then through it's respective explosions vector)

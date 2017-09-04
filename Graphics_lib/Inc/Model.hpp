@@ -17,7 +17,7 @@ class Model
     public:
 
         Model();
-        Model( GLchar *path );
+        Model( std::string const &path );
 
         std::vector < Mesh > GetMesh() const;
         std::vector < Texture > GetTexture() const;
