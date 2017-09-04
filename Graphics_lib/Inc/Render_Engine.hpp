@@ -7,7 +7,7 @@
 #include "Camera.hpp"
 #include "Component.hpp"
 #include "Light_class.hpp"
-#include "../../include/GameEngine.class.hpp"
+#include "../../Game_Engine/include/GameEngine.class.hpp"
 
 class Render_Engine
 {

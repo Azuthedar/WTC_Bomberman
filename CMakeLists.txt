@@ -9,7 +9,7 @@ set(PLATFORM ${CMAKE_SYSTEM_NAME})
 
 message("Detected Platform ${PLATFORM}")
 
-if (UNIX)
+if (!${PLATFORM})
 
     message("UNIX")
     set(LIB_PATH "/usr/")
@@ -117,14 +117,14 @@ else()
     set(ASSIMP_INC ${BREW_INCLUDE}/)
     set(ASSIMP_LIB_DIR ${BREW_LIB})
     set(ASSIMP_LIB ${ASSIMP_LIB_DIR}/libassimp.4.0.1.dylib)
-    set(ASSIMP_NAME ASSMIP)
+    set(ASSIMP_NAME assimp)
     message ("Found ASSIMP library at ${ASSIMP_LIB}")
 
     #GLFW
     set(GLFW_INCLUDE ${BREW_INCLUDE}/)
     set(GLFW_LIB_PATH ${BREW_LIB}/)
     set(GLFW_DYLIB libglfw.3.2.dylib)
-    set(GLFW_NAME GLFW)
+    set(GLFW_NAME glfw)
     set (CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${CMAKE_CURRENT_SOURCE_DIR})
 
     set(CEGUI_LIBS_DYNAMIC  CEGUIBase-0.dylib
@@ -147,7 +147,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${CMAKE_CURRENT_SOURCE_DIR})
 message("Current Source Directory ${CMAKE_CURRENT_SOURCE_DIR}")
 
 #SOURCE_FILES
-set(SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/ )
+set(SRC ${CMAKE_CURRENT_SOURCE_DIR}/Game_Engine/src/ )
 set(GRAPHICS_SRC ${CMAKE_CURRENT_SOURCE_DIR}/Graphics_lib/Src/ )
 set(SOUND_LIB ${CMAKE_CURRENT_SOURCE_DIR}/Sound_lib/src/ )
 
@@ -178,7 +178,7 @@ set(SOURCE
         )
 
 #INCLUDE_FILES
-set(INCLUDE "./include/")
+set(INCLUDE "./Game_Engine/include/")
 set(GRAPHICS_INCLUDE "./Graphics_lib/Inc/")
 set(SOUND_INC "./Sound_lib/include/")
 
