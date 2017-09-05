@@ -11,7 +11,7 @@ public:
     Sound(const char *File);
     ~Sound();
 
-    void initialize(const char* File);
+    void initialize(std::string file_path);
     void play(int sleep, bool loop);
 
 private:

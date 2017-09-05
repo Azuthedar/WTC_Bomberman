@@ -25,7 +25,7 @@ GLuint Data_Loader::load_texture( const char *texture_path, std::string director
     GLuint texture = 0;
 
     std::string filename = std::string( texture_path );
-    filename = directory + '/' + filename;
+    filename = directory + filename;
 
     int width, height;
     glGenTextures(1, &texture);

@@ -20,7 +20,7 @@ Sound::~Sound() {
     alutExit();
 }
 
-void Sound::initialize(const char* File) {
+void Sound::initialize(std::string file_path) {
 
     // Initialize the environment
     if (!alutInit(0, NULL)){
@@ -28,17 +28,17 @@ void Sound::initialize(const char* File) {
         std::cout << alGetError() << std::endl;
     };
 
-//    // Load pcm data into buffer
-//    if (!alutCreateBufferFromFile(File)) {
-//        std::cout << "Failed to create buffer from file" << std::endl;
-//        reportError();
-//    }
-//    else {
-//        std::cout << "create buffer worked" << std::endl;
-//        _buffer = alutCreateBufferFromFile(File);
-//    }
-    ALuint buffer = alutCreateBufferFromFile(File);
-    if (!buffer){
+    ALuint _buffer;
+    if (!alutCreateBufferFromFile(file_path.c_str())) {
+        std::cout << "Failed to create buffer from file" << std::endl;
+        reportError();
+    }
+    else {
+        std::cout << "create buffer worked" << std::endl;
+        _buffer = alutCreateBufferFromFile(file_path.c_str());
+    }
+
+    if (!_buffer){
         std::cout << "failed to create buffer" << std::endl;
         reportError();
     }
