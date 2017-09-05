@@ -39,7 +39,7 @@ void Render_Engine::load_dependencies()
     this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/model_Player.obj") );
     //this->models.push_back( new Model("Graphics_lib/objects_and_textures/obj/crate.obj") );
     this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/bomb.obj") );
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/bug_EnemyHead.obj") );
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/obj/dwarf.obj") );
     this->models.push_back( new Model("Graphics_lib/objects_and_textures/Crate/Crate1.obj") );
 }
 
