@@ -11,7 +11,7 @@ Ni 1.000000
 d 1.000000
 illum 2
 
-map_Kd model_Player.png
+map_Kd PlayerTexture.png
 
 newmtl LowerLeg
 Ns 96.078431
@@ -23,7 +23,7 @@ Ni 1.000000
 d 1.000000
 illum 2
 
-map_Kd model_Player.png
+map_Kd PlayerTexture.png
 
 newmtl UpperBody
 Ns 96.078431
@@ -35,7 +35,7 @@ Ni 1.000000
 d 1.000000
 illum 2
 
-map_Kd model_Player.png
+map_Kd PlayerTexture.png
 
 newmtl generalArmor
 Ns 96.078431
@@ -47,7 +47,7 @@ Ni 1.000000
 d 1.000000
 illum 2
 
-map_Kd model_Player.png
+map_Kd PlayerTexture.png
 
 newmtl hands
 Ns 96.078431
@@ -59,7 +59,7 @@ Ni 1.000000
 d 1.000000
 illum 2
 
-map_Kd model_Player.png
+map_Kd PlayerTexture.png
 
 newmtl neck
 Ns 96.078431
@@ -71,4 +71,4 @@ Ni 1.000000
 d 1.000000
 illum 2
 
-map_Kd model_Player.png
+map_Kd PlayerTexture.png

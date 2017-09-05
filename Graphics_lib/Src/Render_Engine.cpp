@@ -37,39 +37,39 @@ GLFWwindow *Render_Engine::GetWindow() const
 void Render_Engine::load_dependencies()
 {
     this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/model_Player.obj") );
-    //this->models.push_back( new Model("Graphics_lib/objects_and_textures/obj/cube.obj") );
-    //this->models.push_back( new Model("Graphics_lib/objects_and_textures/Crate/Crate1.obj") );
-    //this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/bomb.obj") );
-    //this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/bug_EnemyHead.obj") );
+    //this->models.push_back( new Model("Graphics_lib/objects_and_textures/obj/crate.obj") );
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/bomb.obj") );
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/bug_EnemyHead.obj") );
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/Crate/Crate1.obj") );
 }
 
 void Render_Engine::Create_Components( Engine &engine )
 {
-    this->components.push_back( new Component( "Player" , *this->models[0], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( engine.getPlayer().getXPos() * 2 , 0.0f, engine.getPlayer().getYPos() * 2 ))  );
+    this->components.push_back( new Component( "Player" , *this->models[0], 0.0f, 0.0f, 0.0f, 0.0f, 0.35f, glm::vec3( engine.getPlayer().getXPos() * 2 , 0.0f, engine.getPlayer().getYPos() * 2 ))  );
 
-  /*  for (size_t z = 1; z < MAP_Y + 1; z++)
+    /*for (size_t z = 1; z < MAP_Y + 1; z++)
     {
         for (size_t x = 0; x < MAP_X; x++)
         {
             this->components.push_back( new Component( "Platform", *this->models[1], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( x * 2  , -1.0f, z * 2  ))  );
         }
-    }
+    }*/
 
 	for (size_t i = 0; i < engine.getPlayer().getBombVector().size(); i++)
 	{
-        this->components.push_back( new Component( "Bomb", *this->models[3], 0.0f, 0.0f, 0.0f, 0.0f, 2.5f, glm::vec3( engine.getPlayer().getBombVector()[i].getXPos() * 2 , 1.0f, engine.getPlayer().getBombVector()[i].getYPos() * 2 ))  );
+        this->components.push_back( new Component( "Bomb", *this->models[1], 0.0f, 0.0f, 0.0f, 0.0f, 2.5f, glm::vec3( engine.getPlayer().getBombVector()[i].getXPos() * 2 , 1.0f, engine.getPlayer().getBombVector()[i].getYPos() * 2 ))  );
   }
 
 
 	for (size_t i = 0; i < engine.getWallVector().size(); i++)
 	{
-        this->components.push_back( new Component("Wall", *this->models[2], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( engine.getWallVector()[i].getXPos() * 2.0f, 1.0f, engine.getWallVector()[i].getYPos() * 2.0f ))  );
+        this->components.push_back( new Component("Wall", *this->models[3], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( engine.getWallVector()[i].getXPos() * 2.0f, 1.0f, engine.getWallVector()[i].getYPos() * 2.0f ))  );
 	}
 
 	for (size_t i = 0; i < engine.getEnemyVector().size(); i++)
     {
-        this->components.push_back( new Component("Enemy", *this->models[4], 0.0f, 0.0f, 0.0f, 0.0f, 0.5f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , 1.0f, engine.getEnemyVector()[i].getYPos() * 2 ))  );
-	}*/
+        this->components.push_back( new Component("Enemy", *this->models[2], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , 1.0f, engine.getEnemyVector()[i].getYPos() * 2 ))  );
+	}
 
 	//Render Explosions (This one's nested because each bomb has it's own vector of explosions, so itterate through each bomb, then through it's respective explosions vector)
 	/*for (size_t i = 0; i < engine.getPlayer().getBombVector().size(); i++)

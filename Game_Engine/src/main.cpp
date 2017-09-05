@@ -25,8 +25,8 @@ int main(int argc, char **argv)
 		//Load Map Into Respective Vectors
 		engine.buildMap();
 		Sound music;
-		//music.initialize("Sounds/sarangi.wav");
-		//music.play(0, 1);
+		music.initialize("");
+		music.play(0, 1);
 
 
 		render.init();
