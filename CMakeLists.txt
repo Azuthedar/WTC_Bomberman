@@ -9,7 +9,7 @@ set(PLATFORM ${CMAKE_SYSTEM_NAME})
 
 message("Detected Platform ${PLATFORM}")
 
-if (UNIX)
+#[[if (UNIX)
 
     message("UNIX")
     set(LIB_PATH "/usr/")
@@ -72,7 +72,7 @@ if (UNIX)
 
     set(FRAMEWORK_COCOA "")
 
-else()
+else()]]
 
     message("MAC")
 
@@ -140,7 +140,7 @@ else()
 
     set(FRAMEWORK_COCOA "-framework Cocoa")
 
-endif()
+#endif()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${CMAKE_CURRENT_SOURCE_DIR})
 

@@ -124,7 +124,7 @@ void	Player::input( GLFWwindow *window )
 
 void 	Player::SnapMovement( )
 {
-	if (this->_goal_x == this->_xPos && this->_goal_y == this->_yPos)
+	if ((this->_goal_x == this->_xPos && this->_goal_y == this->_yPos) || this->_isCollide)
 		this->_isMoving = false;
 }
 
@@ -137,9 +137,9 @@ void	Player::movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std:
 	*	If the DIR is LEFT		the xPos needs to decrease to imitate moving left
 	*	If the DIR is RIGHT		the xPos needs to increase to imitate moving right
 	*/
-	if (this->_isMoving == true)
+	if (!this->collision(wall, enemy, powerupVector))
 	{
-		if (!this->collision(wall, enemy, powerupVector))
+		if (this->_isMoving == true)
 		{
 			switch (this->_dir)
 			{
@@ -164,11 +164,9 @@ void	Player::movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std:
 							this->_xPos = this->_goal_x;
 					break ;
 			}
-		}
-		SnapMovement();
-		if (this->collision(wall, enemy, powerupVector))
-			this->_isMoving = false;
+		}	
 	}
+	SnapMovement();
 }
 
 bool	Player::collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std::vector<Powerup> & powerupVector)

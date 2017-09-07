@@ -42,39 +42,20 @@ Enemy::~Enemy()
 
 void 	Enemy::SnapMovement()
 {
-	if (this->_xPos == this->_goal_x && this->_yPos == this->_goal_y)
+	if ((this->_xPos == this->_goal_x && this->_yPos == this->_goal_y && this->_enemyMvTicker <= 0) || this->_isCollide == true)
 		this->_isMoving = false;
 }
 
 void	Enemy::movement(std::vector<Wall> & wall, AEntity & player, std::vector<Enemy> & enemy, std::vector<Bomb> & bombVector, GLfloat &delta_time )
 {
-	if (abs(this->_xPos - player.getXPos()) <= 2  && abs(this->_yPos - player.getYPos()) <= 2 )
+
+	if (this->_enemyMvTicker <= 0 && this->_isMoving == false)
 	{
-		this->_followPlayer = true;
+		this->_enemyMvTicker = std::rand() % ENEMY_MOVE_TICK + 1;
+		this->_dir = static_cast<eMovementDir>(std::rand() % 4);
 		this->_isMoving = true;
 	}
-	else
-		this->_followPlayer = false;
-	if (!this->_followPlayer)
-	{
-		if (this->_enemyMvTicker <= 0 && this->_isMoving == false)
-		{
-			this->_enemyMvTicker = std::rand() % ENEMY_MOVE_TICK + 1;
-			this->_dir = static_cast<eMovementDir>(std::rand() % 4);
-			this->_isMoving = true;
-		}
-	}
-	else
-	{
-			if (player.getXPos() > this->_xPos)
-				this->_dir = LEFT;
-			else if (player.getXPos() < this->_xPos)
-				this->_dir = RIGHT;
-			else if (player.getYPos() < this->_yPos)
-				this->_dir = DOWN;
-			else if (player.getYPos() > this->_yPos)
-				this->_dir = UP;
-	}
+
 
 	switch (this->_dir)
 	{
@@ -96,9 +77,9 @@ void	Enemy::movement(std::vector<Wall> & wall, AEntity & player, std::vector<Ene
 				break ;
 	}
 
-	if (this->_isMoving == true )
+	if (!this->collision(wall, enemy, bombVector))
 	{
-		if (!this->collision(wall, enemy, bombVector))
+		if (this->_isMoving == true )	
 		{
 			switch (this->_dir)
 			{
@@ -124,10 +105,8 @@ void	Enemy::movement(std::vector<Wall> & wall, AEntity & player, std::vector<Ene
 					break ;
 			}
 		}
-		SnapMovement();
 	}
-	if (this->collision(wall, enemy, bombVector))
-		this->_isMoving = false;
+	SnapMovement();
 
 }
 
@@ -193,11 +172,11 @@ bool	Enemy::collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std:
 					this->_isCollide = true;
 				break ;
 			case UP:
-				if ( this->_goal_x == bombVector[i].getXPos() && this->_xPos + 1 == bombVector[i].getYPos())
+				if ( this->_goal_x == bombVector[i].getXPos() && this->_yPos + 1 == bombVector[i].getYPos())
 					this->_isCollide = true;
 				break ;
 			case DOWN:
-				if ( this->_goal_x == bombVector[i].getXPos() && this->_xPos - 1 == bombVector[i].getYPos())
+				if ( this->_goal_x == bombVector[i].getXPos() && this->_yPos - 1 == bombVector[i].getYPos())
 					this->_isCollide = true;
 				break ;
 		}

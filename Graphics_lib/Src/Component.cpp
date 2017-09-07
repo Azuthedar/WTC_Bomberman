@@ -74,6 +74,7 @@ void Component::SetRotX( GLfloat const &rot_x )
 
 void Component::SetRotY( GLfloat const &rot_y )
 {
+    
     this->Rotation_y = rot_y;
 }
 
