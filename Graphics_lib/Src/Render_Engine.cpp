@@ -36,11 +36,15 @@ GLFWwindow *Render_Engine::GetWindow() const
 
 void Render_Engine::load_dependencies()
 {
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/model_Player.obj") );
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/bomb.obj") );
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/bug_EnemyHead.obj") );
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/Crate/Crate1.obj") );
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/robot_EnemyHead.obj") );
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/model_Player.obj") ); //0
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/bomb.obj") ); //1
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/bug_EnemyHead.obj") ); //2
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/Crate/Crate1.obj") ); //3
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/robot_EnemyHead.obj") ); //4
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/Crate/Bomb/Crate1.obj") ); //5
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/Crate/LifeUP/Crate1.obj") ); //6
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/Crate/Range/Crate1.obj") ); //7
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/Crate/Sped/Crate1.obj") ); //8
 }
 
 void Render_Engine::Create_Components( Engine &engine )
@@ -69,19 +73,19 @@ void Render_Engine::Create_Components( Engine &engine )
   	{
     		if (engine.getPowerupVector()[i].getTypePowerup() == POW_LIFE)
     		{
-            this->components.push_back( new Component("Pow_Life", *this->models[3], 2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ))  );
+            this->components.push_back( new Component("Pow_Life", *this->models[6], 2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ))  );
     		}
     		else if (engine.getPowerupVector()[i].getTypePowerup() == POW_BOMBS)
     		{
-    			   this->components.push_back( new Component("Pow_Bomb", *this->models[3], 2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ))  );
+    			   this->components.push_back( new Component("Pow_Bomb", *this->models[5], 2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ))  );
     		}
     		else if (engine.getPowerupVector()[i].getTypePowerup() == POW_SPEED)
     		{
-    			   this->components.push_back( new Component("Pow_Speed", *this->models[3], 2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ))  );
+    			   this->components.push_back( new Component("Pow_Speed", *this->models[8], 2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ))  );
     		}
     		else if (engine.getPowerupVector()[i].getTypePowerup() == POW_RANGE)
     		{
-    			   this->components.push_back( new Component("Pow_Range", *this->models[3], 2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ))  );
+    			   this->components.push_back( new Component("Pow_Range", *this->models[7], 2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ))  );
     		}
   	}
 

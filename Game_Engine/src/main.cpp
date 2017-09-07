@@ -24,9 +24,9 @@ int main(int argc, char **argv)
 		engine.readMap();
 		//Load Map Into Respective Vectors
 		engine.buildMap();
-		Sound music;
-		music.initialize("");
-		music.play(0, 1);
+		//Sound music;
+		//music.initialize("");
+		//music.play(0, 1);
 
 
 		render.init();

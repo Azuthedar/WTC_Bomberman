@@ -52,7 +52,7 @@ void Sound::initialize(const char* File) {
         alcMakeContextCurrent(_context);
         std::cout << "made context current" << std::endl;
     }
-    loadWavFile("sarangi.wav", &_buffer, &_size, *_frequency, &_format);
+    loadWavFile("sarangi.wav", &_buffer, &_size, &_frequency, &_format);
     alGenSources(1, &_source);
 
 }
