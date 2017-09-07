@@ -68,7 +68,7 @@ unsigned int Data_Loader::GetArrayLen( GLfloat *tmp )
     return ( count );
 }
 
-/*GLuint LoadCubemap( vector<const GLchar * > faces)
+GLuint Data_Loader::LoadCubemap( std::vector<std::string> &texture_paths )
 {
     GLuint textureID;
     glGenTextures( 1, &textureID );
@@ -78,9 +78,9 @@ unsigned int Data_Loader::GetArrayLen( GLfloat *tmp )
 
     glBindTexture( GL_TEXTURE_CUBE_MAP, textureID );
 
-    for ( GLuint i = 0; i < faces.size( ); i++ )
+    for ( GLuint i = 0; i < texture_paths.size( ); i++ )
     {
-        image = SOIL_load_image( faces[i], &imageWidth, &imageHeight, 0, SOIL_LOAD_RGB );
+        image = SOIL_load_image( texture_paths[i].c_str() , &imageWidth, &imageHeight, 0, SOIL_LOAD_RGB );
         glTexImage2D( GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image );
         SOIL_free_image_data( image );
     }
@@ -92,7 +92,7 @@ unsigned int Data_Loader::GetArrayLen( GLfloat *tmp )
     glBindTexture( GL_TEXTURE_CUBE_MAP, 0);
 
     return textureID;
-}*/
+}
 
 /*Model *Data_Loader::Load_VAO( GLfloat *vert, GLuint Vert_Size, GLuint elements , GLuint *indicies, GLuint Ind_Size, GLfloat *texture_coords, GLuint Text_Size, GLfloat *normals, GLuint Norm_size )
 {

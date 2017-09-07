@@ -27,6 +27,7 @@ class Model
         void Draw( Shaders shader );
 
         void loadModel( std::string path );
+        Skybox_s loadSkybox( std::vector<std::string> &texture_paths );
         void processNode( aiNode* node, const aiScene* scene );
         Mesh processMesh( aiMesh *mesh, const aiScene *scene );
         std::vector<Texture> loadMaterialTextures( aiMaterial *mat, aiTextureType type, string typeName );

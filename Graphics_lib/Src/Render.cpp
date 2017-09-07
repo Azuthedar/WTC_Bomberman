@@ -38,6 +38,27 @@ void Render::SetViewMatrix( glm::mat4 const &tmp_matrix )
     this->view_matrix = tmp_matrix;
 }
 
+void Render::Render_Skybox( Skybox_s &data, Shaders &shader)
+{
+    glm::mat4 model;
+    glm::mat4 view = this->view_matrix;
+
+    // Draw skybox as last
+    glDepthFunc( GL_LEQUAL );  // Change depth function so depth test passes when values are equal to depth buffer's content
+    glUseProgram( shader.GetProgramID() );
+    view = glm::mat4( glm::mat3( this->view_matrix ) );	// Remove any translation component of the view matrix
+
+    glUniformMatrix4fv( glGetUniformLocation( shader.GetProgramID(), "view" ), 1, GL_FALSE, glm::value_ptr( view ) );
+    glUniformMatrix4fv( glGetUniformLocation( shader.GetProgramID(), "projection" ), 1, GL_FALSE, glm::value_ptr( this->projection ) );
+
+    // skybox cube
+    glBindVertexArray( data.Skybox_VAO );
+    glBindTexture( GL_TEXTURE_CUBE_MAP, data.Cubemap_text );
+    glDrawArrays( GL_TRIANGLES, 0, 36 );
+    glBindVertexArray( 0 );
+    glDepthFunc( GL_LESS ); // Set depth function back to default
+}
+
 void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
 {
     Model ip;

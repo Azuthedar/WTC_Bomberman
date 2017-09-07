@@ -31,9 +31,11 @@ class Render_Engine
 
         Render draw;
         Shaders shader;
+        Shaders SkyBox_shader;
 
         std::vector < Model * > models;
         std::vector < Component * > components;
+        Skybox_s Skybox;
 
         Render_Engine();
 

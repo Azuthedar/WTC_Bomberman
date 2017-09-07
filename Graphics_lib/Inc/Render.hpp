@@ -32,5 +32,6 @@ class Render
         void Load_Uniform( Shaders &shader );
         void Prep();
         void Render_(  std::vector < Component * > &tmp, Shaders &shader );
+        void Render_Skybox( Skybox_s &data, Shaders &shader);
 
 };
