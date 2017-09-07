@@ -173,6 +173,7 @@ set(SOURCE
         ${GRAPHICS_SRC}Model.cpp
         ${GRAPHICS_SRC}Light_class.cpp
         ${GRAPHICS_SRC}Render_Engine.cpp
+        ${GRAPHICS_SRC}Particles.cpp
 
         ${SOUND_LIB}SoundEngine.cpp
         )
@@ -205,6 +206,7 @@ set(HEADERS
         ${GRAPHICS_INCLUDE}Data_Loader.hpp
         ${GRAPHICS_INCLUDE}Mesh.hpp
         ${GRAPHICS_INCLUDE}Render_Engine.hpp
+        ${GRAPHICS_INCLUDE}Particles.hpp
 
         ${SOUND_INC}SoundEngine.hpp
         )

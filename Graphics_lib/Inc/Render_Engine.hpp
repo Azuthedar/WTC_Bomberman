@@ -32,6 +32,7 @@ class Render_Engine
         Render draw;
         Shaders shader;
         Shaders SkyBox_shader;
+        Shaders Particle_shader;
 
         std::vector < Model * > models;
         std::vector < Component * > components;

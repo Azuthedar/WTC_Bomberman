@@ -38,12 +38,31 @@ void Render::SetViewMatrix( glm::mat4 const &tmp_matrix )
     this->view_matrix = tmp_matrix;
 }
 
+void Render_Particles( std::vector< Particles *> &tmp, Shaders &shader, Particles_s &data )
+{
+    glUseProgram( shader.GetProgramID() );
+    glBindVertexArray( data.Particle_VAO );
+    glEnableVertexAttribArray(0);
+    glEnable(GL_BLEND);
+    glBlendFunc( GL_SRC_ALPHA, GL_ONE);
+    glDepthMask(false);
+
+    for (int count = 0; count < tmp.size(); count++)
+    {
+        glDrawArrays( GL_TRIANGLE_STRIP, 0, 4);
+    }
+
+    glBindVertexArray( 0 );
+    glDisableVertexAttribArray(0);
+    glDisable(GL_BLEND);
+    glDepthMask(true);
+}
+
 void Render::Render_Skybox( Skybox_s &data, Shaders &shader)
 {
     glm::mat4 model;
     glm::mat4 view = this->view_matrix;
 
-    // Draw skybox as last
     glDepthFunc( GL_LEQUAL );  // Change depth function so depth test passes when values are equal to depth buffer's content
     glUseProgram( shader.GetProgramID() );
     view = glm::mat4( glm::mat3( this->view_matrix ) );	// Remove any translation component of the view matrix
@@ -51,12 +70,11 @@ void Render::Render_Skybox( Skybox_s &data, Shaders &shader)
     glUniformMatrix4fv( glGetUniformLocation( shader.GetProgramID(), "view" ), 1, GL_FALSE, glm::value_ptr( view ) );
     glUniformMatrix4fv( glGetUniformLocation( shader.GetProgramID(), "projection" ), 1, GL_FALSE, glm::value_ptr( this->projection ) );
 
-    // skybox cube
     glBindVertexArray( data.Skybox_VAO );
     glBindTexture( GL_TEXTURE_CUBE_MAP, data.Cubemap_text );
     glDrawArrays( GL_TRIANGLES, 0, 36 );
     glBindVertexArray( 0 );
-    glDepthFunc( GL_LESS ); // Set depth function back to default
+    glDepthFunc( GL_LESS );
 }
 
 void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
@@ -73,7 +91,9 @@ void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
         glm::vec3 tmp_light_pos = glm::vec3(0.0f);
         if (count == 0)
         {
-          tmp_light_pos = tmp[count]->GetPosition();
+          //tmp_light_pos = tmp[count]->GetPosition();
+          tmp_light_pos.x = 18.0f;
+          tmp_light_pos.z = 18.0f;
           tmp_light_pos.y = 5.0f;
         }
 
@@ -93,7 +113,7 @@ void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
         model = glm::translate( model, tmp[count]->GetPosition() );
 
         //if (tmp[count]->GetName().compare(""))
-          model = glm::rotate( model, (GLfloat)glfwGetTime() * tmp[count]->GetDegres(), glm::vec3( 0.5f, 1.0f, 0.0f ) );
+        model = glm::rotate( model, (GLfloat)glfwGetTime() * tmp[count]->GetDegres(), glm::vec3( 0.5f, 1.0f, 0.0f ) );
         //else if ()
         //  model = glm::rotate( model, tmp[count]->GetDegres(), glm::vec3( 0.5f, 1.0f, 0.0f ) );
         //else

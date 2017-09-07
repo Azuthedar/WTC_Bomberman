@@ -39,8 +39,8 @@ void Render_Engine::load_dependencies()
     std::vector< std::string > faces;
     faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_right.png" ); // Positive X == Right Face
     faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_left.png" ); // Negative X == Left Face
-    faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_up.png" ); // Positive Y == Top Face
-    faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_down.png" ); // Negative Y == Bottom Face
+    faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_down.png" ); // Positive Y == Top Face
+    faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_up.png" ); // Negative Y == Bottom Face
     faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_back.png" ); // Positive Z == Back Face
     faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_front.png" ); // Negative Z == Front Face
 
@@ -75,7 +75,7 @@ void Render_Engine::Create_Components( Engine &engine )
     {
         for (int x = 0; x < MAP_X; x++)
         {
-            this->components.push_back( new Component("Plane", *this->models[11], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( x * 2.0f, 0.0f, y * 2.0f ))  );
+            this->components.push_back( new Component("Plane", *this->models[11], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( 0.0f * 2.0f, 0.0f, 0.0f * 2.0f ))  );
         }
     }
 
@@ -184,6 +184,7 @@ void Render_Engine::_render( GLfloat &tmp_delta_time )
 
         this->draw.Render_( this->components, this->shader );
         this->draw.Render_Skybox( this->Skybox, this->SkyBox_shader );
+        //this->draw.Render_Particles( this->);
 
         glfwSwapBuffers( Render_Engine::window );
     //}
@@ -237,6 +238,7 @@ void Render_Engine::init()
 
     this->shader.compile_shaders("./Graphics_lib/Shaders/Colour_Shading.vert", "./Graphics_lib/Shaders/Colour_Shasiner.frag");
     this->SkyBox_shader.compile_shaders("./Graphics_lib/Shaders/skybox.vert", "./Graphics_lib/Shaders/skybox.frag");
+    this->Particle_shader.compile_shaders("./Graphics_lib/Shaders/Particle.vert", "./Graphics_lib/Shaders/Particle.frag");
 
     load_dependencies();
 

@@ -3,6 +3,7 @@
 #include "Base.hpp"
 #include "Shaders.hpp"
 #include "Light_class.hpp"
+#include "Particles.hpp"
 #include "Component.hpp"
 
 class Render
@@ -33,5 +34,6 @@ class Render
         void Prep();
         void Render_(  std::vector < Component * > &tmp, Shaders &shader );
         void Render_Skybox( Skybox_s &data, Shaders &shader);
+        void Render_Particles( std::vector< Particles *> &tmp, Shaders &shader, Particles_s &data );
 
 };

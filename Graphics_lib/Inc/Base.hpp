@@ -39,3 +39,10 @@ struct Skybox_s
     GLuint Skybox_VBO;
     GLuint Cubemap_text;
 };
+
+struct Particles_s
+{
+    GLuint Particle_VAO;
+    GLuint Particle_VBO;
+    GLuint Particle_text;
+};
