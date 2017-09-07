@@ -1,6 +1,5 @@
 #include "../Inc/Component.hpp"
 
-
 Component::Component()
 {
     return ;
@@ -32,6 +31,11 @@ Component::Component( const std::string &tmp_Name, Model const &tmp_model, GLflo
     this->position = tmp_pos;
     this->Degres = Degres;
     this->Name = tmp_Name;
+}
+
+std::string Component::GetName() const
+{
+  return (this->Name);
 }
 
 void Component::inc_rotation( GLfloat const &tmp_x, GLfloat const &tmp_y, GLfloat const &tmp_z )
@@ -74,7 +78,7 @@ void Component::SetRotX( GLfloat const &rot_x )
 
 void Component::SetRotY( GLfloat const &rot_y )
 {
-    
+
     this->Rotation_y = rot_y;
 }
 

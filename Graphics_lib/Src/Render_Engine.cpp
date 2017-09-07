@@ -45,6 +45,10 @@ void Render_Engine::load_dependencies()
     this->models.push_back( new Model("Graphics_lib/objects_and_textures/Crate/LifeUP/Crate1.obj") ); //6
     this->models.push_back( new Model("Graphics_lib/objects_and_textures/Crate/Range/Crate1.obj") ); //7
     this->models.push_back( new Model("Graphics_lib/objects_and_textures/Crate/Sped/Crate1.obj") ); //8
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/model_lock_gate.obj")); //9
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/gate.obj")); //10
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/Plane.obj")); //11
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/Crate/destroy_wall/Crate1.obj")); //12
 }
 
 void Render_Engine::Create_Components( Engine &engine )
@@ -56,9 +60,20 @@ void Render_Engine::Create_Components( Engine &engine )
         this->components.push_back( new Component( "Bomb", *this->models[1], 0.0f, 0.0f, 0.0f, 0.0f, 2.5f, glm::vec3( engine.getPlayer().getBombVector()[i].getXPos() * 2 , 1.0f, engine.getPlayer().getBombVector()[i].getYPos() * 2 ))  );
     }
 
+    for (int y = 1; y < MAP_Y; y++)
+    {
+        for (int x = 0; x < MAP_X; x++)
+        {
+            this->components.push_back( new Component("Plane", *this->models[11], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( x * 2.0f, 0.0f, y * 2.0f ))  );
+        }
+    }
+
   	for (size_t i = 0; i < engine.getWallVector().size(); i++)
   	{
-        this->components.push_back( new Component("Wall", *this->models[3], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( engine.getWallVector()[i].getXPos() * 2.0f, 1.0f, engine.getWallVector()[i].getYPos() * 2.0f ))  );
+        if (engine.getWallVector()[i].getBlockType() == SOLID_BLOCK)
+            this->components.push_back( new Component("Wall", *this->models[3], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( engine.getWallVector()[i].getXPos() * 2.0f, 1.0f, engine.getWallVector()[i].getYPos() * 2.0f ))  );
+        else if (engine.getWallVector()[i].getBlockType() == DESTRUCTIBLE_BLOCK || engine.getWallVector()[i].getBlockType() == GATE)
+            this->components.push_back( new Component("Destructibe_Wall", *this->models[12], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( engine.getWallVector()[i].getXPos() * 2.0f, 1.0f, engine.getWallVector()[i].getYPos() * 2.0f ))  );
   	}
 
   	for (size_t i = 0; i < engine.getEnemyVector().size(); i++)
@@ -68,6 +83,15 @@ void Render_Engine::Create_Components( Engine &engine )
         else if ( engine.getEnemyVector()[i].getType() == ROBOT)
           this->components.push_back( new Component("Enemy", *this->models[4], 0.0f, 0.0f, 0.0f, 0.0f, 0.55f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , 1.0f, engine.getEnemyVector()[i].getYPos() * 2 ))  );
   	}
+
+    if (engine.getGate().getExists() && engine.getGate().getIsLocked())
+    {
+      this->components.push_back( new Component("Locked_Gate", *this->models[9], 0.0f, 0.0f, 0.0f, 0.0f, 2.0f, glm::vec3( engine.getGate().getXPos() * 2.0f, 0.1f, engine.getGate().getYPos() * 2.0f ))  );
+    }
+    else if (engine.getGate().getExists() && !engine.getGate().getIsLocked())
+    {
+      this->components.push_back( new Component("Unlocked_Gate", *this->models[10], 0.0f, 0.0f, 0.0f, 0.0f, 2.0f, glm::vec3( engine.getGate().getXPos() * 2.0f, 0.1f, engine.getGate().getYPos() * 2.0f ))  );
+    }
 
     for (size_t i = 0; i < engine.getPowerupVector().size(); i++)
   	{

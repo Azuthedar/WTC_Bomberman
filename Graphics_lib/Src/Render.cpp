@@ -70,7 +70,14 @@ void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
         glm::mat4 model_matrix;
 
         model = glm::translate( model, tmp[count]->GetPosition() );
-        model = glm::rotate( model, (GLfloat)glfwGetTime() * tmp[count]->GetDegres(), glm::vec3( 0.5f, 1.0f, 0.0f ) );
+
+        //if (tmp[count]->GetName().compare(""))
+          model = glm::rotate( model, (GLfloat)glfwGetTime() * tmp[count]->GetDegres(), glm::vec3( 0.5f, 1.0f, 0.0f ) );
+        //else if ()
+        //  model = glm::rotate( model, tmp[count]->GetDegres(), glm::vec3( 0.5f, 1.0f, 0.0f ) );
+        //else
+        //  model = glm::rotate( model, (GLfloat)glfwGetTime() * tmp[count]->GetDegres(), glm::vec3( 0.5f, 1.0f, 0.0f ) );
+
         model_matrix = glm::scale( model , glm::vec3(tmp[count]->GetScale()) );
 
         //model_matrix = model * rot;

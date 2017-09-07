@@ -64,6 +64,8 @@ void Engine::transitionMap()
 		if (this->_mapLevel == this->_maps.size())
 			this->_mapLevel = 0;
 		this->_mapEnd = true;
+		this->_gate.setExists(false);
+		this->_gate.setIsLocked(true);
 		this->_mapValues.clear();
 		this->_enemyVector.clear();
 		this->_player.respawn();

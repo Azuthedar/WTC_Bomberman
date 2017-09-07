@@ -43,6 +43,7 @@ class Component
         GLfloat GetRotZ( ) const;
         GLfloat GetScale( ) const;
         glm::vec3 GetPosition( );
+        std::string GetName() const;
 
         void inc_rotation( GLfloat const &tmp_x, GLfloat const &tmp_y, GLfloat const &tmp_z );
         void inc_position( GLfloat const &tmp_x, GLfloat const &tmp_y, GLfloat const &tmp_z );
