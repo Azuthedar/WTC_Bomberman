@@ -49,38 +49,29 @@ void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
 
         //std::cout << "GFDGDGGDGD " << std::endl;
 
+        glm::vec3 tmp_light_pos = glm::vec3(0.0f);
+        if (count == 0)
+        {
+          tmp_light_pos = tmp[count]->GetPosition();
+          tmp_light_pos.y = 5.0f;
+        }
+
         shader.load_float( this->shineLoc, 0.5f);
         shader.load_float( this->reflectionLoc, 0.5f);
 
         shader.load_matrix( this->projLoc, this->projection );
         shader.load_matrix( this->viewLoc, this->view_matrix );
 
-        shader.load_vect( this->lightLoc, this->light->GetPosition() );
+
+        shader.load_vect( this->lightLoc, tmp_light_pos );
         shader.load_vect( this->colourLoc, this->light->GetColour() );
-
-
 
         glm::mat4 model = glm::mat4(1.0);
         glm::mat4 model_matrix;
 
-      // std::cout << tmp[count]->GetPosition().x << std::endl;
-
         model = glm::translate( model, tmp[count]->GetPosition() );
-        model = glm::rotate( model, (GLfloat)glfwGetTime() * tmp[count]->GetDegres(), glm::vec3( 0.5f, 1.0f, 0.0f ) ); //tmp[count]->GetRotX(), tmp[count]->GetRotY(), tmp[count]->GetRotZ() ) );
+        model = glm::rotate( model, (GLfloat)glfwGetTime() * tmp[count]->GetDegres(), glm::vec3( 0.5f, 1.0f, 0.0f ) );
         model_matrix = glm::scale( model , glm::vec3(tmp[count]->GetScale()) );
-        //std::cout << "GFDGDGGDGD 2" << ip.GetModel().GetVAO() << std::endl;
-
-        /*for (int y = 0; y < 4; y++)
-            {
-                for (int x = 0; x < 4; x++)
-                {
-                    std::cout << model[y][x] << " ";
-                    std::cout << rot[y][x] << " ";
-                    std::cout << scel[y][x] << " ";
-                }
-
-                std::cout << std::endl;
-            }*/
 
         //model_matrix = model * rot;
         shader.load_matrix( this->modelLoc, model_matrix );

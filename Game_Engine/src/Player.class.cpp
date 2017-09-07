@@ -48,7 +48,7 @@ void	Player::init()
 	this->_totalSpeed = 6.0f;
 	this->_speed = this->_totalSpeed;
 	this->_bombRange = 1;
-	this->_bombs = 5;
+	this->_bombs = 1;
 
 	this->_placeBombTimer = 0;
 
@@ -69,7 +69,7 @@ void	Player::input( GLFWwindow *window )
 			this->_dir = LEFT;
 			this->_isMoving = true;
 			this->_hitOnce = false;
-			
+
 			this->_goal_x = floor(this->_xPos + 1);
 			this->_goal_y = this->_yPos;
 		}
@@ -164,7 +164,7 @@ void	Player::movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std:
 							this->_xPos = this->_goal_x;
 					break ;
 			}
-		}	
+		}
 	}
 	SnapMovement();
 }
@@ -172,7 +172,7 @@ void	Player::movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std:
 bool	Player::collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std::vector<Powerup> & powerupVector)
 {
 	this->_isCollide = false;
-	
+
 	for (size_t i = 0; i < wall.size(); i++)
 	{
 		switch (this->_dir) // ADD IN COLLISIONS FOR BOMBS

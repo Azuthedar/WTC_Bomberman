@@ -3,6 +3,7 @@
 Enemy::Enemy()
 {
 	this->_speed = std::rand() % 4 + 4;
+	this->_type = static_cast<eEnemyType>(std::rand() % 2);
 	this->_enemyMvTicker = 0;
 	this->_followPlayer = false;
 	this->_isDead = false;
@@ -16,6 +17,7 @@ Enemy::Enemy()
 Enemy::Enemy(int x, int y)
 {
 	this->_speed = std::rand() % 4 + 4;
+	this->_type = static_cast<eEnemyType>(std::rand() % 2);
 	this->_enemyMvTicker = 0;
 	this->_isDead = false;
 
@@ -79,7 +81,7 @@ void	Enemy::movement(std::vector<Wall> & wall, AEntity & player, std::vector<Ene
 
 	if (!this->collision(wall, enemy, bombVector))
 	{
-		if (this->_isMoving == true )	
+		if (this->_isMoving == true )
 		{
 			switch (this->_dir)
 			{
@@ -205,3 +207,4 @@ int	&	Enemy::getSpawnX()		{return (this->_spawnX);}
 int	&	Enemy::getSpawnY()		{return (this->_spawnY);}
 int &	Enemy::getGoalX()		{return (this->_goal_x);}
 int &	Enemy::getGoalY()		{return (this->_goal_y);}
+eEnemyType & Enemy::getType() {return (this->_type);}

@@ -56,10 +56,16 @@ enum ePowerups
 
 enum eScore
 {
-	ENEMY,
+	ENEMY = 0,
 	LIVES,
 	POWERUPS,
 	TIME_LEFT
+};
+
+enum eEnemyType
+{
+	BUG = 0,
+	ROBOT
 };
 
 #define MAP_X 18

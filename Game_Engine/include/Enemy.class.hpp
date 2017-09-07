@@ -26,6 +26,7 @@ class Enemy : public AEntity
 		int &		getSpawnY();
 		int &		getGoalX();
 		int &		getGoalY();
+		eEnemyType & getType();
 
 		void SnapMovement( );
 
@@ -39,4 +40,5 @@ class Enemy : public AEntity
 		float		_speed;
 		bool		_isMoving;
 		bool		_followPlayer;
+		eEnemyType _type;
 };
