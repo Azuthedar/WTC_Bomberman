@@ -86,6 +86,8 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 	}
 	else if (!this->_isTransitioning)
 	{
+		if (this->_gate.getIsLocked() == true && this->_enemyVector.size() == 0)
+			this->_gate.setIsLocked(false);
 		this->_player.input( window );
 		this->_player.movement(this->_walls_vector, this->_enemyVector, this->_powerupVector, delta_time);
 		this->chainReaction();
@@ -211,7 +213,7 @@ void	Engine::strSplit(std::string str, char delim)
 
 void		Engine::shouldTransition()
 {
-	if (this->_player.getXPos() == this->_gate.getXPos() && this->_player.getYPos() == this->_gate.getYPos())
+	if (this->_player.getXPos() == this->_gate.getXPos() && this->_player.getYPos() == this->_gate.getYPos() && !this->_gate.getIsLocked())
 		this->_isTransitioning = true;
 }
 

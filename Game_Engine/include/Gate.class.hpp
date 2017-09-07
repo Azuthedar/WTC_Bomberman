@@ -12,10 +12,13 @@ class Gate : public AEntity
 		~Gate();
 
 		void		setExists(bool exists);
+		void		setIsLocked(bool isLocked);
 
 		bool &		getExists();
+		bool &		getIsLocked();
 
 	private:
 
 		bool	_exists;
+		bool	_isLocked;
 };
