@@ -15,6 +15,7 @@ class Enemy : public AEntity
 
 		void		movement(std::vector<Wall> & wall, AEntity & player, std::vector<Enemy> & enemy, std::vector<Bomb> & bombVector, GLfloat &delta_time );
 		bool		collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std::vector<Bomb> & bombVector);
+		bool		checkWallAtPos(std::vector<Wall> & wall);
 		void		spawn();
 
 		void		modifyEnemyMvTicker();
