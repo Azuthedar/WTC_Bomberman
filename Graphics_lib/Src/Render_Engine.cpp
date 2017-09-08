@@ -75,7 +75,7 @@ void Render_Engine::Create_Components( Engine &engine )
     {
         for (int x = 0; x < MAP_X; x++)
         {
-            this->components.push_back( new Component("Plane", *this->models[11], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( 0.0f * 2.0f, 0.0f, 0.0f * 2.0f ))  );
+            this->components.push_back( new Component("Plane", *this->models[11], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( x * 2.0f, 0.0f, y * 2.0f ))  );
         }
     }
 
