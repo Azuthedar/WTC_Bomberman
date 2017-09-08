@@ -55,6 +55,10 @@ void	Enemy::movement(std::vector<Wall> & wall, AEntity & player, std::vector<Ene
 	{
 		this->_enemyMvTicker = std::rand() % ENEMY_MOVE_TICK + 1;
 		this->_dir = static_cast<eMovementDir>(std::rand() % 4);
+		while (this->checkWallAtPos(wall))
+		{
+			this->_dir = static_cast<eMovementDir>(std::rand() % 4);
+		}
 		this->_isMoving = true;
 	}
 
@@ -208,3 +212,45 @@ int	&	Enemy::getSpawnY()		{return (this->_spawnY);}
 int &	Enemy::getGoalX()		{return (this->_goal_x);}
 int &	Enemy::getGoalY()		{return (this->_goal_y);}
 eEnemyType & Enemy::getType() {return (this->_type);}
+
+
+bool Enemy::checkWallAtPos(std::vector<Wall> & wall)
+{
+	if (this->_dir == LEFT)
+	{
+		for (size_t i = 0; i < wall.size(); i++)
+		{
+			if (this->_xPos + 1 == wall[i].getXPos() && this->_yPos == wall[i].getYPos())
+				return (true);
+		}
+	}
+
+	if (this->_dir == RIGHT)
+	{
+		for (size_t i = 0; i < wall.size(); i++)
+		{
+			if (this->_xPos - 1 == wall[i].getXPos() && this->_yPos == wall[i].getYPos())
+				return (true);
+		}
+	}
+
+	if (this->_dir == UP)
+	{
+		for (size_t i = 0; i < wall.size(); i++)
+		{
+			if (this->_yPos + 1 == wall[i].getYPos() && this->_xPos == wall[i].getXPos())
+				return (true);
+		}
+	}
+
+	if (this->_dir == DOWN)
+	{
+		for (size_t i = 0; i < wall.size(); i++)
+		{
+			if (this->_yPos - 1 == wall[i].getYPos() && this->_xPos == wall[i].getXPos())
+				return (true);
+		}
+	}
+
+	return (false);
+}

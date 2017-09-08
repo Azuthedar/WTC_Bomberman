@@ -52,7 +52,7 @@ void	Player::init()
 
 	this->_placeBombTimer = 0;
 
-	this->_speed = 6 * pow(1.0292f, this->_speedLevel)
+	this->_speedLevel = 1;
 	this->_rangeLevel = 1;
 	this->_bombLevel = 1;
 
@@ -146,6 +146,7 @@ void	Player::movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std:
 	*	If the DIR is LEFT		the xPos needs to decrease to imitate moving left
 	*	If the DIR is RIGHT		the xPos needs to increase to imitate moving right
 	*/
+
 	if (!this->collision(wall, enemy, powerupVector))
 	{
 		if (this->_isMoving == true)

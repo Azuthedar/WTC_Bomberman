@@ -11,6 +11,151 @@ Model::Model( std::string const &path )
     this->loadModel( path );
 }
 
+Particles_s Model::loadParticle( )
+{
+    GLuint VAO, VBO;
+
+    Particles_s tmp_particle;
+
+    GLfloat cubeVertices[] = {
+        -0.5f, 0.5f,
+        -0.5f, -0.5f,
+        0.5f, 0.5f,
+        0.5f, -0.5f
+    };
+
+    glGenVertexArrays( 1, &VAO );
+    glGenBuffers( 1, &VBO );
+    glBindVertexArray( VAO );
+    glBindBuffer( GL_ARRAY_BUFFER, VBO );
+    glBufferData( GL_ARRAY_BUFFER, sizeof( cubeVertices ), &cubeVertices, GL_STATIC_DRAW );
+    glEnableVertexAttribArray( 0 );
+    glVertexAttribPointer( 0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof( GLfloat ), ( GLvoid * ) 0 );
+    glBindVertexArray(0);
+
+    tmp_particle.Particle_VAO = VAO;
+    tmp_particle.Particle_VBO = VBO;
+    //tmp_skybox.Cubemap_text = this->load.LoadCubemap( texture_paths );
+
+    return (tmp_particle);
+
+}
+
+Skybox_s Model::loadSkybox( std::vector<std::string> &texture_paths )
+{
+
+    GLuint skyboxVAO, skyboxVBO;
+
+    Skybox_s tmp_skybox;
+
+    GLfloat cubeVertices[] =
+    {
+        // Positions          // Texture Coords
+        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+        0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+        0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+        0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+    };
+
+    GLfloat skyboxVertices[] = {
+        // Positions
+        -1.0f,  1.0f, -1.0f,
+        -1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,
+
+        -1.0f, -1.0f,  1.0f,
+        -1.0f, -1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f,  1.0f,
+        -1.0f, -1.0f,  1.0f,
+
+        1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+
+        -1.0f, -1.0f,  1.0f,
+        -1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f, -1.0f,  1.0f,
+        -1.0f, -1.0f,  1.0f,
+
+        -1.0f,  1.0f, -1.0f,
+        1.0f,  1.0f, -1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        -1.0f,  1.0f,  1.0f,
+        -1.0f,  1.0f, -1.0f,
+
+        -1.0f, -1.0f, -1.0f,
+        -1.0f, -1.0f,  1.0f,
+        1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        -1.0f, -1.0f,  1.0f,
+        1.0f, -1.0f,  1.0f
+    };
+
+    glGenVertexArrays( 1, &skyboxVAO );
+    glGenBuffers( 1, &skyboxVBO );
+    glBindVertexArray( skyboxVAO );
+    glBindBuffer( GL_ARRAY_BUFFER, skyboxVBO );
+    glBufferData( GL_ARRAY_BUFFER, sizeof( skyboxVertices ), &skyboxVertices, GL_STATIC_DRAW );
+    glEnableVertexAttribArray( 0 );
+    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof( GLfloat ), ( GLvoid * ) 0 );
+    glBindVertexArray(0);
+
+    tmp_skybox.Skybox_VAO = skyboxVAO;
+    tmp_skybox.Skybox_VBO = skyboxVBO;
+    tmp_skybox.Cubemap_text = this->load.LoadCubemap( texture_paths );
+
+    return (tmp_skybox);
+
+}
+
 std::vector < Mesh > Model::GetMesh() const
 {
     return (this->meshes);
@@ -56,23 +201,17 @@ void Model::loadModel( std::string path )
     }
 
     this->directory = path.substr( 0, path.find_last_of( '/' ) + 1);
-    //std::cout << this->directory << std::endl;
-
     this->processNode( scene->mRootNode, scene );
 }
 
 void Model::processNode( aiNode* node, const aiScene* scene )
 {
-   // std::cout << "NUM of Meshes " << node->mNumMeshes << std::endl;
     for ( GLuint i = 0; i < node->mNumMeshes; i++ )
     {
-        //std::cout << "Enter" << std::endl;
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-
         this->meshes.push_back( this->processMesh( mesh, scene ) );
     }
 
-    //std::cout << "Children Number " <<  node->mNumChildren << std::endl;
     for ( GLuint i = 0; i < node->mNumChildren; i++ )
     {
         this->processNode( node->mChildren[i], scene );
@@ -143,9 +282,6 @@ Mesh Model::processMesh( aiMesh *mesh, const aiScene *scene )
         }
     }
 
-    //std::cout << "Material " << mesh->mMaterialIndex << std::endl;
-    //std::cout << "Scene Textures " << scene->HasTextures() << std::endl;
-
     aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
     std::vector<Texture> diffuseMaps = this->loadMaterialTextures( material, aiTextureType_DIFFUSE, "texture_diffuse" );
@@ -161,13 +297,10 @@ std::vector<Texture> Model::loadMaterialTextures( aiMaterial *mat, aiTextureType
 {
     std::vector<Texture> textures;
 
-    //std::cout << " SOME VALUES " << mat->GetTextureCount( type ) << std::endl;
     for ( GLuint i = 0; i < mat->GetTextureCount( type ); i++ )
     {
         aiString str;
         mat->GetTexture( type, i, &str );
-
-        //std::cout <<  "Texture File Name " << str.C_Str() << std::endl;
 
         GLboolean skip = false;
 
@@ -184,7 +317,6 @@ std::vector<Texture> Model::loadMaterialTextures( aiMaterial *mat, aiTextureType
 
         if( !skip )
         {   // If texture hasn't been loaded already, load it
-            //std::cout << " FILE NAME " << str.C_Str() << " DIRECTORY " << this->directory << std::endl;
             Texture texture;
             texture.id = this->load.load_texture( str.C_Str( ), this->directory );
             texture.type = typeName;

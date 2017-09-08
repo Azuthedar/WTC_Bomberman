@@ -9,7 +9,7 @@ set(PLATFORM ${CMAKE_SYSTEM_NAME})
 
 message("Detected Platform ${PLATFORM}")
 
-#[[if (UNIX)
+if (WIN_32)
 
     message("UNIX")
     set(LIB_PATH "/usr/")
@@ -72,7 +72,7 @@ message("Detected Platform ${PLATFORM}")
 
     set(FRAMEWORK_COCOA "")
 
-else()]]
+else()
 
     message("MAC")
 
@@ -140,7 +140,7 @@ else()]]
 
     set(FRAMEWORK_COCOA "-framework Cocoa")
 
-#endif()
+endif()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${CMAKE_CURRENT_SOURCE_DIR})
 
@@ -174,6 +174,7 @@ set(SOURCE
         ${GRAPHICS_SRC}Model.cpp
         ${GRAPHICS_SRC}Light_class.cpp
         ${GRAPHICS_SRC}Render_Engine.cpp
+        ${GRAPHICS_SRC}Particles.cpp
 
         ${SOUND_LIB}SoundEngine.cpp
         )
@@ -207,6 +208,7 @@ set(HEADERS
         ${GRAPHICS_INCLUDE}Data_Loader.hpp
         ${GRAPHICS_INCLUDE}Mesh.hpp
         ${GRAPHICS_INCLUDE}Render_Engine.hpp
+        ${GRAPHICS_INCLUDE}Particles.hpp
 
         ${SOUND_INC}SoundEngine.hpp
         )

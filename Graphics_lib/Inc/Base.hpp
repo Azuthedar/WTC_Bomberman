@@ -21,11 +21,8 @@
 
 struct Vertex
 {
-    // Position
     glm::vec3 Position;
-    // Normal
     glm::vec3 Normal;
-    // TexCoords
     glm::vec2 TexCoords;
 };
 
@@ -34,4 +31,18 @@ struct Texture
     GLuint id;
     std::string type;
     aiString path;
+};
+
+struct Skybox_s
+{
+    GLuint Skybox_VAO;
+    GLuint Skybox_VBO;
+    GLuint Cubemap_text;
+};
+
+struct Particles_s
+{
+    GLuint Particle_VAO;
+    GLuint Particle_VBO;
+    GLuint Particle_text;
 };

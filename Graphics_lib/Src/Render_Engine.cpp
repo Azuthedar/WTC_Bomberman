@@ -36,6 +36,14 @@ GLFWwindow *Render_Engine::GetWindow() const
 
 void Render_Engine::load_dependencies()
 {
+    std::vector< std::string > faces;
+    faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_right.png" ); // Positive X == Right Face
+    faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_left.png" ); // Negative X == Left Face
+    faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_down.png" ); // Positive Y == Top Face
+    faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_up.png" ); // Negative Y == Bottom Face
+    faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_back.png" ); // Positive Z == Back Face
+    faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_front.png" ); // Negative Z == Front Face
+
     this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/model_Player.obj") ); //0
     this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/bomb.obj") ); //1
     this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/bug_EnemyHead.obj") ); //2
@@ -49,6 +57,9 @@ void Render_Engine::load_dependencies()
     this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/gate.obj")); //10
     this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/Plane.obj")); //11
     this->models.push_back( new Model("Graphics_lib/objects_and_textures/Crate/destroy_wall/Crate1.obj")); //12
+
+    Model tmp_load;
+    this->Skybox = tmp_load.loadSkybox( faces );
 }
 
 void Render_Engine::Create_Components( Engine &engine )
@@ -78,39 +89,39 @@ void Render_Engine::Create_Components( Engine &engine )
 
   	for (size_t i = 0; i < engine.getEnemyVector().size(); i++)
     {
-      if ( engine.getEnemyVector()[i].getType() == BUG)
-          this->components.push_back( new Component("Enemy", *this->models[2], 0.0f, 0.0f, 0.0f, 0.0f, 0.55f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , 1.0f, engine.getEnemyVector()[i].getYPos() * 2 ))  );
+        if ( engine.getEnemyVector()[i].getType() == BUG)
+            this->components.push_back( new Component("Enemy", *this->models[2], 0.0f, 0.0f, 0.0f, 0.0f, 0.55f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , 1.0f, engine.getEnemyVector()[i].getYPos() * 2 ))  );
         else if ( engine.getEnemyVector()[i].getType() == ROBOT)
-          this->components.push_back( new Component("Enemy", *this->models[4], 0.0f, 0.0f, 0.0f, 0.0f, 0.55f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , 1.0f, engine.getEnemyVector()[i].getYPos() * 2 ))  );
+            this->components.push_back( new Component("Enemy", *this->models[4], 0.0f, 0.0f, 0.0f, 0.0f, 0.55f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , 1.0f, engine.getEnemyVector()[i].getYPos() * 2 ))  );
   	}
 
     if (engine.getGate().getExists() && engine.getGate().getIsLocked())
     {
-      this->components.push_back( new Component("Locked_Gate", *this->models[9], 0.0f, 0.0f, 0.0f, 0.0f, 2.0f, glm::vec3( engine.getGate().getXPos() * 2.0f, 0.1f, engine.getGate().getYPos() * 2.0f ))  );
+        this->components.push_back( new Component("Locked_Gate", *this->models[9], 0.0f, 0.0f, 0.0f, 0.0f, 2.0f, glm::vec3( engine.getGate().getXPos() * 2.0f, 0.1f, engine.getGate().getYPos() * 2.0f ))  );
     }
     else if (engine.getGate().getExists() && !engine.getGate().getIsLocked())
     {
-      this->components.push_back( new Component("Unlocked_Gate", *this->models[10], 0.0f, 0.0f, 0.0f, 0.0f, 2.0f, glm::vec3( engine.getGate().getXPos() * 2.0f, 0.1f, engine.getGate().getYPos() * 2.0f ))  );
+        this->components.push_back( new Component("Unlocked_Gate", *this->models[10], 0.0f, 0.0f, 0.0f, 0.0f, 2.0f, glm::vec3( engine.getGate().getXPos() * 2.0f, 0.1f, engine.getGate().getYPos() * 2.0f ))  );
     }
 
     for (size_t i = 0; i < engine.getPowerupVector().size(); i++)
   	{
-    		if (engine.getPowerupVector()[i].getTypePowerup() == POW_LIFE)
-    		{
-            this->components.push_back( new Component("Pow_Life", *this->models[6], 2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ))  );
-    		}
-    		else if (engine.getPowerupVector()[i].getTypePowerup() == POW_BOMBS)
-    		{
-    			   this->components.push_back( new Component("Pow_Bomb", *this->models[5], 2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ))  );
-    		}
-    		else if (engine.getPowerupVector()[i].getTypePowerup() == POW_SPEED)
-    		{
-    			   this->components.push_back( new Component("Pow_Speed", *this->models[8], 2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ))  );
-    		}
-    		else if (engine.getPowerupVector()[i].getTypePowerup() == POW_RANGE)
-    		{
-    			   this->components.push_back( new Component("Pow_Range", *this->models[7], 2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ))  );
-    		}
+		if (engine.getPowerupVector()[i].getTypePowerup() == POW_LIFE)
+		{
+            this->components.push_back( new Component("Pow_Life", *this->models[6], -2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ))  );
+		}
+		else if (engine.getPowerupVector()[i].getTypePowerup() == POW_BOMBS)
+		{
+			this->components.push_back( new Component("Pow_Bomb", *this->models[5], 2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ))  );
+		}
+		else if (engine.getPowerupVector()[i].getTypePowerup() == POW_SPEED)
+		{
+			this->components.push_back( new Component("Pow_Speed", *this->models[8], -2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ))  );
+		}
+		else if (engine.getPowerupVector()[i].getTypePowerup() == POW_RANGE)
+		{
+            this->components.push_back( new Component("Pow_Range", *this->models[7], 2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ))  );
+		}
   	}
 
   	//Render Explosions (This one's nested because each bomb has it's own vector of explosions, so itterate through each bomb, then through it's respective explosions vector)
@@ -172,6 +183,8 @@ void Render_Engine::_render( GLfloat &tmp_delta_time )
         //model = glm::rotate( model, angle, glm::vec3( 0.0f, 0.0f, 0.0f ));
 
         this->draw.Render_( this->components, this->shader );
+        this->draw.Render_Skybox( this->Skybox, this->SkyBox_shader );
+        //this->draw.Render_Particles( this->);
 
         glfwSwapBuffers( Render_Engine::window );
     //}
@@ -224,16 +237,14 @@ void Render_Engine::init()
     lastY = 0.0f;//this->Screen_Height / 2.0f;
 
     this->shader.compile_shaders("./Graphics_lib/Shaders/Colour_Shading.vert", "./Graphics_lib/Shaders/Colour_Shasiner.frag");
+    this->SkyBox_shader.compile_shaders("./Graphics_lib/Shaders/skybox.vert", "./Graphics_lib/Shaders/skybox.frag");
+    this->Particle_shader.compile_shaders("./Graphics_lib/Shaders/Particle.vert", "./Graphics_lib/Shaders/Particle.frag");
 
     load_dependencies();
 
     this->draw.Load_Uniform( this->shader );
 
     glViewport( 0.0f, 0.0f, this->Screen_Width, this->Screen_Height ); //this->Screen_Width, this->Screen_Height ); // specifies the part of the window to which OpenGL will draw (in pixels), convert from normalized to pixels.
-
-
-
-    //std::cout << "ysduyfgWGEFYWEFYIHWE " << std::endl;
 }
 
 void Render_Engine::test_func(  double posX, double posY  )

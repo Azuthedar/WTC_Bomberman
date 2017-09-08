@@ -24,5 +24,6 @@ class Data_Loader
 
         void Unbind_VAO();
 
+        GLuint LoadCubemap( std::vector<std::string> &texture_paths );
         GLuint load_texture( const char *texture_path, std::string directory );
 };
