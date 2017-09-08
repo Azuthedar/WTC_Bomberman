@@ -388,6 +388,9 @@ void	Player::setSpawnY(int spawnY)
 	this->_spawnY = spawnY;
 	this->_yPos = spawnY;
 }
+void	Player::setSpeed(float speed)				{this->_speed = speed;}
+void	Player::setBombs(int bombs)					{this->_bombs = bombs;}
+void	Player::setBombRange(int bombRange)			{this->_bombRange = bombRange;}
 void	Player::setSpeedLevel(int speedLevel)		{this->_speedLevel = speedLevel;}
 void	Player::setRangeLevel(int rangeLevel)		{this->_rangeLevel = rangeLevel;}
 void	Player::setBombLevel(int bombLevel)			{this->_bombLevel = bombLevel;}

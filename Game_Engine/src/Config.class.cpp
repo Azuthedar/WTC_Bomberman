@@ -138,11 +138,10 @@ void    Config::parseFile(Player & player)
 		player.setSpeedLevel(this->_speedLevel);
 		player.setLives(this->_lives);
 
-		std::cout << "BLVL: " << player.getBombLevel() << std::endl;
-		std::cout << "RLVL: " << player.getRangeLevel() << std::endl;
-		std::cout << "SLVL: " << player.getSpeedLevel() << std::endl;
-		std::cout << "LIV: " << player.getLives() << std::endl;
-
+		player.setSpeed(6 * pow(1.03, player.getSpeedLevel()));
+		player.setBombRange(player.getRangeLevel());
+		player.setBombs(player.getBombLevel());
+		
 		player.setKBMoveUp(this->_KBmoveUp);
 		player.setKBMoveLeft(this->_KBmoveLeft);
 		player.setKBMoveRight(this->_KBmoveRight);

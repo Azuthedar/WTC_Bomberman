@@ -33,6 +33,9 @@ class Player : public AEntity
 
 		void	setSpawnX(int spawnX);
 		void	setSpawnY(int spawnY);
+		void	setSpeed(float speed);
+		void	setBombs(int bombs);
+		void	setBombRange(int bombRange);
 		void	setSpeedLevel(int speedLevel);
 		void	setRangeLevel(int rangeLevel);
 		void	setBombLevel(int bombLevel);
