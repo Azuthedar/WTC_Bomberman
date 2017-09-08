@@ -52,11 +52,16 @@ void	Player::init()
 
 	this->_placeBombTimer = 0;
 
-	//this->_keyMoveDown = sf::Keyboard::Down;
-	//this->_keyMoveRight = sf::Keyboard::Right;
-	//this->_keyMoveUp = sf::Keyboard::Up;
-	//this->_keyMoveLeft = sf::Keyboard::Left;
-	//this->_keyPlaceBomb = sf::Keyboard::Space;
+	this->_speed = 6 * pow(1.0292f, this->_speedLevel)
+	this->_rangeLevel = 1;
+	this->_bombLevel = 1;
+
+	this->_KBmoveUp = GLFW_KEY_W;
+	this->_KBmoveLeft = GLFW_KEY_A;
+	this->_KBmoveRight = GLFW_KEY_D;
+	this->_KBmoveDown = GLFW_KEY_S;
+	this->_KBplaceBomb = GLFW_KEY_SPACE;
+	this->_KBpause = GLFW_KEY_ESCAPE;
 	return ;
 }
 
@@ -64,7 +69,7 @@ void	Player::input( GLFWwindow *window )
 {
 	if ( this->_isMoving == false )
 	{
-		if (glfwGetKey( window, GLFW_KEY_A)) // left
+		if (glfwGetKey( window, this->_KBmoveLeft)) // left
 		{
 			this->_dir = LEFT;
 			this->_isMoving = true;
@@ -73,7 +78,7 @@ void	Player::input( GLFWwindow *window )
 			this->_goal_x = floor(this->_xPos + 1);
 			this->_goal_y = this->_yPos;
 		}
-		else if (glfwGetKey( window, GLFW_KEY_D)) // right
+		else if (glfwGetKey( window, this->_KBmoveRight)) // right
 		{
 			this->_dir = RIGHT;
 			this->_isMoving = true;
@@ -82,7 +87,7 @@ void	Player::input( GLFWwindow *window )
 			this->_goal_x = ceil(this->_xPos - 1);
 			this->_goal_y = this->_yPos;
 		}
-		else if (glfwGetKey( window, GLFW_KEY_S)) // down
+		else if (glfwGetKey( window, this->_KBmoveDown)) // down
 		{
 			this->_dir = DOWN;
 			this->_isMoving = true;
@@ -91,7 +96,7 @@ void	Player::input( GLFWwindow *window )
 			this->_goal_y = ceil(this->_yPos - 1);
 			this->_goal_x = this->_xPos;
 		}
-		else if (glfwGetKey( window, GLFW_KEY_W)) // up
+		else if (glfwGetKey( window, this->_KBmoveUp)) // up
 		{
 			this->_dir = UP;
 			this->_isMoving = true;
@@ -102,7 +107,7 @@ void	Player::input( GLFWwindow *window )
 		}
 	}
 
-	if (glfwGetKey(window, GLFW_KEY_SPACE))
+	if (glfwGetKey(window, this->_KBplaceBomb))
 	{
 		if (this->_bombs > 0 && this->_placeBombTimer <= 0)
 		{
@@ -119,6 +124,10 @@ void	Player::input( GLFWwindow *window )
 				this->_placeBombTimer = BOMB_COOLDOWN;
 			}
 		}
+	}
+	if (glfwGetKey(window, this->_KBpause))
+	{
+		// PAUSE LOGIC
 	}
 }
 
@@ -316,39 +325,32 @@ void	Player::respawn()
 
 void	Player::pickupPowerUps(ePowerups type)
 {
-	std::cout << "Picked up powerup" << std::endl;
 	if (this->_pickupPowerup)
 	{
-		static int speedLevel = 1;
-		static int rangeLevel = 1;
-		static int bombLevel = 1;
 		switch (type)
 		{
 			case POW_RANGE:
-				if (rangeLevel < 10)
+				if (this->_rangeLevel < 10)
 				{
 					this->_bombRange += 1;
 					for (size_t i = 0; i < this->_bomb.size(); i++)
 						this->_bomb[i].setBombRange(this->_bombRange);
-					rangeLevel++;
+					this->_rangeLevel++;
 				}
 
 				break ;
 			case POW_BOMBS:
-				if (bombLevel < 10)
+				if (this->_bombLevel < 10)
 				{
 					this->_bombs++;
-					bombLevel++;
+					this->_bombLevel++;
 				}
 				break ;
 			case POW_SPEED:
-				if (speedLevel < 10)
+				if (this->_speedLevel < 10)
 				{
-					do
-					{
-						this->_speed += 0.1f;
-					}	while (std::remainderf(MAP_X, this->_speed) < 0.0);
-					speedLevel++;
+					this->_speedLevel++;
+					this->_speed = 6 * pow(1.0292f, this->_speedLevel);
 				}
 				break ;
 			case POW_LIFE:
@@ -385,9 +387,31 @@ void	Player::setSpawnY(int spawnY)
 	this->_spawnY = spawnY;
 	this->_yPos = spawnY;
 }
+void	Player::setSpeedLevel(int speedLevel)		{this->_speedLevel = speedLevel;}
+void	Player::setRangeLevel(int rangeLevel)		{this->_rangeLevel = rangeLevel;}
+void	Player::setBombLevel(int bombLevel)			{this->_bombLevel = bombLevel;}
+void	Player::setLives(int lives)					{this->_lives = lives;}
+void    Player::setKBMoveUp(int KBmoveUp)           {this->_KBmoveUp = KBmoveUp;}
+void    Player::setKBMoveLeft(int KBmoveLeft)       {this->_KBmoveLeft = KBmoveLeft;}
+void    Player::setKBMoveRight(int KBmoveRight)     {this->_KBmoveRight = KBmoveRight;}
+void    Player::setKBMoveDown(int KBmoveDown)     	{this->_KBmoveDown = KBmoveDown;}
+void    Player::setKBPlaceBomb(int KBplaceBomb)		{this->_KBplaceBomb = KBplaceBomb;}
+void	Player::setKBPause(int KBpause)				{this->_KBpause = KBpause;}
+
 
 int	&	Player::getBombs()						{return (this->_bombs);}
 int &	Player::getSpawnX()						{return (this->_spawnX);}
 int &	Player::getSpawnY()						{return (this->_spawnY);}
 int &	Player::getBombRange()					{return (this->_bombRange);}
+int &	Player::getSpeedLevel()					{return (this->_bombLevel);}
+int &	Player::getRangeLevel()					{return (this->_rangeLevel);}
+int &	Player::getBombLevel()					{return (this->_bombLevel);}
+int &	Player::getLives()						{return (this->_lives);}
+int &	Player::getKBMoveUp()           		{return (this->_KBmoveUp);}
+int &	Player::getKBMoveLeft()         		{return (this->_KBmoveLeft);}
+int &	Player::getKBMoveRight()        		{return (this->_KBmoveRight);}
+int &	Player::getKBMoveDown()         		{return (this->_KBmoveDown);}
+int &	Player::getKBPlaceBomb()          		{return (this->_KBplaceBomb);}
+int &	Player::getKBPause()					{return (this->_KBpause);}
 std::vector<Bomb> &		Player::getBombVector() {return (this->_bomb);}
+

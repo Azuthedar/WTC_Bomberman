@@ -33,28 +33,43 @@ class Player : public AEntity
 
 		void	setSpawnX(int spawnX);
 		void	setSpawnY(int spawnY);
+		void	setSpeedLevel(int speedLevel);
+		void	setRangeLevel(int rangeLevel);
+		void	setBombLevel(int bombLevel);
+		void	setLives(int lives);
+		void	setKBMoveUp(int KBmoveUp);
+		void	setKBMoveLeft(int KBmoveLeft);
+		void	setKBMoveRight(int KBmoveRight);
+		void	setKBMoveDown(int KBmoveDown);
+		void	setKBPlaceBomb(int KBplaceBomb);
+		void	setKBPause(int KBpause);
 
 		int	&	getBombs();
 		int &	getBombRange();
 		int	&	getSpawnX();
 		int	&	getSpawnY();
 		int	&	getPlaceBombTimer();
+		int &	getSpeedLevel();
+		int &	getRangeLevel();
+		int &	getBombLevel();
+		int & 	getLives();
+		int &	getKBMoveUp();
+		int &	getKBMoveLeft();
+		int &	getKBMoveRight();
+		int &	getKBMoveDown();
+		int &	getKBPlaceBomb();
+		int &	getKBPause();
 		std::vector<Bomb> &		getBombVector();
 
 	private:
-		
-		bool				change_dir;
-
-		bool				collide_left;
-		bool				collide_right;
-		bool				collide_up;
-		bool				collide_down;
 
 		int					_goal_x;
 		int					_goal_y;
+
 		int					_lives;
 		int					_totalLives;
 		int					_score;
+
 		float				_totalSpeed;
 		int					_bombRange;
 		int					_bombs;
@@ -62,10 +77,22 @@ class Player : public AEntity
 		int					_spawnY;
 		int					_placeBombTimer;
 		float				_speed;
+
+		int					_speedLevel;
+		int					_rangeLevel;
+		int					_bombLevel;
+		
 		bool				_isMoving;
 		bool				_pickupPowerup;
 		bool				_hitOnce; // Used to check if the explosion has already hit the player.
 		ePowerups			_typePowerup;
 		eScore				_typeScore;
 		std::vector<Bomb>	_bomb;
+
+		int					_KBmoveUp;
+		int					_KBmoveLeft;
+		int					_KBmoveRight;
+		int					_KBmoveDown;
+		int					_KBplaceBomb;
+		int					_KBpause;
 };

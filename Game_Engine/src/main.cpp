@@ -9,21 +9,13 @@
 
 int main(int argc, char **argv)
 {
-
-	if (argc == 1)
-	{
-		return (0);
-	}
 	try
 	{
 
 		Engine engine;
 		Render_Engine render( "Atjar", 1280, 720);
 
-		engine.readFile(argv[1]);
-		engine.readMap();
 		//Load Map Into Respective Vectors
-		engine.buildMap();
 		//Sound music;
 		//music.initialize("");
 		//music.play(0, 1);

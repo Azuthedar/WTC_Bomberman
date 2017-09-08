@@ -56,29 +56,29 @@ void Model::loadModel( std::string path )
     }
 
     this->directory = path.substr( 0, path.find_last_of( '/' ) + 1);
-    std::cout << this->directory << std::endl;
+    //std::cout << this->directory << std::endl;
 
     this->processNode( scene->mRootNode, scene );
 }
 
 void Model::processNode( aiNode* node, const aiScene* scene )
 {
-    std::cout << "NUM of Meshes " << node->mNumMeshes << std::endl;
+   // std::cout << "NUM of Meshes " << node->mNumMeshes << std::endl;
     for ( GLuint i = 0; i < node->mNumMeshes; i++ )
     {
-        std::cout << "Enter" << std::endl;
+        //std::cout << "Enter" << std::endl;
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 
         this->meshes.push_back( this->processMesh( mesh, scene ) );
     }
 
-    std::cout << "Children Number " <<  node->mNumChildren << std::endl;
+    //std::cout << "Children Number " <<  node->mNumChildren << std::endl;
     for ( GLuint i = 0; i < node->mNumChildren; i++ )
     {
         this->processNode( node->mChildren[i], scene );
     }
 
-    std::cout << this->meshes.size() << std::endl;
+    //std::cout << this->meshes.size() << std::endl;
 }
 
 Mesh Model::processMesh( aiMesh *mesh, const aiScene *scene )
@@ -143,8 +143,8 @@ Mesh Model::processMesh( aiMesh *mesh, const aiScene *scene )
         }
     }
 
-    std::cout << "Material " << mesh->mMaterialIndex << std::endl;
-    std::cout << "Scene Textures " << scene->HasTextures() << std::endl;
+    //std::cout << "Material " << mesh->mMaterialIndex << std::endl;
+    //std::cout << "Scene Textures " << scene->HasTextures() << std::endl;
 
     aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
@@ -161,13 +161,13 @@ std::vector<Texture> Model::loadMaterialTextures( aiMaterial *mat, aiTextureType
 {
     std::vector<Texture> textures;
 
-    std::cout << " SOME VALUES " << mat->GetTextureCount( type ) << std::endl;
+    //std::cout << " SOME VALUES " << mat->GetTextureCount( type ) << std::endl;
     for ( GLuint i = 0; i < mat->GetTextureCount( type ); i++ )
     {
         aiString str;
         mat->GetTexture( type, i, &str );
 
-        std::cout <<  "Texture File Name " << str.C_Str() << std::endl;
+        //std::cout <<  "Texture File Name " << str.C_Str() << std::endl;
 
         GLboolean skip = false;
 
@@ -184,7 +184,7 @@ std::vector<Texture> Model::loadMaterialTextures( aiMaterial *mat, aiTextureType
 
         if( !skip )
         {   // If texture hasn't been loaded already, load it
-            std::cout << " FILE NAME " << str.C_Str() << " DIRECTORY " << this->directory << std::endl;
+            //std::cout << " FILE NAME " << str.C_Str() << " DIRECTORY " << this->directory << std::endl;
             Texture texture;
             texture.id = this->load.load_texture( str.C_Str( ), this->directory );
             texture.type = typeName;

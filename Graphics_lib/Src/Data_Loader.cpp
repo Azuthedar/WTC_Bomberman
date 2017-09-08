@@ -33,7 +33,7 @@ GLuint Data_Loader::load_texture( const char *texture_path, std::string director
 
     this->Texture_ID.push_back( texture );
 
-    std::cout << "LOAD ISSS " << std::endl;
+    //std::cout << "LOAD ISSS " << std::endl;
 
     unsigned char *image = SOIL_load_image(filename.c_str() , &width, &height, 0, SOIL_LOAD_RGB);
 
@@ -48,7 +48,7 @@ GLuint Data_Loader::load_texture( const char *texture_path, std::string director
     SOIL_free_image_data( image );
     glBindTexture( GL_TEXTURE_2D, 0);
 
-    std::cout << " BEFOR LOADISS RET " << std::endl;
+   // std::cout << " BEFOR LOADISS RET " << std::endl;
 
     return ( texture );
 }
@@ -62,7 +62,7 @@ unsigned int Data_Loader::GetArrayLen( GLfloat *tmp )
         count++;
     }
 
-    std::cout << count << std::endl;
+   // std::cout << count << std::endl;
     exit(7);
 
     return ( count );
@@ -133,13 +133,13 @@ GLuint Data_Loader::Create_VAO()
     glGenVertexArrays( 1, &tmp_vao );
     glBindVertexArray( tmp_vao );
 
-    std::cout << " VATAI tertete " <<  tmp_vao << std::endl;
+   // std::cout << " VATAI tertete " <<  tmp_vao << std::endl;
 
     this->VAO.push_back( tmp_vao );
 
     for (int count = 0; count < this->VAO.size(); count++ )
     {
-        std::cout << " THEM PUSHIES " << this->VAO[count] << std::endl;
+       // std::cout << " THEM PUSHIES " << this->VAO[count] << std::endl;
     }
 
     return ( tmp_vao );
@@ -153,7 +153,7 @@ void Data_Loader::Store_Data( int attrib_number, GLuint data_size , int data_num
 
     this->VBO.push_back( tmp_vbo );
 
-    std::cout << "STORE DATAT " << std::endl;
+    //std::cout << "STORE DATAT " << std::endl;
 
     //binds VBO
     glBindBuffer( GL_ARRAY_BUFFER, tmp_vbo );

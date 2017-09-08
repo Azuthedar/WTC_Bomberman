@@ -35,8 +35,8 @@ void Shaders::compile_shaders(const std::string &vertexfile_path, const std::str
 		std::cerr << "ERROR HELP" << std::endl;
 
 	//Debug
-	std::cout << vertex_id << std::endl;
-	std::cout << fragment_id << std::endl;
+	//std::cout << vertex_id << std::endl;
+	//std::cout << fragment_id << std::endl;
 
 	//Compile Vertex Shaders
 	compile( vertexfile_path, vertex_id );
@@ -97,7 +97,7 @@ void Shaders::compile(const std::string &file_path, GLuint &tmp_id)
 		std::cerr << "Error Help DEEZZ" << std::endl;
 
 	//Debug
-	std::cout << tmp_id << std::endl;
+	//std::cout << tmp_id << std::endl;
 
 	std::string file_contents = "";
 	std::string line = "";
@@ -111,7 +111,7 @@ void Shaders::compile(const std::string &file_path, GLuint &tmp_id)
 
 	const char *file_data = file_contents.c_str();
 
-	std::cout << file_data << std::endl;
+	//std::cout << file_data << std::endl;
 
 	//Copies the Source code from the contents string to the Shader object and prepares the shader code to be compiled later.
 	glShaderSource(tmp_id, 1, &file_data, nullptr);
@@ -144,9 +144,9 @@ void Shaders::compile(const std::string &file_path, GLuint &tmp_id)
 
 		for (GLint i = 0; i < maxlength; i++)
 		{
-			std::cout << errorlog[i] << " ";
+			//std::cout << errorlog[i] << " ";
 		}
-		std::cout << std::endl;
+		//std::cout << std::endl;
 
 		return;
 	}

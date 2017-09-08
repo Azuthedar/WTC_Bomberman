@@ -71,7 +71,7 @@ private:
         }
         // Retrieve the directory path of the filepath
         this->directory = path.substr( 0, path.find_last_of( '/' ) );
-        std::cout << this->directory << std::endl;
+        //std::cout << this->directory << std::endl;
 
         // Process ASSIMP's root node recursively
         this->processNode( scene->mRootNode, scene );
@@ -81,10 +81,10 @@ private:
     void processNode( aiNode* node, const aiScene* scene )
     {
         // Process each mesh located at the current node
-        std::cout << "NUM of Meshes " << node->mNumMeshes << std::endl;
+        //std::cout << "NUM of Meshes " << node->mNumMeshes << std::endl;
         for ( GLuint i = 0; i < node->mNumMeshes; i++ )
         {
-            std::cout << "Enter" << std::endl;
+            //std::cout << "Enter" << std::endl;
             // The node object only contains indices to index the actual objects in the scene.
             // The scene contains all the data, node is just to keep stuff organized (like relations between nodes).
             aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
@@ -93,7 +93,7 @@ private:
         }
 
         // After we've processed all of the meshes (if any) we then recursively process each of the children nodes
-        std::cout << "Children Number " <<  node->mNumChildren << std::endl;
+        //std::cout << "Children Number " <<  node->mNumChildren << std::endl;
         for ( GLuint i = 0; i < node->mNumChildren; i++ )
         {
             this->processNode( node->mChildren[i], scene );
@@ -159,7 +159,7 @@ private:
         }
 
         // Process materials
-        std::cout << "Material " << mesh->mMaterialIndex << std::endl;
+        //std::cout << "Material " << mesh->mMaterialIndex << std::endl;
         if( mesh->mMaterialIndex >= 0 )
         {
             aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
@@ -194,7 +194,7 @@ private:
             aiString str;
             mat->GetTexture( type, i, &str );
 
-            std::cout <<  "Texture File Name " << str.C_Str() << std::endl;
+            //std::cout <<  "Texture File Name " << str.C_Str() << std::endl;
 
             // Check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
             GLboolean skip = false;

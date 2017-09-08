@@ -5,13 +5,14 @@
 #include "Enemy.class.hpp"
 #include "Explosion.class.hpp"
 #include "Powerup.class.hpp"
+#include <Config.class.hpp>
 
 class Engine
 {
 	public:
 
 		Engine();
-		Engine(Engine const & src);
+		//Engine(Engine const & src);
 		~Engine();
 
 		void		ticker( GLfloat &delta_time );
@@ -53,4 +54,5 @@ class Engine
 		bool						_isTransitioning;
 		Exceptions					_exceptions;
 		std::vector<Powerup>		_powerupVector;
+		Config						_config;
 };

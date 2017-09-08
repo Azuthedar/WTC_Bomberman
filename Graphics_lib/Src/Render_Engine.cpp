@@ -238,7 +238,7 @@ void Render_Engine::init()
 
 void Render_Engine::test_func(  double posX, double posY  )
 {
-    std:: cout << " X1 " << posX << " Y1 " << posY << std::endl;
+    //std:: cout << " X1 " << posX << " Y1 " << posY << std::endl;
 
     /*if ( firstmouse )
     {
@@ -253,7 +253,7 @@ void Render_Engine::test_func(  double posX, double posY  )
     lastX = posX;
     lastY = posY;
 
-    std:: cout << " X " << xOffset << " Y " << yOffset << std::endl;
+    //std:: cout << " X " << xOffset << " Y " << yOffset << std::endl;
 
     camera->ProcessMouseMovement( xOffset, yOffset );
 }

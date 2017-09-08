@@ -68,6 +68,23 @@ enum eEnemyType
 	ROBOT
 };
 
+enum eConfig
+{
+	CNF_MAP = 1,
+	CNF_BOMBLVL = 3,
+	CNF_RANGELVL,
+	CNF_SPEEDLVL,
+	CNF_LIVES,
+	CNF_RESOLUTION = 8,
+	CNF_SOUNDLVL,
+	CNF_KBUP = 11,
+	CNF_KBLEFT,
+	CNF_KBRIGHT,
+	CNF_KBDOWN,
+	CNF_KBPLACE,
+	CNF_KBPAUSE
+};
+
 #define MAP_X 18
 #define MAP_Y 18
 #define FIXED_FPS 60

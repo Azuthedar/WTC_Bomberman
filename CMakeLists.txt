@@ -163,6 +163,7 @@ set(SOURCE
         ${SRC}GameEngine.class.cpp
         ${SRC}Player.class.cpp
         ${SRC}Wall.class.cpp
+        ${SRC}Config.class.cpp
 
         ${GRAPHICS_SRC}Camera.cpp
         ${GRAPHICS_SRC}Data_Loader.cpp
@@ -194,6 +195,7 @@ set(HEADERS
         ${INCLUDE}GameEngine.class.hpp
         ${INCLUDE}Player.class.hpp
         ${INCLUDE}Wall.class.hpp
+        ${INCLUDE}Config.class.hpp
 
         ${GRAPHICS_INCLUDE}Base.hpp
         ${GRAPHICS_INCLUDE}Component.hpp

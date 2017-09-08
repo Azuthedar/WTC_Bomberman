@@ -7,13 +7,17 @@ Engine::Engine()
 	this->_mapLevel = 0;
 	this->_mapEnd = false;
 	this->_isTransitioning = false;
+	this->readFile("maps");
+	this->readMap();
+	this->buildMap();
+	this->_config.defaultInit(this->_player);
 	return ;
 }
 
-Engine::Engine(Engine const & src)
+/* Engine::Engine(Engine const & src)
 {
 	*this = src;
-}
+} */
 
 Engine::~Engine()
 {
@@ -72,6 +76,7 @@ void Engine::transitionMap()
 		this->_walls_vector.clear();
 		this->readMap();
 		this->buildMap();
+		this->_config.updateFile(this->_player, this->_maps, this->_mapLevel);
 		this->_player.getBombVector().clear();
 		this->_powerupVector.clear();
 		this->_mapDuration = MAP_DURATION_TIME;
