@@ -17,12 +17,59 @@ Particles_s Model::loadParticle( )
 
     Particles_s tmp_particle;
 
-    GLfloat cubeVertices[] = {
+    /*GLfloat cubeVertices[] = {
         -0.5f, 0.5f,
         -0.5f, -0.5f,
         0.5f, 0.5f,
         0.5f, -0.5f
+    };*/
+
+    GLfloat cubeVertices[] =
+    {
+        // Positions          // Texture Coords
+        -0.5f, -0.5f, -0.5f,
+        0.5f, -0.5f, -0.5f,
+        0.5f,  0.5f, -0.5f,
+        0.5f,  0.5f, -0.5f,
+        -0.5f,  0.5f, -0.5f,
+        -0.5f, -0.5f, -0.5f,
+
+        -0.5f, -0.5f,  0.5f,
+        0.5f, -0.5f,  0.5f,
+        0.5f,  0.5f,  0.5f,
+        0.5f,  0.5f,  0.5f,
+        -0.5f,  0.5f,  0.5f,
+        -0.5f, -0.5f,  0.5f,
+
+        -0.5f,  0.5f,  0.5f,
+        -0.5f,  0.5f, -0.5f,
+        -0.5f, -0.5f, -0.5f,
+        -0.5f, -0.5f, -0.5f,
+        -0.5f, -0.5f,  0.5f,
+        -0.5f,  0.5f,  0.5f,
+
+        0.5f,  0.5f,  0.5f,
+        0.5f,  0.5f, -0.5f,
+        0.5f, -0.5f, -0.5f,
+        0.5f, -0.5f, -0.5f,
+        0.5f, -0.5f,  0.5f,
+        0.5f,  0.5f,  0.5f,
+
+        -0.5f, -0.5f, -0.5f,
+        0.5f, -0.5f, -0.5f,
+        0.5f, -0.5f,  0.5f,
+        0.5f, -0.5f,  0.5f,
+        -0.5f, -0.5f,  0.5f,
+        -0.5f, -0.5f, -0.5f,
+
+        -0.5f,  0.5f, -0.5f,
+        0.5f,  0.5f, -0.5f,
+        0.5f,  0.5f,  0.5f,
+        0.5f,  0.5f,  0.5f,
+        -0.5f,  0.5f,  0.5f,
+        -0.5f,  0.5f, -0.5f,
     };
+
 
     glGenVertexArrays( 1, &VAO );
     glGenBuffers( 1, &VBO );
@@ -30,15 +77,15 @@ Particles_s Model::loadParticle( )
     glBindBuffer( GL_ARRAY_BUFFER, VBO );
     glBufferData( GL_ARRAY_BUFFER, sizeof( cubeVertices ), &cubeVertices, GL_STATIC_DRAW );
     glEnableVertexAttribArray( 0 );
-    glVertexAttribPointer( 0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof( GLfloat ), ( GLvoid * ) 0 );
+    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof( GLfloat ), ( GLvoid * ) 0 );
     glBindVertexArray(0);
 
+    std::cout << "Some stuff is happening " << VAO << std::endl;
     tmp_particle.Particle_VAO = VAO;
     tmp_particle.Particle_VBO = VBO;
     //tmp_skybox.Cubemap_text = this->load.LoadCubemap( texture_paths );
 
     return (tmp_particle);
-
 }
 
 Skybox_s Model::loadSkybox( std::vector<std::string> &texture_paths )

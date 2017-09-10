@@ -144,9 +144,9 @@ void Shaders::compile(const std::string &file_path, GLuint &tmp_id)
 
 		for (GLint i = 0; i < maxlength; i++)
 		{
-			//std::cout << errorlog[i] << " ";
+			std::cout << errorlog[i] << " ";
 		}
-		//std::cout << std::endl;
+		std::cout << std::endl;
 
 		return;
 	}

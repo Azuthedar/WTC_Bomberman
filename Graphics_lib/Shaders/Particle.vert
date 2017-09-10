@@ -1,11 +1,11 @@
 #version 330 core
 
-in vec2 position;
+layout ( location = 0 )  in vec3 position;
 
-uniform mat4 projection_matrix;
-uniform mat4 mv;
+uniform mat4 model; // converts locall co-ordinates to camera co-ordinates
+uniform mat4 view;	// converts normalized co-ordinates to window co-ordinates
 
 void main()
 {
-    gl_Position = projection_matrix * mv * vec4( position, 0.0f, 1.0f );
+    gl_Position = view * model * vec4( position, 1.0f );
 }

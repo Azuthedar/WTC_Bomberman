@@ -5,7 +5,7 @@ Particles::Particles()
     return ;
 }
 
-Particles::Particles( glm::vec3 &tmp_Position, glm::vec3 &tmp_Velocity, GLfloat &tmp_gravity, GLfloat &tmp_LifeLength, GLfloat &tmp_Rotation, GLfloat &tmp_Scale )
+Particles::Particles( glm::vec3 const &tmp_Position, glm::vec3 const &tmp_Velocity, GLfloat const &tmp_gravity, GLfloat const &tmp_LifeLength, GLfloat const &tmp_Rotation, GLfloat const &tmp_Scale )
 {
     this->Position = tmp_Position;
     this->Velocity = tmp_Velocity;
@@ -20,9 +20,9 @@ Particles::~Particles()
     return ;
 }
 
-bool Particles::UpdateParticle( GLfloat &DeltaTime )
+bool Particles::UpdateParticle( const GLfloat &DeltaTime )
 {
-    Velocity.y += -50 * this->gravity * DeltaTime;
+    /*Velocity.y += -50 * this->gravity * DeltaTime;
     glm::vec3 change = this->Velocity;
 
     change.x *= DeltaTime;
@@ -31,7 +31,7 @@ bool Particles::UpdateParticle( GLfloat &DeltaTime )
 
     this->Position.x += change.x;
     this->Position.y += change.y;
-    this->Position.z += change.z;
+    this->Position.z += change.z;*/
 
     this->ElapsedTime += DeltaTime;
     return (ElapsedTime < LifeLength);

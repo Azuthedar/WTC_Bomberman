@@ -60,6 +60,7 @@ void Render_Engine::load_dependencies()
 
     Model tmp_load;
     this->Skybox = tmp_load.loadSkybox( faces );
+    this->particle_data = tmp_load.loadParticle( );
 }
 
 void Render_Engine::Create_Components( Engine &engine )
@@ -125,16 +126,19 @@ void Render_Engine::Create_Components( Engine &engine )
   	}
 
   	//Render Explosions (This one's nested because each bomb has it's own vector of explosions, so itterate through each bomb, then through it's respective explosions vector)
-  	/*for (size_t i = 0; i < engine.getPlayer().getBombVector().size(); i++)
+
+    glm::vec3 pos = glm::vec3( 3.0f );
+    glm::vec3 velocity = glm::vec3( 1.0f );
+    for (size_t i = 0; i < engine.getPlayer().getBombVector().size(); i++)
   	{
   		for (size_t y = 0; y < engine.getPlayer().getBombVector()[i].getExplosionVector().size(); y++)
   		{
-  			engine.getPlayer().getBombVector()[i].getExplosionVector()[y].sprite__.setTexture(explosionText);
-  			engine.getPlayer().getBombVector()[i].getExplosionVector()[y].sprite__.setPosition(engine.getPlayer().getBombVector()[i].getExplosionVector()[y].getXPos(), engine.getPlayer().getBombVector()[i].getExplosionVector()[y].getYPos());
-  			engine.getPlayer().getBombVector()[i].getExplosionVector()[y].sprite__.setOrigin(0, 48);
-  			window.draw(engine.getPlayer().getBombVector()[i].getExplosionVector()[y].sprite__);
+            pos.x = engine.getPlayer().getBombVector()[i].getExplosionVector()[y].getXPos() * 2;
+            pos.z =  engine.getPlayer().getBombVector()[i].getExplosionVector()[y].getYPos() * 2;
+            pos.y = 3.0f;
+  			this->particle_manager.push_particle( pos, velocity, 0.0f, 2.0f, 0.0f, 6.0f );
   		}
-  	}*/
+  	}
 }
 
 void Render_Engine::_render( GLfloat &tmp_delta_time )
@@ -155,7 +159,7 @@ void Render_Engine::_render( GLfloat &tmp_delta_time )
         Render_Engine::lastFrame = current_time;*/
 
         Render_Engine::deltaTime = tmp_delta_time;
-
+        this->particle_manager.manage_particles( tmp_delta_time );
 
         //std::cout << lastX << lastY << std::endl;
 
@@ -183,9 +187,8 @@ void Render_Engine::_render( GLfloat &tmp_delta_time )
         //model = glm::rotate( model, angle, glm::vec3( 0.0f, 0.0f, 0.0f ));
 
         this->draw.Render_( this->components, this->shader );
+        this->draw.Render_Particles( this->particle_manager.GetParticleArray(), this->Particle_shader, this->particle_data );
         this->draw.Render_Skybox( this->Skybox, this->SkyBox_shader );
-        //this->draw.Render_Particles( this->);
-
         glfwSwapBuffers( Render_Engine::window );
     //}
 
@@ -236,8 +239,11 @@ void Render_Engine::init()
     lastX = 0.0f;//this->Screen_Width / 2.0f;
     lastY = 0.0f;//this->Screen_Height / 2.0f;
 
+    std::cout << "Base Shader" << std::endl;
     this->shader.compile_shaders("./Graphics_lib/Shaders/Colour_Shading.vert", "./Graphics_lib/Shaders/Colour_Shasiner.frag");
+    std::cout << "Skybox Shader" << std::endl;
     this->SkyBox_shader.compile_shaders("./Graphics_lib/Shaders/skybox.vert", "./Graphics_lib/Shaders/skybox.frag");
+    std::cout << "Particle Shader" << std::endl;
     this->Particle_shader.compile_shaders("./Graphics_lib/Shaders/Particle.vert", "./Graphics_lib/Shaders/Particle.frag");
 
     load_dependencies();

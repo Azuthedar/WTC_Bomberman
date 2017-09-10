@@ -9,7 +9,8 @@ set(PLATFORM ${CMAKE_SYSTEM_NAME})
 
 message("Detected Platform ${PLATFORM}")
 
-if (WIN_32)
+#if (WIN_32)
+if (UNIX)
 
     message("UNIX")
     set(LIB_PATH "/usr/")
@@ -175,6 +176,7 @@ set(SOURCE
         ${GRAPHICS_SRC}Light_class.cpp
         ${GRAPHICS_SRC}Render_Engine.cpp
         ${GRAPHICS_SRC}Particles.cpp
+        ${GRAPHICS_SRC}Particle_manager.cpp
 
         ${SOUND_LIB}SoundEngine.cpp
         )
@@ -209,6 +211,7 @@ set(HEADERS
         ${GRAPHICS_INCLUDE}Mesh.hpp
         ${GRAPHICS_INCLUDE}Render_Engine.hpp
         ${GRAPHICS_INCLUDE}Particles.hpp
+        ${GRAPHICS_INCLUDE}Particle_manager.hpp
 
         ${SOUND_INC}SoundEngine.hpp
         )

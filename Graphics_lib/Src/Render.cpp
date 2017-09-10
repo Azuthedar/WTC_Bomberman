@@ -38,24 +38,40 @@ void Render::SetViewMatrix( glm::mat4 const &tmp_matrix )
     this->view_matrix = tmp_matrix;
 }
 
-void Render_Particles( std::vector< Particles *> &tmp, Shaders &shader, Particles_s &data )
+void Render::Render_Particles( const std::vector< Particles *> &tmp, Shaders &shader, Particles_s &data )
 {
     glUseProgram( shader.GetProgramID() );
     glBindVertexArray( data.Particle_VAO );
     glEnableVertexAttribArray(0);
-    glEnable(GL_BLEND);
-    glBlendFunc( GL_SRC_ALPHA, GL_ONE);
-    glDepthMask(false);
+    //glEnable(GL_BLEND);
+    //glBlendFunc( GL_SRC_ALPHA, GL_ONE);
+    //glDepthMask(false);
+
+    GLint modelLoc = shader.GetUniformLocation( "model" );
+    GLint viewLoc = shader.GetUniformLocation( "view" );
+
+    //std::cout << " THis stuff particle " << modelLoc << " " << viewLoc << " them origies " << this->modelLoc << " " << this->viewLoc << std::endl;
 
     for (int count = 0; count < tmp.size(); count++)
     {
-        glDrawArrays( GL_TRIANGLE_STRIP, 0, 4);
+        glm::mat4 model = glm::mat4(1.0);
+        glm::mat4 model_matrix;
+
+        shader.load_matrix( viewLoc, this->view_matrix );
+
+        model = glm::translate( model, tmp[count]->GetPosition() );
+        model = glm::rotate( model, tmp[count]->GetRotation(), glm::vec3( 0.5f, 1.0f, 0.0f ) );
+        model_matrix = glm::scale( model , glm::vec3(tmp[count]->GetScale()) );
+        shader.load_matrix( modelLoc, model_matrix );
+
+        //glDrawArrays( GL_TRIANGLE_STRIP, 0, 4);
+        glDrawArrays( GL_TRIANGLES, 0, 36 );
     }
 
     glBindVertexArray( 0 );
     glDisableVertexAttribArray(0);
-    glDisable(GL_BLEND);
-    glDepthMask(true);
+    //glDisable(GL_BLEND);
+    //glDepthMask(true);
 }
 
 void Render::Render_Skybox( Skybox_s &data, Shaders &shader)

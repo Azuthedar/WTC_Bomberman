@@ -7,6 +7,7 @@
 #include "Camera.hpp"
 #include "Component.hpp"
 #include "Light_class.hpp"
+#include "Particle_manager.hpp"
 #include "../../Game_Engine/include/GameEngine.class.hpp"
 
 class Render_Engine
@@ -33,10 +34,13 @@ class Render_Engine
         Shaders shader;
         Shaders SkyBox_shader;
         Shaders Particle_shader;
+        Particle_manager particle_manager;
 
         std::vector < Model * > models;
         std::vector < Component * > components;
+
         Skybox_s Skybox;
+        Particles_s particle_data;
 
         Render_Engine();
 
