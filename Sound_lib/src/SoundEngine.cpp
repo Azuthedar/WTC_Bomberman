@@ -6,177 +6,127 @@ void *worker(void *argc){
     return  argc;
 }
 
-static void reportError (void)
+static void reportError (std::string err)
 {
-    fprintf (stderr, "ALUT error: %s\n",
-             alutGetErrorString (alutGetError ()));
+    std::cout << stderr << "OPENAL ERROR: " << alGetError() << std::endl << " : " << err << std::endl;
     exit (EXIT_FAILURE);
+}
+bool isBigEndian()
+{
+    int a=1;
+    return !((char*)&a)[0];
+}
+int convertToInt(char* buffer,int len)
+{
+    int a=0;
+    if(!isBigEndian())
+        for(int i=0;i<len;i++)
+            ((char*)&a)[i]=buffer[i];
+    else
+        for(int i=0;i<len;i++)
+            ((char*)&a)[3-i]=buffer[i];
+    return a;
 }
 
 Sound::Sound() {
 }
 
 Sound::~Sound() {
-    alutExit();
+    //alutExit();
+    alDeleteSources(1, &_source);
+    alDeleteBuffers(1, &_buffer);
 }
 
 void Sound::initialize(const char* File) {
-
-    // Initialize the environment
-//    if (!alutInit(0, NULL)){
-//        std::cout << "Failed to init alut" << std::endl;
-//        std::cout << alGetError() << std::endl;
-//    };
-
-//    // Load pcm data into buffer
-//    if (!alutCreateBufferFromFile(File)) {
-//        std::cout << "Failed to create buffer from file" << std::endl;
-//        reportError();
-//    }
-//    else {
-//        std::cout << "create buffer worked" << std::endl;
-//        _buffer = alutCreateBufferFromFile(File);
-//    }
-//    ALuint buffer = alutCreateBufferFromFile(File);
-//    if (!buffer){
-//        std::cout << "failed to create buffer" << std::endl;
-//        reportError();
-//    }
-//    alGenSources(1, &_source);
+    ALCdevice*  _device;
+    ALCcontext* _context;
+    alGetError();
     _device = alcOpenDevice(NULL);
-    if(_device){
-        std::cout << "device created" << std::endl;
-        _context = alcCreateContext(_device,NULL);
-        if(_context)
-            std::cout << "context created" << std::endl;
-        alcMakeContextCurrent(_context);
-        std::cout << "made context current" << std::endl;
+    if(_device == NULL){
+        reportError("Failed to open OPENAL device");
     }
-    loadWavFile("sarangi.wav", &_buffer, &_size, &_frequency, &_format);
+    _context = alcCreateContext(_device, NULL);
+    if(_context == NULL){
+        reportError("Failed to create context");
+    }
+    alcMakeContextCurrent(_context);
+
+    int             _channel;
+    int             _sampleRate;
+    int             _bps;
+    int             _size;
+    unsigned int    _format;
+    char           *_data;
+
+    try{
+        _data = loadWAV(File, _channel, _sampleRate, _bps, _size);
+    }catch (std::exception & e){
+        std::cout << "Failed to load file" << e.what() <<std::endl;
+    }
+
+    alGenBuffers(1, &_buffer);
+    if (_channel == 1){
+        if(_bps == 8){
+            _format = AL_FORMAT_MONO8;
+        } else{
+            _format = AL_FORMAT_MONO16;
+        }
+    } else{
+        if(_bps == 8){
+            _format = AL_FORMAT_STEREO8;
+        } else{
+            _format = AL_FORMAT_STEREO16;
+        }
+    }
+    alBufferData(_buffer, _format, _data, _size, _sampleRate);
+
     alGenSources(1, &_source);
+    std::cout << "channel: " << _channel << std::endl;
+    std::cout << "samplerate: " << _sampleRate << std::endl;
+    std::cout << "bps: " << _bps << std::endl;
+    std::cout << "size: " << _size << std::endl;
+    std::cout << "format: " << _format << std::endl;
+    std::cout << "data: " << &_data << std::endl;
 
 }
 
-bool Sound::loadWavFile(std::string filename, ALuint* buffer, ALsizei* size, ALsizei* frequency, ALenum* format){
-        //Local Declarations
-    FILE* soundFile = NULL;
-    WAVE_Format wave_format;
-    RIFF_Header riff_header;
-    WAVE_Data wave_data;
-    unsigned char* data;
-
-    *size = wave_data.subChunk2Size;
-    *frequency = wave_format.sampleRate;
-    if (wave_format.numChannels == 1) {
-        if (wave_format.bitsPerSample == 8 )
-            *format = AL_FORMAT_MONO8;
-        else if (wave_format.bitsPerSample == 16)
-            *format = AL_FORMAT_MONO16;
-    } else if (wave_format.numChannels == 2) {
-        if (wave_format.bitsPerSample == 8 )
-            *format = AL_FORMAT_STEREO8;
-        else if (wave_format.bitsPerSample == 16)
-            *format = AL_FORMAT_STEREO16;
+char* Sound::loadWAV(const char* fn,int& chan,int& samplerate,int& bps,int& size){
+    char buffer[4];
+    std::ifstream in(fn, std::ios::binary);
+    in.read(buffer, 4);
+    if (std::strncmp(buffer, "RIFF", 4) != 0){
+        std::cout << "Not a valid WAV file" << std::endl;
     }
+    in.read(buffer, 4);
+    in.read(buffer, 4); // WAVE
+    in.read(buffer, 4); // fmt
+    in.read(buffer, 4); // 16
+    in.read(buffer, 2); // 1
+    in.read(buffer, 2);
+    chan = convertToInt(buffer, 2);
+    in.read(buffer, 4);
+    samplerate = convertToInt(buffer, 4);
+    in.read(buffer, 4);
+    in.read(buffer, 2);
+    in.read(buffer, 2);
+    bps = convertToInt(buffer, 2);
+    in.read(buffer, 4); //data
+    in.read(buffer, 4);
+    size = convertToInt(buffer, 4);
+    char* data = new char[size];
+    in.read(data, size);
 
-    try {
-        soundFile = fopen(filename.c_str(), "rb");
-        if (!soundFile)
-            throw (filename);
+    return data;
 
-        // Read in the first chunk into the struct
-        fread(&riff_header, sizeof(RIFF_Header), 1, soundFile);
-
-        //check for RIFF and WAVE tag in memeory
-        if ((riff_header.chunkID[0] != 'R' ||
-             riff_header.chunkID[1] != 'I' ||
-             riff_header.chunkID[2] != 'F' ||
-             riff_header.chunkID[3] != 'F') ||
-            (riff_header.format[0] != 'W' ||
-             riff_header.format[1] != 'A' ||
-             riff_header.format[2] != 'V' ||
-             riff_header.format[3] != 'E'))
-            throw ("Invalid RIFF or WAVE Header");
-
-        //Read in the 2nd chunk for the wave info
-        fread(&wave_format, sizeof(WAVE_Format), 1, soundFile);
-        //check for fmt tag in memory
-        if (wave_format.subChunkID[0] != 'f' ||
-            wave_format.subChunkID[1] != 'm' ||
-            wave_format.subChunkID[2] != 't' ||
-            wave_format.subChunkID[3] != ' ')
-            throw ("Invalid Wave Format");
-
-        //check for extra parameters;
-        if (wave_format.subChunkSize > 16)
-            fseek(soundFile, sizeof(short), SEEK_CUR);
-
-        //Read in the the last byte of data before the sound file
-        fread(&wave_data, sizeof(WAVE_Data), 1, soundFile);
-
-        //check for data tag in memory
-        if (wave_data.subChunkID[0] != 'd' ||
-            wave_data.subChunkID[1] != 'a' ||
-            wave_data.subChunkID[2] != 't' ||
-            wave_data.subChunkID[3] != 'a')
-            throw ("Invalid data header");
-
-        //Allocate memory for data
-        data = new unsigned char[wave_data.subChunk2Size];
-
-        // Read in the sound data into the soundData variable
-        if (!fread(data, wave_data.subChunk2Size, 1, soundFile))
-            throw ("error loading WAVE data into struct!");
-
-        //Now we set the variables that we passed in with the
-        //data from the structs
-        *size = wave_data.subChunk2Size;
-        *frequency = wave_format.sampleRate;
-        //The format is worked out by looking at the number of
-        //channels and the bits per sample.
-        if (wave_format.numChannels == 1) {
-            if (wave_format.bitsPerSample == 8 )
-                *format = AL_FORMAT_MONO8;
-            else if (wave_format.bitsPerSample == 16)
-                *format = AL_FORMAT_MONO16;
-        } else if (wave_format.numChannels == 2) {
-            if (wave_format.bitsPerSample == 8 )
-                *format = AL_FORMAT_STEREO8;
-            else if (wave_format.bitsPerSample == 16)
-                *format = AL_FORMAT_STEREO16;
-        }
-        //create our openAL buffer and check for success
-        alGenBuffers(2, buffer);
-        if(alGetError() != AL_NO_ERROR) {
-            std::cerr << alGetError() << std::endl;
-        }
-        //now we put our data into the openAL buffer and
-        //check for success
-        alBufferData(*buffer, *format, (void*)data,
-                     *size, *frequency);
-        if(alGetError() != AL_NO_ERROR) {
-            std::cerr << alGetError() << std::endl;
-        }
-        //clean up and return true if successful
-        fclose(soundFile);
-        delete data;
-        return true;
-    } catch(const char* error) {
-        //our catch statement for if we throw a string
-        std::cerr << error << " : trying to load "
-        << filename << std::endl;
-        //clean up memory if wave loading fails
-        if (soundFile != NULL)
-            fclose(soundFile);
-        //return false to indicate the failure to load wave
-        delete data;
-        return false;
-    }
 }
 
-void Sound::play(int sleep, bool loop) {
+void Sound::play(float volume, bool loop) {
     _rc = pthread_create(&_thread[2], NULL, worker, NULL);
     alSourcei(_source, AL_BUFFER, _buffer);
+    alSourcef(_source, AL_GAIN, volume);
+    float f[] = {1,0,0,0,1,0};
+    alSource3f(_source,AL_POSITION,0,0,0);
+    alListenerfv(AL_ORIENTATION, f);
     if(loop == true)
         alSourcei(_source, AL_LOOPING, AL_TRUE);
     alSourcePlay(_source);
