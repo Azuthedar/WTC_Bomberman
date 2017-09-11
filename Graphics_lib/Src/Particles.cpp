@@ -13,7 +13,7 @@ Particles::Particles( glm::vec3 const &tmp_Position, glm::vec3 const &tmp_Veloci
     this->LifeLength = tmp_LifeLength;
     this->Rotation = tmp_Rotation;
     this->Scale = tmp_Scale;
-    this->ElapsedTime = 0;
+    this->ElapsedTime = 0.0f;
 }
 
 Particles::~Particles()

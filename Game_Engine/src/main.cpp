@@ -40,7 +40,7 @@ int main(int argc, char **argv)
 			if ( deltaTime >= maxPeriod )
 			{
 				engine.gameLogic( render.GetWindow(), deltaTime );
-				render.Create_Components( engine );
+				render.Create_Components( engine, deltaTime );
 				render._render( deltaTime );
 				deltaTime = 0.0f;
 			}

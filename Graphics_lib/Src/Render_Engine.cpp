@@ -58,7 +58,7 @@ void Render_Engine::load_dependencies()
     this->particle_data = tmp_load.loadParticle( );
 }
 
-void Render_Engine::Create_Components( Engine &engine )
+void Render_Engine::Create_Components( Engine &engine, GLfloat &tmp_delta_time )
 {
     this->components.push_back( new Component( "Player" , *this->models[0], 0.0f, 0.0f, 0.0f, 0.0f, 0.35f, glm::vec3( engine.getPlayer().getXPos() * 2 , 0.0f, engine.getPlayer().getYPos() * 2 ), 0)  );
 
@@ -123,7 +123,6 @@ void Render_Engine::Create_Components( Engine &engine )
   	//Render Explosions (This one's nested because each bomb has it's own vector of explosions, so itterate through each bomb, then through it's respective explosions vector)
 
     glm::vec3 pos = glm::vec3( 3.0f );
-    glm::vec3 velocity = glm::vec3( 1.0f );
     for (size_t i = 0; i < engine.getPlayer().getBombVector().size(); i++)
   	{
   		for (size_t y = 0; y < engine.getPlayer().getBombVector()[i].getExplosionVector().size(); y++)
@@ -132,8 +131,7 @@ void Render_Engine::Create_Components( Engine &engine )
             pos.z =  engine.getPlayer().getBombVector()[i].getExplosionVector()[y].getYPos() * 2;
             pos.y = 1.0f;
 
-            for ( int count = 0; count < 20; count++)
-                this->particle_manager.push_particle( pos, velocity, 0.0f, 3.0f, 0.0f, 1.0f );
+            this->particle_manager->Generate_Particles( pos, tmp_delta_time );
   		}
   	}
 }
@@ -156,7 +154,7 @@ void Render_Engine::_render( GLfloat &tmp_delta_time )
         Render_Engine::lastFrame = current_time;*/
 
         Render_Engine::deltaTime = tmp_delta_time;
-        this->particle_manager.manage_particles( tmp_delta_time );
+        this->particle_manager->manage_particles( tmp_delta_time );
 
         //std::cout << lastX << lastY << std::endl;
 
@@ -184,7 +182,7 @@ void Render_Engine::_render( GLfloat &tmp_delta_time )
         //model = glm::rotate( model, angle, glm::vec3( 0.0f, 0.0f, 0.0f ));
 
         this->draw.Render_( this->components, this->shader );
-        this->draw.Render_Particles( this->particle_manager.GetParticleArray(), this->Particle_shader, this->particle_data );
+        this->draw.Render_Particles( this->particle_manager->GetParticleArray(), this->Particle_shader, this->particle_data );
         this->draw.Render_Skybox( this->Skybox, this->SkyBox_shader );
         glfwSwapBuffers( Render_Engine::window );
     //}
@@ -235,6 +233,8 @@ void Render_Engine::init()
     Render_Engine::camera = new Camera( glm::vec3( 0.0f, 5.0f, 10.0f) );
     lastX = 0.0f;//this->Screen_Width / 2.0f;
     lastY = 0.0f;//this->Screen_Height / 2.0f;
+
+    this->particle_manager = new Particle_manager( 4.0f, 50.0f, 0.3f, 4.0f );
 
     std::cout << "Base Shader" << std::endl;
     this->shader.compile_shaders("./Graphics_lib/Shaders/Colour_Shading.vert", "./Graphics_lib/Shaders/Colour_Shasiner.frag");

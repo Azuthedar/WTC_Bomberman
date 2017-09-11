@@ -34,7 +34,7 @@ class Render_Engine
         Shaders shader;
         Shaders SkyBox_shader;
         Shaders Particle_shader;
-        Particle_manager particle_manager;
+        Particle_manager *particle_manager;
 
         std::vector < Model * > models;
         std::vector < Component * > components;
@@ -55,7 +55,7 @@ class Render_Engine
         GLFWwindow *GetWindow() const;
         void load_dependencies();
 
-        void Create_Components( Engine &engine );
+        void Create_Components( Engine &engine, GLfloat &tmp_delta_time );
 
         static void KeyCallback( GLFWwindow *window, int key, int scancode, int action, int mods);
         static void ScrollCallback( GLFWwindow *window, double xOffset, double yOffset );

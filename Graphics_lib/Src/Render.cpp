@@ -52,8 +52,6 @@ void Render::Render_Particles( const std::vector< Particles *> &tmp, Shaders &sh
     GLint viewLoc = shader.GetUniformLocation( "view" );
     GLint projLoc = shader.GetUniformLocation( "projection" );
 
-    //std::cout << " THis stuff particle " << modelLoc << " " << viewLoc << " them origies " << this->modelLoc << " " << this->viewLoc << std::endl;
-
     for (int count = 0; count < tmp.size(); count++)
     {
         glm::mat4 model = glm::mat4(1.0);
