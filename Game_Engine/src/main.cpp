@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 		//Load Map Into Respective Vectors
 		Sound music;
 		music.initialize("Sound_lib/Sounds/music.wav");
-		music.play(0.1f, 1);
+		music.play(0.1f, true);
 
 
 		render.init();

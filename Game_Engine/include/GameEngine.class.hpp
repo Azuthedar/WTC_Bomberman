@@ -6,6 +6,7 @@
 #include "Explosion.class.hpp"
 #include "Powerup.class.hpp"
 #include <Config.class.hpp>
+#include "../../Sound_lib/include/SoundEngine.hpp"
 
 class Engine
 {
@@ -55,4 +56,8 @@ class Engine
 		Exceptions					_exceptions;
 		std::vector<Powerup>		_powerupVector;
 		Config						_config;
+
+		Sound						_explosionSound;
+		Sound						_completedSound;
+		Sound						_gameOverSound;
 };

@@ -6,6 +6,7 @@
 #include "Bomb.class.hpp"
 #include "Enemy.class.hpp"
 #include "Powerup.class.hpp"
+#include "../../Sound_lib/include/SoundEngine.hpp"
 
 class Player : public AEntity
 {
@@ -98,4 +99,11 @@ class Player : public AEntity
 		int					_KBmoveDown;
 		int					_KBplaceBomb;
 		int					_KBpause;
+
+		Sound				_stepSound;
+		Sound				_bombPlacementSound;
+		Sound				_powerupSound;
+		Sound				_death;
+		Sound				_gameOver;
+
 };
