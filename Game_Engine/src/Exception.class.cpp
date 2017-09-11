@@ -43,6 +43,16 @@ const char * Exceptions::EInvalidGates::what() const throw()
     return ("Invalid amount of gates on map.");
 }
 
+const char * Exceptions::EInvalidSyntax::what() const throw()
+{
+    return ("Invalid Syntax used");
+}
+
+const char * Exceptions::EFileFailedDelete::what() const throw()
+{
+    return ("Could not Delete file");
+}
+
 void Exceptions::throwMapSizeInvalid()
 {
     throw EMapSize;
@@ -81,4 +91,14 @@ void Exceptions::throwInvalidPlayer()
 void Exceptions::throwInvalidGates()
 {
     throw EGates;
+}
+
+void Exceptions::throwInvalidSyntax()
+{
+    throw EISyn;
+}
+
+void Exceptions::throwFileFailedDelete()
+{
+    throw EFFDel;
 }

@@ -56,7 +56,7 @@ void	Player::init()
 	this->_rangeLevel = 1;
 	this->_bombLevel = 1;
 
-	//this->_KBmoveUp = GLFW_KEY_W;
+	this->_KBmoveUp = GLFW_KEY_W;
 	this->_KBmoveLeft = GLFW_KEY_A;
 	this->_KBmoveRight = GLFW_KEY_D;
 	this->_KBmoveDown = GLFW_KEY_S;
@@ -71,7 +71,6 @@ void	Player::input( GLFWwindow *window )
 	{
 		if (glfwGetKey( window, this->_KBmoveLeft)) // left
 		{
-			std::cout << "L:EFY PRESSES" << std::endl;
 			this->_dir = LEFT;
 			this->_isMoving = true;
 			this->_hitOnce = false;
@@ -81,7 +80,6 @@ void	Player::input( GLFWwindow *window )
 		}
 		else if (glfwGetKey( window, this->_KBmoveRight)) // right
 		{
-			std::cout << "RIGHt PRESSES" << std::endl;
 			this->_dir = RIGHT;
 			this->_isMoving = true;
 			this->_hitOnce = false;
@@ -91,7 +89,6 @@ void	Player::input( GLFWwindow *window )
 		}
 		else if (glfwGetKey( window, this->_KBmoveDown)) // down
 		{
-			std::cout << "DOWN PRESSES" << std::endl;
 			this->_dir = DOWN;
 			this->_isMoving = true;
 			this->_hitOnce = false;
@@ -99,9 +96,8 @@ void	Player::input( GLFWwindow *window )
 			this->_goal_y = ceil(this->_yPos - 1);
 			this->_goal_x = this->_xPos;
 		}
-		else if (glfwGetKey( window, GLFW_KEY_W)) // up
+		else if (glfwGetKey( window, this->_KBmoveUp)) // up
 		{
-			std::cout << "UP PRESSES" << std::endl;
 			this->_dir = UP;
 			this->_isMoving = true;
 			this->_hitOnce = false;

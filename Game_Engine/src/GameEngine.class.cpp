@@ -4,13 +4,13 @@ Engine::Engine()
 {
 	this->_mapDuration = MAP_DURATION_TIME;
 	this->_transitionTicker = MAP_TRANSITION_TIME;
-	this->_mapLevel = 0;
 	this->_mapEnd = false;
 	this->_isTransitioning = false;
+	this->_config.defaultInit(this->_player);
+	this->_mapLevel = this->_config.getMapLevel();
 	this->readFile("maps");
 	this->readMap();
 	this->buildMap();
-	this->_config.defaultInit(this->_player);
 	return ;
 }
 
@@ -31,10 +31,8 @@ void Engine::ticker( GLfloat &delta_time  )
 	{
 		this->_player.getBombVector()[i].modifyCurrTimer(-1);
 		if (this->_player.getBombVector()[i].getCurrTimer() <= 0)
-			std::cout << "CurrExploded: " << this->_player.getBombVector()[i].getExploded() << std::endl;
 		if (this->_player.getBombVector()[i].getCurrTimer() <= 0 && this->_player.getBombVector()[i].getExploded() == false)
 		{
-			std::cout << "Must call explode" << std::endl;
 			this->_player.getBombVector()[i].explode(this->_player.getBombRange(), this->_walls_vector, this->_powerupVector, this->_gate);
 			this->_player.modifyBombs();
 		}
@@ -74,9 +72,9 @@ void Engine::transitionMap()
 		this->_enemyVector.clear();
 		this->_player.respawn();
 		this->_walls_vector.clear();
+		this->_config.updateFile(this->_player, this->_mapLevel);
 		this->readMap();
 		this->buildMap();
-		this->_config.updateFile(this->_player, this->_maps, this->_mapLevel);
 		this->_player.getBombVector().clear();
 		this->_powerupVector.clear();
 		this->_mapDuration = MAP_DURATION_TIME;
@@ -93,6 +91,12 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 	}
 	else if (!this->_isTransitioning)
 	{
+		if (this->_player.getLives() <= 0)
+		{
+			this->_config.reset(this->_player);
+			//Make player transition to main menu
+		}
+
 		if (this->_gate.getIsLocked() == true && this->_enemyVector.size() == 0)
 			this->_gate.setIsLocked(false);
 		this->_player.input( window );

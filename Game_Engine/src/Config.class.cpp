@@ -21,7 +21,7 @@ void    Config::defaultInit(Player & player)
 		configFile.open(this->_fileName);
 		// MAP DATA
 		configFile << "[MAP]" << std::endl;
-		configFile << "\tmapDir/map.map" << std::endl;
+		configFile << "\tMAPLEVEL: 0" << std::endl;
 
 		// PLAYER LEVEL DATA
 		configFile << "[LEVELS]" << std::endl;
@@ -39,7 +39,7 @@ void    Config::defaultInit(Player & player)
 		configFile << "[KEYBINDINGS]" << std::endl;
 		configFile << "\tUP: 87" << std::endl;
 		configFile << "\tLEFT: 65" << std::endl;
-		configFile << "\tRIGHT: 67" << std::endl;
+		configFile << "\tRIGHT: 68" << std::endl;
 		configFile << "\tDOWN: 83" << std::endl;
 		configFile << "\tPLACEBOMB: 32" << std::endl;
 		configFile << "\tPAUSE: 52" << std::endl;
@@ -50,8 +50,12 @@ void    Config::defaultInit(Player & player)
 	this->parseFile(player);
 }
 
-void	Config::reset()
+void	Config::reset(Player & player)
 {
+	if (std::remove(this->_fileName.c_str()) == 0)
+		defaultInit(player);
+	else
+		this->throwFileFailedDelete();
 	return ;
 }
 
@@ -66,14 +70,14 @@ bool	Config::checkSyntax()
 {	
 	/*Maps*/
 	std::regex rgx_map("^\\[MAP\\]$");
-	std::regex rgx_map1("^\tmapDir\\/[0-9-a-zA-Z]+.map$");
+	std::regex rgx_map1("^\tMAPLEVEL: [0-9]+");
 
 	/*Player level data*/
 	std::regex rgx_levels("^\\[LEVELS\\]$");
 	std::regex rgx_levels1("^\tBOMBLEVEL: ([1-9]|10)$");
 	std::regex rgx_levels2("^\tRANGELEVEL: ([1-9]|10)$");
 	std::regex rgx_levels3("^\tSPEEDLEVEL: ([1-9]|10)$");
-	std::regex rgx_levels4("^\tLIVES: ([1-9]|10)$");
+	std::regex rgx_levels4("^\tLIVES: ([0-9]|10)$");
 
 	/*Option data*/
 	std::regex rgx_options("^\\[OPTIONS\\]$");
@@ -112,7 +116,7 @@ void    Config::parseFile(Player & player)
 	{
 		//Set all the current data
 		// MAPNAME
-		this->_currentMapName = this->_fileBuffer[CNF_MAP].substr(this->_fileBuffer[CNF_MAP].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_MAP].length() - 1);
+		this->_mapLevel = std::stoi(this->_fileBuffer[CNF_MAP].substr(this->_fileBuffer[CNF_MAP].find_first_of(' ', 4), this->_fileBuffer[CNF_MAP].length() - 1));
 
 		// LEVEL DATA
 		this->_bombLevel = std::stoi(this->_fileBuffer[CNF_BOMBLVL].substr(this->_fileBuffer[CNF_BOMBLVL].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_BOMBLVL].length() - 1));
@@ -151,17 +155,19 @@ void    Config::parseFile(Player & player)
 	}
 	else
 	{
-		std::cout << "Invalid Syntax" << std::endl;//Throw Exception invalid syntax
+		this->throwInvalidSyntax();
 	}
 	this->_file.close();
 }
 
-void    Config::updateFile(Player & player, std::vector<std::string> maps, int mapLevel)
+void    Config::updateFile(Player & player, int mapLevel)
 {
 	if (std::remove(this->_fileName.c_str()) == 0)
 	{
 		std::ofstream configFile;
 		configFile.open(this->_fileName);
+
+		this->_mapLevel = mapLevel;
 
 		this->_bombLevel = player.getBombLevel();
 		this->_rangeLevel = player.getRangeLevel();
@@ -181,7 +187,7 @@ void    Config::updateFile(Player & player, std::vector<std::string> maps, int m
 		this->_KBpause = player.getKBPause();
 
 		configFile << "[MAP]" << std::endl;
-		configFile << "\t" <<maps[mapLevel] << std::endl;
+		configFile << "\tMAPLEVEL: " << std::to_string(this->_mapLevel) << std::endl;
 
 		// PLAYER LEVEL DATA
 		configFile << "[LEVELS]" << std::endl;
@@ -208,9 +214,10 @@ void    Config::updateFile(Player & player, std::vector<std::string> maps, int m
 		configFile.close();
 	}
 	else
-		std::cout << "Could not remove file" << std::endl;//Throw Exception to imply to imply failed deleting file
+		this->throwFileFailedDelete();
 }
 
+void	Config::setMapLevel(int mapLevel) 			{this->_mapLevel = mapLevel;}
 void    Config::setBombLevel(int bombLevel)     	{this->_bombLevel = bombLevel;}
 void    Config::setRangeLevel(int rangeLevel)   	{this->_rangeLevel = rangeLevel;}
 void    Config::setLives(int lives)             	{this->_lives = lives;}
@@ -222,6 +229,9 @@ void    Config::setKBMoveDown(int KBmoveDown)     	{this->_KBmoveDown = KBmoveDo
 void    Config::setKBPlaceBomb(int KBplaceBomb)		{this->_KBplaceBomb = KBplaceBomb;}
 void	Config::setKBPause(int KBpause)				{this->_KBpause = KBpause;}
 
+
+
+int &	Config::getMapLevel() 			{return (this->_mapLevel);}
 int &	Config::getBombLevel()          {return (this->_bombLevel);}
 int &	Config::getRangeLevel()         {return (this->_rangeLevel);}
 int &	Config::getLives()              {return (this->_lives);}
@@ -230,5 +240,5 @@ int &	Config::getKBMoveUp()           {return (this->_KBmoveUp);}
 int &	Config::getKBMoveLeft()         {return (this->_KBmoveLeft);}
 int &	Config::getKBMoveRight()        {return (this->_KBmoveRight);}
 int &	Config::getKBMoveDown()         {return (this->_KBmoveDown);}
-int &	Config::getKBPlaceBomb()          {return (this->_KBplaceBomb);}
+int &	Config::getKBPlaceBomb()        {return (this->_KBplaceBomb);}
 int &	Config::getKBPause()			{return (this->_KBpause);}

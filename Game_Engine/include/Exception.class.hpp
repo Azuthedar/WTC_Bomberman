@@ -39,6 +39,14 @@ class Exceptions
 		{
 			virtual const char * what() const throw();
 		} EGates;
+		class EInvalidSyntax : public std::exception
+		{
+			virtual const char * what() const throw();
+		}EISyn;
+		class EFileFailedDelete: public std::exception
+		{
+			virtual const char * what() const throw();
+		}EFFDel;
 
 		void throwMapSizeInvalid();
 		void throwNoMap();
@@ -50,5 +58,8 @@ class Exceptions
 
 		void throwInvalidPlayer();
 		void throwInvalidGates();
+
+		void throwInvalidSyntax();
+		void throwFileFailedDelete();
 
 };
