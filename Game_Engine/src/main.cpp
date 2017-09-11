@@ -16,9 +16,9 @@ int main(int argc, char **argv)
 		Render_Engine render( "Atjar", 1280, 720);
 
 		//Load Map Into Respective Vectors
-		//Sound music;
-		//music.initialize("");
-		//music.play(0, 1);
+		Sound music;
+		music.initialize("Sound_lib/Sounds/music.wav");
+		music.play(0.1f, 1);
 
 
 		render.init();
