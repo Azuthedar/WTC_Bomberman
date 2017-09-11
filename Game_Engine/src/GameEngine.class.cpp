@@ -301,3 +301,4 @@ std::vector<Enemy> &		Engine::getEnemyVector()		{return (this->_enemyVector);}
 int &						Engine::getMapDuration()		{return ((this->_mapDuration > 0) ? this->_mapDuration : this->_mapDuration = 0);}
 bool &						Engine::getMapEnd()				{return (this->_mapEnd);}
 std::vector<Powerup> &		Engine::getPowerupVector()		{return (this->_powerupVector);}
+Config &					Engine::getConfig()				{return (this->_config);}

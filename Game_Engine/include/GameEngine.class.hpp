@@ -39,6 +39,7 @@ class Engine
 		int &						getMapDuration();
 		bool &						getMapEnd();
 		std::vector<Powerup> &		getPowerupVector();
+		Config &					getConfig();
 
 	private:
 
