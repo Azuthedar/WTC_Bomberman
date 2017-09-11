@@ -25,7 +25,8 @@ void Render::Load_Uniform( Shaders &shader )
     this->colourLoc = shader.GetUniformLocation( "light_colour" );
     this->shineLoc = shader.GetUniformLocation( "shine_damper" );
     this->reflectionLoc = shader.GetUniformLocation( "reflection" );
-    //this->ScaleLoc = shader.GetUniformLocation( "scale" );
+    this->RowLoc = shader.GetUniformLocation( "NumRows" );
+    this->OffsetLoc = shader.GetUniformLocation( "Offset_vals" );
 }
 
 void Render::SetProjection( GLfloat const &tmp_zoom )
@@ -43,12 +44,13 @@ void Render::Render_Particles( const std::vector< Particles *> &tmp, Shaders &sh
     glUseProgram( shader.GetProgramID() );
     glBindVertexArray( data.Particle_VAO );
     glEnableVertexAttribArray(0);
-    //glEnable(GL_BLEND);
-    //glBlendFunc( GL_SRC_ALPHA, GL_ONE);
-    //glDepthMask(false);
+    glEnable(GL_BLEND);
+    glBlendFunc( GL_SRC_ALPHA, GL_ONE);
+    glDepthMask(false);
 
     GLint modelLoc = shader.GetUniformLocation( "model" );
     GLint viewLoc = shader.GetUniformLocation( "view" );
+    GLint projLoc = shader.GetUniformLocation( "projection" );
 
     //std::cout << " THis stuff particle " << modelLoc << " " << viewLoc << " them origies " << this->modelLoc << " " << this->viewLoc << std::endl;
 
@@ -57,21 +59,35 @@ void Render::Render_Particles( const std::vector< Particles *> &tmp, Shaders &sh
         glm::mat4 model = glm::mat4(1.0);
         glm::mat4 model_matrix;
 
+        shader.load_matrix( projLoc, this->projection );
         shader.load_matrix( viewLoc, this->view_matrix );
 
         model = glm::translate( model, tmp[count]->GetPosition() );
-        model = glm::rotate( model, tmp[count]->GetRotation(), glm::vec3( 0.5f, 1.0f, 0.0f ) );
+
+        model[0][0] = this->view_matrix[0][0];
+        model[1][0] = this->view_matrix[0][1];
+        model[2][0] = this->view_matrix[0][2];
+
+        model[0][1] = this->view_matrix[1][0];
+        model[1][1] = this->view_matrix[1][1];
+        model[2][1] = this->view_matrix[1][2];
+
+        model[0][2] = this->view_matrix[2][0];
+        model[1][2] = this->view_matrix[2][1];
+        model[2][2] = this->view_matrix[2][2];
+
+        model = glm::rotate( model, 0.0f, glm::vec3( 0.0f, 0.0f, 1.0f ) );
         model_matrix = glm::scale( model , glm::vec3(tmp[count]->GetScale()) );
+
         shader.load_matrix( modelLoc, model_matrix );
 
-        //glDrawArrays( GL_TRIANGLE_STRIP, 0, 4);
-        glDrawArrays( GL_TRIANGLES, 0, 36 );
+        glDrawArrays( GL_TRIANGLE_STRIP, 0, 4);
     }
 
     glBindVertexArray( 0 );
     glDisableVertexAttribArray(0);
-    //glDisable(GL_BLEND);
-    //glDepthMask(true);
+    glDisable(GL_BLEND);
+    glDepthMask(true);
 }
 
 void Render::Render_Skybox( Skybox_s &data, Shaders &shader)
@@ -119,6 +135,8 @@ void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
         shader.load_matrix( this->projLoc, this->projection );
         shader.load_matrix( this->viewLoc, this->view_matrix );
 
+        shader.load_float( this->RowLoc, ip.GetNumRows() );
+        shader.load_vec2( this->OffsetLoc, tmp[count]->GetOffsets() );
 
         shader.load_vect( this->lightLoc, tmp_light_pos );
         shader.load_vect( this->colourLoc, this->light->GetColour() );

@@ -20,6 +20,8 @@ class Render
         GLint shineLoc;
         GLint reflectionLoc;
         GLint ScaleLoc;
+        GLint RowLoc;
+        GLint OffsetLoc;
 
         Light_class *light = new Light_class( glm::vec3( 0.0f, 0.f, 0.0f ), glm::vec3( 1.0f, 1.0f, 1.0f ) );
 

@@ -21,11 +21,15 @@ class Component
 
         std::string Name;
 
+        int texture_index;
+
+        glm::vec2 Offsets;
+
         Component();
 
     public:
 
-        Component( const std::string &tmp_Name, Model const &tmp_model, GLfloat const &Degres, GLfloat const &rot_x, GLfloat const &rot_y, GLfloat const &rot_z, GLfloat const &tmp_scale, glm::vec3 const &tmp_pos );
+        Component( const std::string &tmp_Name, Model const &tmp_model, GLfloat const &Degres, GLfloat const &rot_x, GLfloat const &rot_y, GLfloat const &rot_z, GLfloat const &tmp_scale, glm::vec3 const &tmp_pos, int tmp_textureIndex );
         ~Component();
 
         void SetModel( Model const &tmp_model );
@@ -35,6 +39,7 @@ class Component
         void SetScale( GLfloat const &tmp_scale );
         void SetPosition( glm::vec3 const &tmp_position );
         void SetDegres( GLfloat const &tmp_degres);
+        void SetTextureIndex( int const &tmp_textureIndex );
 
         GLfloat GetDegres() const;
         Model GetModel( ) const;
@@ -44,10 +49,13 @@ class Component
         GLfloat GetScale( ) const;
         glm::vec3 GetPosition( );
         std::string GetName() const;
+        int GetTextureIndex() const;
+        glm::vec2 GetOffsets() const;
 
         void inc_rotation( GLfloat const &tmp_x, GLfloat const &tmp_y, GLfloat const &tmp_z );
         void inc_position( GLfloat const &tmp_x, GLfloat const &tmp_y, GLfloat const &tmp_z );
         void dec_position( GLfloat const &tmp_x, GLfloat const &tmp_y, GLfloat const &tmp_z );
         void dec_rotation( GLfloat const &tmp_x, GLfloat const &tmp_y, GLfloat const &tmp_z );
 
+        void Calculate_Offset( int const &total_rows );
 };

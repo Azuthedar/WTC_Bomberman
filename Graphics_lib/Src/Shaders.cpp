@@ -172,6 +172,11 @@ void Shaders::load_matrix( GLint location_id, glm::mat4 &matrix )
     glUniformMatrix4fv( location_id, 1, GL_FALSE, glm::value_ptr( matrix ) );
 }
 
+void Shaders::load_vec2( GLint location_id, glm::vec2 const &vec_2 )
+{
+    glUniform2f( location_id, vec_2.x, vec_2.y );
+}
+
 GLint Shaders::GetUniformLocation(const std::string &Uniform_name)
 {
 	GLint Location_ID;

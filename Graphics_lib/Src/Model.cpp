@@ -6,9 +6,20 @@ Model::Model()
     return ;
 }
 
-Model::Model( std::string const &path )
+Model::Model( std::string const &path, int const &tmp_numRows )
 {
+    this->Num_Rows = tmp_numRows;
     this->loadModel( path );
+}
+
+int Model::GetNumRows() const
+{
+    return (this->Num_Rows);
+}
+
+void Model::SetNumRows( int const &tmp_numRows )
+{
+    this->Num_Rows = tmp_numRows;
 }
 
 Particles_s Model::loadParticle( )
@@ -17,59 +28,12 @@ Particles_s Model::loadParticle( )
 
     Particles_s tmp_particle;
 
-    /*GLfloat cubeVertices[] = {
+    GLfloat cubeVertices[] = {
         -0.5f, 0.5f,
         -0.5f, -0.5f,
         0.5f, 0.5f,
         0.5f, -0.5f
-    };*/
-
-    GLfloat cubeVertices[] =
-    {
-        // Positions          // Texture Coords
-        -0.5f, -0.5f, -0.5f,
-        0.5f, -0.5f, -0.5f,
-        0.5f,  0.5f, -0.5f,
-        0.5f,  0.5f, -0.5f,
-        -0.5f,  0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
-
-        -0.5f, -0.5f,  0.5f,
-        0.5f, -0.5f,  0.5f,
-        0.5f,  0.5f,  0.5f,
-        0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f,  0.5f,
-        -0.5f, -0.5f,  0.5f,
-
-        -0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
-        -0.5f, -0.5f, -0.5f,
-        -0.5f, -0.5f,  0.5f,
-        -0.5f,  0.5f,  0.5f,
-
-        0.5f,  0.5f,  0.5f,
-        0.5f,  0.5f, -0.5f,
-        0.5f, -0.5f, -0.5f,
-        0.5f, -0.5f, -0.5f,
-        0.5f, -0.5f,  0.5f,
-        0.5f,  0.5f,  0.5f,
-
-        -0.5f, -0.5f, -0.5f,
-        0.5f, -0.5f, -0.5f,
-        0.5f, -0.5f,  0.5f,
-        0.5f, -0.5f,  0.5f,
-        -0.5f, -0.5f,  0.5f,
-        -0.5f, -0.5f, -0.5f,
-
-        -0.5f,  0.5f, -0.5f,
-        0.5f,  0.5f, -0.5f,
-        0.5f,  0.5f,  0.5f,
-        0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f,  0.5f,
-        -0.5f,  0.5f, -0.5f,
     };
-
 
     glGenVertexArrays( 1, &VAO );
     glGenBuffers( 1, &VBO );
@@ -77,7 +41,7 @@ Particles_s Model::loadParticle( )
     glBindBuffer( GL_ARRAY_BUFFER, VBO );
     glBufferData( GL_ARRAY_BUFFER, sizeof( cubeVertices ), &cubeVertices, GL_STATIC_DRAW );
     glEnableVertexAttribArray( 0 );
-    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof( GLfloat ), ( GLvoid * ) 0 );
+    glVertexAttribPointer( 0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof( GLfloat ), ( GLvoid * ) 0 );
     glBindVertexArray(0);
 
     std::cout << "Some stuff is happening " << VAO << std::endl;
@@ -223,6 +187,7 @@ Model &Model::operator=(Model const &obj)
     this->meshes = obj.GetMesh();
     this->directory = obj.GetDir();
     this->textures_loaded = obj.GetTexture();
+    this->Num_Rows = obj.GetNumRows();
 
     return (*this);
 }

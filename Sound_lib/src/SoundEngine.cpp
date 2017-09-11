@@ -94,9 +94,8 @@ char* Sound::loadWAV(const char* fn,int& chan,int& samplerate,int& bps,int& size
     char buffer[4];
     std::ifstream in(fn, std::ios::binary);
     in.read(buffer, 4);
-    if (std::strncmp(buffer, "RIFF", 4) != 0){
+    if (strncmp(buffer, "RIFF", 4) != 0){
         std::cout << "Not a valid WAV file" << std::endl;
-        exit(1);
     }
     in.read(buffer, 4);
     in.read(buffer, 4); // WAVE

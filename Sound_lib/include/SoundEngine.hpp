@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstring>
 #include <vector>
 #include <stdexcept>
 #include <pthread.h>
@@ -29,6 +30,3 @@ private:
     int         _rc;
     void        *_status;
 };
-
-
-

@@ -13,11 +13,12 @@ class Model
         std::string directory;
         std::vector<Texture> textures_loaded;
         Data_Loader load;
+        int Num_Rows = 1;
 
     public:
 
         Model();
-        Model( std::string const &path );
+        Model( std::string const &path, int const &tmp_numRows );
 
         std::vector < Mesh > GetMesh() const;
         std::vector < Texture > GetTexture() const;
@@ -33,4 +34,6 @@ class Model
         Mesh processMesh( aiMesh *mesh, const aiScene *scene );
         std::vector<Texture> loadMaterialTextures( aiMaterial *mat, aiTextureType type, string typeName );
 
+        int GetNumRows() const;
+        void SetNumRows( int const &tmp_numRows );
 };
