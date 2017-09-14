@@ -100,7 +100,7 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 			//Make player transition to main menu
 		}
 
-		if (this->_gate.getIsLocked() == true && this->_enemyVector.size() == 0)
+		if (this->_gate.getIsLocked() == true && (this->_enemyVector.size() == 0 || glfwGetKey(window, GLFW_KEY_L)))
 			this->_gate.setIsLocked(false);
 		this->_player.input( window );
 		this->_player.movement(this->_walls_vector, this->_enemyVector, this->_powerupVector, delta_time);

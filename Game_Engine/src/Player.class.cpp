@@ -149,7 +149,12 @@ void	Player::movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std:
 	*	If the DIR is LEFT		the xPos needs to decrease to imitate moving left
 	*	If the DIR is RIGHT		the xPos needs to increase to imitate moving right
 	*/
-
+	if (this->_isDead)
+	{
+		std::cout << "I AM DEAD MOTHERFUCKER" << std::endl;
+	}
+	if (!this->_isDead)
+		std::cout << "THE CAKE IS A LIE" << std::endl;
 	if (!this->collision(wall, enemy, powerupVector))
 	{
 		if (this->_isMoving == true)
@@ -266,8 +271,8 @@ bool	Player::collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std
 	{
 		if (distance_to_point(this->_xPos, this->_yPos, enemy[i].getXPos(), enemy[i].getYPos()) < 1)
 		{
-			this->respawn();
 			this->_isDead = true;
+			this->respawn();
 			enemy[i].spawn();
 		}
 	}
@@ -312,7 +317,6 @@ bool	Player::isBombThere(int x, int y)
 
 void	Player::respawn()
 {
-
 	if (this->_isDead)
 	{
 		this->_lives -= 1;
@@ -329,12 +333,12 @@ void	Player::respawn()
 		*	Possibly if player reaches 0 lives, make a total score appear in the middle of the screen
 		*	Which then fades out and takes the player back to the main menu or the start of the round.
 		*/
-		this->_isDead = false;
 	}
 	this->_xPos = this->_spawnX;
 	this->_yPos = this->_spawnY;
 	this->_goal_x = this->_spawnX;
 	this->_goal_y = this->_spawnY;
+	this->_isDead = false;
 
 }
 
