@@ -12,21 +12,30 @@ class Particles
         GLfloat LifeLength;
         GLfloat Rotation;
         GLfloat Scale;
-        GLuint texture_id;
+        Texture texture;
+
+        glm::vec2 Current_Offset;
+        glm::vec2 Next_Offset;
+        GLfloat Blend_Val;
 
         float ElapsedTime;
 
     public:
 
         Particles();
-        Particles( GLuint const &tmp_texture_id, glm::vec3 const &tmp_Position, glm::vec3 const &tmp_Velocity, GLfloat const &tmp_gravity, GLfloat const &tmp_LifeLength, GLfloat const &tmp_Rotation, GLfloat const &tmp_Scale );
+        Particles( Texture const &tmp_texture, glm::vec3 const &tmp_Position, glm::vec3 const &tmp_Velocity, GLfloat const &tmp_gravity, GLfloat const &tmp_LifeLength, GLfloat const &tmp_Rotation, GLfloat const &tmp_Scale );
         ~Particles();
 
         glm::vec3 GetPosition() const;
         GLfloat GetRotation() const;
         GLfloat GetScale() const;
-        GLuint GetTextureID() const;
+        glm::vec2 GetCurrentOffset() const;
+        glm::vec2 GetNextOffset() const;
+        GLfloat GetBlendValue() const;
+        int GetNumRows() const;
+
+        void UpdateOffsetInfo();
 
         bool UpdateParticle( const GLfloat &DeltaTime );
-
+        void Calculate_Offset( int const &index_one, int const &index_two );
 };

@@ -11,7 +11,7 @@ class Particle_manager
         float Total_particles;
         float Gravity;
         float Life_length;
-        GLuint Texture_ID;
+        Texture Texture_Data;
 
     public:
 
@@ -24,5 +24,5 @@ class Particle_manager
         Particles *GetParticle( int const &pos ) const;
         std::vector < Particles * > GetParticleArray( ) const;
 
-        void SetTexture( GLuint const &texture_id );
+        void SetTexture( Texture const &texture_data );
 };

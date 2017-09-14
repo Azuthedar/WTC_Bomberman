@@ -31,6 +31,8 @@ struct Texture
     GLuint id;
     std::string type;
     aiString path;
+    int num_rows;
+    int num_columns;
 };
 
 struct Skybox_s

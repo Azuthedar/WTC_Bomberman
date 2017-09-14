@@ -51,6 +51,10 @@ void Render::Render_Particles( const std::vector< Particles *> &tmp, Shaders &sh
     GLint modelLoc = shader.GetUniformLocation( "model" );
     GLint viewLoc = shader.GetUniformLocation( "view" );
     GLint projLoc = shader.GetUniformLocation( "projection" );
+    GLint RowLoc = shader.GetUniformLocation( "NumRows" );
+    GLint blendLoc = shader.GetUniformLocation( "blend_value" );
+    GLint OffsetOneLoc = shader.GetUniformLocation( "Offset_vals_one" );
+    GLint OffsetTwoLoc = shader.GetUniformLocation( "Offset_vals_two" );
 
     glBindTexture( GL_TEXTURE_2D, data.Particle_text );
 
@@ -61,6 +65,11 @@ void Render::Render_Particles( const std::vector< Particles *> &tmp, Shaders &sh
 
         shader.load_matrix( projLoc, this->projection );
         shader.load_matrix( viewLoc, this->view_matrix );
+
+        shader.load_float( RowLoc, tmp[count]->GetNumRows() );
+        shader.load_float( blendLoc, tmp[count]->GetBlendValue() );
+        shader.load_vec2( OffsetOneLoc, tmp[count]->GetCurrentOffset() );
+        shader.load_vec2( OffsetTwoLoc, tmp[count]->GetNextOffset() );
 
         model = glm::translate( model, tmp[count]->GetPosition() );
 

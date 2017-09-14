@@ -72,13 +72,13 @@ void Particle_manager::Generate_Particles( glm::vec3 const &tmp_Origin_Position,
         temp_pos.y = 1.0f + (range * ((((float) rand()) / (float) RAND_MAX)) + MIN_RAND);
         temp_pos.z += range * ((((float) rand()) / (float) RAND_MAX)) + MIN_RAND;
 
-        this->particle_array.push_back( new Particles( this->Texture_ID, temp_pos, velocity, this->Gravity, this->Life_length, 0.0f, 0.35f ) );
+        this->particle_array.push_back( new Particles( this->Texture_Data , temp_pos, velocity, this->Gravity, this->Life_length, 0.0f, 0.35f ) );
     }
 }
 
-void Particle_manager::SetTexture( GLuint const &texture_id )
+void Particle_manager::SetTexture( Texture const &texture_data )
 {
-    this->Texture_ID = texture_id;
+    this->Texture_Data = texture_data;
 }
 
 Particles *Particle_manager::GetParticle( int const &pos ) const

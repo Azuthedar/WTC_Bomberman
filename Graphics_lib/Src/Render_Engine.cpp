@@ -57,8 +57,24 @@ void Render_Engine::load_dependencies()
     this->Skybox = tmp_load.loadSkybox( faces );
     this->particle_data = tmp_load.loadParticle( );
 
-    this->particle_data.Particle_text = this->load.load_texture( "exp2_alpha_1.png" , "Graphics_lib/objects_and_textures");
-    this->particle_manager->SetTexture( this->particle_data.Particle_text );
+    Texture Tmp_texture;
+    struct Texture
+    {
+        GLuint id;
+        std::string type;
+        aiString path;
+        int num_rows;
+        int num_columns;
+    };
+    this->particle_data.Particle_text = this->load.load_texture( "explosion_atlas.png" , "Graphics_lib/objects_and_textures");
+
+    Tmp_texture.id = this->particle_data.Particle_text;
+    Tmp_texture.type = "atlas";
+    Tmp_texture.path = "Graphics_lib/objects_and_textures/";
+    Tmp_texture.num_rows = 3;
+    Tmp_texture.num_columns = 3;
+
+    this->particle_manager->SetTexture( Tmp_texture );
 }
 
 void Render_Engine::Create_Components( Engine &engine, GLfloat &tmp_delta_time )
@@ -236,7 +252,7 @@ void Render_Engine::init()
     lastX = 0.0f;//this->Screen_Width / 2.0f;
     lastY = 0.0f;//this->Screen_Height / 2.0f;
 
-    this->particle_manager = new Particle_manager( 4.0f, 50.0f, 0.1f, 1.0f );
+    this->particle_manager = new Particle_manager( 4.0f, 100.0f, 0.1f, 1.0f );
 
     std::cout << "Base Shader" << std::endl;
     this->shader.compile_shaders("./Graphics_lib/Shaders/Colour_Shading.vert", "./Graphics_lib/Shaders/Colour_Shasiner.frag");

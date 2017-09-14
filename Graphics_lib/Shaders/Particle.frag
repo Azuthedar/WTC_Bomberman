@@ -1,13 +1,17 @@
 #version 330 core
 
-out vec4 colour;
+in vec2 Texture_Coordinates_one;
+in vec2 Texture_Coordinates_two;
+in float blend;
 
-in vec2 Texture_Coordinates;
+out vec4 colour;
 
 uniform sampler2D particle_texture;
 
 void main()
 {
-    colour = texture(particle_texture, Texture_Coordinates);
-    //colour = vec4( 1.0f );
+    vec4 colour_one = texture(particle_texture, Texture_Coordinates_one);
+    vec4 colour_two = texture(particle_texture, Texture_Coordinates_two);
+
+    colour = mix( colour_one, colour_two, blend );
 }
