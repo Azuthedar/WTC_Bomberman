@@ -122,14 +122,13 @@ void Render_Engine::Create_Components( Engine &engine, GLfloat &tmp_delta_time )
 
   	//Render Explosions (This one's nested because each bomb has it's own vector of explosions, so itterate through each bomb, then through it's respective explosions vector)
 
-    glm::vec3 pos = glm::vec3( 3.0f );
+    glm::vec3 pos = glm::vec3( 0.0f );
     for (size_t i = 0; i < engine.getPlayer().getBombVector().size(); i++)
   	{
   		for (size_t y = 0; y < engine.getPlayer().getBombVector()[i].getExplosionVector().size(); y++)
   		{
             pos.x = engine.getPlayer().getBombVector()[i].getExplosionVector()[y].getXPos() * 2;
             pos.z =  engine.getPlayer().getBombVector()[i].getExplosionVector()[y].getYPos() * 2;
-            pos.y = 1.0f;
 
             this->particle_manager->Generate_Particles( pos, tmp_delta_time );
   		}
@@ -234,7 +233,7 @@ void Render_Engine::init()
     lastX = 0.0f;//this->Screen_Width / 2.0f;
     lastY = 0.0f;//this->Screen_Height / 2.0f;
 
-    this->particle_manager = new Particle_manager( 4.0f, 50.0f, 0.3f, 4.0f );
+    this->particle_manager = new Particle_manager( 4.0f, 50.0f, 0.1f, 10.0f );
 
     std::cout << "Base Shader" << std::endl;
     this->shader.compile_shaders("./Graphics_lib/Shaders/Colour_Shading.vert", "./Graphics_lib/Shaders/Colour_Shasiner.frag");
