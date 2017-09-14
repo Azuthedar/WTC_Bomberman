@@ -6,11 +6,12 @@ Engine::Engine()
 	this->_transitionTicker = MAP_TRANSITION_TIME;
 	this->_mapEnd = false;
 	this->_isTransitioning = false;
-	this->_config.defaultInit(this->_player);
+	this->_config.defaultInit(this->_player, this->_sound);
 	this->_mapLevel = this->_config.getMapLevel();
 	this->readFile("maps");
 	this->readMap();
 	this->buildMap();
+	this->_sound.playMusic();
 	return ;
 }
 
@@ -74,7 +75,7 @@ void Engine::transitionMap()
 		this->_enemyVector.clear();
 		this->_player.respawn();
 		this->_walls_vector.clear();
-		this->_config.updateFile(this->_player, this->_mapLevel);
+		this->_config.updateFile(this->_player, this->_mapLevel, this->_sound);
 		this->readMap();
 		this->buildMap();
 		this->_player.getBombVector().clear();
@@ -96,7 +97,7 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 	{
 		if (this->_player.getLives() <= 0)
 		{
-			this->_config.reset(this->_player);
+			this->_config.reset(this->_player, this->_sound);
 			//Make player transition to main menu
 		}
 

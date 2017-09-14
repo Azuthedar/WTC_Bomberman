@@ -2,8 +2,6 @@
 
 #include <main.hpp>
 #include <vector>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_mixer.h>
 
 #define SOUND_CHANNELS 2
 #define SOUND_CHUNKSIZE 4096
@@ -16,10 +14,20 @@ class Sound : public Exceptions
 		~Sound();
 
 		void    playSound(eSound & sound, eSound & playerSound);
+		void	playMusic();
+		void	changeVolume();
 
+		void	setSFXVolume(int sfxVol);
+		void	setMusicVolume(int muscVol);
+
+		int &	getSFXVolume();
+		int &	getMusicVolume();
+		std::vector<Mix_Chunk *> & getWaveVector();
 
 	private:
 
-		std::vector< Mix_Chunk *>    _waveVector;
+		std::vector<Mix_Chunk *>   _waveVector;
+		int							_SFXVolume;
+		int							_musicVolume;
 
 };

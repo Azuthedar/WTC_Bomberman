@@ -10,6 +10,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #include "../../Graphics_lib/Inc/Base.hpp"
 #include "Exception.class.hpp"
 
@@ -76,8 +78,9 @@ enum eConfig
 	CNF_SPEEDLVL,
 	CNF_LIVES,
 	CNF_RESOLUTION = 8,
-	CNF_SOUNDLVL,
-	CNF_KBUP = 11,
+	CNF_SFXVOL,
+	CNF_MUSCVOL,
+	CNF_KBUP = 12,
 	CNF_KBLEFT,
 	CNF_KBRIGHT,
 	CNF_KBDOWN,

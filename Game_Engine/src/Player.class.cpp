@@ -149,12 +149,6 @@ void	Player::movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std:
 	*	If the DIR is LEFT		the xPos needs to decrease to imitate moving left
 	*	If the DIR is RIGHT		the xPos needs to increase to imitate moving right
 	*/
-	if (this->_isDead)
-	{
-		std::cout << "I AM DEAD MOTHERFUCKER" << std::endl;
-	}
-	if (!this->_isDead)
-		std::cout << "THE CAKE IS A LIE" << std::endl;
 	if (!this->collision(wall, enemy, powerupVector))
 	{
 		if (this->_isMoving == true)

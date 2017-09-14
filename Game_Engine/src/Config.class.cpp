@@ -12,7 +12,7 @@ Config::~Config()
 	return ;
 }
 
-void    Config::defaultInit(Player & player)
+void    Config::defaultInit(Player & player, Sound & sound)
 {
 	this->_file.open(this->_fileName);
 	if (!this->_file)
@@ -33,7 +33,8 @@ void    Config::defaultInit(Player & player)
 		// OPTIONS DATA
 		configFile << "[OPTIONS]" << std::endl;
 		configFile << "\tRESOLUTION: 1920 1080" << std::endl;
-		configFile << "\tSOUNDLEVELS: 100" << std::endl;
+		configFile << "\tSFX: 100" << std::endl;
+		configFile << "\tMUSIC: 100" << std::endl;
 
 		// KEYBINDINGS DATA
 		configFile << "[KEYBINDINGS]" << std::endl;
@@ -47,13 +48,13 @@ void    Config::defaultInit(Player & player)
 		configFile.close();
 	}
 	this->_file.close();
-	this->parseFile(player);
+	this->parseFile(player, sound);
 }
 
-void	Config::reset(Player & player)
+void	Config::reset(Player & player, Sound & sound)
 {
 	if (std::remove(this->_fileName.c_str()) == 0)
-		defaultInit(player);
+		defaultInit(player, sound);
 	else
 		this->throwFileFailedDelete();
 	return ;
@@ -82,7 +83,8 @@ bool	Config::checkSyntax()
 	/*Option data*/
 	std::regex rgx_options("^\\[OPTIONS\\]$");
 	std::regex rgx_options1("^\tRESOLUTION: [0-9]{3,4} [0-9]{3,4}$");
-	std::regex rgx_options2("^\tSOUNDLEVELS: ([0-9]{1,2}|100)$");
+	std::regex rgx_options2("^\tSFX: ([0-9]{1,2}|100)$");
+	std::regex rgx_options3("^\tMUSIC: ([0-9]{1,2}|100)$");
 
 	/*Keybinding data*/
 	std::regex rgx_kb("^\\[KEYBINDINGS\\]$");
@@ -98,17 +100,17 @@ bool	Config::checkSyntax()
 		&& std::regex_match(this->_fileBuffer[4], rgx_levels2) && std::regex_match(this->_fileBuffer[5], rgx_levels3)
 		&& std::regex_match(this->_fileBuffer[6], rgx_levels4)
 		&& std::regex_match(this->_fileBuffer[7], rgx_options) && std::regex_match(this->_fileBuffer[8], rgx_options1)
-		&& std::regex_match(this->_fileBuffer[9], rgx_options2)
-		&& std::regex_match(this->_fileBuffer[10], rgx_kb) && std::regex_match(this->_fileBuffer[11], rgx_kbUp)
-		&& std::regex_match(this->_fileBuffer[12], rgx_kbLeft) && std::regex_match(this->_fileBuffer[13], rgx_kbRight)
-		&& std::regex_match(this->_fileBuffer[14], rgx_kbDown) && std::regex_match(this->_fileBuffer[15], rgx_kbBomb)
-		&& std::regex_match(this->_fileBuffer[16], rgx_kbPause))
+		&& std::regex_match(this->_fileBuffer[9], rgx_options2) && std::regex_match(this->_fileBuffer[10], rgx_options3)
+		&& std::regex_match(this->_fileBuffer[11], rgx_kb) && std::regex_match(this->_fileBuffer[12], rgx_kbUp)
+		&& std::regex_match(this->_fileBuffer[13], rgx_kbLeft) && std::regex_match(this->_fileBuffer[14], rgx_kbRight)
+		&& std::regex_match(this->_fileBuffer[15], rgx_kbDown) && std::regex_match(this->_fileBuffer[16], rgx_kbBomb)
+		&& std::regex_match(this->_fileBuffer[17], rgx_kbPause))
 		return (true);
 
 	return (false);
 }
 
-void    Config::parseFile(Player & player)
+void    Config::parseFile(Player & player, Sound & sound)
 {
 	this->_file.open(this->_fileName);
 	this->readFile();
@@ -127,7 +129,8 @@ void    Config::parseFile(Player & player)
 		// OPTIONS DATA
 		this->_resX = std::stoi(this->_fileBuffer[CNF_RESOLUTION].substr(this->_fileBuffer[CNF_RESOLUTION].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_RESOLUTION].find_last_of(' ') - 1));
 		this->_resY = std::stoi(this->_fileBuffer[CNF_RESOLUTION].substr(this->_fileBuffer[CNF_RESOLUTION].find_last_of(' ') + 1, this->_fileBuffer[CNF_RESOLUTION].length() - 1));
-		this->_soundLevel = std::stoi(this->_fileBuffer[CNF_SOUNDLVL].substr(this->_fileBuffer[CNF_SOUNDLVL].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_SOUNDLVL].length() - 1));
+		this->_SFXVolume = std::stoi(this->_fileBuffer[CNF_SFXVOL].substr(this->_fileBuffer[CNF_SFXVOL].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_SFXVOL].length() - 1));
+		this->_musicVolume = std::stoi(this->_fileBuffer[CNF_MUSCVOL].substr(this->_fileBuffer[CNF_MUSCVOL].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_MUSCVOL].length() - 1));
 
 		// KEYBINDINGS DATA
 		this->_KBmoveUp = std::stoi(this->_fileBuffer[CNF_KBUP].substr(this->_fileBuffer[CNF_KBUP].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_KBUP].length() - 1));
@@ -136,6 +139,10 @@ void    Config::parseFile(Player & player)
 		this->_KBmoveDown = std::stoi(this->_fileBuffer[CNF_KBDOWN].substr(this->_fileBuffer[CNF_KBDOWN].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_KBDOWN].length() - 1));
 		this->_KBplaceBomb = std::stoi(this->_fileBuffer[CNF_KBPLACE].substr(this->_fileBuffer[CNF_KBPLACE].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_KBPLACE].length() - 1));
 		this->_KBpause = std::stoi(this->_fileBuffer[CNF_KBPAUSE].substr(this->_fileBuffer[CNF_KBPAUSE].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_KBPAUSE].length() - 1));
+
+
+		sound.setSFXVolume(this->_SFXVolume);
+		sound.setMusicVolume(this->_musicVolume);
 
 		player.setBombLevel(this->_bombLevel);
 		player.setRangeLevel(this->_rangeLevel);
@@ -160,10 +167,11 @@ void    Config::parseFile(Player & player)
 	this->_file.close();
 }
 
-void    Config::updateFile(Player & player, int mapLevel)
+void    Config::updateFile(Player & player, int mapLevel, Sound & sound)
 {
 	if (std::remove(this->_fileName.c_str()) == 0)
 	{
+		Mix_HaltChannel(0);
 		std::ofstream configFile;
 		configFile.open(this->_fileName);
 
@@ -177,7 +185,9 @@ void    Config::updateFile(Player & player, int mapLevel)
 		/* Temp this needs to be changed!!! */
 		this->_resX = 1920;
 		this->_resY = 1080;
-		this->_soundLevel = 100;
+
+		this->_SFXVolume = sound.getSFXVolume();
+		this->_musicVolume = sound.getMusicVolume();
 
 		this->_KBmoveUp = player.getKBMoveUp();
 		this->_KBmoveLeft = player.getKBMoveLeft();
@@ -199,7 +209,8 @@ void    Config::updateFile(Player & player, int mapLevel)
 		// OPTIONS DATA
 		configFile << "[OPTIONS]" << std::endl;
 		configFile << "\tRESOLUTION: " << std::to_string(this->_resX) << " " << std::to_string(this->_resY) << std::endl;
-		configFile << "\tSOUNDLEVELS: " << std::to_string(this->_soundLevel) << std::endl;
+		configFile << "\tSFX: " << std::to_string(this->_SFXVolume) << std::endl;
+		configFile << "\tMUSIC: " << std::to_string(this->_musicVolume) << std::endl;
 
 		// KEYBINDINGS DATA
 		configFile << "[KEYBINDINGS]" << std::endl;
@@ -210,6 +221,9 @@ void    Config::updateFile(Player & player, int mapLevel)
 		configFile << "\tPLACEBOMB: " << std::to_string(this->_KBplaceBomb) << std::endl;
 		configFile << "\tPAUSE: " << std::to_string(this->_KBpause) << std::endl;
 
+		Mix_VolumeChunk( sound.getWaveVector()[SND_DEFAULT], this->_musicVolume * 0.6f);
+		if (Mix_PlayChannel(0, sound.getWaveVector()[SND_DEFAULT], -1) == -1)
+			std::cerr << "TRANSITION: Failed to play sound: DEFAULT" << std::endl;
 
 		configFile.close();
 	}
@@ -228,6 +242,8 @@ void    Config::setKBMoveRight(int KBmoveRight)     {this->_KBmoveRight = KBmove
 void    Config::setKBMoveDown(int KBmoveDown)     	{this->_KBmoveDown = KBmoveDown;}
 void    Config::setKBPlaceBomb(int KBplaceBomb)		{this->_KBplaceBomb = KBplaceBomb;}
 void	Config::setKBPause(int KBpause)				{this->_KBpause = KBpause;}
+void	Config::setSFXVolume(int sfxVol)			{this->_SFXVolume = sfxVol;}
+void	Config::setMusicVolume(int muscVol)			{this->_musicVolume = muscVol;}
 
 
 
@@ -242,3 +258,5 @@ int &	Config::getKBMoveRight()        {return (this->_KBmoveRight);}
 int &	Config::getKBMoveDown()         {return (this->_KBmoveDown);}
 int &	Config::getKBPlaceBomb()        {return (this->_KBplaceBomb);}
 int &	Config::getKBPause()			{return (this->_KBpause);}
+int &	Config::getSFXVolume()			{return (this->_SFXVolume);}
+int &	Config::getMusicVolume()		{return (this->_musicVolume);}
