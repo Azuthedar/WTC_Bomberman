@@ -57,8 +57,4 @@ class Engine
 		Exceptions					_exceptions;
 		std::vector<Powerup>		_powerupVector;
 		Config						_config;
-
-		Sound						_explosionSound;
-		Sound						_completedSound;
-		Sound						_gameOverSound;
 };

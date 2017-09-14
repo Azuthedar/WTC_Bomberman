@@ -85,6 +85,17 @@ enum eConfig
 	CNF_KBPAUSE
 };
 
+enum eSound
+{
+	SND_DEFAULT = 0,
+	SND_FOOTSTEP,
+	SND_DEATH,
+	SND_EXPLOSION,
+	SND_LVLCOMPLETE,
+	SND_BOMBPLACE,
+	SND_GAMEOVER
+};
+
 #define MAP_X 18
 #define MAP_Y 18
 #define FIXED_FPS 60

@@ -182,7 +182,7 @@ GLint Shaders::GetUniformLocation(const std::string &Uniform_name)
 	GLint Location_ID;
 	Location_ID = glGetUniformLocation(program_id, Uniform_name.c_str());
 
-	if (GL_INVALID_INDEX == Location_ID)
+	if (GL_INVALID_INDEX == static_cast<GLuint>(Location_ID))
 	{
 		std::cerr << "Location Id" << std::endl; //Failed To Get Uniform ID?
 	}

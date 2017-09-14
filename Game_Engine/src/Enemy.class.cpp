@@ -48,7 +48,7 @@ void 	Enemy::SnapMovement()
 		this->_isMoving = false;
 }
 
-void	Enemy::movement(std::vector<Wall> & wall, AEntity & player, std::vector<Enemy> & enemy, std::vector<Bomb> & bombVector, GLfloat &delta_time )
+void	Enemy::movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std::vector<Bomb> & bombVector, GLfloat &delta_time )
 {
 
 	if (this->_enemyMvTicker <= 0 && this->_isMoving == false)

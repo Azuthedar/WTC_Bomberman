@@ -1,32 +1,22 @@
 #pragma once
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <cstring>
+
+#include <main.hpp>
 #include <vector>
-#include <stdexcept>
-#include <pthread.h>
-#include <al.h>
-#include <alc.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 
-class Sound {
-public:
+class Sound : public Exceptions
+{
+
+    public:
+        Sound();
+        ~Sound();
+
+        void    playSound(eSound & sound);
 
 
-    Sound();
-    Sound(const char *File);
-    ~Sound();
+    private:
 
-    void initialize(const char* File);
-    char* loadWAV(const char* fn,int& chan,int& samplerate,int& bps,int& size);
-    void play(float volume, bool loop);
+        std::vector< Mix_Music *>    _musicVector;
 
-private:
-    unsigned int    _buffer;
-    unsigned int    _source;
-    bool        _loop = true;
-    pthread_t   _thread[5];
-
-    int         _rc;
-    void        *_status;
 };

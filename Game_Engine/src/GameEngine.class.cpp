@@ -38,33 +38,6 @@ void Engine::ticker( GLfloat &delta_time  )
 		}
 		if (this->_player.getBombVector()[i].getCurrTimer() <= -1 * delta_time)
 		{
-			int random = std::rand() % 10;
-			switch (random){
-				case 1 :
-					_explosionSound.initialize("Sound_lib/Sounds/explosion1.wav");
-					break;
-				case 2 :
-					_explosionSound.initialize("Sound_lib/Sounds/explosion2.wav");
-					break;
-				case 3 :
-					_explosionSound.initialize("Sound_lib/Sounds/explosion3.wav");
-					break;
-				case 4 :
-					_explosionSound.initialize("Sound_lib/Sounds/explosion4.wav");
-					break;
-				case 5 :
-					_explosionSound.initialize("Sound_lib/Sounds/explosion1.wav");
-					break;
-				case 6 :
-					_explosionSound.initialize("Sound_lib/Sounds/explosion2.wav");
-					break;
-				case 7 :
-					_explosionSound.initialize("Sound_lib/Sounds/explosion3.wav");
-					break;
-				default:
-					_explosionSound.initialize("Sound_lib/Sounds/explosion2.wav");
-			}
-			_explosionSound.play(1.0f, false);
 			this->_player.getBombVector().erase(this->_player.getBombVector().begin() + i);
 		}
 
@@ -76,7 +49,7 @@ void Engine::ticker( GLfloat &delta_time  )
 	{
 		if (this->_enemyVector[i].getIsDead())
 			this->_enemyVector.erase(this->_enemyVector.begin() + i);
-		this->_enemyVector[i].movement(this->_walls_vector, this->_player, this->_enemyVector, this->_player.getBombVector(), delta_time );
+		this->_enemyVector[i].movement(this->_walls_vector, this->_enemyVector, this->_player.getBombVector(), delta_time );
 		this->_enemyVector[i].modifyEnemyMvTicker();
 	}
 	this->_mapDuration--;
@@ -91,8 +64,6 @@ void Engine::transitionMap()
 		*	A temporary solution to the fact that there aren't infinite maps.
 		*	After you finish the game transition to CREDITS / MAIN_MENU?
 		*/
-		this->_completedSound.initialize("Sound_lib/Sounds/completed.wav");
-		this->_completedSound.play(1.0f, false);
 		if (this->_mapLevel == this->_maps.size())
 			this->_mapLevel = 0;
 		this->_mapEnd = true;
@@ -117,8 +88,6 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 {
 	if (this->_mapDuration <= 0)
 	{
-//		this->_gameOverSound.initialize("Sound_lib/Sounds/gameOver.wav");
-//		this->_gameOverSound.play(1.0f, false);
 		std::cout << "Time's Up!" << std::endl;
 	}
 	else if (!this->_isTransitioning)

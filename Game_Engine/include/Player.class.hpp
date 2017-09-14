@@ -100,10 +100,4 @@ class Player : public AEntity
 		int					_KBplaceBomb;
 		int					_KBpause;
 
-		Sound				_stepSound;
-		Sound				_bombPlacementSound;
-		Sound				_powerupSound;
-		Sound				_death;
-		Sound				_gameOver;
-
 };

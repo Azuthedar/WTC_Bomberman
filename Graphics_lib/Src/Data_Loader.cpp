@@ -125,6 +125,14 @@ GLuint Data_Loader::Create_VAO()
 
     this->VAO.push_back( tmp_vao );
 
+<<<<<<< HEAD
+=======
+    for (GLuint count = 0; count < this->VAO.size(); count++ )
+    {
+       // std::cout << " THEM PUSHIES " << this->VAO[count] << std::endl;
+    }
+
+>>>>>>> 6608d4df625cc8a3e7cbe7fa1fdedb11fbfcd11c
     return ( tmp_vao );
 }
 

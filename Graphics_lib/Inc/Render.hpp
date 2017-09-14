@@ -19,7 +19,7 @@ class Render
         GLint colourLoc;
         GLint shineLoc;
         GLint reflectionLoc;
-        GLint ScaleLoc;
+       // GLint ScaleLoc;
         GLint RowLoc;
         GLint OffsetLoc;
 

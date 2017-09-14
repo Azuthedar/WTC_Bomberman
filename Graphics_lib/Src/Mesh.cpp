@@ -35,7 +35,7 @@ void Mesh::setupMesh( )
     glBindVertexArray( 0 );
 }
 
-void Mesh::Draw( Shaders shader )
+void Mesh::Draw()
 {
     for( GLuint i = 0; i < this->textures.size( ); i++ )
     {
