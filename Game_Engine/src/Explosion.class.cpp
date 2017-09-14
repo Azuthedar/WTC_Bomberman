@@ -20,6 +20,5 @@ Explosion::Explosion(Explosion const & src)
 
 Explosion::~Explosion()
 {
-	std::cout << "Explosion has been destroyed" << std::endl;
 	return ;
 }

@@ -31,14 +31,14 @@ void Engine::ticker( GLfloat &delta_time  )
 	for (size_t i = 0; i < this->_player.getBombVector().size(); i++)
 	{
 		this->_player.getBombVector()[i].modifyCurrTimer(-1);
-		if (this->_player.getBombVector()[i].getCurrTimer() <= 0)
+		this->_player.getBombVector()[i].destroyExplosion(delta_time);
 		if (this->_player.getBombVector()[i].getCurrTimer() <= 0 && this->_player.getBombVector()[i].getExploded() == false)
 		{
 			this->_player.getBombVector()[i].explode(this->_player.getBombRange(), this->_walls_vector, this->_powerupVector, this->_gate);
 			this->_soundEnum = SND_EXPLOSION;
 			this->_player.modifyBombs();
 		}
-		if (this->_player.getBombVector()[i].getCurrTimer() <= -1 * delta_time)
+		if (this->_player.getBombVector()[i].getCurrTimer() <= -1)
 		{
 			this->_player.getBombVector().erase(this->_player.getBombVector().begin() + i);
 		}
@@ -263,6 +263,7 @@ void	Engine::chainReaction()
 				this->_soundEnum = SND_EXPLOSION;
 				this->_player.getBombVector()[b].explode(this->_player.getBombRange(), this->_walls_vector, this->_powerupVector, this->_gate);
 				this->_player.modifyBombs();
+				break ;
 			}
 		}
 	}

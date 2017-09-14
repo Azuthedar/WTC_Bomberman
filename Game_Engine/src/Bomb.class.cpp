@@ -6,6 +6,7 @@ Bomb::Bomb()
 	this->_currTimer = this->_totalTimer;
 	this->_range = 1;
 	this->_exploded = false;
+	this->_explosionLifeTime = 0.5f;
 	return ;
 }
 
@@ -17,6 +18,7 @@ Bomb::Bomb(int x, int y)
 	this->_xPos = x;
 	this->_yPos = y;
 	this->_range = 1;
+	this->_explosionLifeTime = 1.0f;
 	return ;
 }
 
@@ -28,15 +30,11 @@ Bomb::Bomb(Bomb const & src)
 
 Bomb::~Bomb()
 {
-	std::cout << "Bomb has been destroyed" << std::endl;
 	return ;
 }
 
 void Bomb::explode(int bombRange, std::vector<Wall> & wallVector, std::vector<Powerup> & powerupVector, Gate & gate)
 {
-	std::cout << "BombX: " << this->_xPos << std::endl;
-	std::cout << "BombT: " << this->_yPos << std::endl;
-	std::cout << "ALLAHU AKBAR" << std::endl;
 	this->_exploded = true;
 	this->_explosionVector.push_back(Explosion(this->_xPos, this->_yPos)); //Push Explosion On Default Spot
 	//Loop and push explosions in relative direction.
@@ -185,8 +183,23 @@ void Bomb::explode(int bombRange, std::vector<Wall> & wallVector, std::vector<Po
 	}
 }
 
-void	Bomb::modifyCurrTimer(int currTimer)		{this->_currTimer += currTimer;}
+void	Bomb::destroyExplosion(float deltaTime)
+{
+	modifyExplosionLifeTime(deltaTime);
+	if (this->_explosionLifeTime <= 0)
+	{
+		for (size_t i = 0; i < this->_explosionVector.size(); i++)
+		{
+			this->_explosionVector.erase(this->_explosionVector.begin() + i);
+		}
+	}
+}
+
 void	Bomb::setBombRange(int range)				{this->_range = range;}
+void	Bomb::modifyCurrTimer(int currTimer)		{this->_currTimer += currTimer;}
+void	Bomb::modifyExplosionLifeTime(float deltaTime) {this->_explosionLifeTime -= deltaTime;}
+
 int &	Bomb::getCurrTimer()						{return this->_currTimer;}
+float & Bomb::getExplosionLifeTime()				{return (this->_explosionLifeTime);}
 bool &	Bomb::getExploded()							{return this->_exploded;}
 std::vector<Explosion> &	Bomb::getExplosionVector()	{return (this->_explosionVector);}
