@@ -52,7 +52,7 @@ void Render::Render_Particles( const std::vector< Particles *> &tmp, Shaders &sh
     GLint viewLoc = shader.GetUniformLocation( "view" );
     GLint projLoc = shader.GetUniformLocation( "projection" );
 
-    for (int count = 0; count < tmp.size(); count++)
+    for (GLuint count = 0; count < tmp.size(); count++)
     {
         glm::mat4 model = glm::mat4(1.0);
         glm::mat4 model_matrix;
@@ -157,7 +157,7 @@ void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
         shader.load_matrix( this->modelLoc, model_matrix );
         //shader.load_matrix( this->ScaleLoc, scel );
 
-        ip.Draw( shader );
+        ip.Draw();
 
         /*glBindVertexArray( ip.GetModel().GetVAO() );
 

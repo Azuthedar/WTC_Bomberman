@@ -162,7 +162,7 @@ void Render_Engine::_render( GLfloat &tmp_delta_time )
         //DoMovement();
 
         //test_func( (double)player_pos.x, -10.0);
-        Render_Engine::camera->ProcessKeyboard( player_pos, deltaTime);
+        Render_Engine::camera->ProcessKeyboard( player_pos );
 
 
         glUseProgram( this->shader.GetProgramID() );
@@ -274,6 +274,8 @@ void Render_Engine::test_func(  double posX, double posY  )
 
 void Render_Engine::KeyCallback( GLFWwindow *window, int key, int scancode, int action, int mods)
 {
+    static_cast<void>(mods);
+    static_cast<void>(scancode);
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose( window, GL_TRUE);
 
@@ -288,12 +290,15 @@ void Render_Engine::KeyCallback( GLFWwindow *window, int key, int scancode, int 
 
 void Render_Engine::ScrollCallback( GLFWwindow *window, double xOffset, double yOffset )
 {
+    static_cast<void>(window);
+    static_cast<void>(xOffset);
     camera->ProcessMouseScroll( yOffset );
 }
 
 void Render_Engine::MouseCallback( GLFWwindow *window, double posX, double posY )
 {
     //std:: cout << " X1 " << posX << " Y1 " << posY << std::endl;
+    static_cast<void>(window);
     if ( firstmouse )
     {
         lastX = posX;

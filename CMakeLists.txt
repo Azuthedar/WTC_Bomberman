@@ -3,7 +3,7 @@ cmake_minimum_required (VERSION 3.5)
 set(PROJECT_NAME "Bomberman")
 project (${PROJECT_NAME})
 
-set(CMAKE_CXX_FLAGS "-std=c++11")
+set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Werror -Wextra")
 set(CMAKE_BUILD_TYPE Debug)
 set(PLATFORM ${CMAKE_SYSTEM_NAME})
 
@@ -93,19 +93,17 @@ else()
     set(SOIL_LIB ${SOIL_LIB_DIR}libsoil2.a)
     set(SOIL_NAME soil2)
 
-    #OPENAL
-    find_package(OpenAL)
-    set(OPENAL_INCLUDE ${OPENAL_INCLUDE_DIR})
-    set(OPENAL_LIB_DIR ${OPENAL_LIBRARY})
-    message ("Found OpenAL library at ${OPENAL_INCLUDE}")
-    message ("Found OpenAL library at ${OPENAL_LIBRARY}")
-
-    #ALUT
-    set(ALUT_INCLUDE ${BREW_INCLUDE}/)
-    set(ALUT_LIB_DIR ${BREW_LIB})
-    set(ALUT_LIB libalut.a)
-    set(ALUT_NAME alut)
-    message ("Found ALUT library at ${ALUT_LIB}")
+	#SDL2
+	set(SDL_INCLUDE "~/.brew/include/")
+    set(SDL_LIB_DIR "~/.brew/lib/")
+    set(SDL_NAME SDL2)
+    message ("Found SDL library at ${SDL_LIB_DIR}")
+	
+	#SDL_MIXER
+	set(SDL_MIXER_INCLUDE "~/.brew/include/")
+    set(SDL_MIXER_LIB_DIR "~/.brew/lib/")
+    set(SDL_MIXER_NAME SDL2_mixer)
+    message ("Found glew library at ${SDL_MIXER_LIB_DIR}")
 
     #OPENGL
     find_package(OpenGL)
@@ -134,6 +132,7 @@ else()
             CEGUIOpenGLRenderer-0.dylib
             CEGUISILLYImageCodec.dylib)
     set(CEGUI_LIB_PATH  ${CMAKE_CURRENT_SOURCE_DIR}/libs/darwin/cegui)
+
 
     #GLM
     set(GLM_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/libs/glm)
@@ -218,10 +217,10 @@ set(HEADERS
 
 set(BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
-include_directories(${INCLUDE} ${GRAPHICS_INCLUDE} ${ASSIMP_INC} ${ALUT_INCLUDE} ${SOIL_INCLUDE} ${OPENAL_INCLUDE} ${THREADS_INCLUDE} ${GLEW_INCLUDE} ${GLM_INCLUDE} ${OPENGL_INCLUDE} ${GLFW_INCLUDE})
+include_directories(${INCLUDE} ${GRAPHICS_INCLUDE} ${ASSIMP_INC} ${SOIL_INCLUDE} ${SDL_INCLUDE} ${SDL_MIXER_INCLUDE} ${GLEW_INCLUDE} ${GLM_INCLUDE} ${OPENGL_INCLUDE} ${GLFW_INCLUDE})
 
-link_directories(${GLFW_LIB_PATH} ${SOIL_LIB_DIR} ${ASSIMP_LIB_DIR} ${ALUT_LIB_DIR} ${THREADS_LIB_DIR} ${GLEW_LIB_DIR} ${CEGUI_LIB_PATH})
+link_directories(${GLFW_LIB_PATH} ${SOIL_LIB_DIR} ${ASSIMP_LIB_DIR} ${SDL_LIB_DIR} ${SDL_MIXER_LIB_DIR} ${GLEW_LIB_DIR} ${CEGUI_LIB_PATH})
 
 add_executable(${PROJECT_NAME} ${SOURCE} ${HEADERS})
 
-target_link_libraries(${PROJECT_NAME} ${FRAMEWORK_COCOA} ${ASSIMP_NAME} ${THREADS_NAME} ${OPENGL_gl_LIBRARY} ${GLEW_NAME} ${OPENAL_LIBRARY} ${SOIL_NAME} ${ALUT_NAME} ${CEGUI_LIBS_DYNAMIC} ${GLFW_NAME})
+target_link_libraries(${PROJECT_NAME} ${FRAMEWORK_COCOA} ${ASSIMP_NAME} ${OPENGL_gl_LIBRARY} ${GLEW_NAME} ${SOIL_NAME} ${SDL_NAME}  ${SDL_MIXER_NAME} ${CEGUI_LIBS_DYNAMIC} ${GLFW_NAME})

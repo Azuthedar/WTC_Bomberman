@@ -25,7 +25,7 @@ class Model
         std::string GetDir() const;
         Model &operator=(Model const &obj);
 
-        void Draw( Shaders shader );
+        void Draw();
 
         void loadModel( std::string path );
         Skybox_s loadSkybox( std::vector<std::string> &texture_paths );

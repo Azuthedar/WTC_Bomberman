@@ -22,7 +22,7 @@ void Particle_manager::manage_particles( const GLfloat &DeltaTime )
 {
     bool tmp_response = false;
     //std::cout << "this Many particles so far " << this->particle_array.size() << std::endl;
-    for (int count = 0; count < this->particle_array.size(); count++)
+    for (GLuint count = 0; count < this->particle_array.size(); count++)
     {
         tmp_response = this->particle_array[count]->UpdateParticle( DeltaTime );
 

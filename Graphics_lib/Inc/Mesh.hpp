@@ -23,5 +23,5 @@ class Mesh
         Mesh( std::vector<Vertex> vertices, std::vector<GLuint> indices, std::vector<Texture> textures );
         Mesh();
 
-        void Draw( Shaders shader );
+        void Draw();
 };

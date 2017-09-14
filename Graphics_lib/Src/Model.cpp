@@ -162,6 +162,7 @@ Skybox_s Model::loadSkybox( std::vector<std::string> &texture_paths )
     tmp_skybox.Skybox_VAO = skyboxVAO;
     tmp_skybox.Skybox_VBO = skyboxVBO;
     tmp_skybox.Cubemap_text = this->load.LoadCubemap( texture_paths );
+    static_cast<void>(cubeVertices);
 
     return (tmp_skybox);
 
@@ -192,11 +193,11 @@ Model &Model::operator=(Model const &obj)
     return (*this);
 }
 
-void Model::Draw( Shaders shader )
+void Model::Draw()
 {
     for ( GLuint i = 0; i < this->meshes.size( ); i++ )
     {
-        this->meshes[i].Draw( shader );
+        this->meshes[i].Draw();
     }
 }
 

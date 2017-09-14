@@ -72,10 +72,6 @@ void	Player::input( GLFWwindow *window )
 	{
 		if (glfwGetKey( window, this->_KBmoveLeft)) // left
 		{
-			if(this->_isCollide == false){
-				this->_stepSound.initialize("Sound_lib/Sounds/footstep.wav");
-				this->_stepSound.play(1.0f, false);
-			}
 			this->_dir = LEFT;
 			this->_isMoving = true;
 			this->_hitOnce = false;
@@ -85,10 +81,6 @@ void	Player::input( GLFWwindow *window )
 		}
 		else if (glfwGetKey( window, this->_KBmoveRight)) // right
 		{
-			if(this->_isCollide == false){
-				this->_stepSound.initialize("Sound_lib/Sounds/footstep.wav");
-				this->_stepSound.play(1.0f, false);
-			}
 			this->_dir = RIGHT;
 			this->_isMoving = true;
 			this->_hitOnce = false;
@@ -98,10 +90,6 @@ void	Player::input( GLFWwindow *window )
 		}
 		else if (glfwGetKey( window, this->_KBmoveDown)) // down
 		{
-			if(this->_isCollide == false){
-				this->_stepSound.initialize("Sound_lib/Sounds/footstep.wav");
-				this->_stepSound.play(1.0f, false);
-			}
 			this->_dir = DOWN;
 			this->_isMoving = true;
 			this->_hitOnce = false;
@@ -111,10 +99,6 @@ void	Player::input( GLFWwindow *window )
 		}
 		else if (glfwGetKey( window, this->_KBmoveUp)) // up
 		{
-			if(this->_isCollide == false){
-				this->_stepSound.initialize("Sound_lib/Sounds/footstep.wav");
-				this->_stepSound.play(1.0f, false);
-			}
 			this->_dir = UP;
 			this->_isMoving = true;
 			this->_hitOnce = false;
@@ -140,8 +124,6 @@ void	Player::input( GLFWwindow *window )
 				this->getBombVector().push_back(Bomb(place_x, place_y));
 				this->_placeBombTimer = BOMB_COOLDOWN;
 			}
-			this->_bombPlacementSound.initialize("Sound_lib/Sounds/placement.wav");
-			_bombPlacementSound.play(1.0f, false);
 		}
 	}
 	if (glfwGetKey(window, this->_KBpause))
@@ -254,8 +236,6 @@ bool	Player::collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std
 		{
 			this->_pickupPowerup = true;
 			this->pickupPowerUps(powerupVector[i].getTypePowerup());
-			_powerupSound.initialize("Sound_lib/Sounds/powerup.wav");
-			_powerupSound.play(1.0f, false);
 			powerupVector.erase(powerupVector.begin() + i); // Erase from array after picked up
 		}
 
@@ -329,14 +309,12 @@ void	Player::respawn()
 
 	if (this->_isDead)
 	{
-		if(this->_lives != 1){
-			this->_death.initialize("Sound_lib/Sounds/death.wav");
-			this->_death.play(1.0f, false);
-		}
 		this->_lives -= 1;
-		if (this->_lives <= 0){
-			this->_gameOver.initialize("Sound_lib/Sounds/gameOver.wav");
-			this->_gameOver.play(1.0f, false);
+		if(this->_lives != 0)
+		{
+		}
+		if (this->_lives <= 0)
+		{
 			std::cout << "You have died..." << std::endl;	//CHANGE GAMESTATE TO MENU
 		}
 		/*

@@ -7,19 +7,13 @@
 #include "../../Graphics_lib/Inc/Render_Engine.hpp"
 #include "../../Sound_lib/include/SoundEngine.hpp"
 
-int main(int argc, char **argv)
+int main()
 {
 	try
 	{
 
 		Engine engine;
 		Render_Engine render( "Atjar", 1280, 720);
-
-		//Load Map Into Respective Vectors
-		Sound music;
-		music.initialize("Sound_lib/Sounds/music.wav");
-		music.play(0.1f, true);
-
 
 		render.init();
 

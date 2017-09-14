@@ -1,0 +1,3 @@
+/goinfre/jbuys/Desktop/Bomberman/CMakeFiles/rebuild_cache.dir
+/goinfre/jbuys/Desktop/Bomberman/CMakeFiles/edit_cache.dir
+/goinfre/jbuys/Desktop/Bomberman/CMakeFiles/Bomberman.dir
