@@ -208,7 +208,7 @@ void Model::loadModel( std::string path )
     //Replace With Exception Class Stoof
     if( !scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode )
     {
-        cout << "ERROR::ASSIMP:: " << importer.GetErrorString( ) << endl;
+        cout << "ERROR::ASSIMP:: " << importer.GetErrorString( ) << endl; //Failed To Load Model?
         return;
     }
 
@@ -251,7 +251,7 @@ Mesh Model::processMesh( aiMesh *mesh, const aiScene *scene )
             vertex.Position = vector;
         }
         else
-            exit(8);
+            exit(8); //Missing Vertices: Failed
 
         //std::cout << "vertices X " <<  vector.x << " Y " << vector.y << " Z " << vector.z << std::endl;
 

@@ -194,7 +194,7 @@ void Render_Engine::init()
 {
     if( !glfwInit() )
     {
-        std::cout << "Bad news1" << std::endl;
+        std::cout << "Bad news1" << std::endl; //Could Not Init GLFW: Failed?
         exit(1);
     }
 
@@ -209,7 +209,7 @@ void Render_Engine::init()
 
     if ( !Render_Engine::window ) // Check if window was created
     {
-        std::cout << "Bad news2" << std::endl;
+        std::cout << "Bad news2" << std::endl; //Could Not Create GLFW Window: Failed?
         glfwTerminate(); // Terminate GLFW
         exit(2);
     }
@@ -220,7 +220,7 @@ void Render_Engine::init()
     glewExperimental = GL_TRUE; //stops glew crashing on OSX :-/
     if( glewInit() != GLEW_OK )
     {
-        std::cout << "Bad news 3" << std::endl;
+        std::cout << "Bad news 3" << std::endl; //Could Not Init Glew: Failed?
         exit(3);
     }
 

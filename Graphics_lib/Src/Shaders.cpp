@@ -27,12 +27,12 @@ void Shaders::compile_shaders(const std::string &vertexfile_path, const std::str
 	//Creates Empty Shader Object (Vertex Shader),
 	//Shader is used contain the shader source code strings (code withing shader text file).
 	if ( (vertex_id = glCreateShader( GL_VERTEX_SHADER )) == 0 )
-		std::cerr << "ERROR HELP" << std::endl;
+		std::cerr << "ERROR HELP" << std::endl; //Failed To Create Vertex Shader?
 
 	//Creates Empty Shader Object (Fragment Shader),
 	//Shader is used contain the shader source code strings (code withing shader text file).
 	if ( (fragment_id = glCreateShader( GL_FRAGMENT_SHADER )) == 0 )
-		std::cerr << "ERROR HELP" << std::endl;
+		std::cerr << "ERROR HELP" << std::endl; //Failed To Create Fragment Shader?
 
 	//Debug
 	//std::cout << vertex_id << std::endl;
@@ -78,7 +78,7 @@ void Shaders::link_shaders()
 		glDeleteShader(vertex_id);
 		glDeleteShader(fragment_id);
 
-		std::cerr << "BAD NEWS BUB" << std::endl;
+		std::cerr << "BAD NEWS BUB" << std::endl; //Shader Linking Failed?
 
 		return;
 	}
@@ -94,7 +94,7 @@ void Shaders::compile(const std::string &file_path, GLuint &tmp_id)
 	//Will Copies contents of shader file to the contents string so it can be binded to the shader object later.
 	std::ifstream file(file_path);
 	if (file.fail())
-		std::cerr << "Error Help DEEZZ" << std::endl;
+		std::cerr << "Error Help DEEZZ" << std::endl; //Failed To Load Shader?
 
 	//Debug
 	//std::cout << tmp_id << std::endl;
@@ -140,7 +140,7 @@ void Shaders::compile(const std::string &file_path, GLuint &tmp_id)
 		//Deletes The Shader Object.
 		glDeleteShader(tmp_id);
 
-		std::cerr << "Failed Son" << std::endl;
+		std::cerr << "Failed Son" << std::endl; //Failed To Compile Shader
 
 		for (GLint i = 0; i < maxlength; i++)
 		{
@@ -184,7 +184,7 @@ GLint Shaders::GetUniformLocation(const std::string &Uniform_name)
 
 	if (GL_INVALID_INDEX == Location_ID)
 	{
-		std::cerr << "Location Id" << std::endl;
+		std::cerr << "Location Id" << std::endl; //Failed To Get Uniform ID?
 	}
 
 	return Location_ID;

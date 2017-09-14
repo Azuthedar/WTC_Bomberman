@@ -53,6 +53,92 @@ const char * Exceptions::EFileFailedDelete::what() const throw()
     return ("Could not Delete file");
 }
 
+
+//Graphics Exceptions!
+
+const char * Exceptions::EFailedLoadTextures::what() const throw()
+{
+    return ("Failed To Load Textures");
+}
+
+const char * Exceptions::EFailedLoadCubemap::what() const throw()
+{
+    return ("Failed To Load Cubemap");
+}
+
+const char * Exceptions::EFailedCreateIndices::what() const throw()
+{
+    return ("Failed To Create Indices");
+}
+
+const char * Exceptions::EFailedCreateVao::what() const throw()
+{
+    return ("Failed To Create VAO");
+}
+
+const char * Exceptions::EFailedStoreObjectData::what() const throw()
+{
+    return ("Failed To Store Object Data");
+}
+
+const char * Exceptions::EFailedLoadModel::what() const throw()
+{
+    return ("Failed To Load Model");
+}
+
+const char * Exceptions::EMissingVertices::what() const throw()
+{
+    return ("Missing Verices");
+}
+
+const char * Exceptions::ECouldNotInitGLFW::what() const throw()
+{
+    return ("Failed To Init GLFW");
+}
+
+const char * Exceptions::ECouldNotMakeGLFWWindow::what() const throw()
+{
+    return ("Failed To Make GLFW Window");
+}
+
+const char * Exceptions::ECouldNotInitGlew::what() const throw()
+{
+    return ("Failed To Init GLEW");
+}
+
+const char * Exceptions::EFailedToCreateVertexShader::what() const throw()
+{
+    return ("Failed To Create Vertex Shader");
+}
+
+const char * Exceptions::EFailedToCreateFragmentShader::what() const throw()
+{
+    return ("Failed To Create Fragment Shader");
+}
+
+const char * Exceptions::EFailedToLoadShader::what() const throw()
+{
+    return ("Failed To Load Shader");
+}
+
+const char * Exceptions::EFailedToLinkShader::what() const throw()
+{
+    return ("Failed To Link Shader");
+}
+
+const char * Exceptions::EFailedToCompileShader::what() const throw()
+{
+    return ("Failed To Compile Shader");
+}
+
+const char * Exceptions::EFailedToGetUniformID::what() const throw()
+{
+    return ("Failed To Get Uniform ID");
+}
+
+
+
+//Throwers
 void Exceptions::throwMapSizeInvalid()
 {
     throw EMapSize;
@@ -101,4 +187,90 @@ void Exceptions::throwInvalidSyntax()
 void Exceptions::throwFileFailedDelete()
 {
     throw EFFDel;
+}
+
+//Graphics Lib Throwers
+void Exceptions::throwLoadTextures()
+{
+    throw EFLTex;
+}
+
+void Exceptions::throwLoadCubemap()
+{
+    throw EFLCube;
+}
+
+void Exceptions::throwCreateIndices()
+{
+    throw EFCIndices;
+}
+
+void Exceptions::throwCreateIndices()
+{
+    throw EFCIndices;
+}
+
+void Exceptions::throwCreateVAO()
+{
+    throw EFCVao;
+}
+
+void Exceptions::throwStoreObjectData()
+{
+    throw EFSOData;
+}
+
+void Exceptions::throwLoadModel()
+{
+    throw EFLModel;
+}
+
+void Exceptions::throwMissingVertices()
+{
+    throw EMVertices;
+}
+
+void Exceptions::throwInitGLFW()
+{
+    throw ECNIGLFW;
+}
+
+void Exceptions::throwGLFWWindow()
+{
+    throw ECNCGWindow;
+}
+
+void Exceptions::throwInitGLEW()
+{
+    throw ECNIGlew;
+}
+
+void Exceptions::throwVertexShader()
+{
+    throw EFTCVShader;
+}
+
+void Exceptions::throwFragmentShader()
+{
+    throw EFTCFShader;
+}
+
+void Exceptions::throwLoadShader()
+{
+    throw EFTLShader;
+}
+
+void Exceptions::throwLinkShader()
+{
+    throw EFTLinkShader;
+}
+
+void Exceptions::throwCompileShader()
+{
+    throw EFTCShader;
+}
+
+void Exceptions::throwGetUniformID()
+{
+    throw EFTGUID;
 }

@@ -37,6 +37,8 @@ GLuint Data_Loader::load_texture( const char *texture_path, std::string director
 
     unsigned char *image = SOIL_load_image(filename.c_str() , &width, &height, 0, SOIL_LOAD_RGB);
 
+    //Failed to load texture?
+
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
     glGenerateMipmap( GL_TEXTURE_2D );
 
@@ -84,6 +86,7 @@ GLuint Data_Loader::LoadCubemap( std::vector<std::string> &texture_paths )
         glTexImage2D( GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image );
         SOIL_free_image_data( image );
     }
+    //Failed to load Cubemap?
     glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
     glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
     glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
@@ -93,23 +96,6 @@ GLuint Data_Loader::LoadCubemap( std::vector<std::string> &texture_paths )
 
     return textureID;
 }
-
-/*Model *Data_Loader::Load_VAO( GLfloat *vert, GLuint Vert_Size, GLuint elements , GLuint *indicies, GLuint Ind_Size, GLfloat *texture_coords, GLuint Text_Size, GLfloat *normals, GLuint Norm_size )
-{
-    GLuint VAO_ID = 0;
-    VAO_ID = Create_VAO();
-
-    std::cout << " Ind " << Ind_Size << " Vert " << Vert_Size << " TEXT " << Text_Size << std::endl;
-    Store_Data(0, Vert_Size ,3 ,vert);
-    Store_Data(1, Text_Size ,2 ,texture_coords);
-    Store_Data(2, Norm_size ,3 ,normals);
-    Bind_toBuffer( indicies, Ind_Size );
-    Unbind_VAO();
-
-    std::cout << " VATAI " <<  VAO_ID << std::endl;
-
-    return ( new Model( VAO_ID, elements ) );
-}*/
 
 void Data_Loader::Bind_toBuffer( GLuint *indicies, GLuint data_size )
 {
@@ -121,6 +107,7 @@ void Data_Loader::Bind_toBuffer( GLuint *indicies, GLuint data_size )
     this->VBO.push_back( tmp_EBO );
 
     glBufferData( GL_ELEMENT_ARRAY_BUFFER, data_size , indicies, GL_STATIC_DRAW );
+    //Failed to create Indices array?
 
     //glVertexAttribPointer( 1, 3, GL_FLOAT, GL_FALSE, 3* sizeof( GLfloat ), ( GLvoid *) 0 );
     //glEnableVertexAttribArray( 1 );
@@ -134,13 +121,9 @@ GLuint Data_Loader::Create_VAO()
     glBindVertexArray( tmp_vao );
 
    // std::cout << " VATAI tertete " <<  tmp_vao << std::endl;
+   //Failed To Create VAO?
 
     this->VAO.push_back( tmp_vao );
-
-    for (int count = 0; count < this->VAO.size(); count++ )
-    {
-       // std::cout << " THEM PUSHIES " << this->VAO[count] << std::endl;
-    }
 
     return ( tmp_vao );
 }
@@ -152,6 +135,8 @@ void Data_Loader::Store_Data( int attrib_number, GLuint data_size , int data_num
     glGenBuffers( 1, &tmp_vbo ); // Generates a VBO Buffer
 
     this->VBO.push_back( tmp_vbo );
+
+    //Failed To Store object data?
 
     //std::cout << "STORE DATAT " << std::endl;
 
