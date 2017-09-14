@@ -3,16 +3,16 @@ cmake_minimum_required (VERSION 3.5)
 set(PROJECT_NAME "Bomberman")
 project (${PROJECT_NAME})
 
-set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Werror -Wextra")
+set(CMAKE_CXX_FLAGS "-std=c++11")
 set(CMAKE_BUILD_TYPE Debug)
 set(PLATFORM ${CMAKE_SYSTEM_NAME})
 
 message("Detected Platform ${PLATFORM}")
 
-if (WIN_32)
+if (UNIX)
 
     message("UNIX")
-    set(LIB_PATH "/usr/")
+    set(LIB_PATH "/usr")
     set(LIB_INCLUDE "${LIB_PATH}/include/")
     set(LIB_LIBRARY "${LIB_PATH}/lib/x86_64-linux-gnu/")
 
@@ -29,30 +29,23 @@ if (WIN_32)
     set(SOIL_LIB ${SOIL_LIB_DIR}libsoil2.a)
     set(SOIL_NAME soil2-debug)
 
-    #OPENAL
-    find_package(OpenAL)
-    set(OPENAL_INCLUDE ${OPENAL_INCLUDE_DIR})
-    set(OPENAL_LIB_DIR ${OPENAL_LIBRARY})
-    message ("Found OpenAL library at ${OPENAL_INCLUDE}")
-    message ("Found OpenAL library at ${OPENAL_LIBRARY}")
+    #SDL2
+	set(SDL_INCLUDE ${LIB_INLCUDE})
+    set(SDL_LIB_DIR ${LIB_LIBRARY})
+    set(SDL_NAME SDL2)
+    message ("Found SDL library at ${SDL_LIB_DIR}")
 
-    #ALUT
-    set(ALUT_INCLUDE ${LIB_INLCUDE})
-    set(ALUT_LIB_DIR ${LIB_LIBRARY})
-    #set(ALUT_LIB libalut.a)
-    set(ALUT_NAME alut)
-    message ("Found ALUT library at ${ALUT_LIB}")
+	#SDL_MIXER
+	set(SDL_MIXER_INCLUDE ${LIB_INLCUDE})
+    set(SDL_MIXER_LIB_DIR ${LIB_LIBRARY})
+    set(SDL_MIXER_NAME SDL2_mixer)
+    message ("Found glew library at ${SDL_MIXER_LIB_DIR}")
 
     #OPENGL
     find_package(OpenGL)
     set(OPENGL_INCLUDE ${OPENGL_INCLUDE_DIR})
     message ("Found OpenGL library at ${OPENGL_INCLUDE}")
     message ("Found OpenGL library at ${OPENGL_gl_LIBRARY}")
-
-    #THREADS
-    set(THREADS_INCLUDE ${LIB_INLCUDE})
-    set(THREADS_LIB_DIR ${LIB_LIBRARY})
-    set(THREADS_NAME pthread)
 
     #ASSIMP
     set(ASSIMP_INC ${LIB_INLCUDE})
@@ -98,7 +91,7 @@ else()
     set(SDL_LIB_DIR "~/.brew/lib/")
     set(SDL_NAME SDL2)
     message ("Found SDL library at ${SDL_LIB_DIR}")
-	
+
 	#SDL_MIXER
 	set(SDL_MIXER_INCLUDE "~/.brew/include/")
     set(SDL_MIXER_LIB_DIR "~/.brew/lib/")
@@ -176,7 +169,7 @@ set(SOURCE
         ${GRAPHICS_SRC}Particles.cpp
         ${GRAPHICS_SRC}Particle_manager.cpp
 
-        ${SOUND_LIB}SoundEngine.cpp
+        #${SOUND_LIB}SoundEngine.cpp
         )
 
 #INCLUDE_FILES
@@ -211,7 +204,7 @@ set(HEADERS
         ${GRAPHICS_INCLUDE}Particles.hpp
         ${GRAPHICS_INCLUDE}Particle_manager.hpp
 
-        ${SOUND_INC}SoundEngine.hpp
+        #${SOUND_INC}SoundEngine.hpp
         )
 
 

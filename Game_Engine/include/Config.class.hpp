@@ -8,18 +8,18 @@
 class Config: public Exceptions
 {
 	public:
-	
+
 		Config();
 		Config(std::string fileName);
 		~Config();
 
-		void	defaultInit(Player & player, Sound & sound);
-		void	reset(Player & player, Sound & sound);
+		void	defaultInit(Player & player); //, Sound & sound);
+		void	reset(Player & player); //, Sound & sound);
 		void	readFile();
 		bool	checkSyntax(); // True will be correct syntax
-		void	parseFile(Player & player, Sound & sound);
-		void	updateFile(Player & player, int mapLevel, Sound & sound);
-		
+		void	parseFile(Player & player); //, Sound & sound);
+		void	updateFile(Player & player, int mapLevel); //, Sound & sound);
+
 		void	setMapLevel(int mapLevel);
 		void	setBombLevel(int bomblevel);
 		void	setRangeLevel(int rangeLevel);
@@ -31,8 +31,8 @@ class Config: public Exceptions
 		void	setKBMoveDown(int KBmoveDown);
 		void	setKBPlaceBomb(int placeBomb);
 		void	setKBPause(int KBpause);
-		void	setSFXVolume(int sfxVol);
-		void	setMusicVolume(int muscVol);
+		//void	setSFXVolume(int sfxVol);
+		//void	setMusicVolume(int muscVol);
 
 		int &	getMapLevel();
 		int &	getBombLevel();
@@ -45,8 +45,8 @@ class Config: public Exceptions
 		int &	getKBMoveDown();
 		int &	getKBPlaceBomb();
 		int &	getKBPause();
-		int &	getSFXVolume();
-		int &	getMusicVolume();
+		//int &	getSFXVolume();
+		//int &	getMusicVolume();
 
 	private:
 

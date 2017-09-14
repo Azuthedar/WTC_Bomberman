@@ -1,6 +1,6 @@
 #pragma once
 
-#include <main.hpp>
+#include "../../Game_Engine/include/main.hpp"
 #include <vector>
 
 #define SOUND_CHANNELS 2

@@ -5,7 +5,7 @@ Particles::Particles()
     return ;
 }
 
-Particles::Particles( glm::vec3 const &tmp_Position, glm::vec3 const &tmp_Velocity, GLfloat const &tmp_gravity, GLfloat const &tmp_LifeLength, GLfloat const &tmp_Rotation, GLfloat const &tmp_Scale )
+Particles::Particles(  GLuint const &tmp_texture_id, glm::vec3 const &tmp_Position, glm::vec3 const &tmp_Velocity, GLfloat const &tmp_gravity, GLfloat const &tmp_LifeLength, GLfloat const &tmp_Rotation, GLfloat const &tmp_Scale  )
 {
     this->Position = tmp_Position;
     this->Velocity = tmp_Velocity;
@@ -14,6 +14,7 @@ Particles::Particles( glm::vec3 const &tmp_Position, glm::vec3 const &tmp_Veloci
     this->Rotation = tmp_Rotation;
     this->Scale = tmp_Scale;
     this->ElapsedTime = 0.0f;
+    this->texture_id = tmp_texture_id;
 }
 
 Particles::~Particles()
@@ -41,6 +42,11 @@ bool Particles::UpdateParticle( const GLfloat &DeltaTime )
 glm::vec3 Particles::GetPosition() const
 {
     return (this->Position);
+}
+
+GLuint Particles::GetTextureID() const
+{
+    return (this->texture_id);
 }
 
 GLfloat Particles::GetRotation() const

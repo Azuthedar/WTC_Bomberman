@@ -11,6 +11,7 @@ class Particle_manager
         float Total_particles;
         float Gravity;
         float Life_length;
+        GLuint Texture_ID;
 
     public:
 
@@ -22,4 +23,6 @@ class Particle_manager
         void Generate_Particles( glm::vec3 const &tmp_Origin_Position, GLfloat &tmp_delta_time );
         Particles *GetParticle( int const &pos ) const;
         std::vector < Particles * > GetParticleArray( ) const;
+
+        void SetTexture( GLuint const &texture_id );
 };

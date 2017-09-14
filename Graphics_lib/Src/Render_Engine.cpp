@@ -56,6 +56,9 @@ void Render_Engine::load_dependencies()
     Model tmp_load;
     this->Skybox = tmp_load.loadSkybox( faces );
     this->particle_data = tmp_load.loadParticle( );
+
+    this->particle_data.Particle_text = this->load.load_texture( "exp2_alpha_1.png" , "Graphics_lib/objects_and_textures");
+    this->particle_manager->SetTexture( this->particle_data.Particle_text );
 }
 
 void Render_Engine::Create_Components( Engine &engine, GLfloat &tmp_delta_time )

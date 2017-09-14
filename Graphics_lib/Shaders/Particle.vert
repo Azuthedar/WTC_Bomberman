@@ -14,6 +14,6 @@ void main()
     vec4 world_pos = view * model * vec4( position, 0.0f, 1.0f );
     gl_Position = projection * world_pos;
 
-    //Texture_Coordinates = position + vec2(0.5f, 0.5f);
-    //Texture_Coordinates.y = 1.0f - Texture_Coordinates.y;
+    Texture_Coordinates = position + vec2(0.5f, 0.5f);
+    Texture_Coordinates.y = 1.0f - Texture_Coordinates.y;
 }

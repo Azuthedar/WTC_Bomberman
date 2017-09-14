@@ -52,6 +52,8 @@ GLuint Data_Loader::load_texture( const char *texture_path, std::string director
 
    // std::cout << " BEFOR LOADISS RET " << std::endl;
 
+    std::cout << "TEXT ID " << texture << std::endl; 
+
     return ( texture );
 }
 

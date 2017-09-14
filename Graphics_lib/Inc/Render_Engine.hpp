@@ -31,6 +31,7 @@ class Render_Engine
         static GLfloat lastFrame;
 
         Render draw;
+        Data_Loader load;
         Shaders shader;
         Shaders SkyBox_shader;
         Shaders Particle_shader;

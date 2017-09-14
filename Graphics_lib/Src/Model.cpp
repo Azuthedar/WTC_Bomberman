@@ -213,7 +213,7 @@ void Model::loadModel( std::string path )
         return;
     }
 
-    this->directory = path.substr( 0, path.find_last_of( '/' ) + 1);
+    this->directory = path.substr( 0, path.find_last_of( '/' ) );
     this->processNode( scene->mRootNode, scene );
 }
 

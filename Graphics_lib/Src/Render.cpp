@@ -52,6 +52,8 @@ void Render::Render_Particles( const std::vector< Particles *> &tmp, Shaders &sh
     GLint viewLoc = shader.GetUniformLocation( "view" );
     GLint projLoc = shader.GetUniformLocation( "projection" );
 
+    glBindTexture( GL_TEXTURE_2D, data.Particle_text );
+
     for (GLuint count = 0; count < tmp.size(); count++)
     {
         glm::mat4 model = glm::mat4(1.0);
@@ -82,6 +84,7 @@ void Render::Render_Particles( const std::vector< Particles *> &tmp, Shaders &sh
         glDrawArrays( GL_TRIANGLE_STRIP, 0, 4);
     }
 
+    glBindTexture( GL_TEXTURE_2D, 0 );
     glBindVertexArray( 0 );
     glDisableVertexAttribArray(0);
     glDisable(GL_BLEND);
