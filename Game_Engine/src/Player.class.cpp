@@ -122,6 +122,8 @@ void	Player::input( GLFWwindow *window )
 			{
 				this->_bombs--;
 				this->getBombVector().push_back(Bomb(place_x, place_y));
+				if (this->_soundEnum != SND_DEATH && this->_soundEnum != SND_GAMEOVER)
+					this->_soundEnum = SND_BOMBPLACE;
 				this->_placeBombTimer = BOMB_COOLDOWN;
 			}
 		}
@@ -175,6 +177,8 @@ void	Player::movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std:
 							this->_xPos = this->_goal_x;
 					break ;
 			}
+			if (this->_soundEnum != SND_DEATH && this->_soundEnum != SND_POWERUP && this->_soundEnum != SND_BOMBPLACE && this->_soundEnum != SND_GAMEOVER)
+				this->_soundEnum = SND_FOOTSTEP;
 		}
 	}
 	SnapMovement();
@@ -236,6 +240,8 @@ bool	Player::collision(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std
 		{
 			this->_pickupPowerup = true;
 			this->pickupPowerUps(powerupVector[i].getTypePowerup());
+			if (this->_soundEnum != SND_DEATH && this->_soundEnum != SND_GAMEOVER)
+				this->_soundEnum = SND_POWERUP;
 			powerupVector.erase(powerupVector.begin() + i); // Erase from array after picked up
 		}
 
@@ -312,22 +318,24 @@ void	Player::respawn()
 		this->_lives -= 1;
 		if(this->_lives != 0)
 		{
+			this->_soundEnum = SND_DEATH;
 		}
 		if (this->_lives <= 0)
 		{
+			this->_soundEnum = SND_GAMEOVER;
 			std::cout << "You have died..." << std::endl;	//CHANGE GAMESTATE TO MENU
 		}
 		/*
 		*	Possibly if player reaches 0 lives, make a total score appear in the middle of the screen
 		*	Which then fades out and takes the player back to the main menu or the start of the round.
 		*/
+		this->_isDead = false;
 	}
 	this->_xPos = this->_spawnX;
 	this->_yPos = this->_spawnY;
 	this->_goal_x = this->_spawnX;
 	this->_goal_y = this->_spawnY;
 
-	this->_isDead = false;
 }
 
 void	Player::pickupPowerUps(ePowerups type)
@@ -407,6 +415,7 @@ void    Player::setKBMoveRight(int KBmoveRight)     {this->_KBmoveRight = KBmove
 void    Player::setKBMoveDown(int KBmoveDown)     	{this->_KBmoveDown = KBmoveDown;}
 void    Player::setKBPlaceBomb(int KBplaceBomb)		{this->_KBplaceBomb = KBplaceBomb;}
 void	Player::setKBPause(int KBpause)				{this->_KBpause = KBpause;}
+void	Player::setSoundEnum(eSound val)			{this->_soundEnum = val;}
 
 
 int	&	Player::getBombs()						{return (this->_bombs);}
@@ -423,4 +432,5 @@ int &	Player::getKBMoveRight()        		{return (this->_KBmoveRight);}
 int &	Player::getKBMoveDown()         		{return (this->_KBmoveDown);}
 int &	Player::getKBPlaceBomb()          		{return (this->_KBplaceBomb);}
 int &	Player::getKBPause()					{return (this->_KBpause);}
+eSound & Player::getSoundEnum()					{return (this->_soundEnum);}
 std::vector<Bomb> &		Player::getBombVector() {return (this->_bomb);}

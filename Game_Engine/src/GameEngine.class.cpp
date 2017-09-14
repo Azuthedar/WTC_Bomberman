@@ -34,6 +34,7 @@ void Engine::ticker( GLfloat &delta_time  )
 		if (this->_player.getBombVector()[i].getCurrTimer() <= 0 && this->_player.getBombVector()[i].getExploded() == false)
 		{
 			this->_player.getBombVector()[i].explode(this->_player.getBombRange(), this->_walls_vector, this->_powerupVector, this->_gate);
+			this->_soundEnum = SND_EXPLOSION;
 			this->_player.modifyBombs();
 		}
 		if (this->_player.getBombVector()[i].getCurrTimer() <= -1 * delta_time)
@@ -88,6 +89,7 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 {
 	if (this->_mapDuration <= 0)
 	{
+		this->_soundEnum = SND_GAMEOVER;
 		std::cout << "Time's Up!" << std::endl;
 	}
 	else if (!this->_isTransitioning)
@@ -108,6 +110,7 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 	}
 	else
 		this->transitionMap();
+	this->_sound.playSound(this->_soundEnum, this->_player.getSoundEnum());
 
 }
 
@@ -226,7 +229,10 @@ void	Engine::strSplit(std::string str, char delim)
 void		Engine::shouldTransition()
 {
 	if (this->_player.getXPos() == this->_gate.getXPos() && this->_player.getYPos() == this->_gate.getYPos() && !this->_gate.getIsLocked())
+	{
+		this->_soundEnum = SND_LVLCOMPLETE;
 		this->_isTransitioning = true;
+	}
 }
 
 std::vector<Explosion>		Engine::getAllExplosions()
@@ -253,6 +259,7 @@ void	Engine::chainReaction()
 		{
 			if (this->_player.getBombVector()[b].getXPos() == allExplosions[i].getXPos() && this->_player.getBombVector()[b].getYPos() == allExplosions[i].getYPos() && this->_player.getBombVector()[b].getExploded() == false)
 			{
+				this->_soundEnum = SND_EXPLOSION;
 				this->_player.getBombVector()[b].explode(this->_player.getBombRange(), this->_walls_vector, this->_powerupVector, this->_gate);
 				this->_player.modifyBombs();
 			}

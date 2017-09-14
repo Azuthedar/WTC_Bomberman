@@ -47,6 +47,7 @@ class Player : public AEntity
 		void	setKBMoveDown(int KBmoveDown);
 		void	setKBPlaceBomb(int KBplaceBomb);
 		void	setKBPause(int KBpause);
+		void	setSoundEnum(eSound val);
 
 		int	&	getBombs();
 		int &	getBombRange();
@@ -63,6 +64,7 @@ class Player : public AEntity
 		int &	getKBMoveDown();
 		int &	getKBPlaceBomb();
 		int &	getKBPause();
+		eSound &	getSoundEnum();
 		std::vector<Bomb> &		getBombVector();
 
 	private:
@@ -99,5 +101,7 @@ class Player : public AEntity
 		int					_KBmoveDown;
 		int					_KBplaceBomb;
 		int					_KBpause;
+
+		eSound				_soundEnum;
 
 };

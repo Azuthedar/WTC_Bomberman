@@ -205,11 +205,6 @@ void Exceptions::throwCreateIndices()
     throw EFCIndices;
 }
 
-void Exceptions::throwCreateIndices()
-{
-    throw EFCIndices;
-}
-
 void Exceptions::throwCreateVAO()
 {
     throw EFCVao;

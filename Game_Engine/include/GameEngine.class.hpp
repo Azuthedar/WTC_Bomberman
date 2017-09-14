@@ -57,4 +57,7 @@ class Engine
 		Exceptions					_exceptions;
 		std::vector<Powerup>		_powerupVector;
 		Config						_config;
+
+		Sound						_sound;
+		eSound						_soundEnum;
 };

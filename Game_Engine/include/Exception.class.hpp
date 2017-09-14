@@ -159,7 +159,6 @@ class Exceptions
 		void throwLoadTextures();
 		void throwLoadCubemap();
 		void throwCreateIndices();
-		void throwCreateIndices();
 		void throwCreateVAO();
 		void throwStoreObjectData();
 		void throwLoadModel();
