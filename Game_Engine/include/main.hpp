@@ -109,3 +109,6 @@ enum eSound
 #define MAP_DURATION_TIME 2 * 60 * FIXED_FPS
 #define BOMB_TIME 2 * FIXED_FPS
 #define DROP_PERCENTAGE 100
+#define PARTICLE_SIZE 2.0f
+#define ATLAS_C 17
+#define ATLAS_R 17

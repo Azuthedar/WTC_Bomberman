@@ -7,8 +7,6 @@
 #include <istream>
 #include <sstream>
 #include <fstream>
-//#include <GL/gl.h>
-//#include <GL/glu.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -17,6 +15,7 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include "../../Game_Engine/include/main.hpp"
 
 
 struct Vertex

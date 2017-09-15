@@ -71,8 +71,8 @@ void Render_Engine::load_dependencies()
     Tmp_texture.id = this->particle_data.Particle_text;
     Tmp_texture.type = "atlas";
     Tmp_texture.path = "Graphics_lib/objects_and_textures/";
-    Tmp_texture.num_rows = 4;
-    Tmp_texture.num_columns = 4;
+    Tmp_texture.num_rows = ATLAS_R;
+    Tmp_texture.num_columns = ATLAS_C;
 
     this->particle_manager->SetTexture( Tmp_texture );
 }
@@ -252,7 +252,7 @@ void Render_Engine::init()
     lastX = 0.0f;//this->Screen_Width / 2.0f;
     lastY = 0.0f;//this->Screen_Height / 2.0f;
 
-    this->particle_manager = new Particle_manager( 4.0f, 15.0f, 0.0f, 1.0f );
+    this->particle_manager = new Particle_manager( 4.0f, 50.0f, 0.0f, 1.0f );
 
     std::cout << "Base Shader" << std::endl;
     this->shader.compile_shaders("./Graphics_lib/Shaders/Colour_Shading.vert", "./Graphics_lib/Shaders/Colour_Shasiner.frag");
