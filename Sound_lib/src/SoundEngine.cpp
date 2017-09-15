@@ -32,7 +32,7 @@ Sound::~Sound()
 
 void	Sound::playMusic()
 {
-	Mix_VolumeChunk(this->_waveVector[SND_DEFAULT], this->_musicVolume * 0.6f);
+	Mix_VolumeChunk(this->_waveVector[SND_DEFAULT], this->_musicVolume * 0.3f);
 	if ( Mix_PlayChannel(-1, this->_waveVector[SND_DEFAULT], -1) == -1)
 	{
 		std::cerr << "FAILED TO PLAY SOUND: MUSIC" << std::endl; // CREATE EXCEPTION
@@ -79,7 +79,7 @@ void	Sound::changeVolume()
 {
 	Mix_VolumeChunk(this->_waveVector[SND_FOOTSTEP], this->_SFXVolume * 0.3f);
 	Mix_VolumeChunk(this->_waveVector[SND_DEATH], this->_SFXVolume * 0.8f);
-	Mix_VolumeChunk(this->_waveVector[SND_EXPLOSION], this->_SFXVolume * 0.6f);
+	Mix_VolumeChunk(this->_waveVector[SND_EXPLOSION], this->_SFXVolume * 0.8f);
 	Mix_VolumeChunk(this->_waveVector[SND_POWERUP], this->_SFXVolume * 0.6f);
 	Mix_VolumeChunk(this->_waveVector[SND_LVLCOMPLETE], this->_SFXVolume);
 	Mix_VolumeChunk(this->_waveVector[SND_BOMBPLACE], this->_SFXVolume * 0.6f);
