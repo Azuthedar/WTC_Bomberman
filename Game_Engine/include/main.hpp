@@ -103,7 +103,7 @@ enum eSound
 #define MAP_X 18
 #define MAP_Y 18
 #define FIXED_FPS 60
-#define BOMB_COOLDOWN 20
+#define BOMB_COOLDOWN 5
 #define ENEMY_MOVE_TICK 4 * FIXED_FPS
 #define MAP_TRANSITION_TIME 3 * FIXED_FPS
 #define MAP_DURATION_TIME 2 * 60 * FIXED_FPS

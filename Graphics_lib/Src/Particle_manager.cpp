@@ -65,14 +65,14 @@ void Particle_manager::Generate_Particles( glm::vec3 const &tmp_Origin_Position,
         velocity = glm::normalize( velocity );
 
         velocity.x *= this->particle_speed;
-        velocity.y *= this->particle_speed;
+        // velocity.y *= this->particle_speed;
         velocity.z *= this->particle_speed;
 
         temp_pos.x += range * ((((float) rand()) / (float) RAND_MAX)) + MIN_RAND;
         temp_pos.y = 1.0f + (range * ((((float) rand()) / (float) RAND_MAX)) + MIN_RAND);
         temp_pos.z += range * ((((float) rand()) / (float) RAND_MAX)) + MIN_RAND;
 
-        this->particle_array.push_back( new Particles( this->Texture_Data , temp_pos, velocity, this->Gravity, this->Life_length, 0.0f, 0.35f ) );
+        this->particle_array.push_back( new Particles( this->Texture_Data , temp_pos, velocity, this->Gravity, this->Life_length, 0.0f, 3.6f ) );
     }
 }
 

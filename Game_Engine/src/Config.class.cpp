@@ -12,7 +12,7 @@ Config::~Config()
 	return ;
 }
 
-void    Config::defaultInit( Player & player ) //, Sound & sound)
+void    Config::defaultInit( Player & player, Sound & sound)
 {
 	this->_file.open(this->_fileName);
 	if (!this->_file)
@@ -48,13 +48,13 @@ void    Config::defaultInit( Player & player ) //, Sound & sound)
 		configFile.close();
 	}
 	this->_file.close();
-	this->parseFile(player); //, sound);
+	this->parseFile(player, sound);
 }
 
-void	Config::reset( Player & player )//, Sound & sound)
+void	Config::reset( Player & player, Sound & sound)
 {
 	if (std::remove(this->_fileName.c_str()) == 0)
-		defaultInit(player); //, sound);
+		defaultInit(player, sound);
 	else
 		this->throwFileFailedDelete();
 	return ;
@@ -110,7 +110,7 @@ bool	Config::checkSyntax()
 	return (false);
 }
 
-void    Config::parseFile(Player & player) //, Sound & sound)
+void    Config::parseFile(Player & player, Sound & sound)
 {
 	this->_file.open(this->_fileName);
 	this->readFile();
@@ -141,8 +141,8 @@ void    Config::parseFile(Player & player) //, Sound & sound)
 		this->_KBpause = std::stoi(this->_fileBuffer[CNF_KBPAUSE].substr(this->_fileBuffer[CNF_KBPAUSE].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_KBPAUSE].length() - 1));
 
 
-		//sound.setSFXVolume(this->_SFXVolume);
-		//sound.setMusicVolume(this->_musicVolume);
+		sound.setSFXVolume(this->_SFXVolume);
+		sound.setMusicVolume(this->_musicVolume);
 
 		player.setBombLevel(this->_bombLevel);
 		player.setRangeLevel(this->_rangeLevel);
@@ -167,11 +167,11 @@ void    Config::parseFile(Player & player) //, Sound & sound)
 	this->_file.close();
 }
 
-void    Config::updateFile(Player & player, int mapLevel) //, Sound & sound)
+void    Config::updateFile(Player & player, int mapLevel, Sound & sound)
 {
 	if (std::remove(this->_fileName.c_str()) == 0)
 	{
-		//Mix_HaltChannel(0);
+		Mix_HaltChannel(0);
 		std::ofstream configFile;
 		configFile.open(this->_fileName);
 
@@ -186,8 +186,8 @@ void    Config::updateFile(Player & player, int mapLevel) //, Sound & sound)
 		this->_resX = 1920;
 		this->_resY = 1080;
 
-		//this->_SFXVolume = sound.getSFXVolume();
-		//this->_musicVolume = sound.getMusicVolume();
+		this->_SFXVolume = sound.getSFXVolume();
+		this->_musicVolume = sound.getMusicVolume();
 
 		this->_KBmoveUp = player.getKBMoveUp();
 		this->_KBmoveLeft = player.getKBMoveLeft();
@@ -221,9 +221,9 @@ void    Config::updateFile(Player & player, int mapLevel) //, Sound & sound)
 		configFile << "\tPLACEBOMB: " << std::to_string(this->_KBplaceBomb) << std::endl;
 		configFile << "\tPAUSE: " << std::to_string(this->_KBpause) << std::endl;
 
-		//Mix_VolumeChunk( sound.getWaveVector()[SND_DEFAULT], this->_musicVolume * 0.6f);
-		//if (Mix_PlayChannel(0, sound.getWaveVector()[SND_DEFAULT], -1) == -1)
-		//	std::cerr << "TRANSITION: Failed to play sound: DEFAULT" << std::endl;
+		Mix_VolumeChunk( sound.getWaveVector()[SND_DEFAULT], this->_musicVolume * 0.6f);
+		if (Mix_PlayChannel(0, sound.getWaveVector()[SND_DEFAULT], -1) == -1)
+			std::cerr << "TRANSITION: Failed to play sound: DEFAULT" << std::endl;
 
 		configFile.close();
 	}
@@ -242,8 +242,8 @@ void    Config::setKBMoveRight(int KBmoveRight)     {this->_KBmoveRight = KBmove
 void    Config::setKBMoveDown(int KBmoveDown)     	{this->_KBmoveDown = KBmoveDown;}
 void    Config::setKBPlaceBomb(int KBplaceBomb)		{this->_KBplaceBomb = KBplaceBomb;}
 void	Config::setKBPause(int KBpause)				{this->_KBpause = KBpause;}
-//void	Config::setSFXVolume(int sfxVol)			{this->_SFXVolume = sfxVol;}
-//void	Config::setMusicVolume(int muscVol)			{this->_musicVolume = muscVol;}
+void	Config::setSFXVolume(int sfxVol)			{this->_SFXVolume = sfxVol;}
+void	Config::setMusicVolume(int muscVol)			{this->_musicVolume = muscVol;}
 
 
 
@@ -258,5 +258,5 @@ int &	Config::getKBMoveRight()        {return (this->_KBmoveRight);}
 int &	Config::getKBMoveDown()         {return (this->_KBmoveDown);}
 int &	Config::getKBPlaceBomb()        {return (this->_KBplaceBomb);}
 int &	Config::getKBPause()			{return (this->_KBpause);}
-//int &	Config::getSFXVolume()			{return (this->_SFXVolume);}
-//int &	Config::getMusicVolume()		{return (this->_musicVolume);}
+int &	Config::getSFXVolume()			{return (this->_SFXVolume);}
+int &	Config::getMusicVolume()		{return (this->_musicVolume);}
