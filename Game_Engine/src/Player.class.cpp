@@ -367,7 +367,8 @@ void	Player::pickupPowerUps(ePowerups type)
 				}
 				break ;
 			case POW_LIFE:
-				this->_lives += 1;
+				if (this->_lives < 10)
+					this->_lives += 1;
 				break ;
 		}
 		this->_pickupPowerup = false;

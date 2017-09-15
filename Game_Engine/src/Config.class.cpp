@@ -183,18 +183,6 @@ void    Config::updateFile(Player & player, int mapLevel, Sound & sound)
 		this->_lives = player.getLives();
 
 		/* Temp this needs to be changed!!! */
-		this->_resX = 1920;
-		this->_resY = 1080;
-
-		this->_SFXVolume = sound.getSFXVolume();
-		this->_musicVolume = sound.getMusicVolume();
-
-		this->_KBmoveUp = player.getKBMoveUp();
-		this->_KBmoveLeft = player.getKBMoveLeft();
-		this->_KBmoveRight = player.getKBMoveRight();
-		this->_KBmoveDown = player.getKBMoveDown();
-		this->_KBplaceBomb = player.getKBPlaceBomb();
-		this->_KBpause = player.getKBPause();
 
 		configFile << "[MAP]" << std::endl;
 		configFile << "\tMAPLEVEL: " << std::to_string(this->_mapLevel) << std::endl;
@@ -221,7 +209,7 @@ void    Config::updateFile(Player & player, int mapLevel, Sound & sound)
 		configFile << "\tPLACEBOMB: " << std::to_string(this->_KBplaceBomb) << std::endl;
 		configFile << "\tPAUSE: " << std::to_string(this->_KBpause) << std::endl;
 
-		Mix_VolumeChunk( sound.getWaveVector()[SND_DEFAULT], this->_musicVolume * 0.6f);
+		Mix_VolumeChunk( sound.getWaveVector()[SND_DEFAULT], this->_musicVolume * 0.3f);
 		if (Mix_PlayChannel(0, sound.getWaveVector()[SND_DEFAULT], -1) == -1)
 			std::cerr << "TRANSITION: Failed to play sound: DEFAULT" << std::endl;
 
@@ -229,6 +217,43 @@ void    Config::updateFile(Player & player, int mapLevel, Sound & sound)
 	}
 	else
 		this->throwFileFailedDelete();
+}
+
+void	Config::configUpdater(glm::vec2 values, eConfig configVal)
+{
+	switch (configVal)
+	{
+		case CNF_RESOLUTION:
+			this->_resX = values.x;
+			this->_resY = values.y;
+			break ;
+		case CNF_SFXVOL:
+			this->_SFXVolume = values.x;
+			break ;
+		case CNF_MUSCVOL:
+			this->_musicVolume = values.x;
+			break ;
+		case CNF_KBUP:
+			this->_KBmoveUp = values.x;
+			break ;
+		case CNF_KBLEFT:
+			this->_KBmoveLeft = values.x;
+			break ;
+		case CNF_KBRIGHT:
+			this->_KBmoveRight = values.x;
+			break ;
+		case CNF_KBDOWN:
+			this->_KBmoveDown = values.x;
+			break ;
+		case CNF_KBPLACE:
+			this->_KBplaceBomb = values.x;
+			break ;
+		case CNF_KBPAUSE:
+			this->_KBpause = values.x;
+			break ;
+		default:
+			break ;
+	}
 }
 
 void	Config::setMapLevel(int mapLevel) 			{this->_mapLevel = mapLevel;}

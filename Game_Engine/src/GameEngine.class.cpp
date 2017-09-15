@@ -35,7 +35,9 @@ void Engine::ticker( GLfloat &delta_time  )
 		if (this->_player.getBombVector()[i].getCurrTimer() <= 0 && this->_player.getBombVector()[i].getExploded() == false)
 		{
 			this->_player.getBombVector()[i].explode(this->_player.getBombRange(), this->_walls_vector, this->_powerupVector, this->_gate);
-			this->_soundEnum = SND_EXPLOSION;
+			if (this->_soundEnum != SND_DEATH && this->_soundEnum != SND_LVLCOMPLETE && this->_soundEnum != SND_GAMEOVER
+				&& this->_soundEnum != SND_GATEUNLOCKED && this->_soundEnum != SND_GATEFOUND)
+				this->_soundEnum = SND_EXPLOSION;
 			this->_player.modifyBombs();
 		}
 		if (this->_player.getBombVector()[i].getCurrTimer() <= -1)
@@ -95,6 +97,12 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 	}
 	else if (!this->_isTransitioning)
 	{
+		static bool gateFound = false;
+		if (!gateFound && this->_gate.getExists())
+		{
+			gateFound = true;
+			this->_soundEnum = SND_GATEFOUND;
+		}
 		if (this->_player.getLives() <= 0)
 		{
 			this->_config.reset(this->_player, this->_sound);
@@ -102,7 +110,11 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 		}
 
 		if (this->_gate.getIsLocked() == true && (this->_enemyVector.size() == 0 || glfwGetKey(window, GLFW_KEY_L)))
+		{
+			if (this->_gate.getExists())
+				this->_soundEnum = SND_GATEUNLOCKED;
 			this->_gate.setIsLocked(false);
+		}
 		this->_player.input( window );
 		this->_player.movement(this->_walls_vector, this->_enemyVector, this->_powerupVector, delta_time);
 		this->chainReaction();
@@ -260,7 +272,6 @@ void	Engine::chainReaction()
 		{
 			if (this->_player.getBombVector()[b].getXPos() == allExplosions[i].getXPos() && this->_player.getBombVector()[b].getYPos() == allExplosions[i].getYPos() && this->_player.getBombVector()[b].getExploded() == false)
 			{
-				this->_soundEnum = SND_EXPLOSION;
 				this->_player.getBombVector()[b].explode(this->_player.getBombRange(), this->_walls_vector, this->_powerupVector, this->_gate);
 				this->_player.modifyBombs();
 				break ;

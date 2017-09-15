@@ -19,6 +19,7 @@ class Config: public Exceptions
 		bool	checkSyntax(); // True will be correct syntax
 		void	parseFile(Player & player, Sound & sound);
 		void	updateFile(Player & player, int mapLevel, Sound & sound);
+		void	configUpdater(glm::vec2 values, eConfig configVal);
 
 		void	setMapLevel(int mapLevel);
 		void	setBombLevel(int bomblevel);
