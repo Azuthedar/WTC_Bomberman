@@ -122,7 +122,8 @@ void	Player::input( GLFWwindow *window )
 			{
 				this->_bombs--;
 				this->getBombVector().push_back(Bomb(place_x, place_y));
-				if (this->_soundEnum != SND_DEATH && this->_soundEnum != SND_GAMEOVER)
+				if (this->_soundEnum != SND_DEATH && this->_soundEnum != SND_GAMEOVER && this->_soundEnum != SND_LVLCOMPLETE &&
+					this->_soundEnum != SND_GATEFOUND && this->_soundEnum != SND_GATEUNLOCKED)
 					this->_soundEnum = SND_BOMBPLACE;
 				this->_placeBombTimer = BOMB_COOLDOWN;
 			}

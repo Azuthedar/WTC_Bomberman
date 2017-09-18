@@ -171,7 +171,7 @@ void    Config::updateFile(Player & player, int mapLevel, Sound & sound)
 {
 	if (std::remove(this->_fileName.c_str()) == 0)
 	{
-		Mix_HaltChannel(0);
+		Mix_FadeOutChannel(0, 800);
 		std::ofstream configFile;
 		configFile.open(this->_fileName);
 

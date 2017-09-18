@@ -58,6 +58,7 @@ class Engine
 		std::vector<Powerup>		_powerupVector;
 		Config						_config;
 
+		eGamestate					_gameState;
 		Sound						_sound;
 		eSound						_soundEnum;
 };

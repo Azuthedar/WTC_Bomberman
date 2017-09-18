@@ -7,10 +7,11 @@ Engine::Engine()
 	this->_mapEnd = false;
 	this->_isTransitioning = false;
 	this->_config.defaultInit(this->_player, this->_sound);
+	this->_gameState = MENU;
 	this->_mapLevel = this->_config.getMapLevel();
 	this->readFile("maps");
 	this->readMap();
-	this->buildMap();
+	//this->buildMap();
 	this->_sound.playMusic();
 	return ;
 }
@@ -90,40 +91,61 @@ void Engine::transitionMap()
 
 void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 {
-	if (this->_mapDuration <= 0)
+	if (this->_gameState == MENU)
 	{
-		this->_soundEnum = SND_GAMEOVER;
-		std::cout << "Time's Up!" << std::endl;
+		if (glfwGetKey(window, GLFW_KEY_ENTER))
+		{
+			this->_gameState = GAME;
+			this->_isTransitioning = true;
+			this->transitionMap();
+		}
 	}
-	else if (!this->_isTransitioning)
+	if (this->_gameState == GAME)
 	{
-		static bool gateFound = false;
-		if (!gateFound && this->_gate.getExists())
+		if (this->_mapDuration <= 0)
 		{
-			gateFound = true;
-			this->_soundEnum = SND_GATEFOUND;
+			static float ticker = 3.0f;
+			this->_soundEnum = SND_GAMEOVER;
+			ticker -= delta_time;
+			if (ticker <= 0)
+			{
+				ticker = 3.0f;
+				this->_gameState = MENU;
+			}
+			std::cout << "Time's Up!" << std::endl;
 		}
-		if (this->_player.getLives() <= 0)
+		else if (!this->_isTransitioning)
 		{
-			this->_config.reset(this->_player, this->_sound);
-			//Make player transition to main menu
-		}
+			static bool gateFound = false;
+			if (!gateFound && this->_gate.getExists())
+			{
+				gateFound = true;
+				this->_soundEnum = SND_GATEFOUND;
+			}
+			if (this->_player.getLives() <= 0)
+			{
+				this->_config.reset(this->_player, this->_sound);
+				this->_mapLevel = 0;
+				this->_gameState = MENU;
+				//Make player transition to main menu
+			}
 
-		if (this->_gate.getIsLocked() == true && (this->_enemyVector.size() == 0 || glfwGetKey(window, GLFW_KEY_L)))
-		{
-			if (this->_gate.getExists())
-				this->_soundEnum = SND_GATEUNLOCKED;
-			this->_gate.setIsLocked(false);
+			if (this->_gate.getIsLocked() == true && (this->_enemyVector.size() == 0 || glfwGetKey(window, GLFW_KEY_L)))
+			{
+				if (this->_gate.getExists())
+					this->_soundEnum = SND_GATEUNLOCKED;
+				this->_gate.setIsLocked(false);
+			}
+			this->_player.input( window );
+			this->_player.movement(this->_walls_vector, this->_enemyVector, this->_powerupVector, delta_time);
+			this->chainReaction();
+			this->ticker( delta_time );
+			this->shouldTransition();
 		}
-		this->_player.input( window );
-		this->_player.movement(this->_walls_vector, this->_enemyVector, this->_powerupVector, delta_time);
-		this->chainReaction();
-		this->ticker( delta_time );
-		this->shouldTransition();
+		else
+			this->transitionMap();
 	}
-	else
-		this->transitionMap();
-	this->_sound.playSound(this->_soundEnum, this->_player.getSoundEnum());
+	this->_sound.playSound(this->_soundEnum, this->_player.getSoundEnum(), this->_gameState);
 
 }
 

@@ -13,7 +13,7 @@ class Sound : public Exceptions
 		Sound();
 		~Sound();
 
-		void    playSound(eSound & sound, eSound & playerSound);
+		void    playSound(eSound & sound, eSound & playerSound, eGamestate & gameState);
 		void	playMusic();
 		void	changeVolume();
 
