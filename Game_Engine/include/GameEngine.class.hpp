@@ -6,7 +6,7 @@
 #include "Explosion.class.hpp"
 #include "Powerup.class.hpp"
 #include <Config.class.hpp>
-#include "../../Sound_lib/include/SoundEngine.hpp"
+//#include "../../Sound_lib/include/SoundEngine.hpp"
 
 class Engine
 {
@@ -59,6 +59,6 @@ class Engine
 		Config						_config;
 
 		eGamestate					_gameState;
-		Sound						_sound;
+		//Sound						_sound;
 		eSound						_soundEnum;
 };

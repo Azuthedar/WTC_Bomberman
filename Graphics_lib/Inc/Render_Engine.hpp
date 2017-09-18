@@ -47,14 +47,17 @@ class Render_Engine
 
     public:
 
-        Render_Engine( std::string Win_Name, int Win_Width, int Win_Height);
+        Render_Engine( GLFWwindow *tmp_window );
         ~Render_Engine();
 
         void init();
         void _render( GLfloat &tmp_delta_time );
 
-        GLFWwindow *GetWindow() const;
         void load_dependencies();
+        void load_Shaders();
+        void clean_dependencies();
+
+        void SetWindow( GLFWwindow *tmp_window );
 
         void Create_Components( Engine &engine, GLfloat &tmp_delta_time );
 

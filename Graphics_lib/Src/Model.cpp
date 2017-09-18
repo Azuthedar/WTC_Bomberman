@@ -12,6 +12,11 @@ Model::Model( std::string const &path, int const &tmp_numRows )
     this->loadModel( path );
 }
 
+Model::~Model()
+{
+    return ; 
+}
+
 int Model::GetNumRows() const
 {
     return (this->Num_Rows);

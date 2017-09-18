@@ -17,11 +17,17 @@ Render_Engine::Render_Engine()
     return ;
 }
 
-Render_Engine::Render_Engine( std::string Win_Name, int Win_Width, int Win_Height)
+Render_Engine::Render_Engine( GLFWwindow *tmp_window )
 {
-    this->Win_Name = Win_Name;
+    Render_Engine::window = tmp_window;
+
+
+    std::cout << "Window Valei 2 " << Render_Engine::window << std::endl;
+    /*this->Win_Name = Win_Name;
     this->Screen_Height = Win_Height;
-    this->Screen_Width = Win_Width;
+    this->Screen_Width = Win_Width;*/
+
+    init();
 }
 
 Render_Engine::~Render_Engine()
@@ -29,9 +35,30 @@ Render_Engine::~Render_Engine()
     return ;
 }
 
-GLFWwindow *Render_Engine::GetWindow() const
+void Render_Engine::clean_dependencies()
 {
-    return ( window );
+    if ( this->models.size() > 0)
+    {
+        for (unsigned int count = 0; count < this->models.size(); count++)
+        {
+            delete this->models[count];
+        }
+
+        this->models.clear();
+    }
+}
+
+void Render_Engine::SetWindow( GLFWwindow *tmp_window )
+{
+    Render_Engine::window = tmp_window;
+
+    load_Shaders();
+    clean_dependencies();
+    load_dependencies();
+
+    //glfwSetKeyCallback( Render_Engine::window, KeyCallback);
+    //glfwSetScrollCallback( Render_Engine::window, ScrollCallback);
+    //glfwSetCursorPosCallback( Render_Engine::window, MouseCallback);
 }
 
 void Render_Engine::load_dependencies()
@@ -176,7 +203,7 @@ void Render_Engine::_render( GLfloat &tmp_delta_time )
 
         //std::cout << lastX << lastY << std::endl;
 
-        glfwPollEvents( ); // poll for and process events
+        //glfwPollEvents( ); // poll for and process events
         //DoMovement();
 
         //test_func( (double)player_pos.x, -10.0);
@@ -187,7 +214,7 @@ void Render_Engine::_render( GLfloat &tmp_delta_time )
 
         this->draw.SetProjection( Render_Engine::camera->GetZoom() );
 
-        this->draw.Prep();
+        //this->draw.Prep();
 
         //projection = glm::perspective( Render_Engine::camera->GetZoom() , (GLfloat)this->Screen_Width / (GLfloat)this->Screen_Height, 1.0f, 10000.0f);
 
@@ -202,57 +229,17 @@ void Render_Engine::_render( GLfloat &tmp_delta_time )
         this->draw.Render_( this->components, this->shader );
         this->draw.Render_Particles( this->particle_manager->GetParticleArray(), this->Particle_shader, this->particle_data );
         this->draw.Render_Skybox( this->Skybox, this->SkyBox_shader );
-        glfwSwapBuffers( Render_Engine::window );
+        //glfwSwapBuffers( Render_Engine::window );
     //}
 
         //std::cout << "ysduyfgWGEFYWEFYIHWE " << std::endl;
 }
 
-void Render_Engine::init()
+void Render_Engine::load_Shaders()
 {
-    if( !glfwInit() )
-    {
-        std::cout << "Bad news1" << std::endl; //Could Not Init GLFW: Failed?
-        exit(1);
-    }
-
-    // open a window with GLFW, sets required GLFW options
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-
-    Render_Engine::window = glfwCreateWindow( this->Screen_Width, this->Screen_Height, this->Win_Name.c_str(), nullptr, nullptr ); //Create GLFW window
-
-    if ( !Render_Engine::window ) // Check if window was created
-    {
-        std::cout << "Bad news2" << std::endl; //Could Not Create GLFW Window: Failed?
-        glfwTerminate(); // Terminate GLFW
-        exit(2);
-    }
-
-    glfwMakeContextCurrent( Render_Engine::window ); // Make the windows context current
-    glfwGetFramebufferSize( Render_Engine::window, &this->Screen_Width, &this->Screen_Height );
-
-    glewExperimental = GL_TRUE; //stops glew crashing on OSX :-/
-    if( glewInit() != GLEW_OK )
-    {
-        std::cout << "Bad news 3" << std::endl; //Could Not Init Glew: Failed?
-        exit(3);
-    }
-
-    glfwSetKeyCallback( Render_Engine::window, KeyCallback);
-    glfwSetScrollCallback( Render_Engine::window, ScrollCallback);
-    glfwSetCursorPosCallback( Render_Engine::window, MouseCallback);
-
-    glfwSetInputMode( window, GLFW_CURSOR, GLFW_CURSOR_DISABLED );
-
-    Render_Engine::camera = new Camera( glm::vec3( 0.0f, 5.0f, 10.0f) );
-    lastX = 0.0f;//this->Screen_Width / 2.0f;
-    lastY = 0.0f;//this->Screen_Height / 2.0f;
-
-    this->particle_manager = new Particle_manager( 4.0f, 25.0f, 0.0f, 1.0f );
+    this->shader.unuse_prog();
+    this->SkyBox_shader.unuse_prog();
+    this->Particle_shader.unuse_prog();
 
     std::cout << "Base Shader" << std::endl;
     this->shader.compile_shaders("./Graphics_lib/Shaders/Colour_Shading.vert", "./Graphics_lib/Shaders/Colour_Shasiner.frag");
@@ -261,11 +248,33 @@ void Render_Engine::init()
     std::cout << "Particle Shader" << std::endl;
     this->Particle_shader.compile_shaders("./Graphics_lib/Shaders/Particle.vert", "./Graphics_lib/Shaders/Particle.frag");
 
-    load_dependencies();
-
     this->draw.Load_Uniform( this->shader );
+}
 
-    glViewport( 0.0f, 0.0f, this->Screen_Width, this->Screen_Height ); //this->Screen_Width, this->Screen_Height ); // specifies the part of the window to which OpenGL will draw (in pixels), convert from normalized to pixels.
+void Render_Engine::init()
+{
+    glewExperimental = GL_TRUE; //stops glew crashing on OSX :-/
+    if( glewInit() != GLEW_OK )
+    {
+        std::cout << "Bad news 3" << std::endl; //Could Not Init Glew: Failed?
+        exit(3);
+    }
+
+    //glfwSetKeyCallback( Render_Engine::window, KeyCallback);
+    //glfwSetScrollCallback( Render_Engine::window, ScrollCallback);
+    //glfwSetCursorPosCallback( Render_Engine::window, MouseCallback);
+
+    //glfwSetInputMode( window, GLFW_CURSOR, GLFW_CURSOR_DISABLED );
+
+    Render_Engine::camera = new Camera( glm::vec3( 0.0f, 5.0f, 10.0f) );
+    lastX = 0.0f;//this->Screen_Width / 2.0f;
+    lastY = 0.0f;//this->Screen_Height / 2.0f;
+
+    this->particle_manager = new Particle_manager( 4.0f, 25.0f, 0.0f, 1.0f );
+
+    load_Shaders();
+
+    load_dependencies();
 }
 
 void Render_Engine::test_func(  double posX, double posY  )

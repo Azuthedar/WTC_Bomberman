@@ -19,6 +19,7 @@ class Model
 
         Model();
         Model( std::string const &path, int const &tmp_numRows );
+        ~Model();
 
         std::vector < Mesh > GetMesh() const;
         std::vector < Texture > GetTexture() const;

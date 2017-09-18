@@ -17,7 +17,6 @@
 #include <assimp/postprocess.h>
 #include "../../Game_Engine/include/main.hpp"
 
-
 struct Vertex
 {
     glm::vec3 Position;

@@ -9,7 +9,7 @@ set(PLATFORM ${CMAKE_SYSTEM_NAME})
 
 message("Detected Platform ${PLATFORM}")
 
-if (WIN32)
+if (UNIX)
 
     message("UNIX")
     set(LIB_PATH "/usr")
@@ -28,6 +28,11 @@ if (WIN32)
     set(SOIL_LIB_DIR "Graphics_lib/Soil/Unix/")
     set(SOIL_LIB ${SOIL_LIB_DIR}libsoil2.a)
     set(SOIL_NAME soil2-debug)
+
+    #NANO GUI
+    set(NANO_INCLUDE "Menu_lib/nanogui/include/")
+    set(NANO_LIB_DIR "Menu_lib/nanogui/build/")
+    set(NANO_NAME nanogui)
 
     #SDL2
 	set(SDL_INCLUDE ${LIB_INLCUDE})
@@ -118,15 +123,6 @@ else()
     set(GLFW_NAME glfw)
     set (CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${CMAKE_CURRENT_SOURCE_DIR})
 
-    set(CEGUI_LIBS_DYNAMIC  CEGUIBase-0.dylib
-            CEGUICommonDialogs-0.dylib
-            CEGUICoreWindowRendererSet.dylib
-            CEGUIExpatParser.dylib
-            CEGUIOpenGLRenderer-0.dylib
-            CEGUISILLYImageCodec.dylib)
-    set(CEGUI_LIB_PATH  ${CMAKE_CURRENT_SOURCE_DIR}/libs/darwin/cegui)
-
-
     #GLM
     set(GLM_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/libs/glm)
 
@@ -142,6 +138,7 @@ message("Current Source Directory ${CMAKE_CURRENT_SOURCE_DIR}")
 set(SRC ${CMAKE_CURRENT_SOURCE_DIR}/Game_Engine/src/ )
 set(GRAPHICS_SRC ${CMAKE_CURRENT_SOURCE_DIR}/Graphics_lib/Src/ )
 set(SOUND_LIB ${CMAKE_CURRENT_SOURCE_DIR}/Sound_lib/src/ )
+set(MENU_LIB ${CMAKE_CURRENT_SOURCE_DIR}/Menu_lib/Src/ )
 
 set(SOURCE
         ${SRC}AEntity.class.cpp
@@ -169,13 +166,16 @@ set(SOURCE
         ${GRAPHICS_SRC}Particles.cpp
         ${GRAPHICS_SRC}Particle_manager.cpp
 
-        ${SOUND_LIB}SoundEngine.cpp
+        #${SOUND_LIB}SoundEngine.cpp
+
+        ${MENU_LIB}Menu_Engine.cpp
         )
 
 #INCLUDE_FILES
 set(INCLUDE "./Game_Engine/include/")
 set(GRAPHICS_INCLUDE "./Graphics_lib/Inc/")
 set(SOUND_INC "./Sound_lib/include/")
+set(MENU_INC "./Menu_lib/include/")
 
 set(HEADERS
         ${INCLUDE}AEntity.class.hpp
@@ -204,16 +204,18 @@ set(HEADERS
         ${GRAPHICS_INCLUDE}Particles.hpp
         ${GRAPHICS_INCLUDE}Particle_manager.hpp
 
-        ${SOUND_INC}SoundEngine.hpp
+        #${SOUND_INC}SoundEngine.hpp
+
+        ${MENU_INC}Menu_Engine.hpp
         )
 
 
 set(BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
-include_directories(${INCLUDE} ${GRAPHICS_INCLUDE} ${ASSIMP_INC} ${SOIL_INCLUDE} ${SDL_INCLUDE} ${SDL_MIXER_INCLUDE} ${GLEW_INCLUDE} ${GLM_INCLUDE} ${OPENGL_INCLUDE} ${GLFW_INCLUDE})
+include_directories(${INCLUDE} ${GRAPHICS_INCLUDE} ${NANO_INCLUDE} ${ASSIMP_INC} ${SOIL_INCLUDE} ${SDL_INCLUDE} ${SDL_MIXER_INCLUDE} ${GLEW_INCLUDE} ${GLM_INCLUDE} ${OPENGL_INCLUDE} ${GLFW_INCLUDE})
 
-link_directories(${GLFW_LIB_PATH} ${SOIL_LIB_DIR} ${ASSIMP_LIB_DIR} ${SDL_LIB_DIR} ${SDL_MIXER_LIB_DIR} ${GLEW_LIB_DIR} ${CEGUI_LIB_PATH})
+link_directories(${GLFW_LIB_PATH} ${SOIL_LIB_DIR} ${NANO_LIB_DIR} ${ASSIMP_LIB_DIR} ${SDL_LIB_DIR} ${SDL_MIXER_LIB_DIR} ${GLEW_LIB_DIR} ${CEGUI_LIB_PATH})
 
 add_executable(${PROJECT_NAME} ${SOURCE} ${HEADERS})
 
-target_link_libraries(${PROJECT_NAME} ${FRAMEWORK_COCOA} ${ASSIMP_NAME} ${OPENGL_gl_LIBRARY} ${GLEW_NAME} ${SOIL_NAME} ${SDL_NAME}  ${SDL_MIXER_NAME} ${CEGUI_LIBS_DYNAMIC} ${GLFW_NAME})
+target_link_libraries(${PROJECT_NAME} ${FRAMEWORK_COCOA} ${NANO_NAME} ${ASSIMP_NAME} ${OPENGL_gl_LIBRARY} ${GLEW_NAME} ${SOIL_NAME} ${SDL_NAME}  ${SDL_MIXER_NAME} ${CEGUI_LIBS_DYNAMIC} ${GLFW_NAME})

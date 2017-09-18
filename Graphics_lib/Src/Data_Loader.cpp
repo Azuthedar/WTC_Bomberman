@@ -52,7 +52,7 @@ GLuint Data_Loader::load_texture( const char *texture_path, std::string director
 
    // std::cout << " BEFOR LOADISS RET " << std::endl;
 
-    std::cout << "TEXT ID " << texture << std::endl; 
+    std::cout << "TEXT ID " << texture << std::endl;
 
     return ( texture );
 }
@@ -78,7 +78,7 @@ GLuint Data_Loader::LoadCubemap( std::vector<std::string> &texture_paths )
     glGenTextures( 1, &textureID );
 
     int imageWidth, imageHeight;
-    unsigned char *image;
+    unsigned char *image = nullptr;
 
     glBindTexture( GL_TEXTURE_CUBE_MAP, textureID );
 
