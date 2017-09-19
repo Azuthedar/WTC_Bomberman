@@ -45,7 +45,7 @@ void	Sound::playMusic()
 	}
 }
 
-void    Sound::playSound(eSound & sound, eSound & playerSound, eGamestate & gameState, bool & configUpdated)
+void    Sound::playSound(eSound & sound, eSound & playerSound, eGamestate & gameState, bool & configUpdated, bool & transition)
 {
 	static int i = 0;
 	static bool menuHasPlayed = false;
@@ -63,17 +63,18 @@ void    Sound::playSound(eSound & sound, eSound & playerSound, eGamestate & game
 			menuHasPlayed = true;
 		}
 	}
-	else if ((configUpdated && gameState == GAME) && menuHasPlayed == true)
+	else if ((configUpdated || transition) && gameState == GAME)
 	{
+		eSound random = static_cast<eSound>(std::rand() % 4);
 		if (Mix_Playing(0))
 		{
 			Mix_FadeOutChannel(0, 800);
 		}
 		else
 		{
-			eSound random = static_cast<eSound>(std::rand() % 4);
 			Mix_PlayChannel(0, this->_waveVector[random], -1);
 			configUpdated = false;
+			transition = false;
 			menuHasPlayed = false;
 		}
 	}

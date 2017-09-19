@@ -70,7 +70,7 @@ void Engine::transitionMap()
 		*	After you finish the game transition to CREDITS / MAIN_MENU?
 		*/
 		if (this->_mapLevel == this->_maps.size())
-			this->_mapLevel = 0;
+			this->_gameState = MENU;
 		this->_mapEnd = true;
 		this->_gate.setExists(false);
 		this->_gate.setIsLocked(true);
@@ -85,6 +85,7 @@ void Engine::transitionMap()
 		this->_powerupVector.clear();
 		this->_mapDuration = MAP_DURATION_TIME;
 		this->_transitionTicker = MAP_TRANSITION_TIME;
+		this->_transition = true;
 		this->_isTransitioning = false;
 	}
 }
@@ -141,7 +142,7 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 		else
 			this->transitionMap();
 	}
-	this->_sound.playSound(this->_soundEnum, this->_player.getSoundEnum(), this->_gameState, this->_config.getConfigUpdated());
+	this->_sound.playSound(this->_soundEnum, this->_player.getSoundEnum(), this->_gameState, this->_config.getConfigUpdated(), this->_transition);
 
 }
 

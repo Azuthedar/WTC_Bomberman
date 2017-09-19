@@ -59,6 +59,7 @@ class Engine
 		int							_transitionTicker;
 		bool						_mapEnd;
 		bool						_isTransitioning;
+		bool						_transition;
 		Exceptions					_exceptions;
 		std::vector<Powerup>		_powerupVector;
 		Config						_config;

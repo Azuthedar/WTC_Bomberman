@@ -17,6 +17,7 @@ void    Config::defaultInit( Player & player, Sound & sound)
 	this->_file.open(this->_fileName);
 	if (!this->_file)
 	{
+		std::cout << "Removing file..." << std::endl;
 		std::ofstream configFile;
 		configFile.open(this->_fileName);
 		// MAP DATA
@@ -54,7 +55,9 @@ void    Config::defaultInit( Player & player, Sound & sound)
 void	Config::reset( Player & player, Sound & sound)
 {
 	if (std::remove(this->_fileName.c_str()) == 0)
+	{
 		defaultInit(player, sound);
+	}
 	else
 		this->throwFileFailedDelete();
 	return ;
@@ -167,7 +170,7 @@ void    Config::parseFile(Player & player, Sound & sound)
 	this->_file.close();
 }
 
-void    Config::updateFile(Player & player, int mapLevel, Sound & sound)
+void    Config::updateFile(Player & player, size_t & mapLevel, Sound & sound)
 {
 	if (std::remove(this->_fileName.c_str()) == 0)
 	{
