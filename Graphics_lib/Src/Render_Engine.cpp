@@ -185,7 +185,7 @@ void Render_Engine::_render( GLfloat &tmp_delta_time )
 {
 
     glEnable( GL_DEPTH_TEST );
-    glEnable( GL_BLEND );
+    //glEnable( GL_BLEND );
     glEnable( GL_CULL_FACE );
     glCullFace( GL_BACK );
     glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
@@ -260,12 +260,6 @@ void Render_Engine::init()
         exit(3);
     }
 
-    //glfwSetKeyCallback( Render_Engine::window, KeyCallback);
-    //glfwSetScrollCallback( Render_Engine::window, ScrollCallback);
-    //glfwSetCursorPosCallback( Render_Engine::window, MouseCallback);
-
-    //glfwSetInputMode( window, GLFW_CURSOR, GLFW_CURSOR_DISABLED );
-
     Render_Engine::camera = new Camera( glm::vec3( 0.0f, 5.0f, 10.f) );
     lastX = 0.0f;//this->Screen_Width / 2.0f;
     lastY = 0.0f;//this->Screen_Height / 2.0f;
@@ -276,82 +270,3 @@ void Render_Engine::init()
 
     load_dependencies();
 }
-
-void Render_Engine::test_func(  double posX, double posY  )
-{
-    //std:: cout << " X1 " << posX << " Y1 " << posY << std::endl;
-
-    /*if ( firstmouse )
-    {
-        lastX = posX;
-        lastY = posY;
-        firstmouse = false;
-    }*/
-
-    GLfloat xOffset = posX - lastX;
-    GLfloat yOffset = lastY - posY;
-
-    lastX = posX;
-    lastY = posY;
-
-    //std:: cout << " X " << xOffset << " Y " << yOffset << std::endl;
-
-    camera->ProcessMouseMovement( xOffset, yOffset );
-}
-
-void Render_Engine::KeyCallback( GLFWwindow *window, int key, int scancode, int action, int mods)
-{
-    static_cast<void>(mods);
-    static_cast<void>(scancode);
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        glfwSetWindowShouldClose( window, GL_TRUE);
-
-    if ( key >= 0 && key < 1024)
-    {
-        if ( GLFW_PRESS == action )
-            keys[key] = true;
-        else if ( GLFW_RELEASE == action )
-            keys[key] = false;
-    }
-}
-
-void Render_Engine::ScrollCallback( GLFWwindow *window, double xOffset, double yOffset )
-{
-    static_cast<void>(window);
-    static_cast<void>(xOffset);
-    camera->ProcessMouseScroll( yOffset );
-}
-
-void Render_Engine::MouseCallback( GLFWwindow *window, double posX, double posY )
-{
-    //std:: cout << " X1 " << posX << " Y1 " << posY << std::endl;
-    static_cast<void>(window);
-    if ( firstmouse )
-    {
-        lastX = posX;
-        lastY = posY;
-        firstmouse = false;
-    }
-
-    GLfloat xOffset = posX - lastX;
-    GLfloat yOffset = lastY - posY;
-
-    lastX = posX;
-    lastY = posY;
-
-    //std:: cout << " X " << xOffset << " Y " << yOffset << std::endl;
-
-    camera->ProcessMouseMovement( xOffset, yOffset );
-}
-
-/*void Render_Engine::DoMovement()
-{
-    if (keys[GLFW_KEY_W] || keys[GLFW_KEY_UP] )
-        camera->ProcessKeyboard( Camera_movement::FORWAR, deltaTime );
-    if (keys[GLFW_KEY_S] || keys[GLFW_KEY_DOWN] )
-        camera->ProcessKeyboard( Camera_movement::BACKWAR, deltaTime );
-    if ( keys[GLFW_KEY_A] || keys[GLFW_KEY_LEFT] )
-        camera->ProcessKeyboard( Camera_movement::LEF, deltaTime );
-    if ( keys[GLFW_KEY_D] || keys[GLFW_KEY_RIGHT] )
-        camera->ProcessKeyboard( Camera_movement::RIGH, deltaTime );
-}*/

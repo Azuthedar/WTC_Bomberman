@@ -38,9 +38,6 @@ class Camera
 
 
         glm::mat4 GetViewMatrix();
-        //void ProcessKeyboard( Camera_movement direction, GLfloat deltaTime );
         void ProcessKeyboard( glm::vec3 player_pos);
-        void ProcessMouseMovement( GLfloat xOffset, GLfloat yOffset, GLboolean constrainPitch = true );
-        void ProcessMouseScroll( GLfloat yOffset );
         GLfloat GetZoom( );
 };

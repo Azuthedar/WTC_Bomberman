@@ -39,56 +39,13 @@ glm::mat4 Camera::GetViewMatrix()
 
 void Camera::ProcessKeyboard( glm::vec3 player_pos)
 {
-    player_pos.y = 13.0f;
-    player_pos.z -= 10.0f;
+    player_pos.y = 15.0f;
+    player_pos.z -= 20.0f;
     this->position = player_pos;
 
-    /*if ( Camera_movement::FORWAR == direction )
-    {
-        this->position += this->front * Velocity;
-    }
-    if ( Camera_movement::BACKWAR == direction )
-    {
-        this->position -= this->front * Velocity;
-    }
-    if ( Camera_movement::LEF == direction )
-    {
-        this->position -= this->right * Velocity;
-    }
-    if ( Camera_movement::RIGH == direction )
-    {
-        this->position += this->right * Velocity;
-    }*/
-
-}
-
-void Camera::ProcessMouseMovement( GLfloat xOffset, GLfloat yOffset, GLboolean constrainPitch)
-{
-    xOffset *= this->mouseSensitivity;
-    yOffset *= this->mouseSensitivity;
-
-    this->yaw += xOffset;
-    this->pitch += yOffset;
-
-    if ( constrainPitch )
-    {
-        if (this->pitch > 89.0f)
-            this->pitch = 89.0f;
-        if (this->pitch < -89.0f)
-            this->pitch = -89.0f;
-    }
+    this->pitch = -30.f;
 
     this->updateCameraVectors();
-}
-
-void Camera::ProcessMouseScroll( GLfloat yOffset )
-{
-    if ( this->zoom >= 1.0f && this->zoom <= 45.0f )
-        this->zoom -= yOffset;
-    if ( this->zoom <= 1.0f )
-        this->zoom = 1.0f;
-    if ( this->zoom >= 45.0f )
-        this->zoom = 45.0f;
 }
 
 GLfloat Camera::GetZoom( )
