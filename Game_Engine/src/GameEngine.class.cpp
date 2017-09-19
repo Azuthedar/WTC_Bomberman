@@ -191,7 +191,6 @@ void		Engine::readMap()
 	if (i != MAP_Y)
 			this->_exceptions.throwMapSizeInvalid();
 	file.close();
-	this->_mapLevel++;
 }
 
 void Engine::buildMap()
@@ -261,6 +260,7 @@ void		Engine::shouldTransition()
 	if (this->_player.getXPos() == this->_gate.getXPos() && this->_player.getYPos() == this->_gate.getYPos() && !this->_gate.getIsLocked())
 	{
 		this->_soundEnum = SND_LVLCOMPLETE;
+		this->_mapLevel++;
 		this->_isTransitioning = true;
 	}
 }
