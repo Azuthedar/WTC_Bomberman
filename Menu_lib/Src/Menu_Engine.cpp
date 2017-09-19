@@ -433,10 +433,13 @@ void Menu_Engine::createMainMenu()
     main_menu.start->setCursor(nanogui::Cursor::Hand);
     main_menu.start->setCallback([]{
         engine->setGameState(GAME);
+        engine->getConfig().reset(engine->getPlayer(), engine->getSound());
+        engine->getPlayer().setIsPaused(false);
         engine->setIsTransitioning(true);
         engine->transitionMap();
         main_menu.changeView(false);
         settings_menu.changeView(false);
+        pause_menu.changeView(false);
     });
 
     posY += 35 * ( this->screen_height / 360 );
@@ -468,6 +471,7 @@ void Menu_Engine::createMainMenu()
     main_menu.exit_game->setCursor(nanogui::Cursor::Hand);
     main_menu.exit_game->setCallback([]{
         main_menu.changeView(false);
+        exit(0);
     });
 }
 
@@ -504,7 +508,6 @@ void Menu_Engine::createPauseMenu()
 
     pause_menu.pauseMenu_window = new nanogui::Window( base_screen, "Pause Menu" );
     pause_menu.pauseMenu_window->setPosition( { (this->screen_width / 2) - (half_screenWidth / 2) , (this->screen_height / 2) - (half_screenHeight / 2) } );
-    std::cout << "X: " << (this->screen_width / 2) - (half_screenWidth / 2) << "\nY: " << (this->screen_height / 2) - (half_screenHeight / 2) << std::endl;
     pause_menu.pauseMenu_window->setSize( { half_screenWidth , half_screenHeight } );
     pause_menu.pauseMenu_window->setTheme( main_menu.theme );
 
@@ -553,6 +556,7 @@ void Menu_Engine::createPauseMenu()
         main_menu.changeView(true);
         settings_menu.changeView(false);
         engine->setGameState(MENU);
+        engine->getConfig().setConfigUpdated(true);
     });
 }
 
@@ -634,9 +638,13 @@ int Menu_Engine::update( Engine &engine )
     if ( base_screen->visible() == false )
         base_screen->setVisible(true);
 
-    if (engine.getGameState() == PAUSED && !settings_menu.settingsMenu_window->visible() && !main_menu.mainMenu_window->visible())
+    if (engine.getGameState() == PAUSED && !settings_menu.settingsMenu_window->visible() && !main_menu.mainMenu_window->visible() && !pause_menu.pauseMenu_window->visible())
     {
         pause_menu.changeView(true);
+    }
+    else if (engine.getGameState() == MENU && !settings_menu.settingsMenu_window->visible() && !main_menu.mainMenu_window->visible() && !pause_menu.pauseMenu_window->visible())
+    {
+        main_menu.changeView(true);
     }
 
     if ( settings_menu.res_change == true )

@@ -133,7 +133,7 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 			this->ticker( delta_time );
 			this->shouldTransition();
 
-			if (this->_player.getIsPaused() == true && this->_gameState != PAUSED)
+			if (this->_player.getIsPaused() == true && this->_gameState != PAUSED && this->_gameState != MENU)
 			{
 				this->_gameState = PAUSED;
 			}
@@ -141,7 +141,7 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 		else
 			this->transitionMap();
 	}
-	this->_sound.playSound(this->_soundEnum, this->_player.getSoundEnum(), this->_gameState);
+	this->_sound.playSound(this->_soundEnum, this->_player.getSoundEnum(), this->_gameState, this->_config.getConfigUpdated());
 
 }
 
@@ -310,3 +310,4 @@ bool &						Engine::getMapEnd()				{return (this->_mapEnd);}
 std::vector<Powerup> &		Engine::getPowerupVector()		{return (this->_powerupVector);}
 Config &					Engine::getConfig()				{return (this->_config);}
 eGamestate &				Engine::getGameState()			{return (this->_gameState);}
+Sound &						Engine::getSound()				{return (this->_sound);}

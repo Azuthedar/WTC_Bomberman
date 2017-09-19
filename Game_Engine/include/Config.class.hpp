@@ -1,3 +1,5 @@
+#pragma once
+
 #include <main.hpp>
 #include <regex>
 #include <fstream>
@@ -34,6 +36,7 @@ class Config: public Exceptions
 		void	setKBPause(int KBpause);
 		void	setSFXVolume(int sfxVol);
 		void	setMusicVolume(int muscVol);
+		void	setConfigUpdated(bool updated);
 
 		int &	getMapLevel();
 		int &	getBombLevel();
@@ -48,6 +51,7 @@ class Config: public Exceptions
 		int &	getKBPause();
 		int &	getSFXVolume();
 		int &	getMusicVolume();
+		bool & getConfigUpdated();
 
 	private:
 
@@ -73,4 +77,6 @@ class Config: public Exceptions
 		int				_KBmoveDown;
 		int				_KBplaceBomb;
 		int				_KBpause;
+
+		bool			_configUpdated;
 	};

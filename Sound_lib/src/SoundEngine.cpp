@@ -7,6 +7,9 @@ Sound::Sound()
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, SOUND_CHANNELS, SOUND_CHUNKSIZE) < 0)
 		std::cerr << "MIXER failed to initialize" << std::endl;
 	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/music.wav")); // DEFAULT
+	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/Default1.wav")); // DEFAULT 1
+	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/Default2.wav")); // DEFAULT 2
+	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/Default3.wav")); // DEFAULT 3
 	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/footstep.wav")); // FOOTSTEP
 	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/death.wav")); // DEATH
 	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/explosion1.wav")); // EXPLOSION
@@ -42,12 +45,12 @@ void	Sound::playMusic()
 	}
 }
 
-void    Sound::playSound(eSound & sound, eSound & playerSound, eGamestate & gameState)
+void    Sound::playSound(eSound & sound, eSound & playerSound, eGamestate & gameState, bool & configUpdated)
 {
 	static int i = 0;
 	static bool menuHasPlayed = false;
 	this->changeVolume();
-	if (gameState == MENU && menuHasPlayed == false)
+	if ((configUpdated && gameState == MENU) && menuHasPlayed == false)
 	{
 		if (Mix_Playing(0))
 		{
@@ -56,10 +59,11 @@ void    Sound::playSound(eSound & sound, eSound & playerSound, eGamestate & game
 		else
 		{
 			Mix_PlayChannel(0, this->_waveVector[SND_MENU], -1);
+			configUpdated = false;
 			menuHasPlayed = true;
 		}
 	}
-	else if (gameState == GAME && menuHasPlayed == true)
+	else if ((configUpdated && gameState == GAME) && menuHasPlayed == true)
 	{
 		if (Mix_Playing(0))
 		{
@@ -67,7 +71,9 @@ void    Sound::playSound(eSound & sound, eSound & playerSound, eGamestate & game
 		}
 		else
 		{
-			Mix_PlayChannel(0, this->_waveVector[SND_DEFAULT], -1);
+			eSound random = static_cast<eSound>(std::rand() % 4);
+			Mix_PlayChannel(0, this->_waveVector[random], -1);
+			configUpdated = false;
 			menuHasPlayed = false;
 		}
 	}

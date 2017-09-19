@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Player.class.hpp"
 #include "main.hpp"
 #include "Wall.class.hpp"
@@ -43,6 +44,7 @@ class Engine
 		std::vector<Powerup> &		getPowerupVector();
 		Config &					getConfig();
 		eGamestate &				getGameState();
+		Sound &						getSound();
 
 	private:
 

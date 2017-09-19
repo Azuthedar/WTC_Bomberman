@@ -140,7 +140,7 @@ void    Config::parseFile(Player & player, Sound & sound)
 		this->_KBplaceBomb = std::stoi(this->_fileBuffer[CNF_KBPLACE].substr(this->_fileBuffer[CNF_KBPLACE].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_KBPLACE].length() - 1));
 		this->_KBpause = std::stoi(this->_fileBuffer[CNF_KBPAUSE].substr(this->_fileBuffer[CNF_KBPAUSE].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_KBPAUSE].length() - 1));
 
-
+		this->_configUpdated = true;
 		sound.setSFXVolume(this->_SFXVolume);
 		sound.setMusicVolume(this->_musicVolume);
 
@@ -171,7 +171,6 @@ void    Config::updateFile(Player & player, int mapLevel, Sound & sound)
 {
 	if (std::remove(this->_fileName.c_str()) == 0)
 	{
-		Mix_FadeOutChannel(0, 800);
 		std::ofstream configFile;
 		configFile.open(this->_fileName);
 
@@ -181,8 +180,6 @@ void    Config::updateFile(Player & player, int mapLevel, Sound & sound)
 		this->_rangeLevel = player.getRangeLevel();
 		this->_speedLevel = player.getSpeedLevel();
 		this->_lives = player.getLives();
-
-		/* Temp this needs to be changed!!! */
 
 		configFile << "[MAP]" << std::endl;
 		configFile << "\tMAPLEVEL: " << std::to_string(this->_mapLevel) << std::endl;
@@ -209,9 +206,8 @@ void    Config::updateFile(Player & player, int mapLevel, Sound & sound)
 		configFile << "\tPLACEBOMB: " << std::to_string(this->_KBplaceBomb) << std::endl;
 		configFile << "\tPAUSE: " << std::to_string(this->_KBpause) << std::endl;
 
-		Mix_VolumeChunk( sound.getWaveVector()[SND_DEFAULT], this->_musicVolume * 0.3f);
-		if (Mix_PlayChannel(0, sound.getWaveVector()[SND_DEFAULT], -1) == -1)
-			std::cerr << "TRANSITION: Failed to play sound: DEFAULT" << std::endl;
+		this->_configUpdated = true;
+
 
 		configFile.close();
 	}
@@ -269,6 +265,7 @@ void    Config::setKBPlaceBomb(int KBplaceBomb)		{this->_KBplaceBomb = KBplaceBo
 void	Config::setKBPause(int KBpause)				{this->_KBpause = KBpause;}
 void	Config::setSFXVolume(int sfxVol)			{this->_SFXVolume = sfxVol;}
 void	Config::setMusicVolume(int muscVol)			{this->_musicVolume = muscVol;}
+void	Config::setConfigUpdated(bool updated)		{this->_configUpdated = updated;}
 
 
 
@@ -285,3 +282,4 @@ int &	Config::getKBPlaceBomb()        {return (this->_KBplaceBomb);}
 int &	Config::getKBPause()			{return (this->_KBpause);}
 int &	Config::getSFXVolume()			{return (this->_SFXVolume);}
 int &	Config::getMusicVolume()		{return (this->_musicVolume);}
+bool &	Config::getConfigUpdated()		{return (this->_configUpdated);}
