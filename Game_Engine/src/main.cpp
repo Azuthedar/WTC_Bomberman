@@ -25,6 +25,8 @@ int main()
 		const double maxFPS = 60.0;
 		const double maxPeriod = 1.0 / maxFPS;
 
+		menu.set_data( engine );
+
 		while ( !glfwWindowShouldClose( menu.GetWindow() ) )
 		{
 			std::srand(time(NULL));
@@ -46,7 +48,7 @@ int main()
 					render._render( deltaTime );
 				}
 
-				if (menu.update())
+				if (menu.update( engine ))
 				{
 					render.SetWindow( menu.GetWindow() );
 				}

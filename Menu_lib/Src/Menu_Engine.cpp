@@ -4,6 +4,9 @@ nanogui::Screen *Menu_Engine::base_screen = nullptr;
 MainMenu Menu_Engine::main_menu = MainMenu();
 SettingsMenu Menu_Engine::settings_menu = SettingsMenu();
 
+std::unordered_map< std::string, int > Menu_Engine::key_binds;
+std::unordered_map< std::string, int >::iterator Menu_Engine::it;
+
 Menu_Engine::Menu_Engine( std::string Win_Name )
 {
     this->window_name = Win_Name;
@@ -11,6 +14,77 @@ Menu_Engine::Menu_Engine( std::string Win_Name )
     this->screen_height = 720;
 
     init();
+    create_keyMaps();
+}
+
+void Menu_Engine::set_data( Engine &engine )
+{
+    settings_menu.curr_up = engine.getConfig().getKBMoveUp();
+    settings_menu.curr_down = engine.getConfig().getKBMoveDown();
+    settings_menu.curr_Left = engine.getConfig().getKBMoveLeft();
+    settings_menu.curr_Right = engine.getConfig().getKBMoveRight();
+    settings_menu.curr_place = engine.getConfig().getKBPlaceBomb();
+}
+
+void Menu_Engine::create_keyMaps()
+{
+    key_binds.insert( std::make_pair( "F1", GLFW_KEY_F1 ) );
+    key_binds.insert( std::make_pair( "F2", GLFW_KEY_F2 ) );
+	key_binds.insert( std::make_pair( "F3", GLFW_KEY_F3 ) );
+	key_binds.insert( std::make_pair( "F4", GLFW_KEY_F4 ) );
+	key_binds.insert( std::make_pair( "F5", GLFW_KEY_F5 ) );
+	key_binds.insert( std::make_pair( "F6", GLFW_KEY_F6 ) );
+	key_binds.insert( std::make_pair( "F7", GLFW_KEY_F7 ) );
+	key_binds.insert( std::make_pair( "F8", GLFW_KEY_F8 ) );
+	key_binds.insert( std::make_pair( "F9", GLFW_KEY_F9 ) );
+	key_binds.insert( std::make_pair( "F10", GLFW_KEY_F10 ) );
+	key_binds.insert( std::make_pair( "F11", GLFW_KEY_F11 ) );
+	key_binds.insert( std::make_pair( "F12", GLFW_KEY_F12 ) );
+	key_binds.insert( std::make_pair( "F13", GLFW_KEY_F13 ) );
+	key_binds.insert( std::make_pair( "F14", GLFW_KEY_F14 ) );
+	key_binds.insert( std::make_pair( "F15", GLFW_KEY_F15 ) );
+	key_binds.insert( std::make_pair( "UP", GLFW_KEY_UP ) );
+	key_binds.insert( std::make_pair( "DOWN", GLFW_KEY_DOWN ) );
+	key_binds.insert( std::make_pair( "LEFT", GLFW_KEY_LEFT ) );
+	key_binds.insert( std::make_pair( "RIGHT", GLFW_KEY_RIGHT ) );
+	key_binds.insert( std::make_pair( "HOME", GLFW_KEY_HOME ) );
+	key_binds.insert( std::make_pair( "END", GLFW_KEY_END ) );
+    key_binds.insert( std::make_pair( "KP_0", GLFW_KEY_KP_0 ) );
+    key_binds.insert( std::make_pair( "KP_1", GLFW_KEY_KP_1 ) );
+    key_binds.insert( std::make_pair( "KP_2", GLFW_KEY_KP_2 ) );
+    key_binds.insert( std::make_pair( "KP_3", GLFW_KEY_KP_3 ) );
+    key_binds.insert( std::make_pair( "KP_4", GLFW_KEY_KP_4 ) );
+    key_binds.insert( std::make_pair( "KP_5", GLFW_KEY_KP_5 ) );
+    key_binds.insert( std::make_pair( "KP_6", GLFW_KEY_KP_6 ) );
+    key_binds.insert( std::make_pair( "KP_7", GLFW_KEY_KP_7 ) );
+    key_binds.insert( std::make_pair( "KP_8", GLFW_KEY_KP_8 ) );
+    key_binds.insert( std::make_pair( "KP_9", GLFW_KEY_KP_9 ) );
+    key_binds.insert( std::make_pair( "A", GLFW_KEY_A ) );
+    key_binds.insert( std::make_pair( "B", GLFW_KEY_B ) );
+    key_binds.insert( std::make_pair( "C", GLFW_KEY_C ) );
+    key_binds.insert( std::make_pair( "D", GLFW_KEY_D ) );
+    key_binds.insert( std::make_pair( "E", GLFW_KEY_E ) );
+    key_binds.insert( std::make_pair( "F", GLFW_KEY_F ) );
+    key_binds.insert( std::make_pair( "G", GLFW_KEY_G ) );
+    key_binds.insert( std::make_pair( "H", GLFW_KEY_H ) );
+    key_binds.insert( std::make_pair( "I", GLFW_KEY_I ) );
+    key_binds.insert( std::make_pair( "J", GLFW_KEY_J ) );
+    key_binds.insert( std::make_pair( "K", GLFW_KEY_K ) );
+    key_binds.insert( std::make_pair( "L", GLFW_KEY_L ) );
+    key_binds.insert( std::make_pair( "M", GLFW_KEY_M ) );
+    key_binds.insert( std::make_pair( "N", GLFW_KEY_N ) );
+    key_binds.insert( std::make_pair( "O", GLFW_KEY_O ) );
+    key_binds.insert( std::make_pair( "P", GLFW_KEY_P ) );
+    key_binds.insert( std::make_pair( "Q", GLFW_KEY_Q ) );
+    key_binds.insert( std::make_pair( "R", GLFW_KEY_R ) );
+    key_binds.insert( std::make_pair( "S", GLFW_KEY_S ) );
+    key_binds.insert( std::make_pair( "T", GLFW_KEY_T ) );
+    key_binds.insert( std::make_pair( "U", GLFW_KEY_U ) );
+    key_binds.insert( std::make_pair( "V", GLFW_KEY_V ) );
+    key_binds.insert( std::make_pair( "W", GLFW_KEY_W ) );
+    key_binds.insert( std::make_pair( "X", GLFW_KEY_X ) );
+    key_binds.insert( std::make_pair( "Y", GLFW_KEY_Y ) );
+    key_binds.insert( std::make_pair( "Z", GLFW_KEY_Z ) );
 }
 
 void Menu_Engine::createSettingsMenu()
@@ -70,6 +144,7 @@ void Menu_Engine::createSettingsMenu()
     settings_menu.res_1080->setFlags(nanogui::Button::ToggleButton);
     settings_menu.res_1080->setPosition( { 120 * scale , 80 * scale} );
     settings_menu.res_1080->setSize( {95 * scale, 40 * scale} );
+    settings_menu.res_1080->setTheme( settings_menu.theme );
     settings_menu.res_1080->setCallback([]{
         if ( settings_menu.res_type == 1 )
         {
@@ -127,18 +202,155 @@ void Menu_Engine::createSettingsMenu()
     settings_menu.KeyBinds->setSize( { 130 * scale , 30 * scale } );
 
     settings_menu.keybind_popup = settings_menu.KeyBinds->popup();
-    settings_menu.keybind_popup ->setLayout(new nanogui::GroupLayout());
+    settings_menu.keybind_popup->setSize( { 320 * scale, 320 * scale } );
+    settings_menu.keybind_popup->setAnchorPos( { 180 * scale, 230 * scale } );
 
-    nanogui::CheckBox *tmp_Checkbox = new nanogui::CheckBox(settings_menu.keybind_popup, "Key_Up");
-    tmp_Checkbox = new nanogui::CheckBox(settings_menu.keybind_popup, "Key_Down");
-    tmp_Checkbox = new nanogui::CheckBox(settings_menu.keybind_popup, "Key_Left");
-    tmp_Checkbox = new nanogui::CheckBox(settings_menu.keybind_popup, "Key_Right");
-    tmp_Checkbox = new nanogui::CheckBox(settings_menu.keybind_popup, "Key_Place");
+    std::cout << "LETS HP " << settings_menu.keybind_popup->anchorPos()[0] << " " << settings_menu.keybind_popup->anchorPos()[0] << std::endl;
 
-    nanogui::TextBox *key_textBox = new nanogui::TextBox( settings_menu.keybind_popup );
-    key_textBox->setEditable( true );
+    settings_menu.Button_Up = new nanogui::Button( settings_menu.keybind_popup, "Key_Up");
+    settings_menu.Button_Up->setPosition( { 20 * scale, 20 * scale } );
+    settings_menu.Button_Up->setSize( { 130 * scale, 30 * scale } );
+    settings_menu.Button_Up->setTheme( settings_menu.theme );
+    settings_menu.Button_Up->setCallback([]{
 
-    settings_menu.keybind_popup->performLayout( base_screen->nvgContext() );
+        bool tmp = true;
+
+        if ( settings_menu.Button_Up->pushed() == true && settings_menu.Button_Down->enabled() == true)
+        {
+            tmp = !tmp;
+            settings_menu.button_type = 1;
+        }
+        else
+            settings_menu.button_type = 0;
+
+        settings_menu.Button_Down->setEnabled( tmp );
+        settings_menu.Button_Left->setEnabled( tmp );
+        settings_menu.Button_Right->setEnabled( tmp );
+        settings_menu.Button_Place->setEnabled( tmp );
+    });
+
+    settings_menu.Button_Down = new nanogui::Button(settings_menu.keybind_popup, "Key_Down");
+    settings_menu.Button_Down->setPosition( { 170 * scale, 20 * scale } );
+    settings_menu.Button_Down->setSize( { 130 * scale, 30 * scale } );
+    settings_menu.Button_Down->setTheme( settings_menu.theme );
+    settings_menu.Button_Down->setCallback([]{
+
+            bool tmp = true;
+
+            if ( settings_menu.Button_Down->pushed() == true && settings_menu.Button_Up->enabled() == true )
+            {
+                tmp = !tmp;
+                settings_menu.button_type = 2;
+            }
+            else
+                settings_menu.button_type = 0;
+
+            settings_menu.Button_Up->setEnabled( tmp );
+            settings_menu.Button_Left->setEnabled( tmp );
+            settings_menu.Button_Right->setEnabled( tmp );
+            settings_menu.Button_Place->setEnabled( tmp );
+    });
+
+    settings_menu.Button_Left = new nanogui::Button(settings_menu.keybind_popup, "Key_Left");
+    settings_menu.Button_Left->setPosition( { 20 * scale, 60 * scale } );
+    settings_menu.Button_Left->setSize( { 130 * scale, 30 * scale } );
+    settings_menu.Button_Left->setTheme( settings_menu.theme );
+    settings_menu.Button_Left->setCallback([]{
+
+            bool tmp = true;
+
+            if ( settings_menu.Button_Left->pushed() == true && settings_menu.Button_Up->enabled() == true )
+            {
+                tmp = !tmp;
+                settings_menu.button_type = 3;
+            }
+            else
+                settings_menu.button_type = 0;
+
+
+            settings_menu.Button_Up->setEnabled( tmp );
+            settings_menu.Button_Down->setEnabled( tmp );
+            settings_menu.Button_Right->setEnabled( tmp );
+            settings_menu.Button_Place->setEnabled( tmp );
+    });
+
+    settings_menu.Button_Right = new nanogui::Button(settings_menu.keybind_popup, "Key_Right");
+    settings_menu.Button_Right->setPosition( { 170 * scale, 60 * scale } );
+    settings_menu.Button_Right->setSize( { 130 * scale, 30 * scale } );
+    settings_menu.Button_Right->setTheme( settings_menu.theme );
+    settings_menu.Button_Right->setCallback([]{
+
+            bool tmp = true;
+
+            if ( settings_menu.Button_Right->pushed() == true && settings_menu.Button_Up->enabled() == true )
+            {
+                tmp = !tmp;
+                settings_menu.button_type = 4;
+            }
+            else
+                settings_menu.button_type = 0;
+
+
+            settings_menu.Button_Down->setEnabled( tmp );
+            settings_menu.Button_Left->setEnabled( tmp );
+            settings_menu.Button_Up->setEnabled( tmp );
+            settings_menu.Button_Place->setEnabled( tmp );
+    });
+
+    settings_menu.Button_Place = new nanogui::Button(settings_menu.keybind_popup, "Key_Place");
+    settings_menu.Button_Place->setPosition( { 90 * scale, 100 * scale } );
+    settings_menu.Button_Place->setSize( { 130 * scale, 30 * scale } );
+    settings_menu.Button_Place->setTheme( settings_menu.theme );
+    settings_menu.Button_Place->setCallback([]{
+
+            bool tmp = true;
+
+            if ( settings_menu.Button_Place->pushed() == true && settings_menu.Button_Up->enabled() == true )
+            {
+                tmp = !tmp;
+                settings_menu.button_type = 5;
+            }
+            else
+                settings_menu.button_type = 0;
+
+
+            settings_menu.Button_Down->setEnabled( tmp );
+            settings_menu.Button_Left->setEnabled( tmp );
+            settings_menu.Button_Right->setEnabled( tmp );
+            settings_menu.Button_Up->setEnabled( tmp );
+    });
+
+    settings_menu.key_textBox = new nanogui::TextBox( settings_menu.keybind_popup, "" );
+    settings_menu.key_textBox->setPosition( { 50 * scale, 160 * scale } );
+    settings_menu.key_textBox->setSize( { 200 * scale, 35 * scale } );
+    settings_menu.key_textBox->setTheme( settings_menu.theme );
+    settings_menu.key_textBox->setEditable( true );
+
+    settings_menu.key_textBox->setCallback( []( const std::string& str )
+    {
+        for ( it = key_binds.begin(); it != key_binds.end(); it++)
+        {
+            if ( str.compare( it->first ) == 0 )
+            {
+                std::cout << it->first << " " << settings_menu.curr_up << std::endl;
+
+                std::cout << it->second << std::endl;
+                if ( settings_menu.curr_up == it->second || settings_menu.curr_down == it->second || settings_menu.curr_Left == it->second || settings_menu.curr_Right == it->second || settings_menu.curr_place == it->second)
+                {
+                    settings_menu.key_textBox->setValue( "Key Already Bound" );
+                    std::cout << "Im HET" << std::endl;
+                    break ;
+                }
+
+
+
+                return ( true );
+            }
+        }
+        return ( false );
+    });
+
+    //settings_menu.keybind_popup->performLayout( base_screen->nvgContext() );
 
 
     settings_menu.back_button = new nanogui::Button(settings_menu.settingsMenu_window, "Return");
@@ -331,7 +543,7 @@ bool Menu_Engine::check_status()
     return ( false );
 }
 
-int Menu_Engine::update()
+int Menu_Engine::update( Engine &engine )
 {
     int change_val = 0;
 
@@ -374,6 +586,8 @@ int Menu_Engine::update()
         else
             settings_menu.res_1080->setEnabled( false );
     }
+
+
 
     if ( main_menu.mainMenu_window->visible() == true || settings_menu.settingsMenu_window->visible() == true )
         base_screen->drawAll();

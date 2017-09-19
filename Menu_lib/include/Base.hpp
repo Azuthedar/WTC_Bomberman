@@ -1,5 +1,7 @@
 #pragma once
 
+
+#include "../../Game_Engine/include/GameEngine.class.hpp"
 #include "../nanogui/include/nanogui/screen.h"
 #include "../nanogui/include/nanogui/window.h"
 #include "../nanogui/include/nanogui/layout.h"
@@ -34,6 +36,8 @@
 #include <cstdint>
 #include <memory>
 #include <utility>
+#include <map>
+#include <unordered_map>
 
 #include <iostream>
 
@@ -69,6 +73,22 @@ struct  SettingsMenu
     nanogui::Popup *keybind_popup = nullptr;
 
     nanogui::Theme   *theme;
+
+    nanogui::Button *Button_Up;
+    nanogui::Button *Button_Down;
+    nanogui::Button *Button_Left;
+    nanogui::Button *Button_Right;
+    nanogui::Button *Button_Place;
+
+    int button_type = 0;
+
+    int curr_up = 0;
+    int curr_down = 0;
+    int curr_Left = 0;
+    int curr_Right = 0;
+    int curr_place = 0;
+
+    nanogui::TextBox *key_textBox;
 
     int res_type = 0;
     bool res_change = false;
