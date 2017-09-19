@@ -131,7 +131,7 @@ void	Player::input( GLFWwindow *window )
 	}
 	if (glfwGetKey(window, this->_KBpause))
 	{
-		// PAUSE LOGIC
+		
 	}
 }
 
