@@ -4,6 +4,8 @@ nanogui::Screen *Menu_Engine::base_screen = nullptr;
 MainMenu Menu_Engine::main_menu = MainMenu();
 SettingsMenu Menu_Engine::settings_menu = SettingsMenu();
 
+Engine  *Menu_Engine::engine = nullptr;
+
 std::unordered_map< std::string, int > Menu_Engine::key_binds;
 std::unordered_map< std::string, int >::iterator Menu_Engine::it;
 
@@ -17,13 +19,15 @@ Menu_Engine::Menu_Engine( std::string Win_Name )
     create_keyMaps();
 }
 
-void Menu_Engine::set_data( Engine &engine )
+void Menu_Engine::set_data( Engine &temp_engine )
 {
-    settings_menu.curr_up = engine.getConfig().getKBMoveUp();
-    settings_menu.curr_down = engine.getConfig().getKBMoveDown();
-    settings_menu.curr_Left = engine.getConfig().getKBMoveLeft();
-    settings_menu.curr_Right = engine.getConfig().getKBMoveRight();
-    settings_menu.curr_place = engine.getConfig().getKBPlaceBomb();
+    engine = &temp_engine;
+
+    settings_menu.curr_up = engine->getConfig().getKBMoveUp();
+    settings_menu.curr_down = engine->getConfig().getKBMoveDown();
+    settings_menu.curr_Left = engine->getConfig().getKBMoveLeft();
+    settings_menu.curr_Right = engine->getConfig().getKBMoveRight();
+    settings_menu.curr_place = engine->getConfig().getKBPlaceBomb();
 }
 
 void Menu_Engine::create_keyMaps()
@@ -414,9 +418,11 @@ void Menu_Engine::createMainMenu()
     main_menu.start->setTheme(main_menu.theme);
     main_menu.start->setCursor(nanogui::Cursor::Hand);
     main_menu.start->setCallback([]{
+        engine->setGameState(GAME);
+        engine->setIsTransitioning(true);
+        engine->transitionMap();
         main_menu.changeView(false);
         settings_menu.changeView(false);
-        //glfwSetInputMode( base_screen->glfwWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED );
     });
 
     posY += 35 * ( this->screen_height / 360 );

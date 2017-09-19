@@ -3,7 +3,7 @@
 #include <fstream>
 #include <Player.class.hpp>
 #include <Exception.class.hpp>
-//#include "../../Sound_lib/include/SoundEngine.hpp"
+#include "../../Sound_lib/include/SoundEngine.hpp"
 
 class Config: public Exceptions
 {
@@ -13,12 +13,12 @@ class Config: public Exceptions
 		Config(std::string fileName);
 		~Config();
 
-		void	defaultInit(Player & player); //, Sound & sound);
-		void	reset(Player & player); //, Sound & sound);
+		void	defaultInit(Player & player, Sound & sound);
+		void	reset(Player & player, Sound & sound);
 		void	readFile();
 		bool	checkSyntax(); // True will be correct syntax
-		void	parseFile(Player & player); //, Sound & sound);
-		void	updateFile(Player & player, int mapLevel); //, Sound & sound);
+		void	parseFile(Player & player, Sound & sound);
+		void	updateFile(Player & player, int mapLevel, Sound & sound);
 		void	configUpdater(glm::vec2 values, eConfig configVal);
 
 		void	setMapLevel(int mapLevel);

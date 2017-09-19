@@ -6,7 +6,7 @@
 #include "Explosion.class.hpp"
 #include "Powerup.class.hpp"
 #include <Config.class.hpp>
-//#include "../../Sound_lib/include/SoundEngine.hpp"
+#include "../../Sound_lib/include/SoundEngine.hpp"
 
 class Engine
 {
@@ -28,6 +28,8 @@ class Engine
 		void		chainReaction();
 
 		void						setMapEnd(bool mapEnd);
+		void						setGameState(eGamestate state);
+		void						setIsTransitioning(bool transition);
 
 		std::vector<char> &			getMapValues();
 		std::vector<Wall> &			getWallVector();
@@ -40,6 +42,7 @@ class Engine
 		bool &						getMapEnd();
 		std::vector<Powerup> &		getPowerupVector();
 		Config &					getConfig();
+		eGamestate &				getGameState();
 
 	private:
 
@@ -59,6 +62,6 @@ class Engine
 		Config						_config;
 
 		eGamestate					_gameState;
-		//Sound						_sound;
+		Sound						_sound;
 		eSound						_soundEnum;
 };

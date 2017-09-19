@@ -6,7 +6,7 @@ Engine::Engine()
 	this->_transitionTicker = MAP_TRANSITION_TIME;
 	this->_mapEnd = false;
 	this->_isTransitioning = false;
-	this->_config.defaultInit(this->_player);//, this->_sound);
+	this->_config.defaultInit(this->_player, this->_sound);
 	this->_gameState = MENU;
 	this->_mapLevel = this->_config.getMapLevel();
 	this->readFile("maps");
@@ -78,7 +78,7 @@ void Engine::transitionMap()
 		this->_enemyVector.clear();
 		this->_player.respawn();
 		this->_walls_vector.clear();
-		this->_config.updateFile(this->_player, this->_mapLevel);//, this->_sound);
+		this->_config.updateFile(this->_player, this->_mapLevel, this->_sound);
 		this->readMap();
 		this->buildMap();
 		this->_player.getBombVector().clear();
@@ -91,15 +91,6 @@ void Engine::transitionMap()
 
 void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 {
-	if (this->_gameState == MENU)
-	{
-		if (glfwGetKey(window, GLFW_KEY_ENTER))
-		{
-			this->_gameState = GAME;
-			this->_isTransitioning = true;
-			this->transitionMap();
-		}
-	}
 	if (this->_gameState == GAME)
 	{
 		if (this->_mapDuration <= 0)
@@ -124,7 +115,7 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 			}
 			if (this->_player.getLives() <= 0)
 			{
-				this->_config.reset(this->_player); //, this->_sound);
+				this->_config.reset(this->_player, this->_sound);
 				this->_mapLevel = 0;
 				this->_gameState = MENU;
 				//Make player transition to main menu
@@ -145,7 +136,7 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 		else
 			this->transitionMap();
 	}
-	//this->_sound.playSound(this->_soundEnum, this->_player.getSoundEnum(), this->_gameState);
+	this->_sound.playSound(this->_soundEnum, this->_player.getSoundEnum(), this->_gameState);
 
 }
 
@@ -177,8 +168,6 @@ void		Engine::readMap()
 	std::ifstream file;
 	std::string strValues;	//To read in the values read in from the file
 	int i = 0;
-
-	//this->_mapValues.clear();
 	file.open(this->_maps[this->_mapLevel]);
 	lstat(this->_maps[this->_mapLevel].c_str(), &st); //Checks the name, and passes it to the struct
 	if (!file || !S_ISREG(st.st_mode)) // Check that the file exists and that it's not a directory
@@ -303,6 +292,8 @@ void	Engine::chainReaction()
 }
 
 void						Engine::setMapEnd(bool mapEnd)	{this->_mapEnd = mapEnd;}
+void						Engine::setGameState(eGamestate state) {this->_gameState = state;}
+void						Engine::setIsTransitioning(bool transition) {this->_isTransitioning = transition;}
 
 std::vector<char> &			Engine::getMapValues()			{return (this->_mapValues);}
 Player & 					Engine::getPlayer() 			{return (this->_player);}
@@ -313,3 +304,4 @@ int &						Engine::getMapDuration()		{return ((this->_mapDuration > 0) ? this->_
 bool &						Engine::getMapEnd()				{return (this->_mapEnd);}
 std::vector<Powerup> &		Engine::getPowerupVector()		{return (this->_powerupVector);}
 Config &					Engine::getConfig()				{return (this->_config);}
+eGamestate &				Engine::getGameState()			{return (this->_gameState);}

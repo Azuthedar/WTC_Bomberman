@@ -171,7 +171,7 @@ set(SOURCE
         ${GRAPHICS_SRC}Particles.cpp
         ${GRAPHICS_SRC}Particle_manager.cpp
 
-        #${SOUND_LIB}SoundEngine.cpp
+        ${SOUND_LIB}SoundEngine.cpp
 
         ${MENU_LIB}Menu_Engine.cpp
         )
@@ -209,7 +209,7 @@ set(HEADERS
         ${GRAPHICS_INCLUDE}Particles.hpp
         ${GRAPHICS_INCLUDE}Particle_manager.hpp
 
-        #${SOUND_INC}SoundEngine.hpp
+        ${SOUND_INC}SoundEngine.hpp
 
         ${MENU_INC}Menu_Engine.hpp
         )

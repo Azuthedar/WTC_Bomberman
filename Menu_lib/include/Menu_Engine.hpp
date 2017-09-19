@@ -15,6 +15,8 @@ class Menu_Engine
         static MainMenu main_menu;
         static SettingsMenu settings_menu;
 
+        static Engine *engine;
+
         static std::unordered_map< std::string, int > key_binds;
         static std::unordered_map< std::string, int >::iterator it;
 
@@ -30,7 +32,7 @@ class Menu_Engine
 
         void create_keyMaps();
 
-        void set_data( Engine &engine );
+        void set_data( Engine &temp_engine );
 
         void createMainMenu();
         void createSettingsMenu();

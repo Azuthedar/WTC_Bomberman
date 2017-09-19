@@ -5,7 +5,7 @@
 #include "../include/Wall.class.hpp"
 #include "../include/Bomb.class.hpp"
 #include "../../Graphics_lib/Inc/Render_Engine.hpp"
-//#include "../../Sound_lib/include/SoundEngine.hpp"
+#include "../../Sound_lib/include/SoundEngine.hpp"
 #include "../../Menu_lib/include/Menu_Engine.hpp"
 
 int main()
@@ -41,9 +41,9 @@ int main()
 
 				glfwPollEvents();
 
+				engine.gameLogic( menu.GetWindow(), deltaTime );
 				if (!menu.check_status())
 				{
-					engine.gameLogic( menu.GetWindow(), deltaTime );
 					render.Create_Components( engine, deltaTime );
 					render._render( deltaTime );
 				}
