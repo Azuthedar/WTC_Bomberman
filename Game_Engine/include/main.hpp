@@ -40,6 +40,7 @@ enum eGamestate
 	SPLASH_SCREEN = 0,
 	MENU,
 	GAME,
+	PAUSED,
 	LEVEL_SELECT,
 	SETTINGS,
 	LOAD_GAME,

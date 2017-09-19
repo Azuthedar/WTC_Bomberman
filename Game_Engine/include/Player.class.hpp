@@ -48,6 +48,7 @@ class Player : public AEntity
 		void	setKBPlaceBomb(int KBplaceBomb);
 		void	setKBPause(int KBpause);
 		void	setSoundEnum(eSound val);
+		void	setIsPaused(bool isPaused);
 
 		int	&	getBombs();
 		int &	getBombRange();
@@ -66,6 +67,7 @@ class Player : public AEntity
 		int &	getKBPause();
 		eSound &	getSoundEnum();
 		std::vector<Bomb> &		getBombVector();
+		bool &	getIsPaused();
 
 	private:
 
@@ -88,6 +90,7 @@ class Player : public AEntity
 		int					_rangeLevel;
 		int					_bombLevel;
 		
+		bool				_isPaused;
 		bool				_isMoving;
 		bool				_pickupPowerup;
 		bool				_hitOnce; // Used to check if the explosion has already hit the player.

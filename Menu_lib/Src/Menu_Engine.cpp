@@ -556,6 +556,18 @@ int Menu_Engine::update( Engine &engine )
     if ( base_screen->visible() == false )
         base_screen->setVisible(true);
 
+    if ((engine.getGameState() == MENU || engine.getGameState() == PAUSED) && main_menu.mainMenu_window->visible() == false)
+    {
+        main_menu.changeView(true);
+    }
+
+    if (engine.getGameState() == PAUSED)
+    {
+        main_menu.changeView(false);
+        engine.getPlayer().setIsPaused(false);
+        engine.setGameState(GAME);
+    }
+
     if ( settings_menu.res_change == true )
     {
         change_val = 1;

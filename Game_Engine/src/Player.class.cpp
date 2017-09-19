@@ -4,6 +4,7 @@ Player::Player()
 {
 	this->_xPos = (MAP_X) / 2;
 	this->_yPos = (MAP_Y) / 2;
+	this->_isPaused = false;
 
 	this->_goal_x = 0;
 	this->_goal_y = 0;
@@ -129,9 +130,9 @@ void	Player::input( GLFWwindow *window )
 			}
 		}
 	}
-	if (glfwGetKey(window, this->_KBpause))
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) && this->_isPaused == false)
 	{
-		
+		this->_isPaused = true;
 	}
 }
 
@@ -416,6 +417,7 @@ void    Player::setKBMoveDown(int KBmoveDown)     	{this->_KBmoveDown = KBmoveDo
 void    Player::setKBPlaceBomb(int KBplaceBomb)		{this->_KBplaceBomb = KBplaceBomb;}
 void	Player::setKBPause(int KBpause)				{this->_KBpause = KBpause;}
 void	Player::setSoundEnum(eSound val)			{this->_soundEnum = val;}
+void	Player::setIsPaused(bool isPaused)			{this->_isPaused = isPaused;}
 
 
 int	&	Player::getBombs()						{return (this->_bombs);}
@@ -434,3 +436,4 @@ int &	Player::getKBPlaceBomb()          		{return (this->_KBplaceBomb);}
 int &	Player::getKBPause()					{return (this->_KBpause);}
 eSound & Player::getSoundEnum()					{return (this->_soundEnum);}
 std::vector<Bomb> &		Player::getBombVector() {return (this->_bomb);}
+bool &	Player::getIsPaused()					{return (this->_isPaused);}
