@@ -9,7 +9,7 @@ set(PLATFORM ${CMAKE_SYSTEM_NAME})
 
 message("Detected Platform ${PLATFORM}")
 
-if (UNIX)
+if (WIN32)
 
     message("UNIX")
     set(LIB_PATH "/usr")
@@ -122,6 +122,11 @@ else()
     set(GLFW_DYLIB libglfw.3.2.dylib)
     set(GLFW_NAME glfw)
     set (CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${CMAKE_CURRENT_SOURCE_DIR})
+
+    #NANO GUI
+    set(NANO_INCLUDE "Menu_lib/nanogui/include/")
+    set(NANO_LIB_DIR "Menu_lib/nanogui/build/")
+    set(NANO_NAME nanogui)
 
     #GLM
     set(GLM_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/libs/glm)

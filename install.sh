@@ -14,5 +14,7 @@ echo "Installing SDL2..."
 brew install sdl2
 echo "Installing SDL2_MIXER..."
 brew install sdl2_mixer
+echo "Installing Python 3"
+brew install python3
 echo "Please Run The Following Command: cmake ."
 echo "Then Run The Following Command: make"
