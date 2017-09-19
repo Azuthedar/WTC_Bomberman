@@ -142,7 +142,7 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 		else
 			this->transitionMap();
 	}
-	this->_sound.playSound(this->_soundEnum, this->_player.getSoundEnum(), this->_gameState, this->_config.getConfigUpdated(), this->_transition);
+	//this->_sound.playSound(this->_soundEnum, this->_player.getSoundEnum(), this->_gameState, this->_config.getConfigUpdated(), this->_transition);
 
 }
 

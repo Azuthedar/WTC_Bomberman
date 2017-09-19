@@ -96,6 +96,12 @@ struct  SettingsMenu
     nanogui::Button *Button_Right;
     nanogui::Button *Button_Place;
 
+    nanogui::Button *Apply;
+
+    int new_key = 0;
+
+    bool bind_change = false;
+
     int button_type = 0;
 
     int curr_up = 0;

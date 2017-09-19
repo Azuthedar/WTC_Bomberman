@@ -336,7 +336,7 @@ void Menu_Engine::createSettingsMenu()
 
     settings_menu.key_textBox = new nanogui::TextBox( settings_menu.keybind_popup, "" );
     settings_menu.key_textBox->setPosition( { 50 * scale, 160 * scale } );
-    settings_menu.key_textBox->setSize( { 200 * scale, 35 * scale } );
+    settings_menu.key_textBox->setSize( { 210 * scale, 35 * scale } );
     settings_menu.key_textBox->setTheme( settings_menu.theme );
     settings_menu.key_textBox->setEditable( true );
 
@@ -350,13 +350,11 @@ void Menu_Engine::createSettingsMenu()
 
                 std::cout << it->second << std::endl;
                 if ( settings_menu.curr_up == it->second || settings_menu.curr_down == it->second || settings_menu.curr_Left == it->second || settings_menu.curr_Right == it->second || settings_menu.curr_place == it->second)
-                {
-                    settings_menu.key_textBox->setValue( "Key Already Bound" );
-                    std::cout << "Im HET" << std::endl;
                     break ;
-                }
 
-
+                settings_menu.new_key = it->second;
+                settings_menu.bind_change = true;
+                settings_menu.Apply->setEnabled( true );
 
                 return ( true );
             }
@@ -364,8 +362,52 @@ void Menu_Engine::createSettingsMenu()
         return ( false );
     });
 
-    //settings_menu.keybind_popup->performLayout( base_screen->nvgContext() );
+    settings_menu.Apply = new nanogui::Button(settings_menu.keybind_popup, "Apply");
+    settings_menu.Apply->setPosition( { 90 * scale, 215 * scale } );
+    settings_menu.Apply->setSize( { 130 * scale, 30 * scale } );
+    settings_menu.Apply->setBackgroundColor( { 20, 100, 255, 100 } );
+    settings_menu.Apply->setTheme( settings_menu.theme );
+    settings_menu.Apply->setCallback([]{
 
+        if (settings_menu.bind_change && settings_menu.button_type != 0)
+        {
+            if (settings_menu.button_type == 1)
+            {
+                settings_menu.curr_up = settings_menu.new_key;
+                engine->getConfig().setKBMoveUp( settings_menu.curr_up  );
+            }
+            else if (settings_menu.button_type == 2)
+            {
+                settings_menu.curr_down = settings_menu.new_key;
+                engine->getConfig().setKBMoveDown( settings_menu.curr_down  );
+            }
+            else if (settings_menu.button_type == 3)
+            {
+                settings_menu.curr_Left = settings_menu.new_key;
+                engine->getConfig().setKBMoveLeft( settings_menu.curr_Left  );
+            }
+            else if (settings_menu.button_type == 4)
+            {
+                settings_menu.curr_Right = settings_menu.new_key;
+                engine->getConfig().setKBMoveRight( settings_menu.curr_Right );
+            }
+            else if (settings_menu.button_type == 5)
+            {
+                settings_menu.curr_place = settings_menu.new_key;
+                engine->getConfig().setKBPlaceBomb( settings_menu.curr_place  );
+            }
+
+            settings_menu.Button_Down->setEnabled( true );
+            settings_menu.Button_Left->setEnabled( true );
+            settings_menu.Button_Right->setEnabled( true );
+            settings_menu.Button_Up->setEnabled( true );
+            settings_menu.Button_Place->setEnabled( true );
+        }
+
+        settings_menu.Apply->setEnabled( false );
+    });
+
+    settings_menu.Apply->setEnabled( false );
 
     settings_menu.back_button = new nanogui::Button(settings_menu.settingsMenu_window, "Return");
     settings_menu.back_button->setPosition( { half_screenWidth / 2 - half_screenWidth / 8 , 320 * scale } );
@@ -376,23 +418,9 @@ void Menu_Engine::createSettingsMenu()
         settings_menu.changeView(false);
         if (engine->getGameState() != PAUSED)
             main_menu.changeView(true);
-        else 
+        else
             pause_menu.changeView(true);
     });
-
-
-    /*new nanogui::Label(settings_menu.settingsMenu_window, "Popup buttons", "sans-bold");
-    nanogui::PopupButton *popupBtn = new nanogui::PopupButton(settings_menu.settingsMenu_window, "Popup", ENTYPO_ICON_EXPORT);
-    nanogui::Popup *popup = popupBtn->popup();
-    popup->setLayout(new nanogui::GroupLayout());
-    new nanogui::Label(popup, "Arbitrary widgets can be placed here");
-    new nanogui::CheckBox(popup, "A check box");
-    popupBtn = new nanogui::PopupButton(popup, "Recursive popup", ENTYPO_ICON_FLASH);
-    popup = popupBtn->popup();
-    popup->setLayout(new nanogui::GroupLayout());
-    new nanogui::CheckBox(popup, "Another check box");*/
-
-    /// dimensions and positions for buttons
 }
 
 void Menu_Engine::createMainMenu()
