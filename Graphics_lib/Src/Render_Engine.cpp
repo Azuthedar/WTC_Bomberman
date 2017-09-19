@@ -266,7 +266,7 @@ void Render_Engine::init()
 
     //glfwSetInputMode( window, GLFW_CURSOR, GLFW_CURSOR_DISABLED );
 
-    Render_Engine::camera = new Camera( glm::vec3( 0.0f, 5.0f, 10.0f) );
+    Render_Engine::camera = new Camera( glm::vec3( 0.0f, 5.0f, 10.f) );
     lastX = 0.0f;//this->Screen_Width / 2.0f;
     lastY = 0.0f;//this->Screen_Height / 2.0f;
 

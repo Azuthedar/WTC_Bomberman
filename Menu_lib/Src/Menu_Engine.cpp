@@ -3,6 +3,8 @@
 nanogui::Screen *Menu_Engine::base_screen = nullptr;
 MainMenu Menu_Engine::main_menu = MainMenu();
 SettingsMenu Menu_Engine::settings_menu = SettingsMenu();
+PauseMenu Menu_Engine::pause_menu = PauseMenu();
+
 
 Engine  *Menu_Engine::engine = nullptr;
 
@@ -390,12 +392,12 @@ void Menu_Engine::createMainMenu()
     main_menu.theme = new nanogui::Theme( base_screen->nvgContext() );
     main_menu.theme->mButtonFontSize = 10 * ( this->screen_height / 360 );
     main_menu.theme->mFontBold = 0;
-    main_menu.theme->mTextColor = {230, 230, 230, 255};
+    main_menu.theme->mTextColor = {200, 200, 200, 255};
     main_menu.theme->mButtonCornerRadius = 5;
-    main_menu.theme->mBorderDark = {0, 0, 0, 0};
-    main_menu.theme->mBorderLight = {0, 0, 0, 0};
-    main_menu.theme->mBorderMedium = {0, 0, 0, 0};
-    main_menu.theme->mDropShadow = {0, 0, 0, 255};
+    main_menu.theme->mBorderDark = {20, 100, 150, 10};
+    main_menu.theme->mBorderLight = {30, 150, 200, 10};
+    main_menu.theme->mBorderMedium = {25, 150, 175, 10};
+    main_menu.theme->mDropShadow = {20, 20, 20, 255};
     main_menu.theme->mWindowCornerRadius = 5;
     main_menu.theme->mWindowHeaderHeight = 20 * ( this->screen_height / 360 );
 
@@ -413,7 +415,7 @@ void Menu_Engine::createMainMenu()
 
     main_menu.start = new nanogui::Button(main_menu.mainMenu_window, "New Game");
     main_menu.start->setSize( {buttonWidth, buttonHeight} );
-    main_menu.start->setBackgroundColor( { 0, 0, 225, 255 } );
+    main_menu.start->setBackgroundColor( { 20, 100, 255, 100 } );
     main_menu.start->setPosition({posX, posY});
     main_menu.start->setTheme(main_menu.theme);
     main_menu.start->setCursor(nanogui::Cursor::Hand);
@@ -428,7 +430,7 @@ void Menu_Engine::createMainMenu()
     posY += 35 * ( this->screen_height / 360 );
     main_menu.load_game = new nanogui::Button(main_menu.mainMenu_window, "Load Game");
     main_menu.load_game->setSize({buttonWidth, buttonHeight});
-    main_menu.load_game->setBackgroundColor( { 255, 198, 0, 255 } );
+    main_menu.load_game->setBackgroundColor( { 20, 100, 255, 100 } );
     main_menu.load_game->setPosition({posX, posY});
     main_menu.load_game->setTheme(main_menu.theme);
     main_menu.load_game->setCursor(nanogui::Cursor::Hand);
@@ -436,7 +438,7 @@ void Menu_Engine::createMainMenu()
     posY += 35 * ( this->screen_height / 360 );
     main_menu.settings = new nanogui::Button(main_menu.mainMenu_window, "Settings");
     main_menu.settings->setSize({buttonWidth, buttonHeight});
-    main_menu.settings->setBackgroundColor( { 0, 225, 0, 255 } );
+    main_menu.settings->setBackgroundColor( { 20, 100, 255, 100 } );
     main_menu.settings->setPosition({posX, posY});
     main_menu.settings->setTheme(main_menu.theme);
     main_menu.settings->setCursor(nanogui::Cursor::Hand);
@@ -448,7 +450,7 @@ void Menu_Engine::createMainMenu()
     posY += 35 * ( this->screen_height / 360 );
     main_menu.exit_game = new nanogui::Button(main_menu.mainMenu_window, "EXIT");
     main_menu.exit_game->setSize({buttonWidth, buttonHeight});
-    main_menu.exit_game->setBackgroundColor( { 225, 0, 0, 255 } );
+    main_menu.exit_game->setBackgroundColor( { 20, 100, 255, 100 } );
     main_menu.exit_game->setPosition({posX, posY});
     main_menu.exit_game->setTheme(main_menu.theme);
     main_menu.exit_game->setCursor(nanogui::Cursor::Hand);
@@ -479,6 +481,74 @@ void Menu_Engine::gl_init()
 
     settings_menu.changeView(true);
     main_menu.changeView(false);
+}
+
+void Menu_Engine::createPauseMenu()
+{
+    float scale = 1.0f;
+
+    if (this->screen_height == 1080)
+        scale = 1.5f;
+
+    int half_screenWidth = this->screen_width / 5;
+    int half_screenHeight = this->screen_height / 3;
+
+    pause_menu.pauseMenu_window = new nanogui::Window( base_screen, "Pause Menu" );
+    pause_menu.pauseMenu_window->setPosition( { half_screenWidth , half_screenHeight } );
+    pause_menu.pauseMenu_window->setSize( { half_screenWidth * scale , half_screenHeight * scale } );
+    pause_menu.pauseMenu_window->setTheme( main_menu.theme );
+
+    int     posY = (half_screenHeight / 2 - half_screenHeight / 3) * scale;
+    int     buttonHeight = (20 * ( this->screen_height / 360 )) * scale;
+    int     buttonWidth = (half_screenWidth / 2) * scale;
+    int     Xoffset = half_screenWidth / 4;
+    int     posX = half_screenWidth / 2 - Xoffset;
+
+    posY *= 1.5f;
+    pause_menu.b_continue = new nanogui::Button(pause_menu.pauseMenu_window, "Continue");
+    pause_menu.b_continue->setSize( {buttonWidth, buttonHeight} );
+    pause_menu.b_continue->setBackgroundColor( { 20, 100, 255, 100 } );
+    pause_menu.b_continue->setPosition({posX, posY});
+    pause_menu.b_continue->setTheme(main_menu.theme);
+    pause_menu.b_continue->setCursor(nanogui::Cursor::Hand);
+    pause_menu.b_continue->setCallback([]{
+        engine->setGameState(GAME);
+        engine->setIsTransitioning(true);
+        engine->transitionMap();
+        pause_menu.changeView(false);
+        settings_menu.changeView(false);
+    });
+
+    posY += 60 + (this->screen_height / 360);
+    pause_menu.b_settings = new nanogui::Button(pause_menu.pauseMenu_window, "Settings");
+    pause_menu.b_settings->setSize( {buttonWidth, buttonHeight} );
+    pause_menu.b_settings->setBackgroundColor( { 20, 100, 255, 100 } );
+    pause_menu.b_settings->setPosition({posX, posY});
+    pause_menu.b_settings->setTheme(main_menu.theme);
+    pause_menu.b_settings->setCursor(nanogui::Cursor::Hand);
+    pause_menu.b_settings->setCallback([]{
+        engine->setGameState(GAME);
+        engine->setIsTransitioning(true);
+        engine->transitionMap();
+        pause_menu.changeView(false);
+        settings_menu.changeView(false);
+    });
+
+    posY += 60 + (this->screen_height / 360);
+
+    pause_menu.b_exit = new nanogui::Button(pause_menu.pauseMenu_window, "Exit");
+    pause_menu.b_exit->setSize( {buttonWidth, buttonHeight} );
+    pause_menu.b_exit->setBackgroundColor( { 20, 100, 255, 100 } );
+    pause_menu.b_exit->setPosition({posX, posY});
+    pause_menu.b_exit->setTheme(main_menu.theme);
+    pause_menu.b_exit->setCursor(nanogui::Cursor::Hand);
+    pause_menu.b_exit->setCallback([]{
+        engine->setGameState(GAME);
+        engine->setIsTransitioning(true);
+        engine->transitionMap();
+        pause_menu.changeView(false);
+        settings_menu.changeView(false);
+    });
 }
 
 void Menu_Engine::init()
@@ -526,6 +596,7 @@ void Menu_Engine::init()
 
     createMainMenu();
     createSettingsMenu();
+    createPauseMenu();
 
     settings_menu.res_720->setEnabled( false );
     settings_menu.changeView(false);
@@ -556,7 +627,7 @@ int Menu_Engine::update( Engine &engine )
     if ( base_screen->visible() == false )
         base_screen->setVisible(true);
 
-    if ((engine.getGameState() == MENU || engine.getGameState() == PAUSED) && main_menu.mainMenu_window->visible() == false)
+/*     if ((engine.getGameState() == MENU || engine.getGameState() == PAUSED) && main_menu.mainMenu_window->visible() == false)
     {
         main_menu.changeView(true);
     }
@@ -567,7 +638,7 @@ int Menu_Engine::update( Engine &engine )
         engine.getPlayer().setIsPaused(false);
         engine.setGameState(GAME);
     }
-
+ */
     if ( settings_menu.res_change == true )
     {
         change_val = 1;

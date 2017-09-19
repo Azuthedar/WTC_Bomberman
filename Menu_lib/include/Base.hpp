@@ -41,6 +41,22 @@
 
 #include <iostream>
 
+struct PauseMenu
+{
+    nanogui::Window *pauseMenu_window = nullptr;
+    nanogui::Button *b_continue = nullptr;
+    nanogui::Button *b_settings = nullptr;
+    nanogui::Button *b_exit = nullptr;
+
+    PauseMenu() = default;
+
+        void    changeView(bool value)
+        {
+            if (pauseMenu_window != nullptr)
+                pauseMenu_window->setVisible(value);
+        }
+};
+
 struct  MainMenu
 {
     nanogui::Window  *mainMenu_window = nullptr;
