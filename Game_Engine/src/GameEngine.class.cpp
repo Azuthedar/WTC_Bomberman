@@ -91,11 +91,6 @@ void Engine::transitionMap()
 
 void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 {
-	if (this->_player.getIsPaused() == true)
-	{
-		this->_gameState = PAUSED;
-	}
-
 	if (this->_gameState == GAME)
 	{
 		if (this->_mapDuration <= 0)
@@ -138,6 +133,10 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 			this->ticker( delta_time );
 			this->shouldTransition();
 
+			if (this->_player.getIsPaused() == true && this->_gameState != PAUSED)
+			{
+				this->_gameState = PAUSED;
+			}
 		}
 		else
 			this->transitionMap();

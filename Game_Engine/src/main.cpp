@@ -36,12 +36,16 @@ int main()
 
 			if ( deltaTime >= maxPeriod )
 			{
-				glClearColor(0.2f, 0.25f, 0.3f, 1.0f);
-				glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+				engine.gameLogic( menu.GetWindow(), deltaTime );
+				if (engine.getGameState() != PAUSED)
+				{
+					
+					glClearColor(0.2f, 0.25f, 0.3f, 1.0f);
+					glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+				}
 
 				glfwPollEvents();
 
-				engine.gameLogic( menu.GetWindow(), deltaTime );
 				if (!menu.check_status())
 				{
 					render.Create_Components( engine, deltaTime );
