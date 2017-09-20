@@ -157,7 +157,19 @@ void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
         model = glm::translate( model, tmp[count]->GetPosition() );
 
         //if (tmp[count]->GetName().compare(""))
-        model = glm::rotate( model, (GLfloat)glfwGetTime() * tmp[count]->GetDegres(), glm::vec3( 0.5f, 1.0f, 0.0f ) );
+
+        int dir = tmp[count]->GetDirection();
+        if ( dir == 0  ) //up
+            model = glm::rotate( model, (GLfloat)0, glm::vec3( 0.0f, 1.0f, 0.0f ) );
+        else if ( dir == 1 ) //right
+            model = glm::rotate( model, (GLfloat)-1.7, glm::vec3( 0.0f, 1.0f, 0.0f ) );
+        else if ( dir == 2 ) //down
+            model = glm::rotate( model, (GLfloat)-3.2, glm::vec3( 0.0f, 1.0f, 0.0f ) );
+        else if ( dir == 3 ) //left
+            model = glm::rotate( model, (GLfloat)1.7, glm::vec3( 0.0f, 1.0f, 0.0f ) );
+        else
+            model = glm::rotate( model, (GLfloat)glfwGetTime() * tmp[count]->GetDegres(), glm::vec3( 0.5f, 1.0f, 0.0f ) );
+
         //else if ()
         //  model = glm::rotate( model, tmp[count]->GetDegres(), glm::vec3( 0.5f, 1.0f, 0.0f ) );
         //else
@@ -169,7 +181,6 @@ void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
         shader.load_matrix( this->modelLoc, model_matrix );
         //shader.load_matrix( this->ScaleLoc, scel );
 
-        //sleep(10000);
         ip.Draw();
 
         /*glBindVertexArray( ip.GetModel().GetVAO() );

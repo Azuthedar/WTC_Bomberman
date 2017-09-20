@@ -126,63 +126,63 @@ void Render_Engine::Create_Components( Engine &engine, GLfloat &tmp_delta_time )
         //std::cout << frame << " TTST" << std::endl;
     }
 
-    this->components.push_back( new Component( "Player" , *this->player_models[frame], 0.0f, 0.0f, 0.0f, 0.0f, 0.35f, glm::vec3( engine.getPlayer().getXPos() * 2 , 0.0f, engine.getPlayer().getYPos() * 2 ), 0)  );
+    this->components.push_back( new Component( "Player" , *this->player_models[frame], 0.0f, engine.getPlayer().getDir(), 0.35f, glm::vec3( engine.getPlayer().getXPos() * 2 , 0.0f, engine.getPlayer().getYPos() * 2 ), 0)  );
 
     for (size_t i = 0; i < engine.getPlayer().getBombVector().size(); i++)
   	{
-        this->components.push_back( new Component( "Bomb", *this->models[0], 0.0f, 0.0f, 0.0f, 0.0f, 2.5f, glm::vec3( engine.getPlayer().getBombVector()[i].getXPos() * 2 , 1.0f, engine.getPlayer().getBombVector()[i].getYPos() * 2 ), 0)  );
+        this->components.push_back( new Component( "Bomb", *this->models[0], 0.0f, -1, 2.5f , glm::vec3( engine.getPlayer().getBombVector()[i].getXPos() * 2 , 1.0f, engine.getPlayer().getBombVector()[i].getYPos() * 2 ), 0)  );
     }
 
     for (int y = 1; y < MAP_Y; y++)
     {
         for (int x = 0; x < MAP_X; x++)
         {
-            this->components.push_back( new Component("Plane", *this->models[6], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( x * 2.0f, 0.0f, y * 2.0f ), 0)  );
+            this->components.push_back( new Component("Plane", *this->models[6], 0.0f, -1, 1.0f, glm::vec3( x * 2.0f, 0.0f, y * 2.0f ), 0)  );
         }
     }
 
   	for (size_t i = 0; i < engine.getWallVector().size(); i++)
   	{
         if (engine.getWallVector()[i].getBlockType() == SOLID_BLOCK)
-            this->components.push_back( new Component("Wall", *this->models[2], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( engine.getWallVector()[i].getXPos() * 2.0f, 1.0f, engine.getWallVector()[i].getYPos() * 2.0f ), 0)  );
+            this->components.push_back( new Component("Wall", *this->models[2], 0.0f, -1, 1.0f, glm::vec3( engine.getWallVector()[i].getXPos() * 2.0f, 1.0f, engine.getWallVector()[i].getYPos() * 2.0f ), 0)  );
         else if (engine.getWallVector()[i].getBlockType() == DESTRUCTIBLE_BLOCK || engine.getWallVector()[i].getBlockType() == GATE)
-            this->components.push_back( new Component("Destructibe_Wall", *this->models[2], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( engine.getWallVector()[i].getXPos() * 2.0f, 1.0f, engine.getWallVector()[i].getYPos() * 2.0f ), 5)  );
+            this->components.push_back( new Component("Destructibe_Wall", *this->models[2], 0.0f, -1, 1.0f, glm::vec3( engine.getWallVector()[i].getXPos() * 2.0f, 1.0f, engine.getWallVector()[i].getYPos() * 2.0f ), 5)  );
   	}
 
   	for (size_t i = 0; i < engine.getEnemyVector().size(); i++)
     {
         if ( engine.getEnemyVector()[i].getType() == BUG)
-            this->components.push_back( new Component("Enemy", *this->models[1], 0.0f, 0.0f, 0.0f, 0.0f, 0.55f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , 1.0f, engine.getEnemyVector()[i].getYPos() * 2 ), 0)  );
+            this->components.push_back( new Component("Enemy", *this->models[1], 0.0f, engine.getEnemyVector()[i].getDir(), 0.55f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , 1.0f, engine.getEnemyVector()[i].getYPos() * 2 ), 0)  );
         else if ( engine.getEnemyVector()[i].getType() == ROBOT)
-            this->components.push_back( new Component("Enemy", *this->models[3], 0.0f, 0.0f, 0.0f, 0.0f, 0.55f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , 1.0f, engine.getEnemyVector()[i].getYPos() * 2 ), 0)  );
+            this->components.push_back( new Component("Enemy", *this->models[3], 0.0f, engine.getEnemyVector()[i].getDir(), 0.55f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , 1.0f, engine.getEnemyVector()[i].getYPos() * 2 ), 0)  );
   	}
 
     if (engine.getGate().getExists() && engine.getGate().getIsLocked())
     {
-        this->components.push_back( new Component("Locked_Gate", *this->models[4], 0.0f, 0.0f, 0.0f, 0.0f, 2.0f, glm::vec3( engine.getGate().getXPos() * 2.0f, 0.1f, engine.getGate().getYPos() * 2.0f ), 0)  );
+        this->components.push_back( new Component("Locked_Gate", *this->models[4], 0.0f, -1, 2.0f, glm::vec3( engine.getGate().getXPos() * 2.0f, 0.1f, engine.getGate().getYPos() * 2.0f ), 0)  );
     }
     else if (engine.getGate().getExists() && !engine.getGate().getIsLocked())
     {
-        this->components.push_back( new Component("Unlocked_Gate", *this->models[5], 0.0f, 0.0f, 0.0f, 0.0f, 2.0f, glm::vec3( engine.getGate().getXPos() * 2.0f, 0.1f, engine.getGate().getYPos() * 2.0f ), 0)  );
+        this->components.push_back( new Component("Unlocked_Gate", *this->models[5], 0.0f, -1, 2.0f, glm::vec3( engine.getGate().getXPos() * 2.0f, 0.1f, engine.getGate().getYPos() * 2.0f ), 0)  );
     }
 
     for (size_t i = 0; i < engine.getPowerupVector().size(); i++)
   	{
 		if (engine.getPowerupVector()[i].getTypePowerup() == POW_LIFE)
 		{
-            this->components.push_back( new Component("Pow_Life", *this->models[2], -2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ), 2)  );
+            this->components.push_back( new Component("Pow_Life", *this->models[2], -2.0f, -1, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ), 2)  );
 		}
 		else if (engine.getPowerupVector()[i].getTypePowerup() == POW_BOMBS)
 		{
-			this->components.push_back( new Component("Pow_Bomb", *this->models[2], 2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ), 1)  );
+			this->components.push_back( new Component("Pow_Bomb", *this->models[2], 2.0f, -1, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ), 1)  );
 		}
 		else if (engine.getPowerupVector()[i].getTypePowerup() == POW_SPEED)
 		{
-			this->components.push_back( new Component("Pow_Speed", *this->models[2], -2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ), 4)  );
+			this->components.push_back( new Component("Pow_Speed", *this->models[2], -2.0f, -1, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ), 4)  );
 		}
 		else if (engine.getPowerupVector()[i].getTypePowerup() == POW_RANGE)
 		{
-            this->components.push_back( new Component("Pow_Range", *this->models[2], 2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ), 3)  );
+            this->components.push_back( new Component("Pow_Range", *this->models[2], 2.0f, -1, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ), 3)  );
 		}
   	}
 

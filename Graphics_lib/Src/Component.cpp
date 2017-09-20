@@ -21,13 +21,11 @@ GLfloat Component::GetDegres() const
     return (this->Degres);
 }
 
-Component::Component( const std::string &tmp_Name, Model const &tmp_model, GLfloat const &Degres, GLfloat const &rot_x, GLfloat const &rot_y, GLfloat const &rot_z, GLfloat const &tmp_scale, glm::vec3 const &tmp_pos, int tmp_textureIndex )
+Component::Component( const std::string &tmp_Name, Model const &tmp_model, GLfloat const &Degres, GLint const &tmp_dir, GLfloat const &tmp_scale, glm::vec3 const &tmp_pos, int tmp_textureIndex )
 {
     this->model = tmp_model;
-    this->Rotation_x = rot_x;
-    this->Rotation_y = rot_y;
-    this->Rotation_z = rot_z;
     this->Scale = tmp_scale;
+    this->direction = tmp_dir;
     this->position = tmp_pos;
     this->Degres = Degres;
     this->Name = tmp_Name;
@@ -61,13 +59,6 @@ void Component::Calculate_Offset( int const &total_rows )
 
 }
 
-void Component::inc_rotation( GLfloat const &tmp_x, GLfloat const &tmp_y, GLfloat const &tmp_z )
-{
-    this->Rotation_x += tmp_x;
-    this->Rotation_y += tmp_y;
-    this->Rotation_z += tmp_z;
-}
-
 void Component::inc_position( GLfloat const &tmp_x, GLfloat const &tmp_y, GLfloat const &tmp_z )
 {
     this->position.x += tmp_x;
@@ -82,37 +73,20 @@ void Component::dec_position( GLfloat const &tmp_x, GLfloat const &tmp_y, GLfloa
     this->position.z -= tmp_z;
 }
 
-void Component::dec_rotation( GLfloat const &tmp_x, GLfloat const &tmp_y, GLfloat const &tmp_z )
-{
-    this->Rotation_x -= tmp_x;
-    this->Rotation_y -= tmp_y;
-    this->Rotation_z -= tmp_z;
-}
-
 void Component::SetModel( Model const &tmp_model )
 {
     this->model = tmp_model;
 }
 
-void Component::SetRotX( GLfloat const &rot_x )
-{
-    this->Rotation_x = rot_x;
-}
-
-void Component::SetRotY( GLfloat const &rot_y )
-{
-
-    this->Rotation_y = rot_y;
-}
 
 void Component::SetTextureIndex( int const &tmp_textureIndex )
 {
     this->texture_index = tmp_textureIndex;
 }
 
-void Component::SetRotZ( GLfloat const &rot_z )
+void Component::SetDirection( GLint &tmp_dir)
 {
-    this->Rotation_z = rot_z;
+    this->direction = tmp_dir;
 }
 
 void Component::SetScale( GLfloat const &tmp_scale )
@@ -130,24 +104,14 @@ Model Component::GetModel( ) const
     return (this->model);
 }
 
-GLfloat Component::GetRotX( ) const
-{
-    return (this->Rotation_x);
-}
-
 int Component::GetTextureIndex() const
 {
     return (this->texture_index);
 }
 
-GLfloat Component::GetRotY( ) const
+GLint Component::GetDirection() const
 {
-    return (this->Rotation_y);
-}
-
-GLfloat Component::GetRotZ( ) const
-{
-    return (this->Rotation_z);
+    return (this->direction);
 }
 
 GLfloat Component::GetScale( ) const
