@@ -211,43 +211,6 @@ void    Config::updateFile(Player & player, size_t & mapLevel, Sound & sound)
 		this->throwFileFailedDelete();
 }
 
-void	Config::configUpdater(glm::vec2 values, eConfig configVal)
-{
-	switch (configVal)
-	{
-		case CNF_RESOLUTION:
-			this->_resX = values.x;
-			this->_resY = values.y;
-			break ;
-		case CNF_SFXVOL:
-			this->_SFXVolume = values.x;
-			break ;
-		case CNF_MUSCVOL:
-			this->_musicVolume = values.x;
-			break ;
-		case CNF_KBUP:
-			this->_KBmoveUp = values.x;
-			break ;
-		case CNF_KBLEFT:
-			this->_KBmoveLeft = values.x;
-			break ;
-		case CNF_KBRIGHT:
-			this->_KBmoveRight = values.x;
-			break ;
-		case CNF_KBDOWN:
-			this->_KBmoveDown = values.x;
-			break ;
-		case CNF_KBPLACE:
-			this->_KBplaceBomb = values.x;
-			break ;
-		case CNF_KBPAUSE:
-			this->_KBpause = values.x;
-			break ;
-		default:
-			break ;
-	}
-}
-
 void	Config::setMapLevel(int mapLevel) 			{this->_mapLevel = mapLevel;}
 void    Config::setBombLevel(int bombLevel)     	{this->_bombLevel = bombLevel;}
 void    Config::setRangeLevel(int rangeLevel)   	{this->_rangeLevel = rangeLevel;}
