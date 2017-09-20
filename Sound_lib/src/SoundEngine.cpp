@@ -45,7 +45,7 @@ void	Sound::playMusic()
 	}
 }
 
-/*void    Sound::playSound(eSound & sound, eSound & playerSound, eGamestate & gameState, bool & configUpdated, bool & transition)
+void    Sound::playSound(eSound & sound, eSound & playerSound, eGamestate & gameState, bool & configUpdated, bool & transition)
 {
 	static int i = 0;
 	static bool menuHasPlayed = false;
@@ -130,7 +130,7 @@ void	Sound::playMusic()
 	if (i > 1000)
 		i = 0;
 	i++;
-}*/
+}
 
 void	Sound::changeVolume()
 {

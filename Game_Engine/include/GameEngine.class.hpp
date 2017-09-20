@@ -31,6 +31,7 @@ class Engine
 		void						setMapEnd(bool mapEnd);
 		void						setGameState(eGamestate state);
 		void						setIsTransitioning(bool transition);
+		void						setMapLevel(size_t mapLevel);
 
 		std::vector<char> &			getMapValues();
 		std::vector<Wall> &			getWallVector();
@@ -45,6 +46,7 @@ class Engine
 		Config &					getConfig();
 		eGamestate &				getGameState();
 		Sound &						getSound();
+		size_t &						getMapLevel();
 
 	private:
 

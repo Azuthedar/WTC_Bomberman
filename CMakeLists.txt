@@ -9,7 +9,7 @@ set(PLATFORM ${CMAKE_SYSTEM_NAME})
 
 message("Detected Platform ${PLATFORM}")
 
-if (UNIX)
+if (WIN32)
 
     message("UNIX")
     set(LIB_PATH "/usr")

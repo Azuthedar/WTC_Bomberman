@@ -16,7 +16,6 @@ class Config: public Exceptions
 		~Config();
 
 		void	defaultInit(Player & player, Sound & sound);
-		void	reset(Player & player, Sound & sound);
 		void	readFile();
 		bool	checkSyntax(); // True will be correct syntax
 		void	parseFile(Player & player, Sound & sound);
@@ -79,4 +78,6 @@ class Config: public Exceptions
 		int				_KBpause;
 
 		bool			_configUpdated;
+		bool			_shouldUpdate;
+		bool			_shouldReset;
 	};

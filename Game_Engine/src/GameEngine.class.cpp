@@ -116,7 +116,6 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 			}
 			if (this->_player.getLives() <= 0)
 			{
-				this->_config.reset(this->_player, this->_sound);
 				this->_mapLevel = 0;
 				this->_gameState = MENU;
 				//Make player transition to main menu
@@ -142,7 +141,7 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 		else
 			this->transitionMap();
 	}
-	//this->_sound.playSound(this->_soundEnum, this->_player.getSoundEnum(), this->_gameState, this->_config.getConfigUpdated(), this->_transition);
+	this->_sound.playSound(this->_soundEnum, this->_player.getSoundEnum(), this->_gameState, this->_config.getConfigUpdated(), this->_transition);
 
 }
 
@@ -300,6 +299,7 @@ void	Engine::chainReaction()
 void						Engine::setMapEnd(bool mapEnd)	{this->_mapEnd = mapEnd;}
 void						Engine::setGameState(eGamestate state) {this->_gameState = state;}
 void						Engine::setIsTransitioning(bool transition) {this->_isTransitioning = transition;}
+void						Engine::setMapLevel(size_t maplevel)		{this->_mapLevel = maplevel;}
 
 std::vector<char> &			Engine::getMapValues()			{return (this->_mapValues);}
 Player & 					Engine::getPlayer() 			{return (this->_player);}
@@ -312,3 +312,4 @@ std::vector<Powerup> &		Engine::getPowerupVector()		{return (this->_powerupVecto
 Config &					Engine::getConfig()				{return (this->_config);}
 eGamestate &				Engine::getGameState()			{return (this->_gameState);}
 Sound &						Engine::getSound()				{return (this->_sound);}
+size_t &					Engine::getMapLevel()			{return (this->_mapLevel);}
