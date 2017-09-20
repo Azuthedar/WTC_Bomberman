@@ -21,7 +21,7 @@ GLfloat Component::GetDegres() const
     return (this->Degres);
 }
 
-Component::Component( const std::string &tmp_Name, Model const &tmp_model, GLfloat const &Degres, GLint const &tmp_dir, GLfloat const &tmp_scale, glm::vec3 const &tmp_pos, int tmp_textureIndex )
+Component::Component( const std::string &tmp_Name, Model *tmp_model, GLfloat const &Degres, GLint const &tmp_dir, GLfloat const &tmp_scale, glm::vec3 const &tmp_pos, int tmp_textureIndex )
 {
     this->model = tmp_model;
     this->Scale = tmp_scale;
@@ -31,7 +31,7 @@ Component::Component( const std::string &tmp_Name, Model const &tmp_model, GLflo
     this->Name = tmp_Name;
     this->texture_index = tmp_textureIndex;
 
-    Calculate_Offset( tmp_model.GetNumRows() );
+    Calculate_Offset( tmp_model->GetNumRows() );
 }
 
 glm::vec2 Component::GetOffsets() const
@@ -73,7 +73,7 @@ void Component::dec_position( GLfloat const &tmp_x, GLfloat const &tmp_y, GLfloa
     this->position.z -= tmp_z;
 }
 
-void Component::SetModel( Model const &tmp_model )
+void Component::SetModel( Model *tmp_model )
 {
     this->model = tmp_model;
 }
@@ -99,7 +99,7 @@ void Component::SetPosition( glm::vec3 const &tmp_position )
     this->position = tmp_position;
 }
 
-Model Component::GetModel( ) const
+Model *Component::GetModel( ) const
 {
     return (this->model);
 }

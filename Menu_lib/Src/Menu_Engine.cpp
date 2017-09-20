@@ -166,20 +166,17 @@ void Menu_Engine::createSettingsMenu()
 
 
     //Slider
-    tmp_label = new nanogui::Label(settings_menu.settingsMenu_window, "Volume:", "sans-bold", 30);
-    tmp_label->setPosition( { 20 * scale, 140 * scale } );
-    tmp_label->setSize( { 120 * scale, 20 * scale } );
+    tmp_label = new nanogui::Label(settings_menu.settingsMenu_window, "Music Volume:", "sans-bold", 30);
+    tmp_label->setPosition( { 20 * scale, 160 * scale } );
+    tmp_label->setSize( { 155 * scale, 20 * scale } );
     tmp_label->setColor({255, 255, 255, 255});
 
     settings_menu.vol_slider = new nanogui::Slider(settings_menu.settingsMenu_window);
-    settings_menu.vol_slider->setPosition( { 10 * scale, 165 * scale } );
+    settings_menu.vol_slider->setPosition( { 10 * scale, 185 * scale } );
     settings_menu.vol_slider->setSize( { 350 * scale, 30 * scale } );
 
-    std::pair<float, float> range( 0.0f, 100.0f);
-    settings_menu.vol_slider->setRange( range );
-
-    std::pair<float, float> highlightedRange( 0.0f, 100.0f );
-    settings_menu.vol_slider->setHighlightedRange( highlightedRange );
+    settings_menu.vol_slider->setRange( std::make_pair( 0.0f, 100.0f ) );
+    settings_menu.vol_slider->setHighlightedRange( std::make_pair( 0.0f, 100.0f ) );
 
     settings_menu.vol_slider->setHighlightColor( { 245, 76, 282, 255} );
 
@@ -193,27 +190,59 @@ void Menu_Engine::createSettingsMenu()
         textBox->setValue(std::to_string((int) ( value )));
     });
     settings_menu.vol_slider->setFinalCallback([&](float value) {
+        engine->getConfig().setMusicVolume( value );
         std::cout << "Final slider value: " << (int) (value ) << std::endl;
     });
     textBox->setFontSize(20 * scale);
-    textBox->setPosition( { 450 * scale,165 * scale} );
+    textBox->setPosition( { 450 * scale, 185 * scale} );
 
+
+    //Slider
+    tmp_label = new nanogui::Label(settings_menu.settingsMenu_window, "SFX Volume:", "sans-bold", 30);
+    tmp_label->setPosition( { 20 * scale, 230 * scale } );
+    tmp_label->setSize( { 130 * scale, 20 * scale } );
+    tmp_label->setColor({255, 255, 255, 255});
+
+    settings_menu.sfx_volume = new nanogui::Slider(settings_menu.settingsMenu_window);
+    settings_menu.sfx_volume->setPosition( { 10 * scale, 255 * scale } );
+    settings_menu.sfx_volume->setSize( { 350 * scale, 30 * scale } );
+
+    settings_menu.sfx_volume->setRange( std::make_pair( 0.0f, 100.0f ) );
+    settings_menu.sfx_volume->setHighlightedRange( std::make_pair( 0.0f, 100.0f ) );
+
+    settings_menu.sfx_volume->setHighlightColor( { 245, 76, 282, 255} );
+
+    settings_menu.sfx_volume->setValue( 50.0f );
+
+    nanogui::TextBox *textBox_2 = new nanogui::TextBox( settings_menu.settingsMenu_window );
+    textBox_2->setSize( { 120 * scale, 30 * scale} );
+    textBox_2->setValue("50");
+    textBox_2->setUnits("%");
+    settings_menu.sfx_volume->setCallback([textBox_2](float value) {
+        textBox_2->setValue(std::to_string((int) ( value )));
+    });
+    settings_menu.sfx_volume->setFinalCallback([&](float value) {
+        engine->getConfig().setSFXVolume( value );
+        std::cout << "Final slider value: " << (int) (value ) << std::endl;
+    });
+    textBox_2->setFontSize(20 * scale);
+    textBox_2->setPosition( { 450 * scale,255 * scale} );
 
     //Key Binds
     tmp_label = new nanogui::Label(settings_menu.settingsMenu_window, "Key Binds:", "sans-bold", 30);
-    tmp_label->setPosition( { 20 * scale, 210 * scale } );
+    tmp_label->setPosition( { 450 * scale, 50 * scale } );
     tmp_label->setSize( { 110 * scale, 20 * scale } );
     tmp_label->setColor({255, 255, 255, 255});
 
 
     settings_menu.KeyBinds = new nanogui::PopupButton(settings_menu.settingsMenu_window, "Key Binds" );
-    settings_menu.KeyBinds->setPosition( { 20 * scale, 240 * scale } );
+    settings_menu.KeyBinds->setPosition( { 450 * scale, 85 * scale } );
     settings_menu.KeyBinds->setSize( { 130 * scale , 30 * scale } );
     settings_menu.KeyBinds->setBackgroundColor( { 20, 100, 255, 100 } );
 
     settings_menu.keybind_popup = settings_menu.KeyBinds->popup();
-    settings_menu.keybind_popup->setSize( { 320 * scale, 320 * scale } );
-    settings_menu.keybind_popup->setAnchorPos( { 180 * scale, 230 * scale } );
+    settings_menu.keybind_popup->setSize( { 320 * scale, 270 * scale } );
+    settings_menu.keybind_popup->setAnchorPos( { 550 * scale, 100 * scale } );
 
     std::cout << "LETS HP " << settings_menu.keybind_popup->anchorPos()[0] << " " << settings_menu.keybind_popup->anchorPos()[0] << std::endl;
 
@@ -674,7 +703,7 @@ int Menu_Engine::update( Engine &engine )
 
     if ( base_screen->visible() == false )
         base_screen->setVisible(true);
-    
+
     if (engine.getGameState() == MENU && engine.getConfig().getMapLevel() > 0)
         main_menu.load_game->setEnabled(true);
     else if (engine.getGameState() == MENU && engine.getConfig().getMapLevel() == 0 )

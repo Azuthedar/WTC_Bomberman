@@ -121,7 +121,7 @@ void Render::Render_Skybox( Skybox_s &data, Shaders &shader)
 
 void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
 {
-    Model ip;
+    Model *ip = nullptr;
 
     for ( unsigned int count = 0; count < tmp.size(); count++)
     {
@@ -145,7 +145,7 @@ void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
         shader.load_matrix( this->projLoc, this->projection );
         shader.load_matrix( this->viewLoc, this->view_matrix );
 
-        shader.load_float( this->RowLoc, ip.GetNumRows() );
+        shader.load_float( this->RowLoc, ip->GetNumRows() );
         shader.load_vec2( this->OffsetLoc, tmp[count]->GetOffsets() );
 
         shader.load_vect( this->lightLoc, tmp_light_pos );
@@ -181,7 +181,7 @@ void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
         shader.load_matrix( this->modelLoc, model_matrix );
         //shader.load_matrix( this->ScaleLoc, scel );
 
-        ip.Draw();
+        ip->Draw();
 
         /*glBindVertexArray( ip.GetModel().GetVAO() );
 

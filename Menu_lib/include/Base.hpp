@@ -84,6 +84,7 @@ struct  SettingsMenu
     nanogui::Button  *back_button = nullptr;
 
     nanogui::Slider  *vol_slider = nullptr;
+    nanogui::Slider  *sfx_volume = nullptr;
 
     nanogui::PopupButton *KeyBinds = nullptr;
     nanogui::Popup *keybind_popup = nullptr;
