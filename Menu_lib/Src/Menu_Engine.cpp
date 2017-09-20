@@ -415,6 +415,7 @@ void Menu_Engine::createSettingsMenu()
     settings_menu.back_button->setBackgroundColor( { 20, 100, 255, 100 } );
     settings_menu.back_button->setTheme( settings_menu.theme );
     settings_menu.back_button->setCallback([]{
+        engine->getConfig().updateFile(engine->getPlayer(), engine->getMapLevel(), engine->getSound());
         settings_menu.changeView(false);
         if (engine->getGameState() != PAUSED)
             main_menu.changeView(true);

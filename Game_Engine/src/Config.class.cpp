@@ -125,12 +125,15 @@ void    Config::parseFile(Player & player, Sound & sound)
 		this->_musicVolume = std::stoi(this->_fileBuffer[CNF_MUSCVOL].substr(this->_fileBuffer[CNF_MUSCVOL].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_MUSCVOL].length() - 1));
 
 		// KEYBINDINGS DATA
-		this->_KBmoveUp = std::stoi(this->_fileBuffer[CNF_KBUP].substr(this->_fileBuffer[CNF_KBUP].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_KBUP].length() - 1));
-		this->_KBmoveLeft = std::stoi(this->_fileBuffer[CNF_KBLEFT].substr(this->_fileBuffer[CNF_KBLEFT].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_KBLEFT].length() - 1));
-		this->_KBmoveRight = std::stoi(this->_fileBuffer[CNF_KBRIGHT].substr(this->_fileBuffer[CNF_KBRIGHT].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_KBRIGHT].length() - 1));
-		this->_KBmoveDown = std::stoi(this->_fileBuffer[CNF_KBDOWN].substr(this->_fileBuffer[CNF_KBDOWN].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_KBDOWN].length() - 1));
-		this->_KBplaceBomb = std::stoi(this->_fileBuffer[CNF_KBPLACE].substr(this->_fileBuffer[CNF_KBPLACE].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_KBPLACE].length() - 1));
-		this->_KBpause = std::stoi(this->_fileBuffer[CNF_KBPAUSE].substr(this->_fileBuffer[CNF_KBPAUSE].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_KBPAUSE].length() - 1));
+		if (!this->_configUpdated)
+		{
+			this->_KBmoveUp = std::stoi(this->_fileBuffer[CNF_KBUP].substr(this->_fileBuffer[CNF_KBUP].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_KBUP].length() - 1));
+			this->_KBmoveLeft = std::stoi(this->_fileBuffer[CNF_KBLEFT].substr(this->_fileBuffer[CNF_KBLEFT].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_KBLEFT].length() - 1));
+			this->_KBmoveRight = std::stoi(this->_fileBuffer[CNF_KBRIGHT].substr(this->_fileBuffer[CNF_KBRIGHT].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_KBRIGHT].length() - 1));
+			this->_KBmoveDown = std::stoi(this->_fileBuffer[CNF_KBDOWN].substr(this->_fileBuffer[CNF_KBDOWN].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_KBDOWN].length() - 1));
+			this->_KBplaceBomb = std::stoi(this->_fileBuffer[CNF_KBPLACE].substr(this->_fileBuffer[CNF_KBPLACE].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_KBPLACE].length() - 1));
+			this->_KBpause = std::stoi(this->_fileBuffer[CNF_KBPAUSE].substr(this->_fileBuffer[CNF_KBPAUSE].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_KBPAUSE].length() - 1));
+		}
 
 		this->_configUpdated = true;
 		sound.setSFXVolume(this->_SFXVolume);
@@ -202,6 +205,7 @@ void    Config::updateFile(Player & player, size_t & mapLevel, Sound & sound)
 
 
 		configFile.close();
+		this->parseFile(player, sound);
 	}
 	else
 		this->throwFileFailedDelete();
