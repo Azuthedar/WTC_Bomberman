@@ -20,6 +20,7 @@ Sound::Sound()
 	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/GateUnlocked.wav")); // GATE UNLOCKED
 	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/gateFound.wav")); // GATE FOUND
 	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/Menu.wav")); // MAIN MENU
+	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/Victory.wav")); // VICTORY
 
 	this->_SFXVolume = 100;
 	this->_musicVolume = 100;
@@ -45,7 +46,7 @@ void	Sound::playMusic()
 	}
 }
 
-/*void    Sound::playSound(eSound & sound, eSound & playerSound, eGamestate & gameState, bool & configUpdated, bool & transition)
+void    Sound::playSound(eSound & sound, eSound & playerSound, eGamestate & gameState, bool & configUpdated, bool & transition)
 {
 	static int i = 0;
 	static bool menuHasPlayed = false;
@@ -86,51 +87,47 @@ void	Sound::playMusic()
 	}
 	else if (sound == SND_LVLCOMPLETE)
 	{
-		if ( Mix_PlayChannel(1, this->_waveVector[SND_LVLCOMPLETE], 0) == -1)
-			std::cerr << "FAILED TO PLAY SOUND: LVL COMPLETE" << std::endl; // CREATE EXCEPTION
+		Mix_PlayChannel(1, this->_waveVector[SND_LVLCOMPLETE], 0);
 	}
 	else if (sound == SND_GATEUNLOCKED)
 	{
-		if ( Mix_PlayChannel(1, this->_waveVector[SND_GATEUNLOCKED], 0) == -1)
-			std::cerr << "FAILED TO PLAY SOUND: LVL COMPLETE" << std::endl; // CREATE EXCEPTION
+		Mix_PlayChannel(1, this->_waveVector[SND_GATEUNLOCKED], 0);
 	}
 	else if (sound == SND_GATEFOUND)
 	{
-		if (Mix_PlayChannel(1, this->_waveVector[SND_GATEFOUND], 0) == -1)
-			std::cerr << "FAILED TO PLAY SOUND: GATE FOUND" << std::endl;
+		Mix_PlayChannel(1, this->_waveVector[SND_GATEFOUND], 0);
 	}
 	else if (playerSound == SND_DEATH)
 	{
-		if ( Mix_PlayChannel(-1, this->_waveVector[SND_DEATH], 0) == -1)
-			std::cerr << "FAILED TO PLAY SOUND: DEATH" << std::endl; // CREATE EXCEPTION
+		Mix_PlayChannel(-1, this->_waveVector[SND_DEATH], 0);
 	}
 	else if (sound == SND_EXPLOSION)
 	{
-		if ( Mix_PlayChannel(-1, this->_waveVector[SND_EXPLOSION], 0) == -1)
-			std::cerr << "FAILED TO PLAY SOUND: EXPLOSION" << std::endl; // CREATE EXCEPTION
+		Mix_PlayChannel(-1, this->_waveVector[SND_EXPLOSION], 0);
 	}
 	else if (playerSound == SND_BOMBPLACE)
 	{
-		if ( Mix_PlayChannel(-1, this->_waveVector[SND_BOMBPLACE], 0) == -1)
-			std::cerr << "FAILED TO PLAY SOUND: BOMB PLACE" << std::endl; // CREATE EXCEPTION
+		Mix_PlayChannel(-1, this->_waveVector[SND_BOMBPLACE], 0);
 	}
 	else if (playerSound == SND_POWERUP)
 	{
-		if ( Mix_PlayChannel(-1, this->_waveVector[SND_POWERUP], 0) == -1)
-			std::cerr << "FAILED TO PLAY SOUND: FOOTSTEP" << std::endl; // CREATE EXCEPTION
+		Mix_PlayChannel(-1, this->_waveVector[SND_POWERUP], 0);
 	}
 	else if (playerSound == SND_FOOTSTEP && i % 10 == 0)
 	{
 		i = 0;
-		if ( Mix_PlayChannel(-1, this->_waveVector[SND_FOOTSTEP], 0) == -1)
-			std::cerr << "FAILED TO PLAY SOUND: FOOTSTEP" << std::endl; // CREATE EXCEPTION
+		Mix_PlayChannel(-1, this->_waveVector[SND_FOOTSTEP], 0);
+	}
+	else if (sound == SND_VICTORY)
+	{
+		Mix_PlayChannel(1, this->_waveVector[SND_VICTORY], 0);
 	}
 	sound = SND_DEFAULT;
 	playerSound = SND_DEFAULT;
 	if (i > 1000)
 		i = 0;
 	i++;
-}*/
+}
 
 void	Sound::changeVolume()
 {
@@ -144,6 +141,7 @@ void	Sound::changeVolume()
 	Mix_VolumeChunk(this->_waveVector[SND_GATEUNLOCKED], this->_SFXVolume * 1.1f);
 	Mix_VolumeChunk(this->_waveVector[SND_GATEFOUND], this->_SFXVolume * 0.9f);
 	Mix_VolumeChunk(this->_waveVector[SND_MENU], this->_musicVolume * 0.6f);
+	Mix_VolumeChunk(this->_waveVector[SND_VICTORY], this->_musicVolume * 1.2f);
 }
 
 
