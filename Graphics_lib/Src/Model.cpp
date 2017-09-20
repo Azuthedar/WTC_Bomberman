@@ -14,7 +14,7 @@ Model::Model( std::string const &path, int const &tmp_numRows )
 
 Model::~Model()
 {
-    return ; 
+    return ;
 }
 
 int Model::GetNumRows() const

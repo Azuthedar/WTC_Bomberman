@@ -30,6 +30,8 @@ class Render_Engine
         static GLfloat deltaTime;
         static GLfloat lastFrame;
 
+        static int tmp_test;
+
         Render draw;
         Data_Loader load;
         Shaders shader;
@@ -39,6 +41,7 @@ class Render_Engine
 
         std::vector < Model * > models;
         std::vector < Component * > components;
+        std::vector < Model * > player_models;
 
         Skybox_s Skybox;
         Particles_s particle_data;

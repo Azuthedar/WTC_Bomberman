@@ -10,6 +10,8 @@ GLfloat Render_Engine::lastFrame = 0.0f;
 GLfloat Render_Engine::lastX = 0.0f;
 GLfloat Render_Engine::lastY = 0.0f;
 
+int Render_Engine::tmp_test = 0;
+
 bool Render_Engine::keys[1024];
 
 Render_Engine::Render_Engine()
@@ -71,14 +73,20 @@ void Render_Engine::load_dependencies()
     faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_back.png" ); // Positive Z == Back Face
     faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_front.png" ); // Negative Z == Front Face
 
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/model_Player.obj", 1) ); //0
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/bomb.obj", 1) ); //1
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/bug_EnemyHead.obj", 1) ); //2
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/Crate/Crate1.obj", 3) ); //3
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/robot_EnemyHead.obj", 1) ); //4
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/model_lock_gate.obj", 1)); //5
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/gate.obj", 1)); //6
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/Plane.obj", 1)); //7
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/bomb.obj", 1) ); //0
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/bug_EnemyHead.obj", 1) ); //1
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/Crate/Crate1.obj", 3) ); //2
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/robot_EnemyHead.obj", 1) ); //3
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/model_lock_gate.obj", 1)); //4
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/gate.obj", 1)); //5
+    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/Plane.obj", 1)); //6
+
+    this->player_models.push_back( new Model("Graphics_lib/objects_and_textures/player_run_anim/Player1.obj", 1) );
+    this->player_models.push_back( new Model("Graphics_lib/objects_and_textures/player_run_anim/Player2.obj", 1) );
+    this->player_models.push_back( new Model("Graphics_lib/objects_and_textures/player_run_anim/Player3.obj", 1) );
+    this->player_models.push_back( new Model("Graphics_lib/objects_and_textures/player_run_anim/Player4.obj", 1) );
+    this->player_models.push_back( new Model("Graphics_lib/objects_and_textures/player_run_anim/Player5.obj", 1) );
+    this->player_models.push_back( new Model("Graphics_lib/objects_and_textures/player_run_anim/Player6.obj", 1) );
 
     Model tmp_load;
     this->Skybox = tmp_load.loadSkybox( faces );
@@ -106,63 +114,75 @@ void Render_Engine::load_dependencies()
 
 void Render_Engine::Create_Components( Engine &engine, GLfloat &tmp_delta_time )
 {
-    this->components.push_back( new Component( "Player" , *this->models[0], 0.0f, 0.0f, 0.0f, 0.0f, 0.35f, glm::vec3( engine.getPlayer().getXPos() * 2 , 0.0f, engine.getPlayer().getYPos() * 2 ), 0)  );
+    //std::cout<< "X" << engine.getPlayer().getXPos() << " Y " << engine.getPlayer().getYPos() << std::endl;
+    if ( tmp_test >= 18 )
+        tmp_test = 0;
 
-  	for (size_t i = 0; i < engine.getPlayer().getBombVector().size(); i++)
+    int frame = 0;
+    if (engine.getPlayer().getIsMoving())
+    {
+        tmp_test++;
+        frame = (tmp_test - 1) / 3;
+        //std::cout << frame << " TTST" << std::endl;
+    }
+
+    this->components.push_back( new Component( "Player" , *this->player_models[frame], 0.0f, 0.0f, 0.0f, 0.0f, 0.35f, glm::vec3( engine.getPlayer().getXPos() * 2 , 0.0f, engine.getPlayer().getYPos() * 2 ), 0)  );
+
+    for (size_t i = 0; i < engine.getPlayer().getBombVector().size(); i++)
   	{
-        this->components.push_back( new Component( "Bomb", *this->models[1], 0.0f, 0.0f, 0.0f, 0.0f, 2.5f, glm::vec3( engine.getPlayer().getBombVector()[i].getXPos() * 2 , 1.0f, engine.getPlayer().getBombVector()[i].getYPos() * 2 ), 0)  );
+        this->components.push_back( new Component( "Bomb", *this->models[0], 0.0f, 0.0f, 0.0f, 0.0f, 2.5f, glm::vec3( engine.getPlayer().getBombVector()[i].getXPos() * 2 , 1.0f, engine.getPlayer().getBombVector()[i].getYPos() * 2 ), 0)  );
     }
 
     for (int y = 1; y < MAP_Y; y++)
     {
         for (int x = 0; x < MAP_X; x++)
         {
-            this->components.push_back( new Component("Plane", *this->models[7], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( x * 2.0f, 0.0f, y * 2.0f ), 0)  );
+            this->components.push_back( new Component("Plane", *this->models[6], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( x * 2.0f, 0.0f, y * 2.0f ), 0)  );
         }
     }
 
   	for (size_t i = 0; i < engine.getWallVector().size(); i++)
   	{
         if (engine.getWallVector()[i].getBlockType() == SOLID_BLOCK)
-            this->components.push_back( new Component("Wall", *this->models[3], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( engine.getWallVector()[i].getXPos() * 2.0f, 1.0f, engine.getWallVector()[i].getYPos() * 2.0f ), 0)  );
+            this->components.push_back( new Component("Wall", *this->models[2], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( engine.getWallVector()[i].getXPos() * 2.0f, 1.0f, engine.getWallVector()[i].getYPos() * 2.0f ), 0)  );
         else if (engine.getWallVector()[i].getBlockType() == DESTRUCTIBLE_BLOCK || engine.getWallVector()[i].getBlockType() == GATE)
-            this->components.push_back( new Component("Destructibe_Wall", *this->models[3], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( engine.getWallVector()[i].getXPos() * 2.0f, 1.0f, engine.getWallVector()[i].getYPos() * 2.0f ), 5)  );
+            this->components.push_back( new Component("Destructibe_Wall", *this->models[2], 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, glm::vec3( engine.getWallVector()[i].getXPos() * 2.0f, 1.0f, engine.getWallVector()[i].getYPos() * 2.0f ), 5)  );
   	}
 
   	for (size_t i = 0; i < engine.getEnemyVector().size(); i++)
     {
         if ( engine.getEnemyVector()[i].getType() == BUG)
-            this->components.push_back( new Component("Enemy", *this->models[2], 0.0f, 0.0f, 0.0f, 0.0f, 0.55f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , 1.0f, engine.getEnemyVector()[i].getYPos() * 2 ), 0)  );
+            this->components.push_back( new Component("Enemy", *this->models[1], 0.0f, 0.0f, 0.0f, 0.0f, 0.55f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , 1.0f, engine.getEnemyVector()[i].getYPos() * 2 ), 0)  );
         else if ( engine.getEnemyVector()[i].getType() == ROBOT)
-            this->components.push_back( new Component("Enemy", *this->models[4], 0.0f, 0.0f, 0.0f, 0.0f, 0.55f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , 1.0f, engine.getEnemyVector()[i].getYPos() * 2 ), 0)  );
+            this->components.push_back( new Component("Enemy", *this->models[3], 0.0f, 0.0f, 0.0f, 0.0f, 0.55f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , 1.0f, engine.getEnemyVector()[i].getYPos() * 2 ), 0)  );
   	}
 
     if (engine.getGate().getExists() && engine.getGate().getIsLocked())
     {
-        this->components.push_back( new Component("Locked_Gate", *this->models[5], 0.0f, 0.0f, 0.0f, 0.0f, 2.0f, glm::vec3( engine.getGate().getXPos() * 2.0f, 0.1f, engine.getGate().getYPos() * 2.0f ), 0)  );
+        this->components.push_back( new Component("Locked_Gate", *this->models[4], 0.0f, 0.0f, 0.0f, 0.0f, 2.0f, glm::vec3( engine.getGate().getXPos() * 2.0f, 0.1f, engine.getGate().getYPos() * 2.0f ), 0)  );
     }
     else if (engine.getGate().getExists() && !engine.getGate().getIsLocked())
     {
-        this->components.push_back( new Component("Unlocked_Gate", *this->models[6], 0.0f, 0.0f, 0.0f, 0.0f, 2.0f, glm::vec3( engine.getGate().getXPos() * 2.0f, 0.1f, engine.getGate().getYPos() * 2.0f ), 0)  );
+        this->components.push_back( new Component("Unlocked_Gate", *this->models[5], 0.0f, 0.0f, 0.0f, 0.0f, 2.0f, glm::vec3( engine.getGate().getXPos() * 2.0f, 0.1f, engine.getGate().getYPos() * 2.0f ), 0)  );
     }
 
     for (size_t i = 0; i < engine.getPowerupVector().size(); i++)
   	{
 		if (engine.getPowerupVector()[i].getTypePowerup() == POW_LIFE)
 		{
-            this->components.push_back( new Component("Pow_Life", *this->models[3], -2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ), 2)  );
+            this->components.push_back( new Component("Pow_Life", *this->models[2], -2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ), 2)  );
 		}
 		else if (engine.getPowerupVector()[i].getTypePowerup() == POW_BOMBS)
 		{
-			this->components.push_back( new Component("Pow_Bomb", *this->models[3], 2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ), 1)  );
+			this->components.push_back( new Component("Pow_Bomb", *this->models[2], 2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ), 1)  );
 		}
 		else if (engine.getPowerupVector()[i].getTypePowerup() == POW_SPEED)
 		{
-			this->components.push_back( new Component("Pow_Speed", *this->models[3], -2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ), 4)  );
+			this->components.push_back( new Component("Pow_Speed", *this->models[2], -2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ), 4)  );
 		}
 		else if (engine.getPowerupVector()[i].getTypePowerup() == POW_RANGE)
 		{
-            this->components.push_back( new Component("Pow_Range", *this->models[3], 2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ), 3)  );
+            this->components.push_back( new Component("Pow_Range", *this->models[2], 2.0f, 0.0f, 0.0f, 0.0f, 0.4f, glm::vec3( engine.getPowerupVector()[i].getXPos() * 2.0f, 1.5f, engine.getPowerupVector()[i].getYPos() * 2.0f ), 3)  );
 		}
   	}
 
@@ -190,7 +210,7 @@ void Render_Engine::_render( GLfloat &tmp_delta_time )
     glCullFace( GL_BACK );
     glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
-    glm::vec3 player_pos =  this->components[0]->GetPosition();
+    glm::vec3 player_pos = this->components[0]->GetPosition();
 
     //while ( !glfwWindowShouldClose( Render_Engine::window ) )
     //{

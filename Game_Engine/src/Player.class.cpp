@@ -419,7 +419,7 @@ void	Player::setKBPause(int KBpause)				{this->_KBpause = KBpause;}
 void	Player::setSoundEnum(eSound val)			{this->_soundEnum = val;}
 void	Player::setIsPaused(bool isPaused)			{this->_isPaused = isPaused;}
 
-
+bool &	Player::getIsMoving()					{return (this->_isMoving);}
 int	&	Player::getBombs()						{return (this->_bombs);}
 int &	Player::getSpawnX()						{return (this->_spawnX);}
 int &	Player::getSpawnY()						{return (this->_spawnY);}

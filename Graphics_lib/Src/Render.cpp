@@ -169,6 +169,7 @@ void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
         shader.load_matrix( this->modelLoc, model_matrix );
         //shader.load_matrix( this->ScaleLoc, scel );
 
+        //sleep(10000);
         ip.Draw();
 
         /*glBindVertexArray( ip.GetModel().GetVAO() );

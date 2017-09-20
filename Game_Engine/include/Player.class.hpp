@@ -59,6 +59,7 @@ class Player : public AEntity
 		int &	getRangeLevel();
 		int &	getBombLevel();
 		int & 	getLives();
+		bool &	getIsMoving();
 		int &	getKBMoveUp();
 		int &	getKBMoveLeft();
 		int &	getKBMoveRight();
@@ -89,7 +90,7 @@ class Player : public AEntity
 		int					_speedLevel;
 		int					_rangeLevel;
 		int					_bombLevel;
-		
+
 		bool				_isPaused;
 		bool				_isMoving;
 		bool				_pickupPowerup;
