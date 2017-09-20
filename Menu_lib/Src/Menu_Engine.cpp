@@ -91,6 +91,7 @@ void Menu_Engine::create_keyMaps()
     key_binds.insert( std::make_pair( "X", GLFW_KEY_X ) );
     key_binds.insert( std::make_pair( "Y", GLFW_KEY_Y ) );
     key_binds.insert( std::make_pair( "Z", GLFW_KEY_Z ) );
+    key_binds.insert( std::make_pair( " ", GLFW_KEY_SPACE ) );
 }
 
 void Menu_Engine::createSettingsMenu()
