@@ -70,23 +70,29 @@ void Engine::transitionMap()
 		*	After you finish the game transition to CREDITS / MAIN_MENU?
 		*/
 		if (this->_mapLevel == this->_maps.size())
+		{
+			this->_soundEnum = SND_VICTORY;
 			this->_gameState = MENU;
-		this->_mapEnd = true;
-		this->_gate.setExists(false);
-		this->_gate.setIsLocked(true);
-		this->_mapValues.clear();
-		this->_enemyVector.clear();
-		this->_player.respawn();
-		this->_walls_vector.clear();
-		this->_config.updateFile(this->_player, this->_mapLevel, this->_sound);
-		this->readMap();
-		this->buildMap();
-		this->_player.getBombVector().clear();
-		this->_powerupVector.clear();
-		this->_mapDuration = MAP_DURATION_TIME;
-		this->_transitionTicker = MAP_TRANSITION_TIME;
-		this->_transition = true;
-		this->_isTransitioning = false;
+		}
+		else
+		{
+			this->_mapEnd = true;
+			this->_gate.setExists(false);
+			this->_gate.setIsLocked(true);
+			this->_mapValues.clear();
+			this->_enemyVector.clear();
+			this->_player.respawn();
+			this->_walls_vector.clear();
+			this->_config.updateFile(this->_player, this->_mapLevel, this->_sound);
+			this->readMap();
+			this->buildMap();
+			this->_player.getBombVector().clear();
+			this->_powerupVector.clear();
+			this->_mapDuration = MAP_DURATION_TIME;
+			this->_transitionTicker = MAP_TRANSITION_TIME;
+			this->_transition = true;
+			this->_isTransitioning = false;
+		}
 	}
 }
 
