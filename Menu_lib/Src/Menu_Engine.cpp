@@ -479,11 +479,8 @@ void Menu_Engine::createMainMenu()
     main_menu.start->setTheme(main_menu.theme);
     main_menu.start->setCursor(nanogui::Cursor::Hand);
     main_menu.start->setCallback([]{
-        engine->setGameState(GAME);
-        engine->setMapLevel(0);
+        engine->reset();
         engine->getPlayer().setIsPaused(false);
-        engine->setIsTransitioning(true);
-        engine->transitionMap();
         main_menu.changeView(false);
         settings_menu.changeView(false);
         pause_menu.changeView(false);

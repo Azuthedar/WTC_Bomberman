@@ -32,6 +32,7 @@ class Engine
 		void						setGameState(eGamestate state);
 		void						setIsTransitioning(bool transition);
 		void						setMapLevel(size_t mapLevel);
+		void						reset();
 
 		std::vector<char> &			getMapValues();
 		std::vector<Wall> &			getWallVector();

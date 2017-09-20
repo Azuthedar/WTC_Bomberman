@@ -55,6 +55,7 @@ void    Config::defaultInit( Player & player, Sound & sound)
 void    Config::readFile()
 {
 	std::string line;
+	this->_fileBuffer.clear();
 	while (getline(this->_file, line))
 		this->_fileBuffer.push_back(line);
 }

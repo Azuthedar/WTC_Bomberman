@@ -262,7 +262,7 @@ void	Engine::strSplit(std::string str, char delim)
 
 void		Engine::shouldTransition()
 {
-	if (this->_player.getXPos() == this->_gate.getXPos() && this->_player.getYPos() == this->_gate.getYPos() && !this->_gate.getIsLocked())
+	if (this->_player.getXPos() == this->_gate.getXPos() && this->_player.getYPos() == this->_gate.getYPos() && !this->_gate.getIsLocked() && this->_gate.getExists())
 	{
 		this->_soundEnum = SND_LVLCOMPLETE;
 		this->_mapLevel++;
@@ -300,6 +300,22 @@ void	Engine::chainReaction()
 			}
 		}
 	}
+}
+
+void	Engine::reset()
+{
+	this->_isTransitioning = true;
+	this->_mapLevel = 0;
+	this->transitionMap();
+
+	this->_player.setBombLevel(1);
+	this->_player.setBombs(1);
+	this->_player.setRangeLevel(1);
+	this->_player.setSpeedLevel(1);
+	this->_gate.setExists(false);
+	this->_gate.setIsLocked(true);
+	this->_gameState = GAME;
+
 }
 
 void						Engine::setMapEnd(bool mapEnd)	{this->_mapEnd = mapEnd;}
