@@ -17,6 +17,6 @@ brew install sdl2_mixer
 echo "Installing Python 3"
 brew install python3
 echo "Extracting NanoGUI"
-unzip ./Menu_lib/nanogui.zip -d ./Menu_lib
+unzip ./Libs/nanogui.zip -d ./Libs
 cmake .
 make

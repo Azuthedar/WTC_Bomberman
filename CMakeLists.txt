@@ -86,8 +86,8 @@ else()
     message ("Found glew library at ${GLEW_LIB}")
 
     #SOIL
-    set(SOIL_INCLUDE "Graphics_lib/Soil/SOIL2/")
-    set(SOIL_LIB_DIR "Graphics_lib/Soil/Mac/")
+    set(SOIL_INCLUDE "Libs/Soil/SOIL2/")
+    set(SOIL_LIB_DIR "Libs/Soil/Mac/")
     set(SOIL_LIB ${SOIL_LIB_DIR}libsoil2.a)
     set(SOIL_NAME soil2)
 
@@ -124,8 +124,8 @@ else()
     set (CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${CMAKE_CURRENT_SOURCE_DIR})
 
     #NANO GUI
-    set(NANO_INCLUDE "Menu_lib/nanogui/include/")
-    set(NANO_LIB_DIR "Menu_lib/nanogui/build/")
+    set(NANO_INCLUDE "Libs/nanogui/include/")
+    set(NANO_LIB_DIR "Libs/nanogui/build/")
     set(NANO_NAME nanogui)
 
     #GLM

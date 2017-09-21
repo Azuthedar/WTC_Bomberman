@@ -68,27 +68,27 @@ void Render_Engine::SetWindow( GLFWwindow *tmp_window )
 void Render_Engine::load_dependencies()
 {
     std::vector< std::string > faces;
-    faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_right.png" ); // Positive X == Right Face
-    faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_left.png" ); // Negative X == Left Face
-    faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_down.png" ); // Positive Y == Top Face
-    faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_up.png" ); // Negative Y == Bottom Face
-    faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_back.png" ); // Positive Z == Back Face
-    faces.push_back( "Graphics_lib/objects_and_textures/Skybox/GameSkyBox01_front.png" ); // Negative Z == Front Face
+    faces.push_back( "Assets/objects_and_textures/Skybox/GameSkyBox01_right.png" ); // Positive X == Right Face
+    faces.push_back( "Assets/objects_and_textures/Skybox/GameSkyBox01_left.png" ); // Negative X == Left Face
+    faces.push_back( "Assets/objects_and_textures/Skybox/GameSkyBox01_down.png" ); // Positive Y == Top Face
+    faces.push_back( "Assets/objects_and_textures/Skybox/GameSkyBox01_up.png" ); // Negative Y == Bottom Face
+    faces.push_back( "Assets/objects_and_textures/Skybox/GameSkyBox01_back.png" ); // Positive Z == Back Face
+    faces.push_back( "Assets/objects_and_textures/Skybox/GameSkyBox01_front.png" ); // Negative Z == Front Face
 
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/bomb.obj", 1) ); //0
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/bug_EnemyHead.obj", 1) ); //1
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/Crate/Crate1.obj", 3) ); //2
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/robot_EnemyHead.obj", 1) ); //3
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/model_lock_gate.obj", 1)); //4
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/gate.obj", 1)); //5
-    this->models.push_back( new Model("Graphics_lib/objects_and_textures/objFiles/Plane.obj", 1)); //6
+    this->models.push_back( new Model("Assets/objects_and_textures/objFiles/bomb.obj", 1) ); //0
+    this->models.push_back( new Model("Assets/objects_and_textures/objFiles/bug_EnemyHead.obj", 1) ); //1
+    this->models.push_back( new Model("Assets/objects_and_textures/Crate/Crate1.obj", 3) ); //2
+    this->models.push_back( new Model("Assets/objects_and_textures/objFiles/robot_EnemyHead.obj", 1) ); //3
+    this->models.push_back( new Model("Assets/objects_and_textures/objFiles/model_lock_gate.obj", 1)); //4
+    this->models.push_back( new Model("Assets/objects_and_textures/objFiles/gate.obj", 1)); //5
+    this->models.push_back( new Model("Assets/objects_and_textures/objFiles/Plane.obj", 1)); //6
 
-    this->player_models.push_back( new Model("Graphics_lib/objects_and_textures/player_run_anim/Player1.obj", 1) );
-    this->player_models.push_back( new Model("Graphics_lib/objects_and_textures/player_run_anim/Player2.obj", 1) );
-    this->player_models.push_back( new Model("Graphics_lib/objects_and_textures/player_run_anim/Player3.obj", 1) );
-    this->player_models.push_back( new Model("Graphics_lib/objects_and_textures/player_run_anim/Player4.obj", 1) );
-    this->player_models.push_back( new Model("Graphics_lib/objects_and_textures/player_run_anim/Player5.obj", 1) );
-    this->player_models.push_back( new Model("Graphics_lib/objects_and_textures/player_run_anim/Player6.obj", 1) );
+    this->player_models.push_back( new Model("Assets/objects_and_textures/player_run_anim/Player1.obj", 1) );
+    this->player_models.push_back( new Model("Assets/objects_and_textures/player_run_anim/Player2.obj", 1) );
+    this->player_models.push_back( new Model("Assets/objects_and_textures/player_run_anim/Player3.obj", 1) );
+    this->player_models.push_back( new Model("Assets/objects_and_textures/player_run_anim/Player4.obj", 1) );
+    this->player_models.push_back( new Model("Assets/objects_and_textures/player_run_anim/Player5.obj", 1) );
+    this->player_models.push_back( new Model("Assets/objects_and_textures/player_run_anim/Player6.obj", 1) );
 
     Model tmp_load;
     this->Skybox = tmp_load.loadSkybox( faces );

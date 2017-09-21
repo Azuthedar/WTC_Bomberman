@@ -6,21 +6,21 @@ Sound::Sound()
 		std::cerr << "SDL Failed to initialize" << std::endl;
 	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, SOUND_CHANNELS, SOUND_CHUNKSIZE) < 0)
 		std::cerr << "MIXER failed to initialize" << std::endl;
-	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/music.wav")); // DEFAULT
-	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/Default1.wav")); // DEFAULT 1
-	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/Default2.wav")); // DEFAULT 2
-	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/Default3.wav")); // DEFAULT 3
-	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/footstep.wav")); // FOOTSTEP
-	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/death.wav")); // DEATH
-	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/explosion1.wav")); // EXPLOSION
-	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/powerup.wav")); // POWERUP
-	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/completed.wav")); // LVL_COMPLETE
-	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/placement.wav")); // BOMBPLACE
-	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/gameOver.wav")); // GAMEOVER
-	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/GateUnlocked.wav")); // GATE UNLOCKED
-	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/gateFound.wav")); // GATE FOUND
-	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/Menu.wav")); // MAIN MENU
-	this->_waveVector.push_back(Mix_LoadWAV("Sound_lib/Sounds/Victory.wav")); // VICTORY
+	this->_waveVector.push_back(Mix_LoadWAV("Assets/Sounds/music.wav")); // DEFAULT
+	this->_waveVector.push_back(Mix_LoadWAV("Assets/Sounds/Default1.wav")); // DEFAULT 1
+	this->_waveVector.push_back(Mix_LoadWAV("Assets/Sounds/Default2.wav")); // DEFAULT 2
+	this->_waveVector.push_back(Mix_LoadWAV("Assets/Sounds/Default3.wav")); // DEFAULT 3
+	this->_waveVector.push_back(Mix_LoadWAV("Assets/Sounds/footstep.wav")); // FOOTSTEP
+	this->_waveVector.push_back(Mix_LoadWAV("Assets/Sounds/death.wav")); // DEATH
+	this->_waveVector.push_back(Mix_LoadWAV("Assets/Sounds/explosion1.wav")); // EXPLOSION
+	this->_waveVector.push_back(Mix_LoadWAV("Assets/Sounds/powerup.wav")); // POWERUP
+	this->_waveVector.push_back(Mix_LoadWAV("Assets/Sounds/completed.wav")); // LVL_COMPLETE
+	this->_waveVector.push_back(Mix_LoadWAV("Assets/Sounds/placement.wav")); // BOMBPLACE
+	this->_waveVector.push_back(Mix_LoadWAV("Assets/Sounds/gameOver.wav")); // GAMEOVER
+	this->_waveVector.push_back(Mix_LoadWAV("Assets/Sounds/GateUnlocked.wav")); // GATE UNLOCKED
+	this->_waveVector.push_back(Mix_LoadWAV("Assets/Sounds/gateFound.wav")); // GATE FOUND
+	this->_waveVector.push_back(Mix_LoadWAV("Assets/Sounds/Menu.wav")); // MAIN MENU
+	this->_waveVector.push_back(Mix_LoadWAV("Assets/Sounds/Victory.wav")); // VICTORY
 
 	this->_SFXVolume = 100;
 	this->_musicVolume = 100;
