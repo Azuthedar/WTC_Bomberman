@@ -90,3 +90,27 @@ std::vector < Particles * > Particle_manager::GetParticleArray(  ) const
 {
     return ( this->particle_array );
 }
+
+
+Particle_manager::Particle_manager(Particle_manager const &src) {
+    *this = src;
+    return;
+}
+
+Particle_manager &Particle_manager::operator=(Particle_manager const &rhs) {
+    this->particle_array = rhs.getParticle_array();
+    this->particle_speed = rhs.getParticle_speed();
+    this->Total_particles = rhs.getTotal_particles();
+    this->Gravity = rhs.getGravity();
+    this->Life_length = rhs.getLife_length();
+    this->Texture_Data = rhs.getTexture_Data();
+
+    return *this;
+}
+
+const std::vector<Particles *> &Particle_manager::getParticle_array() const {return particle_array;}
+float Particle_manager::getParticle_speed() const {return particle_speed;}
+float Particle_manager::getTotal_particles() const {return Total_particles;}
+float Particle_manager::getGravity() const {return Gravity;}
+float Particle_manager::getLife_length() const {return Life_length;}
+const Texture &Particle_manager::getTexture_Data() const {return Texture_Data;}

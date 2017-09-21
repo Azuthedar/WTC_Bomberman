@@ -22,13 +22,42 @@ class Render
        // GLint ScaleLoc;
         GLint RowLoc;
         GLint OffsetLoc;
+public:
+    const glm::mat4 &getProjection() const;
 
-        Light_class *light = new Light_class( glm::vec3( 0.0f, 0.f, 0.0f ), glm::vec3( 1.0f, 1.0f, 1.0f ) );
+    const glm::mat4 &getView_matrix() const;
+
+    GLint getModelLoc() const;
+
+    GLint getProjLoc() const;
+
+    GLint getViewLoc() const;
+
+    GLint getLightLoc() const;
+
+    GLint getColourLoc() const;
+
+    GLint getShineLoc() const;
+
+    GLint getReflectionLoc() const;
+
+    GLint getRowLoc() const;
+
+    GLint getOffsetLoc() const;
+
+    Light_class *getLight() const;
+
+private:
+
+    Light_class *light = new Light_class( glm::vec3( 0.0f, 0.f, 0.0f ), glm::vec3( 1.0f, 1.0f, 1.0f ) );
 
     public:
 
         Render();
         ~Render();
+
+        Render(Render const &src);
+        Render &operator=(Render const &rhs);
 
         void SetViewMatrix( glm::mat4 const &tmp_matrix );
         void SetProjection( GLfloat const &tmp_zoom );

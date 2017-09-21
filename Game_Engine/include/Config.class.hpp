@@ -17,11 +17,11 @@ class Config: public Exceptions
 
 	~Config();
 
-		void	defaultInit(Player & player, Sound & sound);
+		void	defaultInit(Player & player, Sound & sound, int & score);
 		void	readFile();
 		bool	checkSyntax(); // True will be correct syntax
-		void	parseFile(Player & player, Sound & sound);
-		void	updateFile(Player & player, size_t & mapLevel, Sound & sound);
+		void	parseFile(Player & player, Sound & sound, int & score);
+		void	updateFile(Player & player, size_t & mapLevel, Sound & sound, int & score);
 
 		void	setMapLevel(int mapLevel);
 		void	setBombLevel(int bomblevel);
@@ -37,6 +37,7 @@ class Config: public Exceptions
 		void	setSFXVolume(int sfxVol);
 		void	setMusicVolume(int muscVol);
 		void	setConfigUpdated(bool updated);
+		void	setScore(int score);
 
 		int &	getMapLevel();
 		int &	getBombLevel();
@@ -51,7 +52,8 @@ class Config: public Exceptions
 		int &	getKBPause();
 		int &	getSFXVolume();
 		int &	getMusicVolume();
-		bool & getConfigUpdated();
+		bool &	getConfigUpdated();
+		int &	getScore();
 
 	private:
 
@@ -65,6 +67,7 @@ class Config: public Exceptions
 		int				_rangeLevel;
 		int				_lives;
 		int				_speedLevel;
+		int				_score;
 
 		int				_resX;
 		int				_resY;
@@ -78,6 +81,7 @@ class Config: public Exceptions
 		int				_KBplaceBomb;
 		int				_KBpause;
 
+		bool			_minMax;
 		bool			_configUpdated;
 		bool			_shouldUpdate;
 		bool			_shouldReset;

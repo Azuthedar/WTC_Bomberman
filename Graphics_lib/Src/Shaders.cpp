@@ -215,3 +215,21 @@ void Shaders::unuse_prog()
 		glDisableVertexAttribArray(i);
 	}
 }
+
+Shaders::Shaders(Shaders const &src) {
+	*this = src;
+	return;
+}
+
+Shaders &Shaders::operator=(Shaders const &rhs) {
+	this->program_id = rhs.getProgram_id();
+	this->vertex_id = rhs.getVertex_id();
+	this->fragment_id = rhs.getFragment_id();
+	this->num_attr = rhs.getNum_attr();
+	return  *this;
+}
+
+GLuint Shaders::getProgram_id() const { return program_id; }
+GLuint Shaders::getVertex_id() const { return vertex_id; }
+GLuint Shaders::getFragment_id() const { return fragment_id; }
+int Shaders::getNum_attr() const { return num_attr; }

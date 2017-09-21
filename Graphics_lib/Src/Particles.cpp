@@ -108,3 +108,19 @@ GLfloat Particles::GetScale() const
 {
     return (this->Scale);
 }
+
+Particles::Particles(Particles const &src) {
+    *this = src;
+    return ;
+}
+
+Particles &Particles::operator=(Particles const &rhs) {
+    this->Position = rhs.GetPosition();
+    this->Rotation = rhs.GetRotation();
+    this->Scale = rhs.GetScale();
+    this->Current_Offset = rhs.GetCurrentOffset();
+    this->Next_Offset = rhs.GetNextOffset();
+    this->Blend_Val = rhs.GetBlendValue();
+
+    return *this;
+}

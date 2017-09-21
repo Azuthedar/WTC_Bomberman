@@ -31,7 +31,8 @@ class Enemy : public AEntity
 
 		void SnapMovement( );
 
-	private:
+
+private:
 
 		int			_enemyMvTicker;
 		int			_goal_x;

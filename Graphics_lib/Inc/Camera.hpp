@@ -35,8 +35,25 @@ class Camera
         Camera( glm::vec3 position = glm::vec3( 0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3( 0.0f, 1.0f, 0.0f), GLfloat yaw = YAW, GLfloat pitch = PITCH );
         Camera( GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat upX, GLfloat upY, GLfloat upZ, GLfloat yaw, GLfloat pitch);
 
+        Camera(Camera const &src);
+        Camera &operator=(Camera const &rhs);
 
         glm::mat4 GetViewMatrix();
         void ProcessKeyboard( glm::vec3 player_pos);
-        GLfloat GetZoom( );
+
+        const glm::vec3 &getPosition() const;
+
+        const glm::vec3 &getFront() const;
+
+        const glm::vec3 &getUp() const;
+
+        const glm::vec3 &getRight() const;
+
+        const glm::vec3 &getWorldUp() const;
+
+        GLfloat getYaw() const;
+
+        GLfloat getPitch() const;
+
+        GLfloat GetZoom() const;
 };

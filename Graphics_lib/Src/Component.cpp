@@ -123,3 +123,21 @@ glm::vec3 Component::GetPosition( )
 {
     return (this->position);
 }
+
+Component::Component(Component const &src) {
+    *this = src;
+    return;
+}
+
+Component &Component::operator=(Component const &rhs) {
+    this->model = rhs.GetModel();
+    this->direction = rhs.GetDirection();
+    this->Degres = rhs.GetDegres();
+    this->Scale = rhs.GetScale();
+    //this->position = rhs.GetPosition();
+    this->Name = rhs.GetName();
+    this->texture_index = rhs.GetTextureIndex();
+    this->Offsets = rhs.GetOffsets();
+
+    return *this;
+}

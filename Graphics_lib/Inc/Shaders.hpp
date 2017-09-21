@@ -17,6 +17,9 @@ class Shaders
         Shaders();
         ~Shaders();
 
+        Shaders(Shaders const &src);
+        Shaders &operator=(Shaders const &rhs);
+
         GLuint GetProgramID() const;
 
         void compile_shaders(const std::string &vertexfile_path, const std::string &fragmentfile_path);
@@ -33,4 +36,9 @@ class Shaders
         void load_bool( GLint location_id, bool val );
         void load_matrix( GLint location_id, glm::mat4 &matrix );
         void load_vec2( GLint location_id, glm::vec2 const &vec_2 );
+
+        GLuint getProgram_id() const;
+        GLuint getVertex_id() const;
+        GLuint getFragment_id() const;
+        int getNum_attr() const;
 };

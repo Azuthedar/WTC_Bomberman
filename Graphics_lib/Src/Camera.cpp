@@ -48,7 +48,32 @@ void Camera::ProcessKeyboard( glm::vec3 player_pos)
     this->updateCameraVectors();
 }
 
-GLfloat Camera::GetZoom( )
-{
-    return ( this->zoom );
+Camera::Camera(Camera const &src) {
+    *this = src;
+    return;
+}
+
+Camera &Camera::operator=(Camera const &rhs) {
+    this->position = rhs.getPosition();
+    this->front = rhs.getFront();
+    this->up = rhs.getUp();
+    this->right = rhs.getRight();
+    this->worldUp = rhs.getWorldUp();
+    this-> yaw = rhs.getYaw();
+    this->pitch = rhs.getPitch();
+    this->zoom = rhs.GetZoom();
+
+    return *this;
+}
+
+const glm::vec3 &Camera::getPosition() const {return position;}
+const glm::vec3 &Camera::getFront() const {return front;}
+const glm::vec3 &Camera::getUp() const {return up;}
+const glm::vec3 &Camera::getRight() const {return right;}
+const glm::vec3 &Camera::getWorldUp() const {return worldUp;}
+GLfloat Camera::getYaw() const {return yaw;}
+GLfloat Camera::getPitch() const {return pitch;}
+
+GLfloat Camera::GetZoom() const {
+    return this->zoom;
 }

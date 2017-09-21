@@ -13,7 +13,7 @@ Config::~Config()
 	return ;
 }
 
-void    Config::defaultInit( Player & player, Sound & sound)
+void    Config::defaultInit( Player & player, Sound & sound, int & score)
 {
 	this->_file.open(this->_fileName);
 	if (!this->_file)
@@ -26,6 +26,7 @@ void    Config::defaultInit( Player & player, Sound & sound)
 
 		// PLAYER LEVEL DATA
 		configFile << "[LEVELS]" << std::endl;
+		configFile << "\tSCORE: 0" << std::endl;
 		configFile << "\tBOMBLEVEL: 1" << std::endl;
 		configFile << "\tRANGELEVEL: 1" << std::endl;
 		configFile << "\tSPEEDLEVEL: 1" << std::endl;
@@ -34,6 +35,7 @@ void    Config::defaultInit( Player & player, Sound & sound)
 		// OPTIONS DATA
 		configFile << "[OPTIONS]" << std::endl;
 		configFile << "\tRESOLUTION: 1920 1080" << std::endl;
+		configFile << "\tMINMAX: 0" << std::endl;
 		configFile << "\tSFX: 100" << std::endl;
 		configFile << "\tMUSIC: 100" << std::endl;
 
@@ -49,7 +51,7 @@ void    Config::defaultInit( Player & player, Sound & sound)
 		configFile.close();
 	}
 	this->_file.close();
-	this->parseFile(player, sound);
+	this->parseFile(player, sound, score);
 }
 
 void    Config::readFile()
@@ -63,47 +65,51 @@ void    Config::readFile()
 bool	Config::checkSyntax()
 {
 	/*Maps*/
-	std::regex rgx_map("^\\[MAP\\]$");
-	std::regex rgx_map1("^\tMAPLEVEL: [0-9]+");
+	std::regex rgx_map("^\\[MAP\\]$"); // 0
+	std::regex rgx_map1("^\tMAPLEVEL: [0-9]+"); // 1
 
 	/*Player level data*/
-	std::regex rgx_levels("^\\[LEVELS\\]$");
-	std::regex rgx_levels1("^\tBOMBLEVEL: ([1-9]|10)$");
-	std::regex rgx_levels2("^\tRANGELEVEL: ([1-9]|10)$");
-	std::regex rgx_levels3("^\tSPEEDLEVEL: ([1-9]|10)$");
-	std::regex rgx_levels4("^\tLIVES: ([0-9]|10)$");
+	std::regex rgx_levels("^\\[LEVELS\\]$"); // 2
+	std::regex rgx_levels0("^\tSCORE: [0-9]+"); // 3
+	std::regex rgx_levels1("^\tBOMBLEVEL: ([1-9]|10)$"); // 4
+	std::regex rgx_levels2("^\tRANGELEVEL: ([1-9]|10)$"); // 5
+	std::regex rgx_levels3("^\tSPEEDLEVEL: ([1-9]|10)$"); // 6
+	std::regex rgx_levels4("^\tLIVES: ([0-9]|10)$"); // 7
 
 	/*Option data*/
-	std::regex rgx_options("^\\[OPTIONS\\]$");
-	std::regex rgx_options1("^\tRESOLUTION: [0-9]{3,4} [0-9]{3,4}$");
-	std::regex rgx_options2("^\tSFX: ([0-9]{1,2}|100)$");
-	std::regex rgx_options3("^\tMUSIC: ([0-9]{1,2}|100)$");
+	std::regex rgx_options("^\\[OPTIONS\\]$"); // 8
+	std::regex rgx_options1("^\tRESOLUTION: [0-9]{3,4} [0-9]{3,4}$"); // 9
+	std::regex rgx_optionsMINMAX("^\tMINMAX: (0|1)$"); // 10
+	std::regex rgx_options2("^\tSFX: ([0-9]{1,2}|100)$"); // 11
+	std::regex rgx_options3("^\tMUSIC: ([0-9]{1,2}|100)$"); // 12
 
 	/*Keybinding data*/
-	std::regex rgx_kb("^\\[KEYBINDINGS\\]$");
-	std::regex rgx_kbUp("^\tUP: [0-9]{1,3}$");
-	std::regex rgx_kbLeft("^\tLEFT: [0-9]{1,3}$");
-	std::regex rgx_kbRight("^\tRIGHT: [0-9]{1,3}$");
-	std::regex rgx_kbDown("^\tDOWN: [0-9]{1,3}$");
-	std::regex rgx_kbBomb("^\tPLACEBOMB: [0-9]{1,3}$");
-	std::regex rgx_kbPause("^\tPAUSE: [0-9]{1,3}$");
+	std::regex rgx_kb("^\\[KEYBINDINGS\\]$"); // 13
+	std::regex rgx_kbUp("^\tUP: [0-9]{1,3}$"); // 14
+	std::regex rgx_kbLeft("^\tLEFT: [0-9]{1,3}$"); // 15
+	std::regex rgx_kbRight("^\tRIGHT: [0-9]{1,3}$"); // 16
+	std::regex rgx_kbDown("^\tDOWN: [0-9]{1,3}$"); // 17
+	std::regex rgx_kbBomb("^\tPLACEBOMB: [0-9]{1,3}$"); // 18
+	std::regex rgx_kbPause("^\tPAUSE: [0-9]{1,3}$"); // 19
 
 	if (std::regex_match(this->_fileBuffer[0], rgx_map) && std::regex_match(this->_fileBuffer[1], rgx_map1)
-		&& std::regex_match(this->_fileBuffer[2], rgx_levels) && std::regex_match(this->_fileBuffer[3], rgx_levels1)
-		&& std::regex_match(this->_fileBuffer[4], rgx_levels2) && std::regex_match(this->_fileBuffer[5], rgx_levels3)
-		&& std::regex_match(this->_fileBuffer[6], rgx_levels4)
-		&& std::regex_match(this->_fileBuffer[7], rgx_options) && std::regex_match(this->_fileBuffer[8], rgx_options1)
-		&& std::regex_match(this->_fileBuffer[9], rgx_options2) && std::regex_match(this->_fileBuffer[10], rgx_options3)
-		&& std::regex_match(this->_fileBuffer[11], rgx_kb) && std::regex_match(this->_fileBuffer[12], rgx_kbUp)
-		&& std::regex_match(this->_fileBuffer[13], rgx_kbLeft) && std::regex_match(this->_fileBuffer[14], rgx_kbRight)
-		&& std::regex_match(this->_fileBuffer[15], rgx_kbDown) && std::regex_match(this->_fileBuffer[16], rgx_kbBomb)
-		&& std::regex_match(this->_fileBuffer[17], rgx_kbPause))
+		&& std::regex_match(this->_fileBuffer[2], rgx_levels)
+		&& std::regex_match(this->_fileBuffer[3], rgx_levels0) && std::regex_match(this->_fileBuffer[4], rgx_levels1)
+		&& std::regex_match(this->_fileBuffer[5], rgx_levels2) && std::regex_match(this->_fileBuffer[6], rgx_levels3)
+		&& std::regex_match(this->_fileBuffer[7], rgx_levels4)
+		&& std::regex_match(this->_fileBuffer[8], rgx_options)
+		&& std::regex_match(this->_fileBuffer[9], rgx_options1) && std::regex_match(this->_fileBuffer[10], rgx_optionsMINMAX)
+		&& std::regex_match(this->_fileBuffer[11], rgx_options2) && std::regex_match(this->_fileBuffer[12], rgx_options3)
+		&& std::regex_match(this->_fileBuffer[13], rgx_kb) && std::regex_match(this->_fileBuffer[14], rgx_kbUp)
+		&& std::regex_match(this->_fileBuffer[15], rgx_kbLeft) && std::regex_match(this->_fileBuffer[16], rgx_kbRight)
+		&& std::regex_match(this->_fileBuffer[17], rgx_kbDown) && std::regex_match(this->_fileBuffer[18], rgx_kbBomb)
+		&& std::regex_match(this->_fileBuffer[19], rgx_kbPause))
 		return (true);
 
 	return (false);
 }
 
-void    Config::parseFile(Player & player, Sound & sound)
+void    Config::parseFile(Player & player, Sound & sound, int & score)
 {
 	this->_file.open(this->_fileName);
 	this->readFile();
@@ -114,6 +120,7 @@ void    Config::parseFile(Player & player, Sound & sound)
 		this->_mapLevel = std::stoi(this->_fileBuffer[CNF_MAP].substr(this->_fileBuffer[CNF_MAP].find_first_of(' ', 4), this->_fileBuffer[CNF_MAP].length() - 1));
 
 		// LEVEL DATA
+		this->_score = std::stoi(this->_fileBuffer[CNF_SCORE].substr(this->_fileBuffer[CNF_SCORE].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_SCORE].length() - 1));
 		this->_bombLevel = std::stoi(this->_fileBuffer[CNF_BOMBLVL].substr(this->_fileBuffer[CNF_BOMBLVL].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_BOMBLVL].length() - 1));
 		this->_rangeLevel = std::stoi(this->_fileBuffer[CNF_RANGELVL].substr(this->_fileBuffer[CNF_RANGELVL].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_RANGELVL].length() - 1));
 		this->_speedLevel = std::stoi(this->_fileBuffer[CNF_SPEEDLVL].substr(this->_fileBuffer[CNF_SPEEDLVL].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_SPEEDLVL].length() - 1));
@@ -122,6 +129,7 @@ void    Config::parseFile(Player & player, Sound & sound)
 		// OPTIONS DATA
 		this->_resX = std::stoi(this->_fileBuffer[CNF_RESOLUTION].substr(this->_fileBuffer[CNF_RESOLUTION].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_RESOLUTION].find_last_of(' ') - 1));
 		this->_resY = std::stoi(this->_fileBuffer[CNF_RESOLUTION].substr(this->_fileBuffer[CNF_RESOLUTION].find_last_of(' ') + 1, this->_fileBuffer[CNF_RESOLUTION].length() - 1));
+		this->_minMax = std::stoi(this->_fileBuffer[CNF_MINMAX].substr(this->_fileBuffer[CNF_MINMAX].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_MINMAX].length() - 1));
 		this->_SFXVolume = std::stoi(this->_fileBuffer[CNF_SFXVOL].substr(this->_fileBuffer[CNF_SFXVOL].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_SFXVOL].length() - 1));
 		this->_musicVolume = std::stoi(this->_fileBuffer[CNF_MUSCVOL].substr(this->_fileBuffer[CNF_MUSCVOL].find_first_of(' ', 4) + 1, this->_fileBuffer[CNF_MUSCVOL].length() - 1));
 
@@ -155,6 +163,8 @@ void    Config::parseFile(Player & player, Sound & sound)
 		player.setKBMoveDown(this->_KBmoveDown);
 		player.setKBPlaceBomb(this->_KBplaceBomb);
 		player.setKBPause(this->_KBpause);
+
+		score = this->_score;
 	}
 	else
 	{
@@ -163,7 +173,7 @@ void    Config::parseFile(Player & player, Sound & sound)
 	this->_file.close();
 }
 
-void    Config::updateFile(Player & player, size_t & mapLevel, Sound & sound)
+void    Config::updateFile(Player & player, size_t & mapLevel, Sound & sound, int & score)
 {
 	if (std::remove(this->_fileName.c_str()) == 0)
 	{
@@ -176,12 +186,14 @@ void    Config::updateFile(Player & player, size_t & mapLevel, Sound & sound)
 		this->_rangeLevel = player.getRangeLevel();
 		this->_speedLevel = player.getSpeedLevel();
 		this->_lives = player.getLives();
+		this->_score = score;
 
 		configFile << "[MAP]" << std::endl;
 		configFile << "\tMAPLEVEL: " << std::to_string(this->_mapLevel) << std::endl;
 
 		// PLAYER LEVEL DATA
 		configFile << "[LEVELS]" << std::endl;
+		configFile << "\tSCORE: " << std::to_string(this->_score) << std::endl;
 		configFile << "\tBOMBLEVEL: " << std::to_string(this->_bombLevel) << std::endl;
 		configFile << "\tRANGELEVEL: " << std::to_string(this->_rangeLevel) << std::endl;
 		configFile << "\tSPEEDLEVEL: " << std::to_string(this->_speedLevel) << std::endl;
@@ -190,6 +202,7 @@ void    Config::updateFile(Player & player, size_t & mapLevel, Sound & sound)
 		// OPTIONS DATA
 		configFile << "[OPTIONS]" << std::endl;
 		configFile << "\tRESOLUTION: " << std::to_string(this->_resX) << " " << std::to_string(this->_resY) << std::endl;
+		configFile << "\tMINMAX: " << std::to_string(this->_minMax) << std::endl;
 		configFile << "\tSFX: " << std::to_string(this->_SFXVolume) << std::endl;
 		configFile << "\tMUSIC: " << std::to_string(this->_musicVolume) << std::endl;
 
@@ -206,7 +219,7 @@ void    Config::updateFile(Player & player, size_t & mapLevel, Sound & sound)
 
 
 		configFile.close();
-		this->parseFile(player, sound);
+		this->parseFile(player, sound, score);
 	}
 	else
 		this->throwFileFailedDelete();
@@ -226,6 +239,7 @@ void	Config::setKBPause(int KBpause)				{this->_KBpause = KBpause;}
 void	Config::setSFXVolume(int sfxVol)			{this->_SFXVolume = sfxVol;}
 void	Config::setMusicVolume(int muscVol)			{this->_musicVolume = muscVol;}
 void	Config::setConfigUpdated(bool updated)		{this->_configUpdated = updated;}
+void	Config::setScore(int score)					{this->_score = score;}
 
 
 
@@ -243,4 +257,4 @@ int &	Config::getKBPause()			{return (this->_KBpause);}
 int &	Config::getSFXVolume()			{return (this->_SFXVolume);}
 int &	Config::getMusicVolume()		{return (this->_musicVolume);}
 bool &	Config::getConfigUpdated()		{return (this->_configUpdated);}
-
+int &	Config::getScore()				{return (this->_score);}

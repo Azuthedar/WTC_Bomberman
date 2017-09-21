@@ -162,3 +162,20 @@ void Data_Loader::Unbind_VAO()
 {
     glBindVertexArray( 0 );
 }
+
+Data_Loader::Data_Loader(Data_Loader const &src) {
+    *this = src;
+    return ;
+}
+
+Data_Loader &Data_Loader::operator=(Data_Loader const &rhs) {
+    this->VAO = rhs.getVAO();
+    this->VBO = rhs.getVBO();
+    this->Texture_ID = rhs.getTexture_ID();
+
+    return *this;
+}
+
+const std::vector<GLuint> &Data_Loader::getVAO() const {return VAO;}
+const std::vector<GLuint> &Data_Loader::getVBO() const {return VBO;}
+const std::vector<GLuint> &Data_Loader::getTexture_ID() const {return Texture_ID;}

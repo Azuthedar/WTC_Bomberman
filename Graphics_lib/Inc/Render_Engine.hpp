@@ -53,6 +53,9 @@ class Render_Engine
         Render_Engine( GLFWwindow *tmp_window );
         ~Render_Engine();
 
+        Render_Engine(Render_Engine const &src);
+        Render_Engine &operator=(Render_Engine const &rhs);
+
         void init();
         void _render( GLfloat &tmp_delta_time );
 
@@ -70,4 +73,27 @@ class Render_Engine
         void test_func(  double posX, double posY  );
         //void DoMovement();
 
+        const string &getWin_Name() const;
+        int getScreen_Width() const;
+        int getScreen_Height() const;
+        static GLFWwindow *getWindow();
+        static Camera *getCamera();
+        static GLfloat getLastX();
+        static GLfloat getLastY();
+        static bool *getKeys();
+        static bool isFirstmouse();
+        static GLfloat getDeltaTime();
+        static GLfloat getLastFrame();
+        static int getTmp_test();
+        const Render &getDraw() const;
+        const Data_Loader &getLoad() const;
+        const Shaders &getShader() const;
+        const Shaders &getSkyBox_shader() const;
+        const Shaders &getParticle_shader() const;
+        Particle_manager *getParticle_manager() const;
+        const vector<Model *> &getModels() const;
+        const vector<Component *> &getComponents() const;
+        const vector<Model *> &getPlayer_models() const;
+        const Skybox_s &getSkybox() const;
+        const Particles_s &getParticle_data() const;
 };

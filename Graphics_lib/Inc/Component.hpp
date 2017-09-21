@@ -30,6 +30,9 @@ class Component
         Component( const std::string &tmp_Name, Model *tmp_model, GLfloat const &Degres, GLint const &tmp_dir, GLfloat const &tmp_scale, glm::vec3 const &tmp_pos, int tmp_textureIndex );
         ~Component();
 
+        Component(Component const &src);
+        Component &operator=(Component const & rhs);
+
         void SetModel( Model *tmp_model );
         void SetDirection( GLint &tmp_dir);
         void SetScale( GLfloat const &tmp_scale );
@@ -50,4 +53,6 @@ class Component
         void dec_position( GLfloat const &tmp_x, GLfloat const &tmp_y, GLfloat const &tmp_z );
 
         void Calculate_Offset( int const &total_rows );
+
+
 };

@@ -6,7 +6,8 @@ Engine::Engine()
 	this->_transitionTicker = MAP_TRANSITION_TIME;
 	this->_mapEnd = false;
 	this->_isTransitioning = false;
-	this->_config.defaultInit(this->_player, this->_sound);
+	this->_score = this->_config.getScore();
+	this->_config.defaultInit(this->_player, this->_sound, this->_score);
 	this->_gameState = MENU;
 	this->_mapLevel = this->_config.getMapLevel();
 	this->readFile("maps");
@@ -83,7 +84,8 @@ void Engine::transitionMap()
 			this->_enemyVector.clear();
 			this->_player.respawn();
 			this->_walls_vector.clear();
-			this->_config.updateFile(this->_player, this->_mapLevel, this->_sound);
+			evalScore();
+			this->_config.updateFile(this->_player, this->_mapLevel, this->_sound, this->_score);
 			this->readMap();
 			this->buildMap();
 			this->_player.getBombVector().clear();
@@ -327,15 +329,13 @@ void	Engine::evalScore()
 		if (this->_enemyVector[i].getIsDead())
 			this->_score += 50;
 	}
-	this->_score += this->_mapDuration * 50;
-	this->_score += this->_player.getLives() * 4;
-	this->_score += 500;
 }
 
 void						Engine::setMapEnd(bool mapEnd)	{this->_mapEnd = mapEnd;}
 void						Engine::setGameState(eGamestate state) {this->_gameState = state;}
 void						Engine::setIsTransitioning(bool transition) {this->_isTransitioning = transition;}
 void						Engine::setMapLevel(size_t maplevel)		{this->_mapLevel = maplevel;}
+void						Engine::setScore(int score)					{this->_score = score;}
 
 std::vector<char> &			Engine::getMapValues()			{return (this->_mapValues);}
 Player & 					Engine::getPlayer() 			{return (this->_player);}
@@ -349,3 +349,4 @@ Config &					Engine::getConfig()				{return (this->_config);}
 eGamestate &				Engine::getGameState()			{return (this->_gameState);}
 Sound &						Engine::getSound()				{return (this->_sound);}
 size_t &					Engine::getMapLevel()			{return (this->_mapLevel);}
+int &						Engine::getScore()				{return (this->_score);}

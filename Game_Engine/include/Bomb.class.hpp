@@ -13,8 +13,10 @@ class Bomb : public AEntity
 
 		Bomb();
 		Bomb(int x, int y);
+
 		Bomb(Bomb const & src);
-		~Bomb();
+
+	~Bomb();
 
 		void	explode(int bombRange, std::vector<Wall> & wallVector, std::vector<Powerup> & powerupVector, Gate & gate);
 		void	destroyExplosion(float deltaTime);
@@ -29,7 +31,8 @@ class Bomb : public AEntity
 		std::vector<Explosion> &	getExplosionVector();
 
 
-	private:
+
+private:
 
 		int		_currTimer; // Explode timer will be on default added just in case for chain bombs exploding
 		int		_totalTimer;

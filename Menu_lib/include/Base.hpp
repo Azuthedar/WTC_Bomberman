@@ -96,6 +96,7 @@ struct  SettingsMenu
     nanogui::Button *Button_Left;
     nanogui::Button *Button_Right;
     nanogui::Button *Button_Place;
+    nanogui::Button *Window_Mode = nullptr;
 
     nanogui::Button *Apply;
 

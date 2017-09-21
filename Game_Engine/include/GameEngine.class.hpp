@@ -34,6 +34,7 @@ class Engine
 		void						setGameState(eGamestate state);
 		void						setIsTransitioning(bool transition);
 		void						setMapLevel(size_t mapLevel);
+		void						setScore(int score);
 
 		std::vector<char> &			getMapValues();
 		std::vector<Wall> &			getWallVector();
@@ -49,6 +50,7 @@ class Engine
 		eGamestate &				getGameState();
 		Sound &						getSound();
 		size_t &					getMapLevel();
+		int &						getScore();
 
 	private:
 
@@ -68,7 +70,7 @@ class Engine
 		std::vector<Powerup>		_powerupVector;
 		Config						_config;
 
-		long int					_score;
+		int							_score;
 
 		eGamestate					_gameState;
 		Sound						_sound;

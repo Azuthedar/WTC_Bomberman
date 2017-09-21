@@ -13,6 +13,9 @@ class Light_class
         Light_class();
         Light_class( glm::vec3 const &tmp_pos, glm::vec3 const &tmp_colour );
 
+        Light_class(Light_class const & src);
+        Light_class &operator=(Light_class const &rhs);
+
         void SetPosition( glm::vec3 const &tmp_pos );
         void SetColour( glm::vec3 const &tmp_colour );
 

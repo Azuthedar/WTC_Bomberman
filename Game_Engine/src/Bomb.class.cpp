@@ -203,3 +203,7 @@ int &	Bomb::getCurrTimer()						{return this->_currTimer;}
 float & Bomb::getExplosionLifeTime()				{return (this->_explosionLifeTime);}
 bool &	Bomb::getExploded()							{return this->_exploded;}
 std::vector<Explosion> &	Bomb::getExplosionVector()	{return (this->_explosionVector);}
+
+
+
+
