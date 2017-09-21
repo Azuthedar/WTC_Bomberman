@@ -39,11 +39,11 @@ glm::mat4 Camera::GetViewMatrix()
 
 void Camera::ProcessKeyboard( glm::vec3 player_pos)
 {
-    player_pos.y = 15.0f;
-    player_pos.z -= 20.0f;
+    player_pos.y = 20.0f;
+    player_pos.z -= 8.0f;
     this->position = player_pos;
 
-    this->pitch = -30.f;
+    this->pitch = -70.f;
 
     this->updateCameraVectors();
 }

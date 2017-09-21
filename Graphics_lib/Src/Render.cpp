@@ -128,12 +128,9 @@ void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
 
         ip = tmp[count]->GetModel();
 
-        //std::cout << "GFDGDGGDGD " << std::endl;
-
         glm::vec3 tmp_light_pos = glm::vec3(0.0f);
         if (count == 0)
         {
-          //tmp_light_pos = tmp[count]->GetPosition();
           tmp_light_pos.x = 18.0f;
           tmp_light_pos.z = 18.0f;
           tmp_light_pos.y = 5.0f;
@@ -156,8 +153,6 @@ void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
 
         model = glm::translate( model, tmp[count]->GetPosition() );
 
-        //if (tmp[count]->GetName().compare(""))
-
         int dir = tmp[count]->GetDirection();
         if ( dir == 0  ) //up
             model = glm::rotate( model, (GLfloat)0, glm::vec3( 0.0f, 1.0f, 0.0f ) );
@@ -170,42 +165,14 @@ void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
         else
             model = glm::rotate( model, (GLfloat)glfwGetTime() * tmp[count]->GetDegres(), glm::vec3( 0.5f, 1.0f, 0.0f ) );
 
-        //else if ()
-        //  model = glm::rotate( model, tmp[count]->GetDegres(), glm::vec3( 0.5f, 1.0f, 0.0f ) );
-        //else
-        //  model = glm::rotate( model, (GLfloat)glfwGetTime() * tmp[count]->GetDegres(), glm::vec3( 0.5f, 1.0f, 0.0f ) );
-
+        
         model_matrix = glm::scale( model , glm::vec3(tmp[count]->GetScale()) );
 
-        //model_matrix = model * rot;
         shader.load_matrix( this->modelLoc, model_matrix );
-        //shader.load_matrix( this->ScaleLoc, scel );
+       
 
         ip->Draw();
 
-        /*glBindVertexArray( ip.GetModel().GetVAO() );
-
-        glEnableVertexAttribArray( 0 );
-        glEnableVertexAttribArray( 1 );
-        glEnableVertexAttribArray( 2 );
-
-        //glActiveTexture( GL_TEXTURE0 );
-
-        //std::cout << ip.GetModelText().GetTextureID() << std::endl;
-        glBindTexture(GL_TEXTURE_2D, ip.GetModelText().GetTextureID());
-        glUniform1i( glGetUniformLocation( shader.GetProgramID(), "Texture_"), 0.0f );
-
-        //std::cout << "GFDGDGGDGD 3" <<  ip.GetModel().GetVertexCount() << std::endl;
-
-        glDrawElements( GL_TRIANGLES, ip.GetModel().GetVertexCount(), GL_UNSIGNED_INT, 0);
-
-        //std::cout << "GFDGDGGDGD 4" << std::endl;
-
-        glDisableVertexAttribArray( 0 );
-        glDisableVertexAttribArray( 1 );
-        glEnableVertexAttribArray( 2 );
-
-        glBindVertexArray( 0 );*/
     }
 
     for ( unsigned int count = 0; count < tmp.size(); count++)

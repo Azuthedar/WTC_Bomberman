@@ -38,6 +38,7 @@ class Config: public Exceptions
 		void	setMusicVolume(int muscVol);
 		void	setConfigUpdated(bool updated);
 		void	setScore(int score);
+		void	setMINMAX(bool minmax);
 
 		int &	getMapLevel();
 		int &	getBombLevel();
@@ -54,6 +55,7 @@ class Config: public Exceptions
 		int &	getMusicVolume();
 		bool &	getConfigUpdated();
 		int &	getScore();
+		bool &	getMINMAX();
 
 	private:
 
