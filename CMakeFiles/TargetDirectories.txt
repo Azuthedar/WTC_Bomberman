@@ -1,3 +1,0 @@
-/goinfre/kchetty/Desktop/WTC_Bomberman/CMakeFiles/rebuild_cache.dir
-/goinfre/kchetty/Desktop/WTC_Bomberman/CMakeFiles/edit_cache.dir
-/goinfre/kchetty/Desktop/WTC_Bomberman/CMakeFiles/Bomberman.dir
