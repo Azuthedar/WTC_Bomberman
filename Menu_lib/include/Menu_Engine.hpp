@@ -7,8 +7,10 @@ class Menu_Engine
     private:
 
         std::string window_name;
-        int screen_height;
-        int screen_width;
+        static int screen_height;
+        static int screen_width;
+
+        static std::string window_mode;
 
         static nanogui::Screen *base_screen;
 
@@ -17,6 +19,8 @@ class Menu_Engine
         static PauseMenu pause_menu;
 
         static Engine *engine;
+
+        static bool isFullScreen;
 
         static std::unordered_map< std::string, int > key_binds;
         static std::unordered_map< std::string, int >::iterator it;
