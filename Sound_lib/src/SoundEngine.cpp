@@ -131,6 +131,11 @@ void    Sound::playSound(eSound & sound, eSound & playerSound, eGamestate & game
 
 void	Sound::changeVolume()
 {
+	Mix_VolumeChunk(this->_waveVector[SND_DEFAULT], this->_musicVolume * 0.5f);
+	Mix_VolumeChunk(this->_waveVector[SND_DEFAULT1], this->_musicVolume * 0.5f);
+	Mix_VolumeChunk(this->_waveVector[SND_DEFAULT2], this->_musicVolume * 0.5f);
+	Mix_VolumeChunk(this->_waveVector[SND_DEFAULT3], this->_musicVolume * 0.5f);
+
 	Mix_VolumeChunk(this->_waveVector[SND_FOOTSTEP], this->_SFXVolume * 0.4f);
 	Mix_VolumeChunk(this->_waveVector[SND_DEATH], this->_SFXVolume * 0.8f);
 	Mix_VolumeChunk(this->_waveVector[SND_EXPLOSION], this->_SFXVolume * 0.8f);
