@@ -243,3 +243,4 @@ int &	Config::getKBPause()			{return (this->_KBpause);}
 int &	Config::getSFXVolume()			{return (this->_SFXVolume);}
 int &	Config::getMusicVolume()		{return (this->_musicVolume);}
 bool &	Config::getConfigUpdated()		{return (this->_configUpdated);}
+
