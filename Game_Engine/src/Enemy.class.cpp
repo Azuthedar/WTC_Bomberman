@@ -30,11 +30,11 @@ Enemy::Enemy(int x, int y)
 }
 
 
-Enemy::Enemy(Enemy const & src)
+/*Enemy::Enemy(Enemy const & src)
 {
 	*this = src;
 	return ;
-}
+}*/
 
 Enemy::~Enemy()
 {

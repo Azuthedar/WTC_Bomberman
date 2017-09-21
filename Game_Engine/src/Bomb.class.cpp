@@ -22,11 +22,11 @@ Bomb::Bomb(int x, int y)
 	return ;
 }
 
-Bomb::Bomb(Bomb const & src)
+/*Bomb::Bomb(Bomb const & src)
 {
 	*this = src;
 	return ;
-}
+}*/
 
 Bomb::~Bomb()
 {
@@ -203,7 +203,3 @@ int &	Bomb::getCurrTimer()						{return this->_currTimer;}
 float & Bomb::getExplosionLifeTime()				{return (this->_explosionLifeTime);}
 bool &	Bomb::getExploded()							{return this->_exploded;}
 std::vector<Explosion> &	Bomb::getExplosionVector()	{return (this->_explosionVector);}
-
-
-
-

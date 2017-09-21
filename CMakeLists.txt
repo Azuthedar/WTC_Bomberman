@@ -3,7 +3,7 @@ cmake_minimum_required (VERSION 3.5)
 set(PROJECT_NAME "Bomberman")
 project (${PROJECT_NAME})
 
-set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Werror -Wextra")
+set(CMAKE_CXX_FLAGS "-std=c++11")
 set(CMAKE_BUILD_TYPE Debug)
 set(PLATFORM ${CMAKE_SYSTEM_NAME})
 
@@ -24,14 +24,14 @@ if (WIN32)
     message ("Found glew library at ${GLEW_LIBRARY}")
 
     #SOIL
-    set(SOIL_INCLUDE "Graphics_lib/Soil/SOIL2/")
-    set(SOIL_LIB_DIR "Graphics_lib/Soil/Unix/")
+    set(SOIL_INCLUDE "Libs/Soil/SOIL2/")
+    set(SOIL_LIB_DIR "Libs/Soil/Unix/")
     set(SOIL_LIB ${SOIL_LIB_DIR}libsoil2.a)
     set(SOIL_NAME soil2-debug)
 
     #NANO GUI
-    set(NANO_INCLUDE "Menu_lib/nanogui/include/")
-    set(NANO_LIB_DIR "Menu_lib/nanogui/build/")
+    set(NANO_INCLUDE "Libs/nanogui/include/")
+    set(NANO_LIB_DIR "Libs/nanogui/build/")
     set(NANO_NAME nanogui)
 
     #SDL2

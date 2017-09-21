@@ -22,11 +22,11 @@ Player::Player(int x, int y)
 	return ;
 }
 
-Player::Player(Player const & src)
+/*Player::Player(Player const & src)
 {
 	*this = src;
 	return ;
-}
+}*/
 
 Player::~Player()
 {

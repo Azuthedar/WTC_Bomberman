@@ -1,5 +1,9 @@
 #pragma once
 
+//Comment out clear funtion in screen.cpp -> DrawAll() 
+
+#include "../../Graphics_lib/Inc/Data_Loader.hpp"
+#include "../../Graphics_lib/Inc/Shaders.hpp"
 
 #include "../../Game_Engine/include/GameEngine.class.hpp"
 #include "../../Libs/nanogui/include/nanogui/screen.h"

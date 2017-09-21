@@ -14,7 +14,7 @@ class Player : public AEntity
 
 		Player();
 		Player(int x, int y);
-		Player(Player const & src);
+		//Player(Player const & src);
 		~Player();
 
 

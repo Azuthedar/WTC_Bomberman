@@ -230,10 +230,10 @@ void Render_Engine::_render( GLfloat &tmp_delta_time )
 
         this->draw.SetProjection( Render_Engine::camera->GetZoom() );
 
-        
+
         this->draw.SetViewMatrix( camera->GetViewMatrix() );
 
-       
+
 
         this->draw.Render_( this->components, this->shader );
         this->draw.Render_Particles( this->particle_manager->GetParticleArray(), this->Particle_shader, this->particle_data );
@@ -258,13 +258,6 @@ void Render_Engine::load_Shaders()
 
 void Render_Engine::init()
 {
-    glewExperimental = GL_TRUE; //stops glew crashing on OSX :-/
-    if( glewInit() != GLEW_OK )
-    {
-        std::cout << "Bad news 3" << std::endl; //Could Not Init Glew: Failed?
-        exit(3);
-    }
-
     Render_Engine::camera = new Camera( glm::vec3( 0.0f, 5.0f, 10.f) );
     lastX = 0.0f;//this->Screen_Width / 2.0f;
     lastY = 0.0f;//this->Screen_Height / 2.0f;
@@ -331,5 +324,3 @@ const vector<Component *> &Render_Engine::getComponents() const { return compone
 const vector<Model *> &Render_Engine::getPlayer_models() const { return player_models; }
 const Skybox_s &Render_Engine::getSkybox() const { return Skybox; }
 const Particles_s &Render_Engine::getParticle_data() const { return particle_data; }
-
-

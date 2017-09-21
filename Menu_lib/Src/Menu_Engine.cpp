@@ -6,6 +6,8 @@ SettingsMenu Menu_Engine::settings_menu = SettingsMenu();
 PauseMenu Menu_Engine::pause_menu = PauseMenu();
 std::string Menu_Engine::window_mode = "FullScreen";
 
+std::vector < Texture > Menu_Engine::render_array;
+
 int Menu_Engine::screen_height = 720;
 int Menu_Engine::screen_width = 1280;
 
@@ -165,6 +167,8 @@ void Menu_Engine::createSettingsMenu()
     settings_menu.theme->mDropShadow = {0, 0, 0, 255};
     settings_menu.theme->mWindowCornerRadius = 5;
     settings_menu.theme->mWindowHeaderHeight = 40 * scale;
+
+
 
     settings_menu.settingsMenu_window = new nanogui::Window( base_screen, "Settings Menu" );
     settings_menu.settingsMenu_window->setPosition( { half_screenWidth - screen_width / 4 , half_screenHeight - screen_height / 4 } );
@@ -526,9 +530,46 @@ void Menu_Engine::createSettingsMenu()
     });
 }
 
+void Menu_Engine::render()
+{
+    glUseProgram( this->shader.GetProgramID() );
+    glBindVertexArray( this->VAO );
+    glEnableVertexAttribArray(0);
+    glEnable( GL_BLEND );
+    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+    glDisable( GL_DEPTH_TEST );
+
+    GLint modelLoc = shader.GetUniformLocation( "transform_mat" );
+
+    for (GLuint count = 0; count < render_array.size(); count++)
+    {
+        glm::mat4 model = glm::mat4(1.0);
+        glm::mat4 model_matric;
+
+        glBindTexture( GL_TEXTURE_2D, render_array[count].id );
+
+        model = glm::translate( model, glm::vec3( render_array[count].pos, render_array[count].pos, 1.0f) );
+        model_matric = glm::scale( model , glm::vec3( render_array[count].scale, render_array[count].scale, 1.0f ) );
+
+        std::cout << render_array[count].pos << render_array[count].scale << std::endl;
+
+        this->shader.load_matrix( modelLoc, model_matric );
+
+        glDrawArrays( GL_TRIANGLE_STRIP, 0, 4);
+        glBindTexture( GL_TEXTURE_2D, 0 );
+    }
+
+    glBindTexture( GL_TEXTURE_2D, 0 );
+    glBindVertexArray( 0 );
+    glDisable( GL_BLEND );
+    glEnable( GL_DEPTH_TEST );
+    glDisableVertexAttribArray(0);
+}
+
 void Menu_Engine::createMainMenu()
 {
-    //nb: new button co-ords use windw dimension -> mainMenu_window;
+    //nb: new button co-ords use windw dimension -> mainMenu_window
+
     int half_screenWidth = screen_width / 2;
     int half_screenHeight = screen_height / 2;
 
@@ -570,6 +611,7 @@ void Menu_Engine::createMainMenu()
         main_menu.changeView(false);
         settings_menu.changeView(false);
         pause_menu.changeView(false);
+        render_array.clear();
     });
 
     posY += 35 * ( screen_height / 360 );
@@ -585,6 +627,7 @@ void Menu_Engine::createMainMenu()
         main_menu.changeView(false);
         settings_menu.changeView(false);
         pause_menu.changeView(false);
+        render_array.clear();
     });
 
     posY += 35 * ( screen_height / 360 );
@@ -616,6 +659,8 @@ void Menu_Engine::gl_init()
 {
     glfwMakeContextCurrent( base_screen->glfwWindow() ); // Make the windows context current
     // /glfwGetFramebufferSize( base_screen->glfwWindow(), &this->screen_width &this->Screen_Height );
+
+    load_menu_textures();
 
     glfwWindowHint(GLFW_SAMPLES, 0);
     glfwWindowHint(GLFW_RED_BITS, 8);
@@ -697,6 +742,44 @@ void Menu_Engine::createPauseMenu()
     });
 }
 
+void Menu_Engine::load_menu_textures()
+{
+    this->shader.compile_shaders( "Menu_lib/Shaders/VertexShader.vert", "Menu_lib/Shaders/FragmentShader.frag" );
+
+    GLfloat cubeVertices[] =
+    {
+        -1.0f, 1.0f,
+        -1.0f, -1.0f,
+        1.0f, 1.0f,
+        1.0f, -1.0f
+    };
+
+    glGenVertexArrays( 1, &this->VAO );
+    glGenBuffers( 1, &this->VBO );
+    glBindVertexArray( this->VAO );
+    glBindBuffer( GL_ARRAY_BUFFER, this->VBO );
+    glBufferData( GL_ARRAY_BUFFER, sizeof( cubeVertices ), &cubeVertices, GL_STATIC_DRAW );
+    glEnableVertexAttribArray( 0 );
+    glVertexAttribPointer( 0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof( GLfloat ), ( GLvoid * ) 0 );
+    glBindVertexArray(0);
+
+    std::cout << "Some stuff is happening " << this->VAO << std::endl;
+
+    Texture Tmp_str;
+
+    Tmp_str.id = this->load.load_texture( "background.jpg", "Assets/UI");
+    Tmp_str.scale = 1.0f;
+    Tmp_str.pos = 0.0f;
+
+    render_array.push_back( Tmp_str );
+
+    /*Tmp_str.id = this->load.load_texture( "bomb1.png", "Assets/UI");
+    Tmp_str.scale = 0.25f;
+    Tmp_str.pos = 0.5f;*/
+
+    render_array.push_back( Tmp_str );
+}
+
 void Menu_Engine::init()
 {
     if( !glfwInit() )
@@ -713,7 +796,6 @@ void Menu_Engine::init()
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
     base_screen = new nanogui::Screen( Eigen::Vector2i( screen_width, screen_height), "Bomberman", false, isFullScreen, 8, 8, 24, 8, 4, 4, 1);
-    base_screen->setBackground( { 0, 0, 0, 0 } );
     base_screen->setVisible(true);
     settings_menu.res_type = 1;
 
@@ -726,8 +808,16 @@ void Menu_Engine::init()
 
     std::cout << "Window Valei " << base_screen->glfwWindow() << std::endl;
 
-    glfwMakeContextCurrent( base_screen->glfwWindow() ); // Make the windows context current
-    // /glfwGetFramebufferSize( base_screen->glfwWindow(), &this->screen_width &this->Screen_Height );
+    glfwMakeContextCurrent( base_screen->glfwWindow() );
+
+    glewExperimental = GL_TRUE; //stops glew crashing on OSX :-/
+    if( glewInit() != GLEW_OK )
+    {
+        std::cout << "Bad news 3" << std::endl; //Could Not Init Glew: Failed?
+        exit(3);
+    }
+
+    load_menu_textures();
 
     glfwWindowHint(GLFW_SAMPLES, 0);
     glfwWindowHint(GLFW_RED_BITS, 8);
@@ -821,10 +911,13 @@ int Menu_Engine::update( Engine &engine )
         }
     }
 
-
+    if ( render_array.size() > 0 )
+        render( );
 
     if ( main_menu.mainMenu_window->visible() == true || settings_menu.settingsMenu_window->visible() == true || pause_menu.pauseMenu_window->visible() == true)
         base_screen->drawAll();
+
+    //render_array.clear();
 
     return (change_val);
 }

@@ -14,7 +14,7 @@ class Bomb : public AEntity
 		Bomb();
 		Bomb(int x, int y);
 
-		Bomb(Bomb const & src);
+		//Bomb(Bomb const & src);
 
 	~Bomb();
 

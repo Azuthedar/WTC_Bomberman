@@ -9,7 +9,7 @@ class Explosion : public AEntity
 
 		Explosion();
 		Explosion(int x, int y);
-		Explosion(Explosion const & src);
+		//Explosion(Explosion const & src);
 		~Explosion();
 
 		void		collisions(std::vector<Wall> & wallVector);

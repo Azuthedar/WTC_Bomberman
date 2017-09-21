@@ -22,6 +22,12 @@ class Menu_Engine
 
         static bool isFullScreen;
 
+        Data_Loader load;
+        Shaders shader;
+        std::vector < GLuint > texture_id;
+        static std::vector < Texture > render_array;
+        GLuint VAO, VBO;
+
         static std::unordered_map< std::string, int > key_binds;
         static std::unordered_map< std::string, int >::iterator it;
 
@@ -34,6 +40,8 @@ class Menu_Engine
         void init();
         void gl_init();
         bool check_status();
+        void load_menu_textures();
+        void render();
 
         void create_keyMaps();
 

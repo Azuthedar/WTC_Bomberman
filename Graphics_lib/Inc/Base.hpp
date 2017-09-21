@@ -31,6 +31,8 @@ struct Texture
     aiString path;
     int num_rows;
     int num_columns;
+    float scale;
+    float pos;
 };
 
 struct Skybox_s
