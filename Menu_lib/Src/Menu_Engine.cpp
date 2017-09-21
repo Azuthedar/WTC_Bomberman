@@ -4,7 +4,12 @@ nanogui::Screen *Menu_Engine::base_screen = nullptr;
 MainMenu Menu_Engine::main_menu = MainMenu();
 SettingsMenu Menu_Engine::settings_menu = SettingsMenu();
 PauseMenu Menu_Engine::pause_menu = PauseMenu();
+std::string Menu_Engine::window_mode = "FullScreen";
 
+int Menu_Engine::screen_height = 720;
+int Menu_Engine::screen_width = 1280;
+
+bool Menu_Engine::isFullScreen = false;
 
 Engine  *Menu_Engine::engine = nullptr;
 
@@ -14,8 +19,6 @@ std::unordered_map< std::string, int >::iterator Menu_Engine::it;
 Menu_Engine::Menu_Engine( std::string Win_Name )
 {
     this->window_name = Win_Name;
-    this->screen_width = 1280;
-    this->screen_height = 720;
 
     init();
     create_keyMaps();
@@ -96,12 +99,12 @@ void Menu_Engine::create_keyMaps()
 
 void Menu_Engine::createSettingsMenu()
 {
-    int half_screenWidth = this->screen_width / 2;
-    int half_screenHeight = this->screen_height / 2;
+    int half_screenWidth = screen_width / 2;
+    int half_screenHeight = screen_height / 2;
 
-    float scale = this->screen_height / 720;
+    float scale = screen_height / 720;
 
-    if ( this->screen_height / 360 == 3 )
+    if ( screen_height / 360 == 3 )
         scale = 1.5 ;
     else
         scale = 1;
@@ -122,7 +125,7 @@ void Menu_Engine::createSettingsMenu()
     settings_menu.theme->mWindowHeaderHeight = 40 * scale;
 
     settings_menu.settingsMenu_window = new nanogui::Window( base_screen, "Settings Menu" );
-    settings_menu.settingsMenu_window->setPosition( { half_screenWidth - this->screen_width / 4 , half_screenHeight - this->screen_height / 4 } );
+    settings_menu.settingsMenu_window->setPosition( { half_screenWidth - screen_width / 4 , half_screenHeight - screen_height / 4 } );
     settings_menu.settingsMenu_window->setSize( { half_screenWidth , half_screenHeight } );
     settings_menu.settingsMenu_window->setTheme( settings_menu.theme );
 
@@ -142,9 +145,10 @@ void Menu_Engine::createSettingsMenu()
         if ( settings_menu.res_type == 2 )
         {
             settings_menu.res_1080->setEnabled( true );
-            settings_menu.res_720->setEnabled( false );
             settings_menu.res_type = 1;
             settings_menu.res_change = true;
+            screen_width = 1280;
+            screen_height = 720;
         }
     });
 
@@ -157,11 +161,37 @@ void Menu_Engine::createSettingsMenu()
     settings_menu.res_1080->setCallback([]{
         if ( settings_menu.res_type == 1 )
         {
-            settings_menu.res_1080->setEnabled( false );
             settings_menu.res_720->setEnabled( true );
             settings_menu.res_type = 2;
             settings_menu.res_change = true;
+            screen_width = 1980;
+            screen_height = 1080;
         }
+    });
+
+    settings_menu.Window_Mode = new nanogui::Button(settings_menu.settingsMenu_window, window_mode.c_str() );
+    settings_menu.Window_Mode->setPosition( { 220 * scale , 80 * scale } );
+    settings_menu.Window_Mode->setSize( { 95 * scale , 40 * scale} );
+    settings_menu.Window_Mode->setBackgroundColor( { 20, 100, 255, 100 } );
+    settings_menu.Window_Mode->setTheme( settings_menu.theme );
+    settings_menu.Window_Mode->setCallback([]{
+
+        if (isFullScreen == false)
+        {
+            isFullScreen = true;
+            window_mode = "Window";
+            screen_height = 1080;
+            screen_width = 1980;
+            settings_menu.res_type = 3;
+        }
+        else if ( isFullScreen == true )
+        {
+            isFullScreen = false;
+            settings_menu.res_type = 2;
+            window_mode = "FullScreen";
+        }
+        settings_menu.res_change = true;
+
     });
 
 
@@ -457,11 +487,11 @@ void Menu_Engine::createSettingsMenu()
 void Menu_Engine::createMainMenu()
 {
     //nb: new button co-ords use windw dimension -> mainMenu_window;
-    int half_screenWidth = this->screen_width / 2;
-    int half_screenHeight = this->screen_height / 2;
+    int half_screenWidth = screen_width / 2;
+    int half_screenHeight = screen_height / 2;
 
     main_menu.theme = new nanogui::Theme( base_screen->nvgContext() );
-    main_menu.theme->mButtonFontSize = 10 * ( this->screen_height / 360 );
+    main_menu.theme->mButtonFontSize = 10 * ( screen_height / 360 );
     main_menu.theme->mFontBold = 0;
     main_menu.theme->mTextColor = {200, 200, 200, 255};
     main_menu.theme->mButtonCornerRadius = 5;
@@ -470,16 +500,16 @@ void Menu_Engine::createMainMenu()
     main_menu.theme->mBorderMedium = {25, 150, 175, 10};
     main_menu.theme->mDropShadow = {20, 20, 20, 255};
     main_menu.theme->mWindowCornerRadius = 5;
-    main_menu.theme->mWindowHeaderHeight = 20 * ( this->screen_height / 360 );
+    main_menu.theme->mWindowHeaderHeight = 20 * ( screen_height / 360 );
 
     main_menu.mainMenu_window = new nanogui::Window( base_screen, "Main Menu" );
-    main_menu.mainMenu_window->setPosition( { half_screenWidth - this->screen_width / 4 , half_screenHeight - this->screen_height / 4 } );
+    main_menu.mainMenu_window->setPosition( { half_screenWidth - screen_width / 4 , half_screenHeight - screen_height / 4 } );
     main_menu.mainMenu_window->setSize( { half_screenWidth , half_screenHeight } );
     main_menu.mainMenu_window->setTheme( main_menu.theme );
 
     /// dimensions and positions for buttons
     int     posY = half_screenHeight / 2 - half_screenHeight / 3;
-    int     buttonHeight = 25 * ( this->screen_height / 360 );
+    int     buttonHeight = 25 * ( screen_height / 360 );
     int     buttonWidth = half_screenWidth / 2;
     int     Xoffset = half_screenWidth / 4;
     int     posX = half_screenWidth / 2 - Xoffset;
@@ -500,7 +530,7 @@ void Menu_Engine::createMainMenu()
         pause_menu.changeView(false);
     });
 
-    posY += 35 * ( this->screen_height / 360 );
+    posY += 35 * ( screen_height / 360 );
     main_menu.start = new nanogui::Button(main_menu.mainMenu_window, "New Game");
     main_menu.start->setSize( {buttonWidth, buttonHeight} );
     main_menu.start->setBackgroundColor( { 20, 100, 255, 100 } );
@@ -515,7 +545,7 @@ void Menu_Engine::createMainMenu()
         pause_menu.changeView(false);
     });
 
-    posY += 35 * ( this->screen_height / 360 );
+    posY += 35 * ( screen_height / 360 );
     main_menu.settings = new nanogui::Button(main_menu.mainMenu_window, "Settings");
     main_menu.settings->setSize({buttonWidth, buttonHeight});
     main_menu.settings->setBackgroundColor( { 20, 100, 255, 100 } );
@@ -527,7 +557,7 @@ void Menu_Engine::createMainMenu()
         settings_menu.changeView(true);
     });
 
-    posY += 35 * ( this->screen_height / 360 );
+    posY += 35 * ( screen_height / 360 );
     main_menu.exit_game = new nanogui::Button(main_menu.mainMenu_window, "EXIT");
     main_menu.exit_game->setSize({buttonWidth, buttonHeight});
     main_menu.exit_game->setBackgroundColor( { 20, 100, 255, 100 } );
@@ -554,7 +584,7 @@ void Menu_Engine::gl_init()
     glfwWindowHint(GLFW_DEPTH_BITS, 24);
     glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 
-    glViewport(0, 0, this->screen_width, this->screen_height);
+    glViewport(0, 0, screen_width, screen_height);
     glfwSwapInterval(0);
 
     createMainMenu();
@@ -568,21 +598,21 @@ void Menu_Engine::gl_init()
 
 void Menu_Engine::createPauseMenu()
 {
-    int half_screenWidth = this->screen_width / 5;
-    int half_screenHeight = this->screen_height / 3;
+    int half_screenWidth = screen_width / 5;
+    int half_screenHeight = screen_height / 3;
 
     pause_menu.pauseMenu_window = new nanogui::Window( base_screen, "Pause Menu" );
-    pause_menu.pauseMenu_window->setPosition( { (this->screen_width / 2) - (half_screenWidth / 2) , (this->screen_height / 2) - (half_screenHeight / 2) } );
+    pause_menu.pauseMenu_window->setPosition( { (screen_width / 2) - (half_screenWidth / 2) , (screen_height / 2) - (half_screenHeight / 2) } );
     pause_menu.pauseMenu_window->setSize( { half_screenWidth , half_screenHeight } );
     pause_menu.pauseMenu_window->setTheme( main_menu.theme );
 
     int     posY = (half_screenHeight / 2 - half_screenHeight / 3);
-    int     buttonHeight = (20 * ( this->screen_height / 360 ));
+    int     buttonHeight = (20 * ( screen_height / 360 ));
     int     buttonWidth = (half_screenWidth / 2);
     int     Xoffset = half_screenWidth / 4;
     int     posX = (half_screenWidth / 2 - Xoffset);
 
-    posY += 10 * (this->screen_height / 360);
+    posY += 10 * (screen_height / 360);
     pause_menu.b_continue = new nanogui::Button(pause_menu.pauseMenu_window, "Continue");
     pause_menu.b_continue->setSize( {buttonWidth, buttonHeight} );
     pause_menu.b_continue->setBackgroundColor( { 20, 100, 255, 100 } );
@@ -596,7 +626,7 @@ void Menu_Engine::createPauseMenu()
         settings_menu.changeView(false);
     });
 
-    posY += 30 * (this->screen_height / 360);
+    posY += 30 * (screen_height / 360);
     pause_menu.b_settings = new nanogui::Button(pause_menu.pauseMenu_window, "Settings");
     pause_menu.b_settings->setSize( {buttonWidth, buttonHeight} );
     pause_menu.b_settings->setBackgroundColor( { 20, 100, 255, 100 } );
@@ -608,7 +638,7 @@ void Menu_Engine::createPauseMenu()
         settings_menu.changeView(true);
     });
 
-    posY += 30 * (this->screen_height / 360);
+    posY += 30 * (screen_height / 360);
 
     pause_menu.b_exit = new nanogui::Button(pause_menu.pauseMenu_window, "Main Menu");
     pause_menu.b_exit->setSize( {buttonWidth, buttonHeight} );
@@ -640,7 +670,7 @@ void Menu_Engine::init()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-    base_screen = new nanogui::Screen( Eigen::Vector2i( this->screen_width, this->screen_height), "Bomberman", false, false, 8, 8, 24, 8, 4, 4, 1);
+    base_screen = new nanogui::Screen( Eigen::Vector2i( screen_width, screen_height), "Bomberman", false, isFullScreen, 8, 8, 24, 8, 4, 4, 1);
     base_screen->setBackground( { 0, 0, 0, 0 } );
     base_screen->setVisible(true);
     settings_menu.res_type = 1;
@@ -666,7 +696,7 @@ void Menu_Engine::init()
     glfwWindowHint(GLFW_DEPTH_BITS, 24);
     glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 
-    glViewport(0, 0, this->screen_width, this->screen_height);
+    glViewport(0, 0, screen_width, screen_height);
     glfwSwapInterval(0);
 
     createMainMenu();
@@ -721,20 +751,10 @@ int Menu_Engine::update( Engine &engine )
     {
         change_val = 1;
         int tmp = settings_menu.res_type;
-        if ( settings_menu.res_type == 1 )
-        {
-            this->screen_width = 1280;
-            this->screen_height = 720;
-        }
-        else if ( settings_menu.res_type ==  2)
-        {
-            this->screen_width = 1980;
-            this->screen_height = 1080;
-        }
 
         delete base_screen;
 
-        base_screen = new nanogui::Screen( Eigen::Vector2i( this->screen_width, this->screen_height ), "Bomberman", false, false, 8, 8, 24, 8, 4, 4, 1);
+        base_screen = new nanogui::Screen( Eigen::Vector2i( screen_width, screen_height ), "Bomberman", false, isFullScreen, 8, 8, 24, 8, 4, 4, 1);
 
         if ( !base_screen->glfwWindow() ) // Check if window was created
         {
@@ -748,10 +768,15 @@ int Menu_Engine::update( Engine &engine )
         settings_menu.res_change = false;
         settings_menu.res_type = tmp;
 
-        if ( settings_menu.res_type == 1)
+        if ( settings_menu.res_type == 1 )
             settings_menu.res_720->setEnabled( false );
-        else
+        else if( settings_menu.res_type == 2 )
             settings_menu.res_1080->setEnabled( false );
+        else if (  settings_menu.res_type == 3 )
+        {
+            settings_menu.res_1080->setEnabled( false );
+            settings_menu.res_720->setEnabled( false );
+        }
     }
 
 
