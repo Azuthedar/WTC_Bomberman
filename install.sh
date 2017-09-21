@@ -18,5 +18,5 @@ echo "Installing Python 3"
 brew install python3
 echo "Extracting NanoGUI"
 unzip ./Menu_lib/nanogui.zip -d ./Menu_lib
-echo "Please Run The Following Command: cmake ."
-echo "Then Run The Following Command: make"
+cmake .
+make

@@ -5,4 +5,5 @@ rm -rf CMakeFiles
 rm -rf Makefile
 rm -rf cmake_install.cmake
 rm -rf config.init
+rm -rf Menu_lib/nanogui
 echo "Uninstalled Succesfully!"
