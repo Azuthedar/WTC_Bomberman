@@ -110,6 +110,42 @@ void Particle_manager::Generate_Particles( glm::vec3 const &tmp_Origin_Position,
     }
 }
 
+void Particle_manager::Generate_Particles( glm::vec3 const &tmp_Origin_Position, float flerp)
+{
+    float expected_particles = 50; //* tmp_delta_time;
+    float deeznuts;
+    deeznuts = flerp;
+    int count = floor( expected_particles );
+
+    const float MIN_RAND = -30.0f, MAX_RAND = 30.0f;
+    const float range = MAX_RAND - MIN_RAND;
+
+    glm::vec3 temp_pos = glm::vec3(0.0f);
+    //std::cout << count << std::endl;
+    //float diff = expected_particles % 1;
+    for ( int i = 0; i < count; i++)
+    {
+        temp_pos = tmp_Origin_Position;
+        float dirX = 0.0f;
+        float dirZ = 0.0f;
+
+        //std::cout << " direction z " << dirZ << " Direction X " << dirX << std::endl;
+
+        glm::vec3 velocity = glm::vec3( dirX, 1.0f, dirZ );
+        velocity = glm::normalize( velocity );
+
+        velocity.x *= this->particle_speed;
+        // velocity.y *= this->particle_speed;
+        velocity.z *= this->particle_speed;
+
+        temp_pos.x += range * ((((float) rand()) / (float) RAND_MAX)) + MIN_RAND;
+        temp_pos.y = 8.0f;// + (range * ((((float) rand()) / (float) RAND_MAX)) + MIN_RAND);
+        temp_pos.z += range * ((((float) rand()) / (float) RAND_MAX)) + MIN_RAND;
+
+        this->particle_array.push_back( new Particles( this->Texture_Data , temp_pos, velocity, this->Gravity, this->Life_length / 2, 0.0f, PARTICLE_SIZE / 20 ) );
+    }
+}
+
 void Particle_manager::SetTexture( Texture const &texture_data )
 {
     this->Texture_Data = texture_data;

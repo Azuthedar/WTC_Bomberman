@@ -22,6 +22,7 @@ class Particle_manager
         void manage_particles( const GLfloat &DeltaTime );
         void Generate_Particles( glm::vec3 const &tmp_Origin_Position );
         void Generate_Particles( glm::vec3 const &tmp_Origin_Position, int derp);
+        void Generate_Particles( glm::vec3 const &tmp_Origin_Position, float flerp);
         Particles *GetParticle( int const &pos ) const;
         std::vector < Particles * > GetParticleArray( ) const;
 

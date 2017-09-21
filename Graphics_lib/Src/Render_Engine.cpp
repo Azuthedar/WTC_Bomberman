@@ -159,6 +159,10 @@ void Render_Engine::Create_Components( Engine &engine )
             this->components.push_back( new Component("Enemy", this->models[3], 0.0f, engine.getEnemyVector()[i].getDir(), 0.55f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , 1.0f, engine.getEnemyVector()[i].getYPos() * 2 ), 0)  );
   	}
 
+    //Push back floaty bloos
+    glm::vec3 npos = glm::vec3( 0.0f );
+    this->particle_manager->Generate_Particles( npos, 0.0f);
+
     if (engine.getGate().getExists() && engine.getGate().getIsLocked())
     {
         this->components.push_back( new Component("Locked_Gate", this->models[4], 0.0f, -1, 2.0f, glm::vec3( engine.getGate().getXPos() * 2.0f, 0.1f, engine.getGate().getYPos() * 2.0f ), 0)  );
