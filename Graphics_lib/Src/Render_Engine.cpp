@@ -103,7 +103,7 @@ void Render_Engine::load_dependencies()
         int num_rows;
         int num_columns;
     };
-    this->particle_data.Particle_text = this->load.load_texture( "explosion_atlas.png" , "Graphics_lib/objects_and_textures");
+    this->particle_data.Particle_text = this->load.load_texture( "explosion_atlas.png" , "Assets/objects_and_textures");
 
     Tmp_texture.id = this->particle_data.Particle_text;
     Tmp_texture.type = "atlas";

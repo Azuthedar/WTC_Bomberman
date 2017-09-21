@@ -13,7 +13,7 @@ void Camera::updateCameraVectors( )
     this->up = glm::normalize( glm::cross( this->right, this->front) );
 }
 
-Camera::Camera( glm::vec3 position, glm::vec3 up, GLfloat yaw, GLfloat pitch ) : front( glm::vec3( 0.0f, 0.0f, -1.0f ) ), mouseSensitivity( SENSITIVITY ), zoom( ZOOM )
+Camera::Camera( glm::vec3 position, glm::vec3 up, GLfloat yaw, GLfloat pitch ) : front( glm::vec3( 0.0f, 0.0f, -1.0f ) ), zoom( ZOOM )
 {
     this->position = position;
     this->yaw = yaw;
@@ -23,7 +23,7 @@ Camera::Camera( glm::vec3 position, glm::vec3 up, GLfloat yaw, GLfloat pitch ) :
 
 }
 
-Camera::Camera( GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat upX, GLfloat upY, GLfloat upZ, GLfloat yaw, GLfloat pitch) : front( 0.0f, 0.0f, -1.0f), mouseSensitivity( SENSITIVITY ), zoom( ZOOM )
+Camera::Camera( GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat upX, GLfloat upY, GLfloat upZ, GLfloat yaw, GLfloat pitch) : front( 0.0f, 0.0f, -1.0f), zoom( ZOOM )
 {
     this->position = glm::vec3( posX, posY, posZ);
     this->yaw = yaw;

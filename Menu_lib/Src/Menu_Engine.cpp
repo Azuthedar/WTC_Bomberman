@@ -698,7 +698,6 @@ bool Menu_Engine::check_status()
 
 int Menu_Engine::update( Engine &engine )
 {
-    static bool isContinue = false;
     int change_val = 0;
 
     if ( base_screen->visible() == false )

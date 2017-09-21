@@ -26,7 +26,6 @@ class Camera
         GLfloat yaw;
         GLfloat pitch;
 
-        GLfloat mouseSensitivity;
         GLfloat zoom;
 
         void updateCameraVectors( );
