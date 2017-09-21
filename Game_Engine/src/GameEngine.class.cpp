@@ -54,7 +54,10 @@ void Engine::ticker( GLfloat &delta_time  )
 	for (size_t i = 0; i < this->_enemyVector.size(); i++)
 	{
 		if (this->_enemyVector[i].getIsDead())
+		{
+			this->_score += 50;
 			this->_enemyVector.erase(this->_enemyVector.begin() + i);
+		}
 		this->_enemyVector[i].movement(this->_walls_vector, this->_enemyVector, this->_player.getBombVector(), delta_time );
 		this->_enemyVector[i].modifyEnemyMvTicker();
 	}
@@ -310,6 +313,7 @@ void	Engine::reset()
 {
 	this->_isTransitioning = true;
 	this->_mapLevel = 0;
+	this->_score = 0;
 	this->transitionMap();
 
 	this->_player.setBombLevel(1);
@@ -324,11 +328,6 @@ void	Engine::reset()
 
 void	Engine::evalScore()
 {
-	for (size_t i = 0; i < this->_enemyVector.size(); i++)
-	{
-		if (this->_enemyVector[i].getIsDead())
-			this->_score += 50;
-	}
 }
 
 void						Engine::setMapEnd(bool mapEnd)	{this->_mapEnd = mapEnd;}
