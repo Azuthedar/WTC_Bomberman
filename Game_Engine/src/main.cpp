@@ -17,7 +17,7 @@ int main()
 		Render_Engine render( menu.GetWindow() );
 
 		Engine engine;
-
+		
 		GLfloat lastFrame = 0.0f;
 		GLfloat deltaTime = 0.0f;
 		GLfloat current_time = 0.0f;

@@ -255,8 +255,8 @@ int &	Config::getKBMoveRight()        {return (this->_KBmoveRight);}
 int &	Config::getKBMoveDown()         {return (this->_KBmoveDown);}
 int &	Config::getKBPlaceBomb()        {return (this->_KBplaceBomb);}
 int &	Config::getKBPause()			{return (this->_KBpause);}
-int &	Config::getSFXVolume()			{return (this->_SFXVolume);}
-int &	Config::getMusicVolume()		{return (this->_musicVolume);}
+int	&	Config::getSFXVolume()			{return (this->_SFXVolume);}
+int	&	Config::getMusicVolume()		{return (this->_musicVolume);}
 bool &	Config::getConfigUpdated()		{return (this->_configUpdated);}
 int &	Config::getScore()				{return (this->_score);}
 bool &	Config::getMINMAX()				{return (this->_minMax);}
