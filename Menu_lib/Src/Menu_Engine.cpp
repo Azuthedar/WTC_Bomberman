@@ -57,7 +57,13 @@ void Menu_Engine::create_keyMaps()
 	key_binds.insert( std::make_pair( "LEFT", GLFW_KEY_LEFT ) );
 	key_binds.insert( std::make_pair( "RIGHT", GLFW_KEY_RIGHT ) );
 	key_binds.insert( std::make_pair( "HOME", GLFW_KEY_HOME ) );
-	key_binds.insert( std::make_pair( "END", GLFW_KEY_END ) );
+    key_binds.insert( std::make_pair( "END", GLFW_KEY_END ) );
+    key_binds.insert( std::make_pair( "up", GLFW_KEY_UP ) );
+	key_binds.insert( std::make_pair( "down", GLFW_KEY_DOWN ) );
+	key_binds.insert( std::make_pair( "left", GLFW_KEY_LEFT ) );
+	key_binds.insert( std::make_pair( "right", GLFW_KEY_RIGHT ) );
+	key_binds.insert( std::make_pair( "home", GLFW_KEY_HOME ) );
+	key_binds.insert( std::make_pair( "end", GLFW_KEY_END ) );
     key_binds.insert( std::make_pair( "KP_0", GLFW_KEY_KP_0 ) );
     key_binds.insert( std::make_pair( "KP_1", GLFW_KEY_KP_1 ) );
     key_binds.insert( std::make_pair( "KP_2", GLFW_KEY_KP_2 ) );
@@ -94,7 +100,43 @@ void Menu_Engine::create_keyMaps()
     key_binds.insert( std::make_pair( "X", GLFW_KEY_X ) );
     key_binds.insert( std::make_pair( "Y", GLFW_KEY_Y ) );
     key_binds.insert( std::make_pair( "Z", GLFW_KEY_Z ) );
+    key_binds.insert( std::make_pair( "a", GLFW_KEY_A ) );
+    key_binds.insert( std::make_pair( "b", GLFW_KEY_B ) );
+    key_binds.insert( std::make_pair( "c", GLFW_KEY_C ) );
+    key_binds.insert( std::make_pair( "d", GLFW_KEY_D ) );
+    key_binds.insert( std::make_pair( "e", GLFW_KEY_E ) );
+    key_binds.insert( std::make_pair( "f", GLFW_KEY_F ) );
+    key_binds.insert( std::make_pair( "g", GLFW_KEY_G ) );
+    key_binds.insert( std::make_pair( "h", GLFW_KEY_H ) );
+    key_binds.insert( std::make_pair( "i", GLFW_KEY_I ) );
+    key_binds.insert( std::make_pair( "j", GLFW_KEY_J ) );
+    key_binds.insert( std::make_pair( "k", GLFW_KEY_K ) );
+    key_binds.insert( std::make_pair( "l", GLFW_KEY_L ) );
+    key_binds.insert( std::make_pair( "m", GLFW_KEY_M ) );
+    key_binds.insert( std::make_pair( "n", GLFW_KEY_N ) );
+    key_binds.insert( std::make_pair( "o", GLFW_KEY_O ) );
+    key_binds.insert( std::make_pair( "p", GLFW_KEY_P ) );
+    key_binds.insert( std::make_pair( "q", GLFW_KEY_Q ) );
+    key_binds.insert( std::make_pair( "r", GLFW_KEY_R ) );
+    key_binds.insert( std::make_pair( "s", GLFW_KEY_S ) );
+    key_binds.insert( std::make_pair( "t", GLFW_KEY_T ) );
+    key_binds.insert( std::make_pair( "u", GLFW_KEY_U ) );
+    key_binds.insert( std::make_pair( "v", GLFW_KEY_V ) );
+    key_binds.insert( std::make_pair( "w", GLFW_KEY_W ) );
+    key_binds.insert( std::make_pair( "x", GLFW_KEY_X ) );
+    key_binds.insert( std::make_pair( "y", GLFW_KEY_Y ) );
+    key_binds.insert( std::make_pair( "z", GLFW_KEY_Z ) );
     key_binds.insert( std::make_pair( " ", GLFW_KEY_SPACE ) );
+    key_binds.insert( std::make_pair( "0", GLFW_KEY_0 ) );
+    key_binds.insert( std::make_pair( "1", GLFW_KEY_1 ) );
+    key_binds.insert( std::make_pair( "2", GLFW_KEY_2 ) );
+    key_binds.insert( std::make_pair( "3", GLFW_KEY_3 ) );
+    key_binds.insert( std::make_pair( "4", GLFW_KEY_4 ) );
+    key_binds.insert( std::make_pair( "5", GLFW_KEY_5 ) );
+    key_binds.insert( std::make_pair( "6", GLFW_KEY_6 ) );
+    key_binds.insert( std::make_pair( "7", GLFW_KEY_7 ) );
+    key_binds.insert( std::make_pair( "8", GLFW_KEY_8 ) );
+    key_binds.insert( std::make_pair( "9", GLFW_KEY_9 ) );
 }
 
 void Menu_Engine::createSettingsMenu()
