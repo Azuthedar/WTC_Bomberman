@@ -13,7 +13,9 @@ class Config: public Exceptions
 
 		Config();
 		Config(std::string fileName);
-		~Config();
+
+
+	~Config();
 
 		void	defaultInit(Player & player, Sound & sound, int & score);
 		void	readFile();
@@ -61,7 +63,7 @@ class Config: public Exceptions
 		std::string		_fileName;
 		std::vector<std::string> _fileBuffer;
 
-		int		_mapLevel;
+		int				_mapLevel;
 
 		int				_bombLevel;
 		int				_rangeLevel;

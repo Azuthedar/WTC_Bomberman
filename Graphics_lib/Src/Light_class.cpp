@@ -30,3 +30,15 @@ glm::vec3 Light_class::GetPosition() const
 {
     return ( this->position );
 }
+
+Light_class::Light_class(Light_class const &src) {
+    *this = src;
+    return ;
+}
+
+Light_class &Light_class::operator=(Light_class const &rhs) {
+    this->position = rhs.GetPosition();
+    this->colour = rhs.GetColour();
+
+    return *this;
+}

@@ -20,10 +20,17 @@ class Data_Loader
         Data_Loader();
         ~Data_Loader();
 
+        Data_Loader(Data_Loader const &src);
+        Data_Loader &operator=(Data_Loader const &rhs);
+
         //Model *Load_VAO( GLfloat *vert, GLuint Vert_Size, GLuint elements , GLuint *indicies, GLuint Ind_Size, GLfloat *texture_coords, GLuint Text_Size, GLfloat *normals, GLuint Norm_size );
 
         void Unbind_VAO();
 
         GLuint LoadCubemap( std::vector<std::string> &texture_paths );
         GLuint load_texture( const char *texture_path, std::string directory );
+
+        const std::vector<GLuint> &getVAO() const;
+        const std::vector<GLuint> &getVBO() const;
+        const std::vector<GLuint> &getTexture_ID() const;
 };

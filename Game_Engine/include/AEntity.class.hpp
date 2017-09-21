@@ -8,8 +8,11 @@ class AEntity
 	public:
 
 		AEntity();
+
 		AEntity(AEntity const & src);
-		~AEntity();
+        AEntity &operator=(AEntity const& rhs);
+
+	    virtual ~AEntity();
 
 		/* Setters */
 		virtual void			setDir(eMovementDir dir);
@@ -19,8 +22,8 @@ class AEntity
 
 		/* Getters */
 		virtual eMovementDir	getDir() const;
-		virtual float				getXPos() const;
-		virtual float				getYPos() const;
+		virtual float			getXPos() const;
+		virtual float			getYPos() const;
 		virtual bool			getIsDead() const;
 
 	protected:

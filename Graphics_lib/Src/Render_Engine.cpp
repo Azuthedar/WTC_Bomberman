@@ -159,6 +159,10 @@ void Render_Engine::Create_Components( Engine &engine )
             this->components.push_back( new Component("Enemy", this->models[3], 0.0f, engine.getEnemyVector()[i].getDir(), 0.55f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , 1.0f, engine.getEnemyVector()[i].getYPos() * 2 ), 0)  );
   	}
 
+    //Push back floaty bloos
+    glm::vec3 npos = glm::vec3( 0.0f );
+    this->particle_manager->Generate_Particles( npos, 0.0f);
+
     if (engine.getGate().getExists() && engine.getGate().getIsLocked())
     {
         this->components.push_back( new Component("Locked_Gate", this->models[4], 0.0f, -1, 2.0f, glm::vec3( engine.getGate().getXPos() * 2.0f, 0.1f, engine.getGate().getYPos() * 2.0f ), 0)  );
@@ -271,3 +275,61 @@ void Render_Engine::init()
 
     load_dependencies();
 }
+
+Render_Engine::Render_Engine(Render_Engine const &src) {
+    *this = src;
+    return ;
+}
+
+Render_Engine &Render_Engine::operator=(Render_Engine const &rhs) {
+    this->Win_Name = rhs.getWin_Name();
+    this->Screen_Width = rhs.getScreen_Width();
+    this->Screen_Height = rhs.getScreen_Height();
+    this->window = rhs.getWindow();
+    this->camera = rhs.getCamera();
+    this->lastX = rhs.getLastX();
+    this->lastY = rhs.getLastY();
+    this->firstmouse = rhs.isFirstmouse();
+    this->deltaTime = rhs.getDeltaTime();
+    this->lastFrame = rhs.getLastFrame();
+    this->tmp_test = rhs.getTmp_test();
+    this->draw = rhs.getDraw();
+    this->load = rhs.getLoad();
+    this->shader = rhs.getShader();
+    this->SkyBox_shader = rhs.getSkyBox_shader();
+    this->Skybox = rhs.getSkybox();
+    this->particle_manager = rhs.getParticle_manager();
+    this->Particle_shader = rhs.getParticle_shader();
+    this->models = rhs.getModels();
+    this->components = rhs.getComponents();
+    this->player_models = rhs.getPlayer_models();
+    this->particle_data = rhs.getParticle_data();
+
+    return *this;
+}
+
+const string &Render_Engine::getWin_Name() const { return Win_Name; }
+int Render_Engine::getScreen_Width() const { return Screen_Width;}
+int Render_Engine::getScreen_Height() const { return Screen_Height; }
+GLFWwindow *Render_Engine::getWindow() { return window; }
+Camera *Render_Engine::getCamera() { return camera; }
+GLfloat Render_Engine::getLastX() { return lastX; }
+GLfloat Render_Engine::getLastY() { return lastY; }
+bool *Render_Engine::getKeys() { return keys; }
+bool Render_Engine::isFirstmouse() { return firstmouse; }
+GLfloat Render_Engine::getDeltaTime() { return deltaTime; }
+GLfloat Render_Engine::getLastFrame() { return lastFrame; }
+int Render_Engine::getTmp_test() { return tmp_test; }
+const Render &Render_Engine::getDraw() const { return draw; }
+const Data_Loader &Render_Engine::getLoad() const { return load; }
+const Shaders &Render_Engine::getShader() const { return shader; }
+const Shaders &Render_Engine::getSkyBox_shader() const { return SkyBox_shader; }
+const Shaders &Render_Engine::getParticle_shader() const { return Particle_shader; }
+Particle_manager *Render_Engine::getParticle_manager() const { return particle_manager; }
+const vector<Model *> &Render_Engine::getModels() const { return models; }
+const vector<Component *> &Render_Engine::getComponents() const { return components; }
+const vector<Model *> &Render_Engine::getPlayer_models() const { return player_models; }
+const Skybox_s &Render_Engine::getSkybox() const { return Skybox; }
+const Particles_s &Render_Engine::getParticle_data() const { return particle_data; }
+
+

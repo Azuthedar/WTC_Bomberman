@@ -53,3 +53,30 @@ void Mesh::Draw()
         glBindTexture( GL_TEXTURE_2D, 0 );
     }
 }
+
+GLuint Mesh::getVAO() const {return VAO;}
+GLuint Mesh::getVBO() const {return VBO;}
+GLuint Mesh::getEBO() const {return EBO;}
+const vector<Vertex> &Mesh::getVertices() const {return vertices;}
+const vector<GLuint> &Mesh::getIndices() const {return indices;}
+const vector<Texture> &Mesh::getTextures() const {return textures;}
+
+Mesh::~Mesh() {
+
+}
+
+Mesh::Mesh(Mesh const &src) {
+    *this = src;
+    return;
+}
+
+Mesh &Mesh::operator=(Mesh const &rhs) {
+    this->VAO = rhs.getVAO();
+    this->VBO = rhs.getVBO();
+    this->EBO = rhs.getEBO();
+    this->vertices = rhs.getVertices();
+    this->indices = rhs.getIndices();
+    this->textures = rhs.getTextures();
+
+    return *this;
+}

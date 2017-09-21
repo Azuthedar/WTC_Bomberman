@@ -26,6 +26,9 @@ class Particles
         Particles( Texture const &tmp_texture, glm::vec3 const &tmp_Position, glm::vec3 const &tmp_Velocity, GLfloat const &tmp_gravity, GLfloat const &tmp_LifeLength, GLfloat const &tmp_Rotation, GLfloat const &tmp_Scale );
         ~Particles();
 
+        Particles(Particles const &src);
+        Particles &operator=(Particles const &rhs);
+
         glm::vec3 GetPosition() const;
         GLfloat GetRotation() const;
         GLfloat GetScale() const;

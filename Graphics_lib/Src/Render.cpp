@@ -182,3 +182,35 @@ void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
 
     tmp.clear();
 }
+
+Render::Render(Render const &src) {
+    *this = src;
+    return;
+}
+
+Render &Render::operator=(Render const &rhs) {
+    this->projection = rhs.getProjection();
+    this->view_matrix = rhs.getView_matrix();
+    this->modelLoc = rhs.getModelLoc();
+    this->lightLoc = rhs.getLightLoc();
+    this->colourLoc = rhs.getColourLoc();
+    this->shineLoc = rhs.getShineLoc();
+    this->reflectionLoc = rhs.getReflectionLoc();
+    this->RowLoc = rhs.getRowLoc();
+    this->OffsetLoc = rhs.getOffsetLoc();
+
+    return *this;
+}
+
+const glm::mat4 &Render::getProjection() const { return projection; }
+const glm::mat4 &Render::getView_matrix() const { return view_matrix; }
+GLint Render::getModelLoc() const { return modelLoc; }
+GLint Render::getProjLoc() const { return projLoc; }
+GLint Render::getViewLoc() const { return viewLoc; }
+GLint Render::getLightLoc() const { return lightLoc; }
+GLint Render::getColourLoc() const { return colourLoc; }
+GLint Render::getShineLoc() const { return shineLoc; }
+GLint Render::getReflectionLoc() const {return reflectionLoc;}
+GLint Render::getRowLoc() const {return RowLoc;}
+GLint Render::getOffsetLoc() const {return OffsetLoc;}
+Light_class *Render::getLight() const {return light;}
