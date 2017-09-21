@@ -114,7 +114,7 @@ void Render_Engine::load_dependencies()
     this->particle_manager->SetTexture( Tmp_texture );
 }
 
-void Render_Engine::Create_Components( Engine &engine, GLfloat &tmp_delta_time )
+void Render_Engine::Create_Components( Engine &engine )
 {
     //std::cout<< "X" << engine.getPlayer().getXPos() << " Y " << engine.getPlayer().getYPos() << std::endl;
     if ( tmp_test >= 18 )
@@ -165,7 +165,11 @@ void Render_Engine::Create_Components( Engine &engine, GLfloat &tmp_delta_time )
     }
     else if (engine.getGate().getExists() && !engine.getGate().getIsLocked())
     {
-        this->components.push_back( new Component("Unlocked_Gate", this->models[5], 0.0f, -1, 2.0f, glm::vec3( engine.getGate().getXPos() * 2.0f, 0.1f, engine.getGate().getYPos() * 2.0f ), 0)  );
+        glm::vec3 pos = glm::vec3( 0.0f );
+        pos.x =  engine.getGate().getXPos() * 2.0f;
+        pos.z =  engine.getGate().getYPos() * 2.0f;
+        this->components.push_back( new Component("Unlocked_Gate", this->models[5], 0.0f, -1, 2.0f, glm::vec3( engine.getGate().getXPos() * 2.0f, 0.1f,  engine.getGate().getYPos() * 2.0f ), 0)  );
+        this->particle_manager->Generate_Particles( pos, 69);
     }
 
     for (size_t i = 0; i < engine.getPowerupVector().size(); i++)
@@ -196,7 +200,7 @@ void Render_Engine::Create_Components( Engine &engine, GLfloat &tmp_delta_time )
             pos.x = engine.getPlayer().getBombVector()[i].getExplosionVector()[y].getXPos() * 2;
             pos.z =  engine.getPlayer().getBombVector()[i].getExplosionVector()[y].getYPos() * 2;
 
-            this->particle_manager->Generate_Particles( pos, tmp_delta_time );
+            this->particle_manager->Generate_Particles( pos );
   		}
   	}
 }
@@ -205,28 +209,16 @@ void Render_Engine::_render( GLfloat &tmp_delta_time )
 {
 
     glEnable( GL_DEPTH_TEST );
-    //glEnable( GL_BLEND );
+    glEnable( GL_BLEND );
     glEnable( GL_CULL_FACE );
     glCullFace( GL_BACK );
     glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
     glm::vec3 player_pos = this->components[0]->GetPosition();
 
-    //while ( !glfwWindowShouldClose( Render_Engine::window ) )
-    //{
-        /*GLfloat current_time = glfwGetTime();
-        Render_Engine::deltaTime = current_time - Render_Engine::lastFrame;
-        Render_Engine::lastFrame = current_time;*/
-
         Render_Engine::deltaTime = tmp_delta_time;
         this->particle_manager->manage_particles( tmp_delta_time );
 
-        //std::cout << lastX << lastY << std::endl;
-
-        //glfwPollEvents( ); // poll for and process events
-        //DoMovement();
-
-        //test_func( (double)player_pos.x, -10.0);
         Render_Engine::camera->ProcessKeyboard( player_pos );
 
 
@@ -234,25 +226,14 @@ void Render_Engine::_render( GLfloat &tmp_delta_time )
 
         this->draw.SetProjection( Render_Engine::camera->GetZoom() );
 
-        //this->draw.Prep();
-
-        //projection = glm::perspective( Render_Engine::camera->GetZoom() , (GLfloat)this->Screen_Width / (GLfloat)this->Screen_Height, 1.0f, 10000.0f);
-
-        //glm::mat4 model_matrix;
-        //model_matrix = glm::rotate( model_matrix, (GLfloat)glfwGetTime() * 1.0f, glm::vec3( 0.5f, 1.0f, 0.0f ));
-        //view_matrix = glm::translate( view_matrix, glm::vec3( 0.0f, 0.0f, -2.0f) );
+        
         this->draw.SetViewMatrix( camera->GetViewMatrix() );
 
-        //GLfloat angle = 20.0f * x;
-        //model = glm::rotate( model, angle, glm::vec3( 0.0f, 0.0f, 0.0f ));
+       
 
         this->draw.Render_( this->components, this->shader );
         this->draw.Render_Particles( this->particle_manager->GetParticleArray(), this->Particle_shader, this->particle_data );
         this->draw.Render_Skybox( this->Skybox, this->SkyBox_shader );
-        //glfwSwapBuffers( Render_Engine::window );
-    //}
-
-        //std::cout << "ysduyfgWGEFYWEFYIHWE " << std::endl;
 }
 
 void Render_Engine::load_Shaders()

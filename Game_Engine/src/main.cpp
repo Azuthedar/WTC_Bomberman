@@ -44,7 +44,7 @@ int main()
 
 				if (!menu.check_status())
 				{
-					render.Create_Components( engine, deltaTime );
+					render.Create_Components( engine );
 					render._render( deltaTime );
 				}
 

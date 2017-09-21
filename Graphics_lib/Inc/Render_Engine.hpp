@@ -62,7 +62,7 @@ class Render_Engine
 
         void SetWindow( GLFWwindow *tmp_window );
 
-        void Create_Components( Engine &engine, GLfloat &tmp_delta_time );
+        void Create_Components( Engine &engine );
 
         static void KeyCallback( GLFWwindow *window, int key, int scancode, int action, int mods);
         static void ScrollCallback( GLFWwindow *window, double xOffset, double yOffset );
