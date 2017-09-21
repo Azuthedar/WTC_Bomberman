@@ -24,15 +24,16 @@ class Engine
 		void		readMap();
 		void		buildMap();
 		void		shouldTransition();
+		void		evalScore();
 
 		void		strSplit(std::string, char delim);
 		void		chainReaction();
+		void		reset();
 
 		void						setMapEnd(bool mapEnd);
 		void						setGameState(eGamestate state);
 		void						setIsTransitioning(bool transition);
 		void						setMapLevel(size_t mapLevel);
-		void						reset();
 
 		std::vector<char> &			getMapValues();
 		std::vector<Wall> &			getWallVector();
@@ -47,7 +48,7 @@ class Engine
 		Config &					getConfig();
 		eGamestate &				getGameState();
 		Sound &						getSound();
-		size_t &						getMapLevel();
+		size_t &					getMapLevel();
 
 	private:
 
@@ -66,6 +67,8 @@ class Engine
 		Exceptions					_exceptions;
 		std::vector<Powerup>		_powerupVector;
 		Config						_config;
+
+		long int					_score;
 
 		eGamestate					_gameState;
 		Sound						_sound;
