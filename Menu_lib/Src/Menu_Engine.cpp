@@ -627,6 +627,7 @@ void Menu_Engine::createMainMenu()
     main_menu.start->setCursor(nanogui::Cursor::Hand);
     main_menu.start->setCallback([]{
         engine->reset();
+        engine->setGameState(GAME);
         engine->getPlayer().setIsPaused(false);
         main_menu.changeView(false);
         settings_menu.changeView(false);
@@ -868,13 +869,13 @@ int Menu_Engine::update( Engine &engine )
 {
     int change_val = 0;
 
-    if ( base_screen->visible() == false )
-        base_screen->setVisible(true);
-
     if (engine.getGameState() == MENU && engine.getConfig().getMapLevel() > 0)
         main_menu.load_game->setEnabled(true);
     else if (engine.getGameState() == MENU && engine.getConfig().getMapLevel() == 0 )
         main_menu.load_game->setEnabled(false);
+
+    if ( base_screen->visible() == false )
+        base_screen->setVisible(true);
 
     if (engine.getGameState() == PAUSED && !settings_menu.settingsMenu_window->visible() && !main_menu.mainMenu_window->visible() && !pause_menu.pauseMenu_window->visible())
     {

@@ -114,6 +114,8 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 			{
 				ticker = 3.0f;
 				this->_mapDuration = MAP_DURATION_TIME;
+				this->reset();
+				this->_config.updateFile(this->_player, this->_mapLevel, this->_sound, this->_score);
 				this->_gameState = MENU;
 			}
 			std::cout << "Time's Up!" << std::endl;
@@ -128,9 +130,9 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 			}
 			if (this->_player.getLives() <= 0)
 			{
-				this->_mapLevel = 0;
+				this->reset();
+				this->_config.updateFile(this->_player, this->_mapLevel, this->_sound, this->_score);
 				this->_gameState = MENU;
-				this->_player.setLives(3);;
 				//Make player transition to main menu
 			}
 
@@ -320,9 +322,9 @@ void	Engine::reset()
 	this->_player.setBombs(1);
 	this->_player.setRangeLevel(1);
 	this->_player.setSpeedLevel(1);
+	this->_player.setLives(3);
 	this->_gate.setExists(false);
 	this->_gate.setIsLocked(true);
-	this->_gameState = GAME;
 
 }
 
