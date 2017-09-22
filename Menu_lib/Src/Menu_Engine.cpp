@@ -570,7 +570,7 @@ void Menu_Engine::render()
 
     GLint modelLoc = shader.GetUniformLocation( "transform_mat" );
 
-    for (GLuint count = pos_min; count < pos_max; count++)
+    for (GLint count = pos_min; count < pos_max; count++)
     {
         if ( pos_min > 2)
             glBlendFunc( GL_SRC_ALPHA, GL_ONE );

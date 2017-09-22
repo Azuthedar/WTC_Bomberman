@@ -43,7 +43,6 @@ private:
 		float 	_bombLifeTime;
 		int		_range;
 		bool	_exploded;
-		bool	_isCollide;
 
 
 		std::vector<Explosion>		_explosionVector;
