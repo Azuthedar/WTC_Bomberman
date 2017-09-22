@@ -24,6 +24,7 @@ class AEntity
 		virtual eMovementDir	getDir() const;
 		virtual float			getXPos() const;
 		virtual float			getYPos() const;
+		virtual float			getZPos() const;
 		virtual bool			getIsDead() const;
 
 	protected:
@@ -31,6 +32,7 @@ class AEntity
 		eMovementDir		_dir;
 		float				_xPos;
 		float				_yPos;
+		float				_zPos;
 		bool				_isCollide;
 		bool				_isDead;
 

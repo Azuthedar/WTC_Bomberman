@@ -20,6 +20,8 @@ class Enemy : public AEntity
 
 		void		modifyEnemyMvTicker();
 
+		void		bobbing();
+
 		void		setSpawnX(int x);
 		void		setSpawnY(int y);
 
@@ -27,6 +29,7 @@ class Enemy : public AEntity
 		int &		getSpawnY();
 		int &		getGoalX();
 		int &		getGoalY();
+		float &		getVDir();
 		eEnemyType & getType();
 
 		void SnapMovement( );
@@ -42,5 +45,6 @@ private:
 		float		_speed;
 		bool		_isMoving;
 		bool		_followPlayer;
+		float		_vDir;
 		eEnemyType _type;
 };

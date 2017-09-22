@@ -31,7 +31,8 @@ void	AEntity::setIsDead(bool dead)		{this->_isDead = dead;}
 eMovementDir AEntity::getDir() const		{return (this->_dir);}
 float		AEntity::getXPos() const			{return (this->_xPos);}
 float		AEntity::getYPos() const			{return (this->_yPos);}
-bool	AEntity::getIsDead() const			{return (this->_isDead);}
+float		AEntity::getZPos() const			{return (this->_zPos);}
+bool		AEntity::getIsDead() const			{return (this->_isDead);}
 
 AEntity &AEntity::operator=(AEntity const &rhs) {
     this->_dir = rhs._dir;
