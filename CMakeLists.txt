@@ -129,7 +129,7 @@ else()
     set(NANO_NAME nanogui)
 
     #GLM
-    set(GLM_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/libs/glm)
+    #set(GLM_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/libs/glm)
 
     set(FRAMEWORK_COCOA "-framework Cocoa")
 

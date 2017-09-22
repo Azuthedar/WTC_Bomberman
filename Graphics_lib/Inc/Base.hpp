@@ -34,7 +34,8 @@ struct Texture
     int num_columns;
     float scale_x;
     float scale_y;
-    float pos;
+    float pos_y;
+    float pos_x;
 };
 
 struct Skybox_s

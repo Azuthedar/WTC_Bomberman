@@ -156,11 +156,11 @@ void Menu_Engine::createHUD()
 
     hud.Lives = new nanogui::Label(base_screen, "", "sans-bold", 60);
     hud.Lives->setSize( { 100 * scale , 40 * scale } );
-    hud.Lives->setPosition( { 20 * scale, 20 * scale } );
+    hud.Lives->setPosition( { 85 * scale, 20 * scale } );
 
     hud.Time = new nanogui::Label(base_screen, "", "sans-bold", 60);
     hud.Time->setSize( { 100 * scale , 40 * scale } );
-    hud.Time->setPosition( { screen_width - ( 100 * scale ), 20 * scale } );
+    hud.Time->setPosition( { screen_width - ( 123 * scale ), 20 * scale } );
 
     hud.Score = new nanogui::Label(base_screen, "", "sans-bold", 80);
     hud.Score->setSize( { 700 * scale, 60 * scale } );
@@ -178,8 +178,6 @@ void Menu_Engine::createSettingsMenu()
         scale = 1.5 ;
     else
         scale = 1;
-
-    std::cout << scale << std::endl;
 
     settings_menu.theme = new nanogui::Theme( base_screen->nvgContext() );
     settings_menu.theme->mButtonFontSize = 20 * scale;
@@ -584,7 +582,7 @@ void Menu_Engine::render()
 
         glBindTexture( GL_TEXTURE_2D, render_array[count].id );
 
-        model = glm::translate( model, glm::vec3( render_array[count].pos, render_array[count].pos, 1.0f) );
+        model = glm::translate( model, glm::vec3( render_array[count].pos_x, render_array[count].pos_y, 1.0f) );
         model_matric = glm::scale( model , glm::vec3( render_array[count].scale_x, render_array[count].scale_y, 1.0f ) );
 
         this->shader.load_matrix( modelLoc, model_matric );
@@ -809,14 +807,13 @@ void Menu_Engine::load_menu_textures()
     glVertexAttribPointer( 0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof( GLfloat ), ( GLvoid * ) 0 );
     glBindVertexArray(0);
 
-    std::cout << "Some stuff is happening " << this->VAO << std::endl;
-
     Texture Tmp_str;
 
     Tmp_str.id = this->load.load_texture( "menu.png", "Assets/UI");
     Tmp_str.scale_x = 1.0f;
     Tmp_str.scale_y = 1.0f;
-    Tmp_str.pos = 0.0f;
+    Tmp_str.pos_y = 0.0f;
+    Tmp_str.pos_x = 0.0f;
     render_array.push_back( Tmp_str );
 
     Tmp_str.id = this->load.load_texture( "loading.png", "Assets/UI");
@@ -826,15 +823,17 @@ void Menu_Engine::load_menu_textures()
     render_array.push_back( Tmp_str );
 
     Tmp_str.id = this->load.load_texture( "Timer.png", "Assets/UI");
-    Tmp_str.scale_x = 0.05f;
-    Tmp_str.scale_y = 0.05f;
-    Tmp_str.pos = 0.0f;
+    Tmp_str.scale_x = 0.08f;
+    Tmp_str.scale_y = 0.10f;
+    Tmp_str.pos_y = 0.88f;
+    Tmp_str.pos_x = 0.73f;
     render_array.push_back( Tmp_str );
 
     Tmp_str.id = this->load.load_texture( "Heart.png", "Assets/UI");
-    Tmp_str.scale_x = 0.05f;
-    Tmp_str.scale_y = 0.05f;
-    Tmp_str.pos = -1.5f;
+    Tmp_str.scale_x = 0.06f;
+    Tmp_str.scale_y = 0.10f;
+    Tmp_str.pos_y = 0.89f;
+    Tmp_str.pos_x = -0.93f;
     render_array.push_back( Tmp_str );
 }
 
