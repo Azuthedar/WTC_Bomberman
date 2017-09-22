@@ -220,24 +220,28 @@ void Render_Engine::_render( GLfloat &tmp_delta_time )
 
     glm::vec3 player_pos = this->components[0]->GetPosition();
 
-        Render_Engine::deltaTime = tmp_delta_time;
-        this->particle_manager->manage_particles( tmp_delta_time );
+    Render_Engine::deltaTime = tmp_delta_time;
+    this->particle_manager->manage_particles( tmp_delta_time );
 
-        Render_Engine::camera->ProcessKeyboard( player_pos );
-
-
-        glUseProgram( this->shader.GetProgramID() );
-
-        this->draw.SetProjection( Render_Engine::camera->GetZoom() );
+    Render_Engine::camera->ProcessKeyboard( player_pos );
 
 
-        this->draw.SetViewMatrix( camera->GetViewMatrix() );
+    glUseProgram( this->shader.GetProgramID() );
+
+    this->draw.SetProjection( Render_Engine::camera->GetZoom() );
+
+
+    this->draw.SetViewMatrix( camera->GetViewMatrix() );
 
 
 
-        this->draw.Render_( this->components, this->shader );
-        this->draw.Render_Particles( this->particle_manager->GetParticleArray(), this->Particle_shader, this->particle_data );
-        this->draw.Render_Skybox( this->Skybox, this->SkyBox_shader );
+    this->draw.Render_( this->components, this->shader );
+    this->draw.Render_Particles( this->particle_manager->GetParticleArray(), this->Particle_shader, this->particle_data );
+    this->draw.Render_Skybox( this->Skybox, this->SkyBox_shader );
+
+    glDisable( GL_DEPTH_TEST );
+    glDisable( GL_BLEND );
+    glDisable( GL_CULL_FACE );
 }
 
 void Render_Engine::load_Shaders()

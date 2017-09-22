@@ -551,8 +551,6 @@ void Menu_Engine::render()
         model = glm::translate( model, glm::vec3( render_array[count].pos, render_array[count].pos, 1.0f) );
         model_matric = glm::scale( model , glm::vec3( render_array[count].scale, render_array[count].scale, 1.0f ) );
 
-        std::cout << render_array[count].pos << render_array[count].scale << std::endl;
-
         this->shader.load_matrix( modelLoc, model_matric );
 
         glDrawArrays( GL_TRIANGLE_STRIP, 0, 4);
@@ -773,9 +771,9 @@ void Menu_Engine::load_menu_textures()
 
     render_array.push_back( Tmp_str );
 
-    /*Tmp_str.id = this->load.load_texture( "bomb1.png", "Assets/UI");
+    Tmp_str.id = this->load.load_texture( "bomberman1.png", "Assets/UI");
     Tmp_str.scale = 0.25f;
-    Tmp_str.pos = 0.5f;*/
+    Tmp_str.pos = 0.5f;
 
     render_array.push_back( Tmp_str );
 }
