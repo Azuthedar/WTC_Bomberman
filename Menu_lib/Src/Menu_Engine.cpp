@@ -771,7 +771,7 @@ void Menu_Engine::load_menu_textures()
 
     Texture Tmp_str;
 
-    Tmp_str.id = this->load.load_texture( "loading.png", "Assets/UI");
+    Tmp_str.id = this->load.load_texture( "menu.png", "Assets/UI");
     Tmp_str.scale_x = 1.0f;
     Tmp_str.scale_y = 1.0f;
     Tmp_str.pos = 0.0f;
