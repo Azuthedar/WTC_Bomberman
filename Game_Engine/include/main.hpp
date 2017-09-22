@@ -1,5 +1,15 @@
 #pragma once
 
+/*
+ *	CREATED BY:
+ *
+ *	Claris Richter
+ *	Ian Tolmay
+ *	Johann Buys
+ *	Keshan Chetty
+ */
+
+
 #include <iostream>
 #include <algorithm>
 #include <cmath>
