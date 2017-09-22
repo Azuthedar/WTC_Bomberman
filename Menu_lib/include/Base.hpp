@@ -2,6 +2,8 @@
 
 //Comment out clear funtion in screen.cpp -> DrawAll()
 
+#include "../../Game_Engine/include/Exception.class.hpp"
+
 #include "../../Graphics_lib/Inc/Data_Loader.hpp"
 #include "../../Graphics_lib/Inc/Shaders.hpp"
 

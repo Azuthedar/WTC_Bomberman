@@ -56,8 +56,6 @@ class Exceptions
 		}EFFDel;
 
 
-
-
 		//Exceptions For Graphics Lib
 		class EFailedLoadTextures : public std::exception
 		{
@@ -74,10 +72,15 @@ class Exceptions
 			virtual const char * what() const throw();
 		}EFCIndices;
 
-		class EFailedCreateVao : public std::exception
+		class EFailedCreateVAO : public std::exception
 		{
 			virtual const char * what() const throw();
 		}EFCVao;
+
+		class EFailedCreateVBO : public std::exception
+		{
+			virtual const char * what() const throw();
+		}EFCVbo;
 
 		class EFailedStoreObjectData : public std::exception
 		{
@@ -139,7 +142,13 @@ class Exceptions
 			virtual const char * what() const throw();
 		}EFTGUID;
 
-		
+
+		class EFailedToLoadWAV : public std::exception
+		{
+			virtual const char * what() const throw();
+		}EFTLWav;
+
+
 
 		void throwMapSizeInvalid();
 		void throwNoMap();
@@ -160,6 +169,7 @@ class Exceptions
 		void throwLoadCubemap();
 		void throwCreateIndices();
 		void throwCreateVAO();
+		void throwCreateVBO();
 		void throwStoreObjectData();
 		void throwLoadModel();
 		void throwMissingVertices();
@@ -172,5 +182,7 @@ class Exceptions
 		void throwLinkShader();
 		void throwCompileShader();
 		void throwGetUniformID();
+
+		void throwLoadWAV();
 
 };

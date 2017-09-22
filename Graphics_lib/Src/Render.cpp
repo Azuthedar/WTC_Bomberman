@@ -165,11 +165,11 @@ void Render::Render_( std::vector < Component * > &tmp, Shaders &shader )
         else
             model = glm::rotate( model, (GLfloat)glfwGetTime() * tmp[count]->GetDegres(), glm::vec3( 0.5f, 1.0f, 0.0f ) );
 
-        
+
         model_matrix = glm::scale( model , glm::vec3(tmp[count]->GetScale()) );
 
         shader.load_matrix( this->modelLoc, model_matrix );
-       
+
 
         ip->Draw();
 

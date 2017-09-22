@@ -12,8 +12,14 @@ Mesh::Mesh( std::vector<Vertex> vertices, std::vector<GLuint> indices, std::vect
 void Mesh::setupMesh( )
 {
     glGenVertexArrays( 1, &this->VAO );
+    if (this->VAO <= 0)
+        excep.throwCreateVAO();
     glGenBuffers( 1, &this->VBO );
+    if (this->VBO <= 0)
+        excep.throwCreateVBO();
     glGenBuffers( 1, &this->EBO );
+    if (this->EBO <= 0)
+        excep.throwCreateIndices();
 
     glBindVertexArray( this->VAO );
 
@@ -57,9 +63,9 @@ void Mesh::Draw()
 GLuint Mesh::getVAO() const {return VAO;}
 GLuint Mesh::getVBO() const {return VBO;}
 GLuint Mesh::getEBO() const {return EBO;}
-const vector<Vertex> &Mesh::getVertices() const {return vertices;}
-const vector<GLuint> &Mesh::getIndices() const {return indices;}
-const vector<Texture> &Mesh::getTextures() const {return textures;}
+const std::vector<Vertex> &Mesh::getVertices() const {return vertices;}
+const std::vector<GLuint> &Mesh::getIndices() const {return indices;}
+const std::vector<Texture> &Mesh::getTextures() const {return textures;}
 
 Mesh::~Mesh() {
 

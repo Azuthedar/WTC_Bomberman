@@ -28,7 +28,7 @@ Sound::Sound()
 	for (size_t i = 0; i < this->_waveVector.size(); i++)
 	{
 		if (this->_waveVector[i] == NULL)
-			std::cerr << i << " :File was not loaded" << std::endl; // CREATE EXCEPTION
+			this->_excep.throwLoadWAV();
 	}
 }
 

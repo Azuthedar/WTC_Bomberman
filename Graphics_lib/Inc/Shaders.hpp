@@ -8,6 +8,9 @@ class Shaders
         GLuint program_id;
         GLuint vertex_id;
         GLuint fragment_id;
+
+        Exceptions excep;
+
         int num_attr;
 
         void compile(const std::string &file_path, GLuint &tmp_id);

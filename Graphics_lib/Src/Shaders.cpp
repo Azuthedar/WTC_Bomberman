@@ -27,16 +27,12 @@ void Shaders::compile_shaders(const std::string &vertexfile_path, const std::str
 	//Creates Empty Shader Object (Vertex Shader),
 	//Shader is used contain the shader source code strings (code withing shader text file).
 	if ( (vertex_id = glCreateShader( GL_VERTEX_SHADER )) == 0 )
-		std::cerr << "ERROR HELP" << std::endl; //Failed To Create Vertex Shader?
+        excep.throwVertexShader();
 
 	//Creates Empty Shader Object (Fragment Shader),
 	//Shader is used contain the shader source code strings (code withing shader text file).
 	if ( (fragment_id = glCreateShader( GL_FRAGMENT_SHADER )) == 0 )
-		std::cerr << "ERROR HELP" << std::endl; //Failed To Create Fragment Shader?
-
-	//Debug
-	//std::cout << vertex_id << std::endl;
-	//std::cout << fragment_id << std::endl;
+        excep.throwFragmentShader();
 
 	//Compile Vertex Shaders
 	compile( vertexfile_path, vertex_id );
@@ -78,9 +74,7 @@ void Shaders::link_shaders()
 		glDeleteShader(vertex_id);
 		glDeleteShader(fragment_id);
 
-		std::cerr << "BAD NEWS BUB" << std::endl; //Shader Linking Failed?
-
-		return;
+		excep.throwLinkShader();
 	}
 
 	//Detaches Shaders From the Program object.
@@ -94,10 +88,8 @@ void Shaders::compile(const std::string &file_path, GLuint &tmp_id)
 	//Will Copies contents of shader file to the contents string so it can be binded to the shader object later.
 	std::ifstream file(file_path);
 	if (file.fail())
-		std::cerr << "Error Help DEEZZ" << std::endl; //Failed To Load Shader?
+		excep.throwNoFile();
 
-	//Debug
-	//std::cout << tmp_id << std::endl;
 
 	std::string file_contents = "";
 	std::string line = "";
@@ -110,8 +102,6 @@ void Shaders::compile(const std::string &file_path, GLuint &tmp_id)
 	file.close();
 
 	const char *file_data = file_contents.c_str();
-
-	//std::cout << file_data << std::endl;
 
 	//Copies the Source code from the contents string to the Shader object and prepares the shader code to be compiled later.
 	glShaderSource(tmp_id, 1, &file_data, nullptr);
@@ -140,7 +130,7 @@ void Shaders::compile(const std::string &file_path, GLuint &tmp_id)
 		//Deletes The Shader Object.
 		glDeleteShader(tmp_id);
 
-		std::cerr << "Failed Son" << std::endl; //Failed To Compile Shader
+		excep.throwCompileShader();
 
 		for (GLint i = 0; i < maxlength; i++)
 		{
@@ -184,7 +174,7 @@ GLint Shaders::GetUniformLocation(const std::string &Uniform_name)
 
 	if (GL_INVALID_INDEX == static_cast<GLuint>(Location_ID))
 	{
-		std::cerr << "Location Id" << std::endl; //Failed To Get Uniform ID?
+	       excep.throwGetUniformID();
 	}
 
 	return Location_ID;

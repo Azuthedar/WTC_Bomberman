@@ -16,6 +16,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include "../../Game_Engine/include/main.hpp"
+#include "../../Game_Engine/include/Exception.class.hpp"
 
 struct Vertex
 {

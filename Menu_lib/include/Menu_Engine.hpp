@@ -29,6 +29,8 @@ class Menu_Engine
         static std::vector < Texture > render_array;
         GLuint VAO, VBO;
 
+        Exceptions excep;
+
         static int pos_min;
         static int pos_max;
 

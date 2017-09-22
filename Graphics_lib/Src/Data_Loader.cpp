@@ -33,10 +33,11 @@ GLuint Data_Loader::load_texture( const char *texture_path, std::string director
 
     this->Texture_ID.push_back( texture );
 
-    //std::cout << "LOAD ISSS " << std::endl;
 
     unsigned char *image = SOIL_load_image(filename.c_str() , &width, &height, 0, SOIL_LOAD_RGB);
 
+    if (!image)
+        excep.throwLoadTextures();
     //Failed to load texture?
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
@@ -50,10 +51,6 @@ GLuint Data_Loader::load_texture( const char *texture_path, std::string director
     SOIL_free_image_data( image );
     glBindTexture( GL_TEXTURE_2D, 0);
 
-   // std::cout << " BEFOR LOADISS RET " << std::endl;
-
-    std::cout << "TEXT ID " << texture << std::endl;
-
     return ( texture );
 }
 
@@ -66,7 +63,6 @@ unsigned int Data_Loader::GetArrayLen( GLfloat *tmp )
         count++;
     }
 
-   // std::cout << count << std::endl;
     exit(7);
 
     return ( count );
@@ -85,10 +81,11 @@ GLuint Data_Loader::LoadCubemap( std::vector<std::string> &texture_paths )
     for ( GLuint i = 0; i < texture_paths.size( ); i++ )
     {
         image = SOIL_load_image( texture_paths[i].c_str() , &imageWidth, &imageHeight, 0, SOIL_LOAD_RGB );
+        if (!image)
+            excep.throwLoadTextures();
         glTexImage2D( GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image );
         SOIL_free_image_data( image );
     }
-    //Failed to load Cubemap?
     glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
     glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
     glTexParameteri( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );

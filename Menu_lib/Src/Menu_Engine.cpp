@@ -797,7 +797,11 @@ void Menu_Engine::load_menu_textures()
     };
 
     glGenVertexArrays( 1, &this->VAO );
+    if (this->VAO <= 0)
+        this->excep.throwCreateVAO();
     glGenBuffers( 1, &this->VBO );
+    if (this->VBO <= 0)
+        this->excep.throwCreateVBO();
     glBindVertexArray( this->VAO );
     glBindBuffer( GL_ARRAY_BUFFER, this->VBO );
     glBufferData( GL_ARRAY_BUFFER, sizeof( cubeVertices ), &cubeVertices, GL_STATIC_DRAW );
@@ -838,8 +842,7 @@ void Menu_Engine::init()
 {
     if( !glfwInit() )
     {
-        std::cout << "Bad news1" << std::endl; //Could Not Init GLFW: Failed?
-        exit(1);
+        this->excep.throwInitGLFW();
     }
 
     // open a window with GLFW, sets required GLFW options
@@ -855,20 +858,16 @@ void Menu_Engine::init()
 
     if ( !base_screen->glfwWindow() ) // Check if window was created
     {
-        std::cout << "Bad news2" << std::endl; //Could Not Create GLFW Window: Failed?
         glfwTerminate(); // Terminate GLFW
-        exit(2);
+        this->excep.throwGLFWWindow();
     }
-
-    std::cout << "Window Valei " << base_screen->glfwWindow() << std::endl;
 
     glfwMakeContextCurrent( base_screen->glfwWindow() );
 
     glewExperimental = GL_TRUE; //stops glew crashing on OSX :-/
     if( glewInit() != GLEW_OK )
     {
-        std::cout << "Bad news 3" << std::endl; //Could Not Init Glew: Failed?
-        exit(3);
+        this->excep.throwInitGLEW();
     }
 
     load_menu_textures();
@@ -948,7 +947,7 @@ int Menu_Engine::update( Engine &engine )
         pos_min = 3;
         pos_max = 5;
     }
-    else if ( engine.getIsTransitioning( ) )
+    else if ( engine.getIsTransitioning( ) && !settings_menu.settingsMenu_window->visible() && !main_menu.mainMenu_window->visible() && !pause_menu.pauseMenu_window->visible())
     {
         hud.changeView( false );
         pos_min = 1;
@@ -967,9 +966,8 @@ int Menu_Engine::update( Engine &engine )
 
         if ( !base_screen->glfwWindow() ) // Check if window was created
         {
-            std::cout << "Bad news2" << std::endl; //Could Not Create GLFW Window: Failed?
             glfwTerminate(); // Terminate GLFW
-            exit(2);
+            this->excep.throwGLFWWindow();
         }
 
         gl_init();

@@ -18,6 +18,8 @@ class Render_Engine
         int Screen_Width;
         int Screen_Height;
 
+        Exceptions excep;
+
         static GLFWwindow *window;
         static Camera *camera;
 
@@ -73,7 +75,7 @@ class Render_Engine
         void test_func(  double posX, double posY  );
         //void DoMovement();
 
-        const string &getWin_Name() const;
+        const std::string &getWin_Name() const;
         int getScreen_Width() const;
         int getScreen_Height() const;
         static GLFWwindow *getWindow();
@@ -91,9 +93,9 @@ class Render_Engine
         const Shaders &getSkyBox_shader() const;
         const Shaders &getParticle_shader() const;
         Particle_manager *getParticle_manager() const;
-        const vector<Model *> &getModels() const;
-        const vector<Component *> &getComponents() const;
-        const vector<Model *> &getPlayer_models() const;
+        const std::vector<Model *> &getModels() const;
+        const std::vector<Component *> &getComponents() const;
+        const std::vector<Model *> &getPlayer_models() const;
         const Skybox_s &getSkybox() const;
         const Particles_s &getParticle_data() const;
 };

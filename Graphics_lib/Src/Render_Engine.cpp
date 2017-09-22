@@ -22,13 +22,6 @@ Render_Engine::Render_Engine()
 Render_Engine::Render_Engine( GLFWwindow *tmp_window )
 {
     Render_Engine::window = tmp_window;
-
-
-    std::cout << "Window Valei 2 " << Render_Engine::window << std::endl;
-    /*this->Win_Name = Win_Name;
-    this->Screen_Height = Win_Height;
-    this->Screen_Width = Win_Width;*/
-
     init();
 }
 
@@ -265,8 +258,6 @@ void Render_Engine::load_Shaders()
 void Render_Engine::init()
 {
     Render_Engine::camera = new Camera( glm::vec3( 0.0f, 5.0f, 10.f) );
-    lastX = 0.0f;//this->Screen_Width / 2.0f;
-    lastY = 0.0f;//this->Screen_Height / 2.0f;
 
     this->particle_manager = new Particle_manager( 4.0f, 25.0f, 0.0f, 1.0f );
 
@@ -307,7 +298,7 @@ Render_Engine &Render_Engine::operator=(Render_Engine const &rhs) {
     return *this;
 }
 
-const string &Render_Engine::getWin_Name() const { return Win_Name; }
+const std::string &Render_Engine::getWin_Name() const { return Win_Name; }
 int Render_Engine::getScreen_Width() const { return Screen_Width;}
 int Render_Engine::getScreen_Height() const { return Screen_Height; }
 GLFWwindow *Render_Engine::getWindow() { return window; }
@@ -325,8 +316,8 @@ const Shaders &Render_Engine::getShader() const { return shader; }
 const Shaders &Render_Engine::getSkyBox_shader() const { return SkyBox_shader; }
 const Shaders &Render_Engine::getParticle_shader() const { return Particle_shader; }
 Particle_manager *Render_Engine::getParticle_manager() const { return particle_manager; }
-const vector<Model *> &Render_Engine::getModels() const { return models; }
-const vector<Component *> &Render_Engine::getComponents() const { return components; }
-const vector<Model *> &Render_Engine::getPlayer_models() const { return player_models; }
+const std::vector<Model *> &Render_Engine::getModels() const { return models; }
+const std::vector<Component *> &Render_Engine::getComponents() const { return components; }
+const std::vector<Model *> &Render_Engine::getPlayer_models() const { return player_models; }
 const Skybox_s &Render_Engine::getSkybox() const { return Skybox; }
 const Particles_s &Render_Engine::getParticle_data() const { return particle_data; }

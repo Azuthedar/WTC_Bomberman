@@ -13,6 +13,7 @@ class Model
         std::string directory;
         std::vector<Texture> textures_loaded;
         Data_Loader load;
+        Exceptions excep;
         int Num_Rows = 1;
 
     public:
@@ -35,7 +36,7 @@ class Model
         Particles_s loadParticle( );
         void processNode( aiNode* node, const aiScene* scene );
         Mesh processMesh( aiMesh *mesh, const aiScene *scene );
-        std::vector<Texture> loadMaterialTextures( aiMaterial *mat, aiTextureType type, string typeName );
+        std::vector<Texture> loadMaterialTextures( aiMaterial *mat, aiTextureType type, std::string typeName );
 
         int GetNumRows() const;
         void SetNumRows( int const &tmp_numRows );

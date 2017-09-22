@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../Game_Engine/include/main.hpp"
+#include "../../Game_Engine/include/Exception.class.hpp"
 #include <vector>
 
 #define SOUND_CHANNELS 2
@@ -29,5 +30,6 @@ class Sound : public Exceptions
 		std::vector<Mix_Chunk *>   _waveVector;
 		int							_SFXVolume;
 		int							_musicVolume;
+		Exceptions					_excep;
 
 };

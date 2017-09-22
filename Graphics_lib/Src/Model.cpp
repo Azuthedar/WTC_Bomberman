@@ -41,7 +41,11 @@ Particles_s Model::loadParticle( )
     };
 
     glGenVertexArrays( 1, &VAO );
+    if (VAO <= 0)
+        excep.throwCreateVAO();
     glGenBuffers( 1, &VBO );
+    if (VBO <= 0)
+        excep.throwCreateVBO();
     glBindVertexArray( VAO );
     glBindBuffer( GL_ARRAY_BUFFER, VBO );
     glBufferData( GL_ARRAY_BUFFER, sizeof( cubeVertices ), &cubeVertices, GL_STATIC_DRAW );
@@ -49,10 +53,8 @@ Particles_s Model::loadParticle( )
     glVertexAttribPointer( 0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof( GLfloat ), ( GLvoid * ) 0 );
     glBindVertexArray(0);
 
-    std::cout << "Some stuff is happening " << VAO << std::endl;
     tmp_particle.Particle_VAO = VAO;
     tmp_particle.Particle_VBO = VBO;
-    //tmp_skybox.Cubemap_text = this->load.LoadCubemap( texture_paths );
 
     return (tmp_particle);
 }
@@ -156,7 +158,11 @@ Skybox_s Model::loadSkybox( std::vector<std::string> &texture_paths )
     };
 
     glGenVertexArrays( 1, &skyboxVAO );
+    if (skyboxVAO <= 0)
+        excep.throwCreateVAO();
     glGenBuffers( 1, &skyboxVBO );
+    if (skyboxVBO <= 0)
+        excep.throwCreateVBO();
     glBindVertexArray( skyboxVAO );
     glBindBuffer( GL_ARRAY_BUFFER, skyboxVBO );
     glBufferData( GL_ARRAY_BUFFER, sizeof( skyboxVertices ), &skyboxVertices, GL_STATIC_DRAW );
@@ -214,7 +220,8 @@ void Model::loadModel( std::string path )
     //Replace With Exception Class Stoof
     if( !scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode )
     {
-        cout << "ERROR::ASSIMP:: " << importer.GetErrorString( ) << endl; //Failed To Load Model?
+        std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString( ) << std::endl; //Failed To Load Model?
+        excep.throwLoadModel();
         return;
     }
 
@@ -234,8 +241,6 @@ void Model::processNode( aiNode* node, const aiScene* scene )
     {
         this->processNode( node->mChildren[i], scene );
     }
-
-    //std::cout << this->meshes.size() << std::endl;
 }
 
 Mesh Model::processMesh( aiMesh *mesh, const aiScene *scene )
@@ -257,9 +262,8 @@ Mesh Model::processMesh( aiMesh *mesh, const aiScene *scene )
             vertex.Position = vector;
         }
         else
-            exit(8); //Missing Vertices: Failed
+            excep.throwMissingVertices();
 
-        //std::cout << "vertices X " <<  vector.x << " Y " << vector.y << " Z " << vector.z << std::endl;
 
         if ( mesh->HasNormals() )
         {
@@ -273,7 +277,6 @@ Mesh Model::processMesh( aiMesh *mesh, const aiScene *scene )
             vertex.Normal = glm::vec3( 0.0f, 0.0f, 0.0f );
         }
 
-        //std::cout << "Normals X " <<  vector.x << " Y " << vector.y << " Z " << vector.z << std::endl;
 
         if( mesh->mTextureCoords[0] ) // Does the mesh contain texture coordinates?
         {
@@ -311,7 +314,7 @@ Mesh Model::processMesh( aiMesh *mesh, const aiScene *scene )
     return Mesh( vertices, indices, textures );
 }
 
-std::vector<Texture> Model::loadMaterialTextures( aiMaterial *mat, aiTextureType type, string typeName )
+std::vector<Texture> Model::loadMaterialTextures( aiMaterial *mat, aiTextureType type, std::string typeName )
 {
     std::vector<Texture> textures;
 

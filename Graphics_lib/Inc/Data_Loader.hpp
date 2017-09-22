@@ -9,6 +9,7 @@ class Data_Loader
         std::vector < GLuint > VAO;
         std::vector < GLuint > VBO;
         std::vector < GLuint > Texture_ID;
+        Exceptions excep;
 
         unsigned int GetArrayLen( GLfloat *tmp );
         void Store_Data( int attrib_number, GLuint data_size , int data_num,  GLfloat *data );
@@ -22,8 +23,6 @@ class Data_Loader
 
         Data_Loader(Data_Loader const &src);
         Data_Loader &operator=(Data_Loader const &rhs);
-
-        //Model *Load_VAO( GLfloat *vert, GLuint Vert_Size, GLuint elements , GLuint *indicies, GLuint Ind_Size, GLfloat *texture_coords, GLuint Text_Size, GLfloat *normals, GLuint Norm_size );
 
         void Unbind_VAO();
 

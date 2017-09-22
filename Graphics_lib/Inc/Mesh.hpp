@@ -3,8 +3,6 @@
 #include "Base.hpp"
 #include "Shaders.hpp"
 
-using namespace std;
-
 class Mesh
 {
     private:
@@ -15,6 +13,7 @@ class Mesh
         std::vector<Vertex> vertices;
         std::vector<GLuint> indices;
         std::vector<Texture> textures;
+        Exceptions excep;
 
         void setupMesh( );
 
@@ -32,7 +31,7 @@ class Mesh
         GLuint getVAO() const;
         GLuint getVBO() const;
         GLuint getEBO() const;
-        const vector<Vertex> &getVertices() const;
-        const vector<GLuint> &getIndices() const;
-        const vector<Texture> &getTextures() const;
+        const std::vector<Vertex> &getVertices() const;
+        const std::vector<GLuint> &getIndices() const;
+        const std::vector<Texture> &getTextures() const;
 };

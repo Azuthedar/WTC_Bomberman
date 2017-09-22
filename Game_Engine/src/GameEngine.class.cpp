@@ -72,6 +72,8 @@ void Engine::transitionMap()
 		if (this->_mapLevel == this->_maps.size())
 		{
 			this->_soundEnum = SND_VICTORY;
+			this->reset();
+			this->_config.updateFile(this->_player, this->_mapLevel, this->_sound, this->_score);
 			this->_gameState = MENU;
 		}
 		else

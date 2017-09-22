@@ -71,9 +71,14 @@ const char * Exceptions::EFailedCreateIndices::what() const throw()
     return ("Failed To Create Indices");
 }
 
-const char * Exceptions::EFailedCreateVao::what() const throw()
+const char * Exceptions::EFailedCreateVAO::what() const throw()
 {
     return ("Failed To Create VAO");
+}
+
+const char * Exceptions::EFailedCreateVBO::what() const throw()
+{
+    return ("Failed To Create VBO");
 }
 
 const char * Exceptions::EFailedStoreObjectData::what() const throw()
@@ -136,6 +141,10 @@ const char * Exceptions::EFailedToGetUniformID::what() const throw()
     return ("Failed To Get Uniform ID");
 }
 
+const char * Exceptions::EFailedToLoadWAV::what() const throw()
+{
+    return ("Failed to load WAV files");
+}
 
 
 //Throwers
@@ -210,6 +219,11 @@ void Exceptions::throwCreateVAO()
     throw EFCVao;
 }
 
+void Exceptions::throwCreateVBO()
+{
+    throw EFCVbo;
+}
+
 void Exceptions::throwStoreObjectData()
 {
     throw EFSOData;
@@ -268,4 +282,9 @@ void Exceptions::throwCompileShader()
 void Exceptions::throwGetUniformID()
 {
     throw EFTGUID;
+}
+
+void Exceptions::throwLoadWAV()
+{
+    throw EFTLWav;
 }

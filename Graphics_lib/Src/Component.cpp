@@ -7,7 +7,6 @@ Component::Component()
 
 Component::~Component()
 {
-    //std::cout << "IM DEAD " << std::endl;
     return ;
 }
 
@@ -55,7 +54,6 @@ void Component::Calculate_Offset( int const &total_rows )
     row = this->texture_index / total_rows;
     this->Offsets.y = static_cast<float>(row) / static_cast<float>(total_rows);
 
-    //std::cout << " X OFFSET " << this->Offsets.x << " Y OFFSET " << this->Offsets.y << std::endl;
 
 }
 
@@ -134,7 +132,6 @@ Component &Component::operator=(Component const &rhs) {
     this->direction = rhs.GetDirection();
     this->Degres = rhs.GetDegres();
     this->Scale = rhs.GetScale();
-    //this->position = rhs.GetPosition();
     this->Name = rhs.GetName();
     this->texture_index = rhs.GetTextureIndex();
     this->Offsets = rhs.GetOffsets();
