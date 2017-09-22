@@ -154,9 +154,9 @@ void Render_Engine::Create_Components( Engine &engine )
   	for (size_t i = 0; i < engine.getEnemyVector().size(); i++)
     {
         if ( engine.getEnemyVector()[i].getType() == BUG)
-            this->components.push_back( new Component("Enemy", this->models[1], 0.0f, engine.getEnemyVector()[i].getDir(), 0.55f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , 1.0f, engine.getEnemyVector()[i].getYPos() * 2 ), 0)  );
+            this->components.push_back( new Component("Enemy", this->models[1], 0.0f, engine.getEnemyVector()[i].getDir(), 0.55f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , engine.getEnemyVector()[i].getZPos(), engine.getEnemyVector()[i].getYPos() * 2 ), 0)  );
         else if ( engine.getEnemyVector()[i].getType() == ROBOT)
-            this->components.push_back( new Component("Enemy", this->models[3], 0.0f, engine.getEnemyVector()[i].getDir(), 0.55f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , 1.0f, engine.getEnemyVector()[i].getYPos() * 2 ), 0)  );
+            this->components.push_back( new Component("Enemy", this->models[3], 0.0f, engine.getEnemyVector()[i].getDir(), 0.55f, glm::vec3( engine.getEnemyVector()[i].getXPos() * 2 , engine.getEnemyVector()[i].getZPos(), engine.getEnemyVector()[i].getYPos() * 2 ), 0)  );
   	}
 
     //Push back floaty bloos

@@ -2,31 +2,54 @@
 
 Enemy::Enemy()
 {
-	this->_speed = std::rand() % 6 / 6 + 1;
+	this->_speed = std::rand() % 15 / 6 + 2;
 	this->_type = static_cast<eEnemyType>(std::rand() % 2);
 	this->_enemyMvTicker = 0;
 	this->_followPlayer = false;
 	this->_isDead = false;
 
+	int min = -5;
+	int max = 5;
+	this->_zPos = 1.0f + (min + (rand() % static_cast<int>(max - min + 1)) * 0.5);
 	this->_xPos = 0;
 	this->_yPos = 0;
+	this->_zPos = 1.0f;
+	this->_vDir = 1.0f;
 
 	return ;
 }
 
 Enemy::Enemy(int x, int y)
 {
-	this->_speed = std::rand() % 8 + 1 / 6;
+	this->_speed = std::rand() % 15 / 6 + 2;
 	this->_type = static_cast<eEnemyType>(std::rand() % 2);
 	this->_enemyMvTicker = 0;
 	this->_isDead = false;
 
 	this->_xPos = x;
 	this->_yPos = y;
+	int min = -5;
+	int max = 5;
+	this->_zPos = 1.0f + (min + (rand() % static_cast<int>(max - min + 1)) * 0.5);
 	this->_spawnX = x;
 	this->_spawnY = y;
+	this->_vDir = 1.0f;
 
 	return ;
+}
+
+void Enemy::bobbing()
+{
+	if (this->_zPos >= 1.25f)
+	{
+		this->_vDir = -1.0f;
+	}
+
+	if (this->_zPos <= 0.75f)
+	{
+		this->_vDir = 1.0f;
+	}
+	this->_zPos += 0.05 * this->_vDir;
 }
 
 
@@ -50,6 +73,7 @@ void 	Enemy::SnapMovement()
 
 void	Enemy::movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std::vector<Bomb> & bombVector, GLfloat &delta_time )
 {
+	bobbing();
 
 	if (this->_enemyMvTicker <= 0 && this->_isMoving == false)
 	{
@@ -211,6 +235,7 @@ int	&	Enemy::getSpawnX()		{return (this->_spawnX);}
 int	&	Enemy::getSpawnY()		{return (this->_spawnY);}
 int &	Enemy::getGoalX()		{return (this->_goal_x);}
 int &	Enemy::getGoalY()		{return (this->_goal_y);}
+float &	Enemy::getVDir()		{return (this->_vDir);}
 eEnemyType & Enemy::getType() {return (this->_type);}
 
 
