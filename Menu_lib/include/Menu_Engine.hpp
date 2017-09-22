@@ -28,6 +28,9 @@ class Menu_Engine
         static std::vector < Texture > render_array;
         GLuint VAO, VBO;
 
+        static int pos_min;
+        static int pos_max;
+
         static std::unordered_map< std::string, int > key_binds;
         static std::unordered_map< std::string, int >::iterator it;
 

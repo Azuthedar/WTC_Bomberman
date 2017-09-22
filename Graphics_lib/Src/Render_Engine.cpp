@@ -116,31 +116,32 @@ void Render_Engine::load_dependencies()
 
 void Render_Engine::Create_Components( Engine &engine )
 {
-    //std::cout<< "X" << engine.getPlayer().getXPos() << " Y " << engine.getPlayer().getYPos() << std::endl;
-    if ( tmp_test >= 18 )
-        tmp_test = 0;
-
-    int frame = 0;
-    if (engine.getPlayer().getIsMoving())
+    if ( engine.getIsTransitioning() == false )
     {
-        tmp_test++;
-        frame = (tmp_test - 1) / 3;
-        //std::cout << frame << " TTST" << std::endl;
-    }
+        if ( tmp_test >= 18 )
+            tmp_test = 0;
 
-    this->components.push_back( new Component( "Player" , this->player_models[frame], 0.0f, engine.getPlayer().getDir(), 0.35f, glm::vec3( engine.getPlayer().getXPos() * 2 , 0.0f, engine.getPlayer().getYPos() * 2 ), 0)  );
+        int frame = 0;
+        if (engine.getPlayer().getIsMoving())
+        {
+            tmp_test++;
+            frame = (tmp_test - 1) / 3;
+        }
+
+        this->components.push_back( new Component( "Player" , this->player_models[frame], 0.0f, engine.getPlayer().getDir(), 0.35f, glm::vec3( engine.getPlayer().getXPos() * 2 , 0.0f, engine.getPlayer().getYPos() * 2 ), 0)  );
+
+        for (int y = 1; y < MAP_Y; y++)
+        {
+            for (int x = 0; x < MAP_X; x++)
+            {
+                this->components.push_back( new Component("Plane", this->models[6], 0.0f, -1, 1.0f, glm::vec3( x * 2.0f, 0.0f, y * 2.0f ), 0)  );
+            }
+        }
+    }
 
     for (size_t i = 0; i < engine.getPlayer().getBombVector().size(); i++)
   	{
         this->components.push_back( new Component( "Bomb", this->models[0], 0.0f, -1, 2.5f , glm::vec3( engine.getPlayer().getBombVector()[i].getXPos() * 2 , 1.0f, engine.getPlayer().getBombVector()[i].getYPos() * 2 ), 0)  );
-    }
-
-    for (int y = 1; y < MAP_Y; y++)
-    {
-        for (int x = 0; x < MAP_X; x++)
-        {
-            this->components.push_back( new Component("Plane", this->models[6], 0.0f, -1, 1.0f, glm::vec3( x * 2.0f, 0.0f, y * 2.0f ), 0)  );
-        }
     }
 
   	for (size_t i = 0; i < engine.getWallVector().size(); i++)
@@ -211,14 +212,15 @@ void Render_Engine::Create_Components( Engine &engine )
 
 void Render_Engine::_render( GLfloat &tmp_delta_time )
 {
-
     glEnable( GL_DEPTH_TEST );
     glEnable( GL_BLEND );
     glEnable( GL_CULL_FACE );
     glCullFace( GL_BACK );
     glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
-    glm::vec3 player_pos = this->components[0]->GetPosition();
+    glm::vec3 player_pos = glm::vec3( 0.0f, 0.0f, 0.0f);
+    if ( this->components.size() > 0 )
+        player_pos = this->components[0]->GetPosition();
 
     Render_Engine::deltaTime = tmp_delta_time;
     this->particle_manager->manage_particles( tmp_delta_time );

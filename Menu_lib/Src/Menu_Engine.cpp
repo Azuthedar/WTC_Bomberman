@@ -18,6 +18,9 @@ Engine  *Menu_Engine::engine = nullptr;
 std::unordered_map< std::string, int > Menu_Engine::key_binds;
 std::unordered_map< std::string, int >::iterator Menu_Engine::it;
 
+int Menu_Engine::pos_min = 0;
+int Menu_Engine::pos_max = 1;
+
 Menu_Engine::Menu_Engine( std::string Win_Name )
 {
     this->window_name = Win_Name;
@@ -320,8 +323,6 @@ void Menu_Engine::createSettingsMenu()
     settings_menu.keybind_popup->setSize( { 320 * scale, 270 * scale } );
     settings_menu.keybind_popup->setAnchorPos( { 550 * scale, 100 * scale } );
 
-    std::cout << "LETS HP " << settings_menu.keybind_popup->anchorPos()[0] << " " << settings_menu.keybind_popup->anchorPos()[0] << std::endl;
-
     settings_menu.Button_Up = new nanogui::Button( settings_menu.keybind_popup, "Key_Up");
     settings_menu.Button_Up->setPosition( { 20 * scale, 20 * scale } );
     settings_menu.Button_Up->setSize( { 130 * scale, 30 * scale } );
@@ -523,7 +524,11 @@ void Menu_Engine::createSettingsMenu()
         engine->getConfig().updateFile(engine->getPlayer(), engine->getMapLevel(), engine->getSound(), engine->getScore());
         settings_menu.changeView(false);
         if (engine->getGameState() != PAUSED)
+        {
             main_menu.changeView(true);
+            pos_min = 0;
+            pos_max = 1;
+        }
         else
             pause_menu.changeView(true);
     });
@@ -541,7 +546,7 @@ void Menu_Engine::render()
 
     GLint modelLoc = shader.GetUniformLocation( "transform_mat" );
 
-    for (GLuint count = 0; count < render_array.size(); count++)
+    for (GLuint count = pos_min; count < pos_max; count++)
     {
         if ( count > 0)
             glBlendFunc( GL_SRC_ALPHA, GL_ONE );
@@ -614,7 +619,8 @@ void Menu_Engine::createMainMenu()
         main_menu.changeView(false);
         settings_menu.changeView(false);
         pause_menu.changeView(false);
-        render_array.clear();
+        pos_min = 1;
+        pos_max = 2;
     });
 
     posY += 35 * ( screen_height / 360 );
@@ -631,7 +637,8 @@ void Menu_Engine::createMainMenu()
         main_menu.changeView(false);
         settings_menu.changeView(false);
         pause_menu.changeView(false);
-        render_array.clear();
+        pos_min = 1;
+        pos_max = 2;
     });
 
     posY += 35 * ( screen_height / 360 );
@@ -727,6 +734,8 @@ void Menu_Engine::createPauseMenu()
     pause_menu.b_settings->setCallback([]{
         pause_menu.changeView(false);
         settings_menu.changeView(true);
+        pos_min = 0;
+        pos_max = 1;
     });
 
     posY += 30 * (screen_height / 360);
@@ -743,6 +752,8 @@ void Menu_Engine::createPauseMenu()
         settings_menu.changeView(false);
         engine->setGameState(MENU);
         engine->getConfig().setConfigUpdated(true);
+        pos_min = 0;
+        pos_max = 1;
     });
 }
 
@@ -929,8 +940,6 @@ int Menu_Engine::update( Engine &engine )
 
     if ( main_menu.mainMenu_window->visible() == true || settings_menu.settingsMenu_window->visible() == true || pause_menu.pauseMenu_window->visible() == true)
         base_screen->drawAll();
-
-    //render_array.clear();
 
     return (change_val);
 }
