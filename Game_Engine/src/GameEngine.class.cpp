@@ -338,6 +338,7 @@ void						Engine::setIsTransitioning(bool transition) {this->_isTransitioning = 
 void						Engine::setMapLevel(size_t maplevel)		{this->_mapLevel = maplevel;}
 void						Engine::setScore(int score)					{this->_score = score;}
 
+bool &						Engine::getIsTransitioning()	{return (this->_isTransitioning);}
 std::vector<char> &			Engine::getMapValues()			{return (this->_mapValues);}
 Player & 					Engine::getPlayer() 			{return (this->_player);}
 Gate &						Engine::getGate()				{return (this->_gate);}

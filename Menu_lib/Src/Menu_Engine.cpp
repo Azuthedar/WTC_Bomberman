@@ -452,15 +452,14 @@ void Menu_Engine::createSettingsMenu()
         {
             if ( str.compare( it->first ) == 0 )
             {
-                std::cout << it->first << " " << settings_menu.curr_up << std::endl;
-
-                std::cout << it->second << std::endl;
                 if ( settings_menu.curr_up == it->second || settings_menu.curr_down == it->second || settings_menu.curr_Left == it->second || settings_menu.curr_Right == it->second || settings_menu.curr_place == it->second)
                     break ;
 
                 settings_menu.new_key = it->second;
                 settings_menu.bind_change = true;
-                settings_menu.Apply->setEnabled( true );
+
+                if (engine->getPlayer().getBombVector().size() == 0)
+                    settings_menu.Apply->setEnabled( true );
 
                 return ( true );
             }
@@ -475,7 +474,7 @@ void Menu_Engine::createSettingsMenu()
     settings_menu.Apply->setTheme( settings_menu.theme );
     settings_menu.Apply->setCallback([]{
 
-        if (settings_menu.bind_change && settings_menu.button_type != 0)
+        if (settings_menu.bind_change && settings_menu.button_type != 0 && engine->getPlayer().getBombVector().size() == 0)
         {
             if (settings_menu.button_type == 1)
             {
@@ -776,15 +775,22 @@ void Menu_Engine::load_menu_textures()
     Tmp_str.scale_x = 1.0f;
     Tmp_str.scale_y = 1.0f;
     Tmp_str.pos = 0.0f;
-
     render_array.push_back( Tmp_str );
 
-    /*Tmp_str.id = this->load.load_texture( "Heart.png", "Assets/UI");
-    Tmp_str.scale_x = 0.5f;
-    Tmp_str.scale_y = 0.5f;
-    Tmp_str.pos = -0.5;*/
+    Tmp_str.id = this->load.load_texture( "loading.png", "Assets/UI");
+    render_array.push_back( Tmp_str );
 
-    //render_array.push_back( Tmp_str );
+    Tmp_str.id = this->load.load_texture( "Timer.png", "Assets/UI");
+    Tmp_str.scale_x = 1.0f;
+    Tmp_str.scale_y = 1.0f;
+    Tmp_str.pos = 0.0f;
+    render_array.push_back( Tmp_str );
+
+    Tmp_str.id = this->load.load_texture( "Heart.png", "Assets/UI");
+    Tmp_str.scale_x = 1.0f;
+    Tmp_str.scale_y = 1.0f;
+    Tmp_str.pos = 0.0f;
+    render_array.push_back( Tmp_str );
 }
 
 void Menu_Engine::init()

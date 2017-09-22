@@ -36,6 +36,7 @@ class Engine
 		void						setMapLevel(size_t mapLevel);
 		void						setScore(int score);
 
+		bool &						getIsTransitioning();
 		std::vector<char> &			getMapValues();
 		std::vector<Wall> &			getWallVector();
 		Player &					getPlayer();
