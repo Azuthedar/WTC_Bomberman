@@ -2,7 +2,7 @@
 
 Enemy::Enemy()
 {
-	this->_speed = std::rand() % 4 + 1;
+	this->_speed = std::rand() % 6 / 6 + 1;
 	this->_type = static_cast<eEnemyType>(std::rand() % 2);
 	this->_enemyMvTicker = 0;
 	this->_followPlayer = false;
@@ -16,7 +16,7 @@ Enemy::Enemy()
 
 Enemy::Enemy(int x, int y)
 {
-	this->_speed = std::rand() % 4 + 4;
+	this->_speed = std::rand() % 8 + 1 / 6;
 	this->_type = static_cast<eEnemyType>(std::rand() % 2);
 	this->_enemyMvTicker = 0;
 	this->_isDead = false;
