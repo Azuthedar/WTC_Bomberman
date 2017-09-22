@@ -4,6 +4,7 @@ Bomb::Bomb()
 {
 	this->_totalTimer = BOMB_TIME;
 	this->_currTimer = this->_totalTimer;
+	this->_bombLifeTime = 2 * FIXED_FPS + 1.1f;
 	this->_range = 1;
 	this->_exploded = false;
 	this->_explosionLifeTime = 0.5f;
@@ -189,11 +190,18 @@ void	Bomb::destroyExplosion(float deltaTime)
 	}
 }
 
-void	Bomb::setBombRange(int range)				{this->_range = range;}
+
 void	Bomb::modifyCurrTimer(int currTimer)		{this->_currTimer += currTimer;}
 void	Bomb::modifyExplosionLifeTime(float deltaTime) {this->_explosionLifeTime -= deltaTime;}
+void	Bomb::modifyBombLifeTime(float deltaTime)	{this->_bombLifeTime -= deltaTime;}
+
+void	Bomb::setBombRange(int range)				{this->_range = range;}
+void Bomb::setBombLifeTime(float _bombLifeTime) {Bomb::_bombLifeTime = _bombLifeTime; }
 
 int &	Bomb::getCurrTimer()						{return this->_currTimer;}
 float & Bomb::getExplosionLifeTime()				{return (this->_explosionLifeTime);}
 bool &	Bomb::getExploded()							{return this->_exploded;}
 std::vector<Explosion> &	Bomb::getExplosionVector()	{return (this->_explosionVector);}
+float & Bomb::getBombLifeTime() { return _bombLifeTime; }
+
+

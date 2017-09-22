@@ -138,6 +138,7 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 					this->_soundEnum = SND_GATEUNLOCKED;
 				this->_gate.setIsLocked(false);
 			}
+
 			this->_player.input( window );
 			this->_player.movement(this->_walls_vector, this->_enemyVector, this->_powerupVector, delta_time);
 			this->chainReaction();

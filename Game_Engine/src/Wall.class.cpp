@@ -21,7 +21,6 @@ Wall::Wall(Wall const & src)
 
 Wall::~Wall()
 {
-	//std::cout << "Wall has been destroyed" << std::endl;
 	return ;
 }
 
