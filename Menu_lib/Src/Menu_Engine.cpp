@@ -939,7 +939,7 @@ int Menu_Engine::update( Engine &engine )
         pos_min = 0;
         pos_max = 1;
     }
-    else if( engine.getGameState() == GAME && !settings_menu.settingsMenu_window->visible() && !main_menu.mainMenu_window->visible() && !pause_menu.pauseMenu_window->visible() && !engine.getIsTransitioning())
+    else if ( engine.getGameState() == GAME && !settings_menu.settingsMenu_window->visible() && !main_menu.mainMenu_window->visible() && !pause_menu.pauseMenu_window->visible() && !engine.getIsTransitioning() )
     {
         hud.changeView( true );
         hud.Time->setCaption( std::to_string(engine.getMapDuration() / FIXED_FPS) );
@@ -948,6 +948,13 @@ int Menu_Engine::update( Engine &engine )
         pos_min = 3;
         pos_max = 5;
     }
+    else if ( engine.getIsTransitioning( ) )
+    {
+        hud.changeView( false );
+        pos_min = 1;
+        pos_max = 2;
+    }
+
 
     if ( settings_menu.res_change == true )
     {
