@@ -532,24 +532,30 @@ void Menu_Engine::createSettingsMenu()
 
 void Menu_Engine::render()
 {
+    glEnable( GL_BLEND );
+    //glBlendFuncSeparate( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA );
+    glDisable( GL_DEPTH_TEST );
+
     glUseProgram( this->shader.GetProgramID() );
     glBindVertexArray( this->VAO );
     glEnableVertexAttribArray(0);
-    glEnable( GL_BLEND );
-    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-    glDisable( GL_DEPTH_TEST );
 
     GLint modelLoc = shader.GetUniformLocation( "transform_mat" );
 
     for (GLuint count = 0; count < render_array.size(); count++)
     {
+        if ( count > 0)
+            glBlendFunc( GL_SRC_ALPHA, GL_ONE );
+        else
+            glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+
         glm::mat4 model = glm::mat4(1.0);
         glm::mat4 model_matric;
 
         glBindTexture( GL_TEXTURE_2D, render_array[count].id );
 
         model = glm::translate( model, glm::vec3( render_array[count].pos, render_array[count].pos, 1.0f) );
-        model_matric = glm::scale( model , glm::vec3( render_array[count].scale, render_array[count].scale, 1.0f ) );
+        model_matric = glm::scale( model , glm::vec3( render_array[count].scale_x, render_array[count].scale_y, 1.0f ) );
 
         this->shader.load_matrix( modelLoc, model_matric );
 
@@ -559,8 +565,8 @@ void Menu_Engine::render()
 
     glBindTexture( GL_TEXTURE_2D, 0 );
     glBindVertexArray( 0 );
-    glDisable( GL_BLEND );
     glEnable( GL_DEPTH_TEST );
+    glDisable( GL_BLEND );
     glDisableVertexAttribArray(0);
 }
 
@@ -765,17 +771,19 @@ void Menu_Engine::load_menu_textures()
 
     Texture Tmp_str;
 
-    Tmp_str.id = this->load.load_texture( "background.jpg", "Assets/UI");
-    Tmp_str.scale = 1.0f;
+    Tmp_str.id = this->load.load_texture( "loading.png", "Assets/UI");
+    Tmp_str.scale_x = 1.0f;
+    Tmp_str.scale_y = 1.0f;
     Tmp_str.pos = 0.0f;
 
     render_array.push_back( Tmp_str );
 
-    Tmp_str.id = this->load.load_texture( "bomberman1.png", "Assets/UI");
-    Tmp_str.scale = 0.25f;
-    Tmp_str.pos = 0.5f;
+    /*Tmp_str.id = this->load.load_texture( "Heart.png", "Assets/UI");
+    Tmp_str.scale_x = 0.5f;
+    Tmp_str.scale_y = 0.5f;
+    Tmp_str.pos = -0.5;*/
 
-    render_array.push_back( Tmp_str );
+    //render_array.push_back( Tmp_str );
 }
 
 void Menu_Engine::init()
