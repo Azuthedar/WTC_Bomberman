@@ -17,6 +17,7 @@ class Menu_Engine
         static MainMenu main_menu;
         static SettingsMenu settings_menu;
         static PauseMenu pause_menu;
+        static HUD hud;
 
         static Engine *engine;
 
@@ -53,6 +54,7 @@ class Menu_Engine
         void createMainMenu();
         void createSettingsMenu();
         void createPauseMenu();
+        void createHUD();
 
         GLFWwindow *GetWindow() const;
 };

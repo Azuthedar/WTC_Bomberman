@@ -1,6 +1,6 @@
 #pragma once
 
-//Comment out clear funtion in screen.cpp -> DrawAll() 
+//Comment out clear funtion in screen.cpp -> DrawAll()
 
 #include "../../Graphics_lib/Inc/Data_Loader.hpp"
 #include "../../Graphics_lib/Inc/Shaders.hpp"
@@ -76,6 +76,25 @@ struct  MainMenu
     {
         if (mainMenu_window != nullptr)
             mainMenu_window->setVisible(value);
+    }
+};
+
+struct HUD
+{
+    nanogui::Label *Lives = nullptr;
+    nanogui::Label *Time = nullptr;
+    nanogui::Label *Score = nullptr;
+
+    HUD() = default;
+
+    void    changeView(bool value)
+    {
+        if (Lives != nullptr)
+            Lives->setVisible(value);
+        if (Time != nullptr)
+            Time->setVisible(value);
+        if (Score != nullptr)
+            Score->setVisible(value);
     }
 };
 

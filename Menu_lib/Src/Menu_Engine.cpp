@@ -4,6 +4,8 @@ nanogui::Screen *Menu_Engine::base_screen = nullptr;
 MainMenu Menu_Engine::main_menu = MainMenu();
 SettingsMenu Menu_Engine::settings_menu = SettingsMenu();
 PauseMenu Menu_Engine::pause_menu = PauseMenu();
+HUD Menu_Engine::hud = HUD();
+
 std::string Menu_Engine::window_mode = "FullScreen";
 
 std::vector < Texture > Menu_Engine::render_array;
@@ -142,6 +144,27 @@ void Menu_Engine::create_keyMaps()
     key_binds.insert( std::make_pair( "7", GLFW_KEY_7 ) );
     key_binds.insert( std::make_pair( "8", GLFW_KEY_8 ) );
     key_binds.insert( std::make_pair( "9", GLFW_KEY_9 ) );
+}
+
+void Menu_Engine::createHUD()
+{
+    float scale = screen_height / 720;
+    if ( screen_height / 360 == 3 )
+        scale = 1.5 ;
+    else
+        scale = 1;
+
+    hud.Lives = new nanogui::Label(base_screen, "", "sans-bold", 60);
+    hud.Lives->setSize( { 100 * scale , 40 * scale } );
+    hud.Lives->setPosition( { 20 * scale, 20 * scale } );
+
+    hud.Time = new nanogui::Label(base_screen, "", "sans-bold", 60);
+    hud.Time->setSize( { 100 * scale , 40 * scale } );
+    hud.Time->setPosition( { screen_width - ( 100 * scale ), 20 * scale } );
+
+    hud.Score = new nanogui::Label(base_screen, "", "sans-bold", 80);
+    hud.Score->setSize( { 100 * scale, 60 * scale } );
+    hud.Score->setPosition( { screen_width / 2, 10 * scale } );
 }
 
 void Menu_Engine::createSettingsMenu()
@@ -530,14 +553,17 @@ void Menu_Engine::createSettingsMenu()
             pos_max = 1;
         }
         else
+        {
             pause_menu.changeView(true);
+            pos_min = 2;
+            pos_max = 3;
+        }
     });
 }
 
 void Menu_Engine::render()
 {
     glEnable( GL_BLEND );
-    //glBlendFuncSeparate( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA );
     glDisable( GL_DEPTH_TEST );
 
     glUseProgram( this->shader.GetProgramID() );
@@ -548,7 +574,7 @@ void Menu_Engine::render()
 
     for (GLuint count = pos_min; count < pos_max; count++)
     {
-        if ( count > 0)
+        if ( pos_min > 2)
             glBlendFunc( GL_SRC_ALPHA, GL_ONE );
         else
             glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
@@ -688,6 +714,7 @@ void Menu_Engine::gl_init()
     createMainMenu();
     createSettingsMenu();
     createPauseMenu();
+    createHUD();
 
     settings_menu.changeView(true);
     main_menu.changeView(false);
@@ -791,16 +818,19 @@ void Menu_Engine::load_menu_textures()
     Tmp_str.id = this->load.load_texture( "loading.png", "Assets/UI");
     render_array.push_back( Tmp_str );
 
+    Tmp_str.id = this->load.load_texture( "paused.png", "Assets/UI");
+    render_array.push_back( Tmp_str );
+
     Tmp_str.id = this->load.load_texture( "Timer.png", "Assets/UI");
-    Tmp_str.scale_x = 1.0f;
-    Tmp_str.scale_y = 1.0f;
+    Tmp_str.scale_x = 0.05f;
+    Tmp_str.scale_y = 0.05f;
     Tmp_str.pos = 0.0f;
     render_array.push_back( Tmp_str );
 
     Tmp_str.id = this->load.load_texture( "Heart.png", "Assets/UI");
-    Tmp_str.scale_x = 1.0f;
-    Tmp_str.scale_y = 1.0f;
-    Tmp_str.pos = 0.0f;
+    Tmp_str.scale_x = 0.05f;
+    Tmp_str.scale_y = 0.05f;
+    Tmp_str.pos = -1.5f;
     render_array.push_back( Tmp_str );
 }
 
@@ -858,6 +888,7 @@ void Menu_Engine::init()
     createMainMenu();
     createSettingsMenu();
     createPauseMenu();
+    createHUD();
 
     settings_menu.res_720->setEnabled( false );
     settings_menu.changeView(false);
@@ -897,10 +928,25 @@ int Menu_Engine::update( Engine &engine )
     if (engine.getGameState() == PAUSED && !settings_menu.settingsMenu_window->visible() && !main_menu.mainMenu_window->visible() && !pause_menu.pauseMenu_window->visible())
     {
         pause_menu.changeView(true);
+        hud.changeView( false );
+        pos_min = 2;
+        pos_max = 3;
     }
     else if (engine.getGameState() == MENU && !settings_menu.settingsMenu_window->visible() && !main_menu.mainMenu_window->visible() && !pause_menu.pauseMenu_window->visible())
     {
         main_menu.changeView(true);
+        hud.changeView( false );
+        pos_min = 0;
+        pos_max = 1;
+    }
+    else if( engine.getGameState() == GAME && !settings_menu.settingsMenu_window->visible() && !main_menu.mainMenu_window->visible() && !pause_menu.pauseMenu_window->visible() && !engine.getIsTransitioning())
+    {
+        hud.changeView( true );
+        hud.Time->setCaption( std::to_string(engine.getMapDuration() / FIXED_FPS) );
+        hud.Score->setCaption( std::to_string( engine.getScore() ) );
+        hud.Lives->setCaption( std::to_string( engine.getPlayer().getLives() ) );
+        pos_min = 3;
+        pos_max = 5;
     }
 
     if ( settings_menu.res_change == true )
@@ -938,8 +984,7 @@ int Menu_Engine::update( Engine &engine )
     if ( render_array.size() > 0 )
         render( );
 
-    if ( main_menu.mainMenu_window->visible() == true || settings_menu.settingsMenu_window->visible() == true || pause_menu.pauseMenu_window->visible() == true)
-        base_screen->drawAll();
+    base_screen->drawAll();
 
     return (change_val);
 }
