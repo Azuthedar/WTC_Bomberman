@@ -19,7 +19,6 @@ AEntity::AEntity(AEntity const & src)
 
 AEntity::~AEntity()
 {
-	//std::cout << "AEntity has been destroyed" << std::endl;
 	return ;
 }
 

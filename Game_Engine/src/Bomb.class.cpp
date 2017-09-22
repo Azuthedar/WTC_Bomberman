@@ -22,12 +22,6 @@ Bomb::Bomb(int x, int y)
 	return ;
 }
 
-/*Bomb::Bomb(Bomb const & src)
-{
-	*this = src;
-	return ;
-}*/
-
 Bomb::~Bomb()
 {
 	return ;

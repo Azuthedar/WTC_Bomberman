@@ -52,16 +52,8 @@ void Enemy::bobbing()
 	this->_zPos += 0.05 * this->_vDir;
 }
 
-
-/*Enemy::Enemy(Enemy const & src)
-{
-	*this = src;
-	return ;
-}*/
-
 Enemy::~Enemy()
 {
-	//std::cout << "Enemy has been destroyed" << std::endl;
 	return ;
 }
 

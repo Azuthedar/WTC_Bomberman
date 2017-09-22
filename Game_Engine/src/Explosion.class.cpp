@@ -12,12 +12,6 @@ Explosion::Explosion(int x, int y)
     this->_yPos = y;
 }
 
-/*Explosion::Explosion(Explosion const & src)
-{
-	*this = src;
-	return ;
-}*/
-
 Explosion::~Explosion()
 {
 	return ;

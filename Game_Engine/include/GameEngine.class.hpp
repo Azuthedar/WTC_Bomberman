@@ -14,7 +14,6 @@ class Engine
 	public:
 
 		Engine();
-		// Engine(Engine const & src);
 		~Engine();
 
 		void		ticker( GLfloat &delta_time );

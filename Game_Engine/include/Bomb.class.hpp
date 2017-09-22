@@ -14,8 +14,6 @@ class Bomb : public AEntity
 		Bomb();
 		Bomb(int x, int y);
 
-		//Bomb(Bomb const & src);
-
 	~Bomb();
 
 		void	explode(int bombRange, std::vector<Wall> & wallVector, std::vector<Powerup> & powerupVector, Gate & gate);

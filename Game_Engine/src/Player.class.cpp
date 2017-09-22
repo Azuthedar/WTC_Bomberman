@@ -22,12 +22,6 @@ Player::Player(int x, int y)
 	return ;
 }
 
-/*Player::Player(Player const & src)
-{
-	*this = src;
-	return ;
-}*/
-
 Player::~Player()
 {
 	std::cout << "Player has been destroyed" << std::endl;

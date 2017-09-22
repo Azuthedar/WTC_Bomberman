@@ -10,7 +10,6 @@ class Enemy : public AEntity
 
 		Enemy();
 		Enemy(int x, int y);
-		//Enemy(Enemy const & src);
 		~Enemy();
 
 		void		movement(std::vector<Wall> & wall, std::vector<Enemy> & enemy, std::vector<Bomb> & bombVector, GLfloat &delta_time );

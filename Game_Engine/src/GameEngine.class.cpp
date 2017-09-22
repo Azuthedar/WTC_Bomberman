@@ -17,10 +17,6 @@ Engine::Engine()
 	return ;
 }
 
-/* Engine::Engine(Engine const & src)
-{
-	*this = src;
-} */
 
 Engine::~Engine()
 {
@@ -136,7 +132,7 @@ void Engine::gameLogic( GLFWwindow *window, GLfloat &delta_time )
 				//Make player transition to main menu
 			}
 
-			if (this->_gate.getIsLocked() == true && (this->_enemyVector.size() == 0 || glfwGetKey(window, GLFW_KEY_L)))
+			if (this->_gate.getIsLocked() == true && (this->_enemyVector.size() == 0 || (glfwGetKey(window, GLFW_KEY_1) && glfwGetKey(window, GLFW_KEY_2) && glfwGetKey(window, GLFW_KEY_3) && glfwGetKey(window, GLFW_KEY_4))))
 			{
 				if (this->_gate.getExists())
 					this->_soundEnum = SND_GATEUNLOCKED;
