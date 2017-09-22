@@ -163,8 +163,8 @@ void Menu_Engine::createHUD()
     hud.Time->setPosition( { screen_width - ( 100 * scale ), 20 * scale } );
 
     hud.Score = new nanogui::Label(base_screen, "", "sans-bold", 80);
-    hud.Score->setSize( { 100 * scale, 60 * scale } );
-    hud.Score->setPosition( { screen_width / 2, 10 * scale } );
+    hud.Score->setSize( { 700 * scale, 60 * scale } );
+    hud.Score->setPosition( { screen_width / 2 - 10 , 10 * scale } );
 }
 
 void Menu_Engine::createSettingsMenu()
@@ -940,10 +940,21 @@ int Menu_Engine::update( Engine &engine )
     }
     else if ( engine.getGameState() == GAME && !settings_menu.settingsMenu_window->visible() && !main_menu.mainMenu_window->visible() && !pause_menu.pauseMenu_window->visible() && !engine.getIsTransitioning() )
     {
+        float scale = screen_height / 720;
+
+        if ( screen_height / 360 == 3 )
+            scale = 1.5 ;
+        else
+            scale = 1;
+
         hud.changeView( true );
         hud.Time->setCaption( std::to_string(engine.getMapDuration() / FIXED_FPS) );
+
         hud.Score->setCaption( std::to_string( engine.getScore() ) );
+        hud.Score->setPosition( { (screen_width / 2) - 15 * std::to_string( engine.getScore() ).length() , 10 * scale } );
+
         hud.Lives->setCaption( std::to_string( engine.getPlayer().getLives() ) );
+
         pos_min = 3;
         pos_max = 5;
     }
