@@ -8,6 +8,9 @@ Enemy::Enemy()
 	this->_followPlayer = false;
 	this->_isDead = false;
 
+	int min = -5;
+	int max = 5;
+	this->_zPos = 1.0f + (min + (rand() % static_cast<int>(max - min + 1)) * 0.5);
 	this->_xPos = 0;
 	this->_yPos = 0;
 	this->_zPos = 1.0f;
@@ -25,7 +28,9 @@ Enemy::Enemy(int x, int y)
 
 	this->_xPos = x;
 	this->_yPos = y;
-	this->_zPos = 1.0f;
+	int min = -5;
+	int max = 5;
+	this->_zPos = 1.0f + (min + (rand() % static_cast<int>(max - min + 1)) * 0.5);
 	this->_spawnX = x;
 	this->_spawnY = y;
 	this->_vDir = 1.0f;
